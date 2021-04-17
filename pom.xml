@@ -7,7 +7,11 @@
   <groupId>gg.eris</groupId>
   <artifactId>uhc</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <modules>
+    <module>uhc-core</module>
+    <module>uhc-custom-craft</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>UHC</name>
   <description>UHC plugin for eris.gg</description>
@@ -34,6 +38,12 @@
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.20</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
