@@ -1,12 +1,13 @@
 package gg.eris.uhc.core;
 
 import gg.eris.uhc.customcraft.CustomCraftUhcModule;
+import gg.eris.uhc.scenario.ScenarioUhcModule;
 
 public abstract class UhcModule {
 
   public enum Type {
     CUSTOM_CRAFT(CustomCraftUhcModule.class),
-    REDDIT(null);
+    SCENARIO(ScenarioUhcModule.class);
 
     private final Class<? extends UhcModule> clazz;
 

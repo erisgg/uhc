@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>uhc-core</artifactId>
+  <artifactId>uhc-reddit</artifactId>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -21,15 +21,9 @@
   <dependencies>
     <dependency>
       <groupId>gg.eris</groupId>
-      <artifactId>uhc-custom-craft</artifactId>
+      <artifactId>uhc-core</artifactId>
       <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>gg.eris</groupId>
-      <artifactId>uhc-reddit</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 

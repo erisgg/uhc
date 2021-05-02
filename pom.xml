@@ -10,6 +10,7 @@
   <modules>
     <module>uhc-core</module>
     <module>uhc-custom-craft</module>
+    <module>uhc-reddit</module>
   </modules>
   <packaging>pom</packaging>
 
