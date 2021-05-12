@@ -8,14 +8,14 @@ import lombok.Setter;
 public class UhcPlayerStatInstance<T, S extends UhcPlayerStat<T>> {
 
   private final UhcPlayer player;
-  private final S statInstance;
+  private final S stat;
 
   @Setter
   private T value;
 
-  public UhcPlayerStatInstance(UhcPlayer player, S statInstance, T value) {
+  public UhcPlayerStatInstance(UhcPlayer player, S stat, T value) {
     this.player = player;
-    this.statInstance = statInstance;
+    this.stat = stat;
     this.value = value;
   }
 

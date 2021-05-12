@@ -1,6 +1,7 @@
 package gg.eris.uhc.core;
 
 import gg.eris.uhc.core.UhcModule.Type;
+import gg.eris.uhc.core.game.UhcGame;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 import org.bukkit.Bukkit;
@@ -11,7 +12,7 @@ public abstract class UhcPlugin extends JavaPlugin {
 
   private static final UhcModule.Type DEFAULT_TYPE = Type.CUSTOM_CRAFT;
 
-  private UhcModule uhc;
+  private UhcModule<?> uhc;
 
   @Override
   public void onEnable() {
@@ -26,19 +27,25 @@ public abstract class UhcPlugin extends JavaPlugin {
       return;
     }
 
-    Bukkit.getScheduler().runTask(this, () -> this.uhc.onEnable());
+    Bukkit.getScheduler().runTask(this, () -> this.uhc.enable());
+  }
+
+  @Override
+  public void onDisable() {
+    this.uhc.disable();
   }
 
 
-  private UhcModule createUhcModule(String typeName)
+
+  private <T extends UhcGame<?>> UhcModule<T> createUhcModule(String typeName)
       throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     UhcModule.Type type = UhcModule.Type.valueOf(typeName.toUpperCase(Locale.ROOT));
     return createUhcModule(type);
   }
 
-  private UhcModule createUhcModule(UhcModule.Type type)
+  private <T extends UhcGame<?>> UhcModule<T> createUhcModule(UhcModule.Type type)
       throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    return type.getModuleClass().getConstructor().newInstance();
+    return (UhcModule<T>) type.getModuleClass().getConstructor().newInstance();
   }
 
 }
