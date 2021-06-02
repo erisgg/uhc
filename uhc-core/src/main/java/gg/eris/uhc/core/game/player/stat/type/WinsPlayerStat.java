@@ -2,7 +2,7 @@ package gg.eris.uhc.core.game.player.stat.type;
 
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStat;
 
-public class WinsPlayerStat implements UhcPlayerStat<Integer> {
+public final class WinsPlayerStat implements UhcPlayerStat<Integer> {
 
   @Override
   public String getName() {

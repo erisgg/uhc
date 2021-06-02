@@ -39,6 +39,56 @@ public class UhcGameSettings {
     private int coinsPerKill;
     private int coinsPerWin;
 
+    public UhcGameSettings.Builder worldName(String worldName) {
+      this.worldName = worldName;
+      return this;
+    }
+
+    public UhcGameSettings.Builder borderSize(int borderSize) {
+      this.borderSize = borderSize;
+      return this;
+    }
+
+    public UhcGameSettings.Builder gracePeriodLength(int gracePeriodLength) {
+      this.gracePeriodLength = gracePeriodLength;
+      return this;
+    }
+
+    public UhcGameSettings.Builder pvpPeriodLength(int pvpPeriodLength) {
+      this.pvpPeriodLength = pvpPeriodLength;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchBorderSrhinkDelay(int deathmatchBorderShrinkDelay) {
+      this.deathmatchBorderShrinkDelay = deathmatchBorderShrinkDelay;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchBorderShrinkInterval(int deathmatchBorderShrinkInterval) {
+      this.deathmatchBorderShrinkInterval = deathmatchBorderShrinkInterval;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchPlayerThreshold(int deathmatchPlayerThreshold) {
+      this.deathmatchPlayerThreshold = deathmatchPlayerThreshold;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchPlayerStartTime(int deathmatchPlayerStartTime) {
+      this.deathmatchPlayerStartTime = deathmatchPlayerStartTime;
+      return this;
+    }
+
+    public UhcGameSettings.Builder coinsPerKill(int coinsPerKill) {
+      this.coinsPerKill = coinsPerKill;
+      return this;
+    }
+
+    public UhcGameSettings.Builder coinsPerWin(int coinsPerWin) {
+      this.coinsPerWin = coinsPerWin;
+      return this;
+    }
+
     public UhcGameSettings build() {
       return new UhcGameSettings(
           this.worldName,

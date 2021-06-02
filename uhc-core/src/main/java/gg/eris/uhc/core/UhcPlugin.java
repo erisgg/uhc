@@ -36,7 +36,6 @@ public abstract class UhcPlugin extends JavaPlugin {
   }
 
 
-
   private <T extends UhcGame<?>> UhcModule<T> createUhcModule(String typeName)
       throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     UhcModule.Type type = UhcModule.Type.valueOf(typeName.toUpperCase(Locale.ROOT));

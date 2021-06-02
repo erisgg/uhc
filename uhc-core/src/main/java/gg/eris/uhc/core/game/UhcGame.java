@@ -26,15 +26,15 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.world.setAutoSave(false);
   }
 
-  public void addPlayer(T player) {
+  public final void addPlayer(T player) {
     this.players.put(player.getUniqueId(), player);
   }
 
-  public T removePlayer(Player player) {
+  public final T removePlayer(Player player) {
     return removePlayer(player.getUniqueId());
   }
 
-  public T removePlayer(UUID uuid) {
+  public final T removePlayer(UUID uuid) {
     return this.players.remove(uuid);
   }
 

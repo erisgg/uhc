@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class UhcPlayerStatInstance<T, S extends UhcPlayerStat<T>> {
+public final class UhcPlayerStatInstance<T, S extends UhcPlayerStat<T>> {
 
   private final UhcPlayer player;
   private final S stat;
