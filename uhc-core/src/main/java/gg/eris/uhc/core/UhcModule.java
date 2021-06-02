@@ -2,24 +2,12 @@ package gg.eris.uhc.core;
 
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
-import gg.eris.uhc.customcraft.CustomCraftUhcModule;
-import gg.eris.uhc.scenario.ScenarioUhcModule;
 
 public abstract class UhcModule<T extends UhcGame<?>> {
 
   public enum Type {
-    CUSTOM_CRAFT(CustomCraftUhcModule.class),
-    SCENARIO(ScenarioUhcModule.class);
-
-    private final Class<? extends UhcModule<?>> clazz;
-
-    Type(Class<? extends UhcModule<?>> clazz) {
-      this.clazz = clazz;
-    }
-
-    protected Class<? extends UhcModule<?>> getModuleClass() {
-      return this.clazz;
-    }
+    CUSTOM_CRAFT,
+    SCENARIO;
   }
 
   protected final UhcPlugin plugin;
