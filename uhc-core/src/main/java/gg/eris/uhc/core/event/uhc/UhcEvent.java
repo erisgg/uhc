@@ -6,14 +6,14 @@ import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public abstract class UhcEvent<S extends UhcPlayer, T extends UhcGame<S>> extends Event {
+public abstract class UhcEvent extends Event {
 
   private static final HandlerList HANDLERS = new HandlerList();
 
   @Getter
-  protected final T game;
+  protected final UhcGame<?> game;
 
-  public UhcEvent(T game) {
+  public UhcEvent(UhcGame<?> game) {
     this.game = game;
   }
 

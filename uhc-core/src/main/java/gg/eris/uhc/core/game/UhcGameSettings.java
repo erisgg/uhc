@@ -8,7 +8,7 @@ import lombok.Value;
 public class UhcGameSettings {
 
   String worldName;
-  int borderSize;
+  int borderRadius;
 
   int gracePeriodLength;
   int pvpLength;
@@ -27,7 +27,7 @@ public class UhcGameSettings {
   public static class Builder {
 
     private String worldName;
-    private int borderSize;
+    private int borderRadius;
 
     private int gracePeriodLength;
     private int pvpPeriodLength;
@@ -44,8 +44,8 @@ public class UhcGameSettings {
       return this;
     }
 
-    public UhcGameSettings.Builder borderSize(int borderSize) {
-      this.borderSize = borderSize;
+    public UhcGameSettings.Builder borderRadius(int borderRadius) {
+      this.borderRadius = borderRadius;
       return this;
     }
 
@@ -92,7 +92,7 @@ public class UhcGameSettings {
     public UhcGameSettings build() {
       return new UhcGameSettings(
           this.worldName,
-          this.borderSize,
+          this.borderRadius,
           this.gracePeriodLength,
           this.pvpPeriodLength,
           this.deathmatchBorderShrinkDelay,

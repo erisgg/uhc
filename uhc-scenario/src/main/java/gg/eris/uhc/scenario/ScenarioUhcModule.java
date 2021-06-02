@@ -23,7 +23,7 @@ public class ScenarioUhcModule extends UhcModule<ScenarioUhcGame> {
 
   @Override
   protected ScenarioUhcGame createGame() {
-    return new ScenarioUhcGame(this);
+    return new ScenarioUhcGame(this.plugin, this);
   }
 
   @Override

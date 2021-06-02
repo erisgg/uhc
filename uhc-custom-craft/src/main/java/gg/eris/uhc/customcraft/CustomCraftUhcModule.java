@@ -22,7 +22,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
   @Override
   protected CustomCraftUhcGame createGame() {
-    return new CustomCraftUhcGame(this);
+    return new CustomCraftUhcGame(this.plugin, this);
   }
 
   @Override
