@@ -64,7 +64,8 @@ public class UhcGameSettings {
       return this;
     }
 
-    public UhcGameSettings.Builder deathmatchBorderShrinkInterval(int deathmatchBorderShrinkInterval) {
+    public UhcGameSettings.Builder deathmatchBorderShrinkInterval(
+        int deathmatchBorderShrinkInterval) {
       this.deathmatchBorderShrinkInterval = deathmatchBorderShrinkInterval;
       return this;
     }

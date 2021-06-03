@@ -3,32 +3,35 @@ package gg.eris.uhc.core.game;
 import com.google.common.collect.Maps;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.core.event.uhc.UhcEndEvent;
-import gg.eris.uhc.core.event.uhc.UhcStartEvent;
+import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
+import gg.eris.uhc.core.game.state.GameState;
+import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class UhcGame<T extends UhcPlayer> {
 
   protected final UhcPlugin plugin;
   private final UhcModule<?> module;
   private final Map<UUID, T> players;
+  protected final UhcGameSettings settings;
+  private final UhcGameStateFactory<?, ?> gameStateFactory;
 
   @Getter(AccessLevel.PROTECTED)
   private final World world;
 
   @Getter
-  private GameState gameState;
-
-  protected final UhcGameSettings settings;
+  private GameState<?, ?> gameState;
 
   public UhcGame(UhcPlugin plugin, UhcModule<?> module, UhcGameSettings settings) {
     this.plugin = plugin;
@@ -36,7 +39,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.players = Maps.newHashMap();
     this.settings = settings;
     this.world = Bukkit.getWorld(settings.getWorldName());
-    this.gameState = GameState.WAITING;
+    this.gameStateFactory = newStateFactory();
   }
 
   public abstract void onWorldSetup(World world);
@@ -48,33 +51,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   public void setup() {
     setupWorld();
-  }
-
-  public synchronized final void start() {
-    if (!this.gameState.canStart()) {
-      throw new IllegalArgumentException("Cannot start game with gameState=" + this.gameState);
-    }
-
-    UhcStartEvent startEvent = new UhcStartEvent(this);
-    Bukkit.getPluginManager().callEvent(startEvent);
-    this.gameState = GameState.STARTING;
-
-    Scatterer scatterer = new Scatterer(
-        this.plugin,
-        this,
-        10
-    );
-    scatterer.scatter();
-  }
-
-  public synchronized final void end() {
-    if (!this.gameState.canEnd()) {
-      throw new IllegalArgumentException("Cannot end game with gameState=" + this.gameState);
-    }
-
-    UhcEndEvent endEvent = new UhcEndEvent(this);
-    Bukkit.getPluginManager().callEvent(endEvent);
-    this.gameState = GameState.ENDED;
+    this.gameState = this.gameStateFactory.initialState().get();
   }
 
   public final void addPlayer(T player) {
@@ -97,12 +74,41 @@ public abstract class UhcGame<T extends UhcPlayer> {
     return this.players.get(uuid);
   }
 
-  public Collection<T> getPlayers() {
+  public final Collection<T> getPlayers() {
     return List.copyOf(this.players.values());
   }
 
   public final UhcGameSettings getSettings() {
     return this.settings;
+  }
+
+  public abstract UhcGameStateFactory<?, ?> newStateFactory();
+
+  @RequiredArgsConstructor
+  private static class UhcGameTicker extends BukkitRunnable {
+
+    private final UhcGame<?> game;
+    private int tick;
+
+    @Override
+    public void run() {
+      this.tick++;
+
+      if (this.game.getGameState() != null) {
+        this.game.getGameState().tick();
+      } else {
+        throw new IllegalStateException("null gamestate tick=" + this.tick);
+      }
+
+      UhcTickEvent tickEvent = new UhcTickEvent(this.game, this.tick);
+      Bukkit.getPluginManager().callEvent(tickEvent);
+    }
+
+    public static void start(UhcGame<?> game) {
+      UhcGameTicker ticker = new UhcGameTicker(game);
+      ticker.runTaskTimer(game.plugin, 0L, 1L);
+    }
+
   }
 
 }

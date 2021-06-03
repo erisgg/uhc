@@ -1,7 +1,6 @@
-package gg.eris.uhc.core.event.uhc;
+package gg.eris.uhc.core.event;
 
 import gg.eris.uhc.core.game.UhcGame;
-import gg.eris.uhc.core.game.player.UhcPlayer;
 import lombok.Getter;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

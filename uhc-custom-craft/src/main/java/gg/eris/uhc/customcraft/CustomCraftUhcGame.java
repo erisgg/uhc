@@ -8,7 +8,6 @@ import org.bukkit.World;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
-
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder().build());
   }

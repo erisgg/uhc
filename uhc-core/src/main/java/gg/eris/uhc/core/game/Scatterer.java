@@ -44,6 +44,10 @@ public final class Scatterer {
     runnable.runTaskTimer(this.plugin, 20L, 20L);
   }
 
+  private void finish() {
+
+  }
+
   private List<Location> generateLocations(int count) {
     List<Location> locations = new ArrayList<>(count);
 
@@ -75,6 +79,7 @@ public final class Scatterer {
       }
 
       if (this.players.isEmpty() || this.locations.isEmpty()) {
+        this.parent.finish();
         cancel();
       }
     }

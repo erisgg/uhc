@@ -28,8 +28,11 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   }
 
   protected abstract void onEnable();
+
   protected abstract void onDisable();
+
   protected abstract T createGame();
+
   protected abstract UhcPlayerStatRegistry createStatRegistry();
 
 }

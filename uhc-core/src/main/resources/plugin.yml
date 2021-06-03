@@ -2,6 +2,6 @@ name: ErisUHC
 version: 1.0
 main: gg.eris.uhc.core.UhcPlugin
 description: UHC plugin for eris.gg
-authors: [AJFS Tech, Alfie Smith]
+authors: [ AJFS Tech, Alfie Smith ]
 website: eris.gg
-depend: [ErisCommons]
+depend: [ ErisCommons ]
