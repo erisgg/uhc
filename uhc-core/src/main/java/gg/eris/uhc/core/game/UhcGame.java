@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,6 +47,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   public final void setupWorld() {
     this.world.setAutoSave(false);
+    WorldBorder border = this.world.getWorldBorder();
+    border.setCenter(0.0, 0.0);
+    border.setSize(this.settings.getBorderRadius());
     this.onWorldSetup(this.world);
   }
 
