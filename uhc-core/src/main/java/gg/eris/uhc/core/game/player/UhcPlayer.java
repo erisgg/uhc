@@ -4,6 +4,11 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+/**
+ * The {@link UhcPlayer} is a wrapper around the {@link Player} class.
+ * It will be extended by any UHC implementation and all player-data can be
+ * stored in this class.
+ */
 public abstract class UhcPlayer {
 
   private final UUID playerUuid;
@@ -13,11 +18,11 @@ public abstract class UhcPlayer {
   }
 
   public final boolean isOnline() {
-    Player player = getPlayer();
+    Player player = getHandle();
     return player != null && player.isOnline();
   }
 
-  public final Player getPlayer() {
+  public final Player getHandle() {
     return Bukkit.getPlayer(this.playerUuid);
   }
 

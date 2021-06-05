@@ -35,7 +35,7 @@ public final class Scatterer {
     this.hasStarted = true;
 
     List<Player> players = this.game.getPlayers().stream()
-        .map(UhcPlayer::getPlayer)
+        .map(UhcPlayer::getHandle)
         .collect(Collectors.toList());
 
     List<Location> locations = generateLocations(players.size());

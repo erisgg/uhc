@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
