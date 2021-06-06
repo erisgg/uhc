@@ -1,22 +1,31 @@
 package gg.eris.uhc.core.game.player.stat;
 
+import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
-import gg.eris.commons.core.util.Identifier;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.game.player.stat.type.KillsPlayerStat;
 import gg.eris.uhc.core.game.player.stat.type.WinsPlayerStat;
 
 public final class UhcPlayerStatRegistry extends Registry<UhcPlayerStat<?>> {
 
-  private UhcPlayerStatRegistry(UhcModule<?> plugin) {
-    super(Identifier.of(plugin.getClass(), "playerstats"));
+  private final IdentifierProvider identifierProvider;
 
-    register(Identifier.of(plugin.getClass(), "kills"), new KillsPlayerStat());
-    register(Identifier.of(plugin.getClass(), "wins"), new WinsPlayerStat());
+  private UhcPlayerStatRegistry(IdentifierProvider identifierProvider) {
+    super(identifierProvider.id("playerstats"));
+
+    this.identifierProvider = identifierProvider;
+
+    register(new KillsPlayerStat());
+    register(new WinsPlayerStat());
   }
 
-  public static UhcPlayerStatRegistry newRegistry(UhcModule<?> module) {
-    return new UhcPlayerStatRegistry(module);
+  public void register(UhcPlayerStat<?> stat) {
+    this.register(this.identifierProvider.id(stat.getName()), stat);
+  }
+
+  public static UhcPlayerStatRegistry newRegistry(IdentifierProvider identifierProvider) {
+    return new UhcPlayerStatRegistry(identifierProvider);
   }
 
 }

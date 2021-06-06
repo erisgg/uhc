@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft;
 
+import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
@@ -28,6 +29,6 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
   @Override
   protected UhcPlayerStatRegistry createStatRegistry() {
-    return UhcPlayerStatRegistry.newRegistry(this);
+    return UhcPlayerStatRegistry.newRegistry(new IdentifierProvider("custom_craft_stat"));
   }
 }
