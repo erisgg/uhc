@@ -5,10 +5,6 @@ import gg.eris.uhc.core.UhcPlugin;
 import java.util.Set;
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 
 public abstract class Lobby {
 

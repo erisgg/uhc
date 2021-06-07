@@ -5,9 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
- * The {@link UhcPlayer} is a wrapper around the {@link Player} class.
- * It will be extended by any UHC implementation and all player-data can be
- * stored in this class.
+ * The {@link UhcPlayer} is a wrapper around the {@link Player} class. It will be extended by any
+ * UHC implementation and all player-data can be stored in this class.
  */
 public abstract class UhcPlayer {
 

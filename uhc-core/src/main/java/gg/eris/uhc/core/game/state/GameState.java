@@ -18,8 +18,11 @@ public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> {
   Type getType();
 
   void start();
+
   void end();
+
   boolean canStart();
+
   void tick();
 
 }

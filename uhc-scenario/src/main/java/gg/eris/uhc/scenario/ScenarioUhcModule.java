@@ -1,6 +1,5 @@
 package gg.eris.uhc.scenario;
 
-import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;

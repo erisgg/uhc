@@ -8,18 +8,19 @@ import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockEvent;
+import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.hanging.HangingEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.EventExecutor;
-import org.checkerframework.common.returnsreceiver.qual.This;
 
 public abstract class LobbyRegion {
 
@@ -96,6 +97,24 @@ public abstract class LobbyRegion {
     registerRegionListener(eventClass, regionListener);
   }
 
+  protected final <T extends EntityEvent> void registerEntityEvent(Class<T> eventClass,
+      Consumer<T> callback) {
+    RegionListener<T> regionListener = new RegionListener<>(
+        this.lobby,
+        eventClass,
+        event -> {
+          Entity entity = event.getEntity();
+          if (this.inRegion.contains(entity.getUniqueId())
+              || this.isInRegion(entity.getLocation())) {
+            callback.accept(event);
+          }
+        }
+    );
+
+    registerRegionListener(eventClass, regionListener);
+  }
+
+
   protected final <T extends BlockEvent> void registerBlockEvent(Class<T> eventClass,
       Consumer<T> callback) {
     RegionListener<T> regionListener = new RegionListener<>(
@@ -145,7 +164,8 @@ public abstract class LobbyRegion {
         regionListener,
         EventPriority.NORMAL,
         regionListener,
-        this.lobby.plugin
+        this.lobby.plugin,
+        true
     );
   }
 

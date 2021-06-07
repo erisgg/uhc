@@ -2,7 +2,6 @@ package gg.eris.uhc.core.game.player.stat.type;
 
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.stat.AbstractUhcPlayerStat;
-import gg.eris.uhc.core.game.player.stat.UhcPlayerStat;
 
 public final class WinsPlayerStat extends AbstractUhcPlayerStat<Integer> {
 

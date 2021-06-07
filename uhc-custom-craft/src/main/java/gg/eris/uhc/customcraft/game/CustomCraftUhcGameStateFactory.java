@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.game;
 
-import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.state.AbstractCountdownGameState;
 import gg.eris.uhc.core.game.state.AbstractDeathmatchGameState;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
@@ -12,7 +11,8 @@ import gg.eris.uhc.core.game.state.AbstractWaitingGameState;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import java.util.function.Supplier;
 
-public class CustomCraftUhcGameStateFactory extends UhcGameStateFactory<CustomCraftUhcPlayer, CustomCraftUhcGame> {
+public class CustomCraftUhcGameStateFactory extends
+    UhcGameStateFactory<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
   public CustomCraftUhcGameStateFactory(CustomCraftUhcGame game) {
     super(game);

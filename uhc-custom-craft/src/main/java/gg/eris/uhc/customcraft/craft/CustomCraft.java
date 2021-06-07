@@ -39,6 +39,7 @@ public abstract class CustomCraft implements Identifiable, Listener {
   }
 
   protected abstract ItemStack getItem(CustomCraftUhcPlayer player, int level);
+
   public abstract int getMaxCrafts(int level);
 
 }

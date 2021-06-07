@@ -1,6 +1,5 @@
 package gg.eris.uhc.core.game.player.stat;
 
-import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
 import gg.eris.uhc.core.game.player.stat.type.GamesPlayedPlayerStat;
