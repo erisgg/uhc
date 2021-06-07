@@ -11,10 +11,14 @@ import org.bukkit.entity.Player;
  */
 public abstract class UhcPlayer {
 
-  private final UUID playerUuid;
+  private final UUID uuid;
 
   public UhcPlayer(Player player) {
-    this.playerUuid = player.getUniqueId();
+    this(player.getUniqueId());
+  }
+
+  public UhcPlayer(UUID uuid) {
+    this.uuid = uuid;
   }
 
   public final boolean isOnline() {
@@ -23,11 +27,11 @@ public abstract class UhcPlayer {
   }
 
   public final Player getHandle() {
-    return Bukkit.getPlayer(this.playerUuid);
+    return Bukkit.getPlayer(this.uuid);
   }
 
   public final UUID getUniqueId() {
-    return this.playerUuid;
+    return this.uuid;
   }
 
 }

@@ -4,6 +4,7 @@ import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
+import gg.eris.uhc.core.lobby.Lobby;
 
 public class ScenarioUhcModule extends UhcModule<ScenarioUhcGame> {
 
@@ -28,6 +29,11 @@ public class ScenarioUhcModule extends UhcModule<ScenarioUhcGame> {
 
   @Override
   protected UhcPlayerStatRegistry createStatRegistry() {
-    return UhcPlayerStatRegistry.newRegistry(new IdentifierProvider("scenario_stat"));
+    return UhcPlayerStatRegistry.newPlayerStatRegistry("custom_craft_player_stat");
+  }
+
+  @Override
+  protected Lobby createLobby() {
+    return null;
   }
 }

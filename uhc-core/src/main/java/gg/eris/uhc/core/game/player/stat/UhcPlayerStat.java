@@ -1,8 +1,10 @@
 package gg.eris.uhc.core.game.player.stat;
 
-public interface UhcPlayerStat<T> {
+import gg.eris.commons.core.identifier.Identifiable;
 
-  String getName();
+public interface UhcPlayerStat<T> extends Identifiable {
+
+  String getDisplayName();
 
   Class<T> getDataClass();
 

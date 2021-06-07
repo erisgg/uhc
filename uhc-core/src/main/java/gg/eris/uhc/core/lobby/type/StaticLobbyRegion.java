@@ -2,6 +2,7 @@ package gg.eris.uhc.core.lobby.type;
 
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.Lobby;
+import gg.eris.uhc.core.lobby.LobbyRegion;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +19,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public final class StaticLobby extends Lobby {
+/*
+public abstract class StaticLobbyRegion extends LobbyRegion {
 
   public StaticLobby(UhcPlugin plugin) {
     super(plugin);
@@ -85,3 +87,4 @@ public final class StaticLobby extends Lobby {
 
 
 }
+*/

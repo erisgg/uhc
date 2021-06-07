@@ -3,29 +3,26 @@ package gg.eris.uhc.core.game.player.stat;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
-import gg.eris.uhc.core.UhcModule;
+import gg.eris.uhc.core.game.player.stat.type.GamesPlayedPlayerStat;
 import gg.eris.uhc.core.game.player.stat.type.KillsPlayerStat;
 import gg.eris.uhc.core.game.player.stat.type.WinsPlayerStat;
+import lombok.Getter;
 
 public final class UhcPlayerStatRegistry extends Registry<UhcPlayerStat<?>> {
 
+  @Getter
   private final IdentifierProvider identifierProvider;
 
   private UhcPlayerStatRegistry(IdentifierProvider identifierProvider) {
-    super(identifierProvider.id("playerstats"));
-
     this.identifierProvider = identifierProvider;
 
-    register(new KillsPlayerStat());
-    register(new WinsPlayerStat());
+    register(new KillsPlayerStat(identifierProvider.id("kills")));
+    register(new WinsPlayerStat(identifierProvider.id("wins")));
+    register(new GamesPlayedPlayerStat(identifierProvider.id("games_played")));
   }
 
-  public void register(UhcPlayerStat<?> stat) {
-    this.register(this.identifierProvider.id(stat.getName()), stat);
-  }
-
-  public static UhcPlayerStatRegistry newRegistry(IdentifierProvider identifierProvider) {
-    return new UhcPlayerStatRegistry(identifierProvider);
+  public static UhcPlayerStatRegistry newPlayerStatRegistry(String namespace) {
+    return new UhcPlayerStatRegistry(new IdentifierProvider(namespace));
   }
 
 }

@@ -1,11 +1,17 @@
 package gg.eris.uhc.core.game.player.stat.type;
 
+import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.uhc.core.game.player.stat.AbstractUhcPlayerStat;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStat;
 
-public final class WinsPlayerStat implements UhcPlayerStat<Integer> {
+public final class WinsPlayerStat extends AbstractUhcPlayerStat<Integer> {
+
+  public WinsPlayerStat(Identifier identifier) {
+    super(identifier);
+  }
 
   @Override
-  public String getName() {
+  public String getDisplayName() {
     return "wins";
   }
 
@@ -13,4 +19,5 @@ public final class WinsPlayerStat implements UhcPlayerStat<Integer> {
   public Class<Integer> getDataClass() {
     return Integer.class;
   }
+
 }

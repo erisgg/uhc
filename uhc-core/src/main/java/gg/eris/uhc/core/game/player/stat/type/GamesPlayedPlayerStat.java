@@ -3,15 +3,15 @@ package gg.eris.uhc.core.game.player.stat.type;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.stat.AbstractUhcPlayerStat;
 
-public final class KillsPlayerStat extends AbstractUhcPlayerStat<Integer> {
+public final class GamesPlayedPlayerStat extends AbstractUhcPlayerStat<Integer> {
 
-  public KillsPlayerStat(Identifier identifier) {
+  public GamesPlayedPlayerStat(Identifier identifier) {
     super(identifier);
   }
 
   @Override
   public String getDisplayName() {
-    return "kills";
+    return "games played";
   }
 
   @Override
