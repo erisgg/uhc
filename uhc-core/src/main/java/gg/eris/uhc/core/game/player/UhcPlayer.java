@@ -20,17 +20,11 @@ public abstract class UhcPlayer {
     this.uuid = uuid;
   }
 
-  public final boolean isOnline() {
-    Player player = getHandle();
-    return player != null && player.isOnline();
-  }
+
 
   public final Player getHandle() {
     return Bukkit.getPlayer(this.uuid);
   }
 
-  public final UUID getUniqueId() {
-    return this.uuid;
-  }
 
 }

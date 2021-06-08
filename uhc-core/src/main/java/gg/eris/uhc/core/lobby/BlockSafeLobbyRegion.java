@@ -43,5 +43,4 @@ public abstract class BlockSafeLobbyRegion extends LobbyRegion {
     });
   }
 
-
 }
