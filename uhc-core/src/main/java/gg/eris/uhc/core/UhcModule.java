@@ -13,20 +13,29 @@ public abstract class UhcModule<T extends UhcGame<?>> {
 
   protected final UhcPlugin plugin;
   protected final T game;
+  protected final Lobby lobby;
 
   public UhcModule(UhcPlugin plugin) {
     this.plugin = plugin;
     this.game = createGame();
+    this.lobby = createLobby();
   }
 
-  protected void enable() {
+  protected final void enable() {
     this.game.setupWorld();
-
     onEnable();
   }
 
-  protected void disable() {
+  protected final void disable() {
     onDisable();
+  }
+
+  public final void registerLobby() {
+    this.lobby.register();
+  }
+
+  public final void unregisterLobby() {
+    this.lobby.unregister();
   }
 
   protected abstract void onEnable();

@@ -2,6 +2,7 @@ package gg.eris.uhc.core.lobby;
 
 import com.google.common.collect.Sets;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.lobby.region.LobbyRegion;
 import java.util.Set;
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;

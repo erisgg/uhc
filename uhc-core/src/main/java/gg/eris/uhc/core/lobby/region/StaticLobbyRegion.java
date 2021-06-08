@@ -1,4 +1,4 @@
-package gg.eris.uhc.core.lobby;
+package gg.eris.uhc.core.lobby.region;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;

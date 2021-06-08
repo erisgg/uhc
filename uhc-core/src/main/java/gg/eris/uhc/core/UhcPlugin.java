@@ -19,7 +19,6 @@ public abstract class UhcPlugin extends JavaPlugin {
     this.uhc.disable();
   }
 
-
   protected abstract UhcModule<?> createUhcModule();
 
 }

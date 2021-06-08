@@ -1,7 +1,8 @@
-package gg.eris.uhc.core.lobby;
+package gg.eris.uhc.core.lobby.region;
 
 import com.google.common.collect.Sets;
 import gg.eris.erisspigot.event.entity.PlayerMoveBlockEvent;
+import gg.eris.uhc.core.UhcPlugin;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -32,13 +33,15 @@ public abstract class LobbyRegion {
     LOWEST;
   }
 
+  private final UhcPlugin plugin;
   private final Lobby lobby;
 
   private final Set<RegionListener<?>> regionListeners;
 
   private final Set<UUID> inRegion;
 
-  public LobbyRegion(Lobby lobby) {
+  public LobbyRegion(UhcPlugin plugin, Lobby lobby) {
+    this.plugin = plugin;
     this.lobby = lobby;
     this.regionListeners = Sets.newHashSet();
     this.inRegion = Sets.newHashSet();
@@ -49,7 +52,7 @@ public abstract class LobbyRegion {
         event -> this.inRegion.remove(event.getPlayer().getUniqueId()));
   }
 
-  void enable() {
+  public final void enable() {
     for (RegionListener<?> regionListener : this.regionListeners) {
       Bukkit.getPluginManager().registerEvent(
           regionListener.eventClass,
@@ -61,7 +64,7 @@ public abstract class LobbyRegion {
     }
   }
 
-  void disable() {
+  public final void disable() {
     for (RegionListener<?> regionListener : this.regionListeners) {
       HandlerList.unregisterAll(regionListener);
     }
