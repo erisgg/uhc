@@ -3,7 +3,6 @@ package gg.eris.uhc.core.game.player;
 import gg.eris.commons.bukkit.player.ErisPlayer;
 import java.util.Set;
 import java.util.UUID;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -12,10 +11,9 @@ import org.bukkit.entity.Player;
  */
 public abstract class UhcPlayer extends ErisPlayer {
 
-  public UhcPlayer(UUID uuid, String name, Set knownAliases, long firstLogin,
+  public UhcPlayer(UUID uuid, String name, Set<String> knownAliases, long firstLogin,
       long lastLogin, long lastLogout, UUID uuid1) {
     super(uuid, name, knownAliases, firstLogin, lastLogin, lastLogout);
-    this.uuid = uuid1;
   }
 
 
