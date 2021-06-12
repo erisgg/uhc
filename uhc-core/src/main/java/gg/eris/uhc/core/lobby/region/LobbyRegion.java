@@ -1,8 +1,8 @@
 package gg.eris.uhc.core.lobby.region;
 
 import com.google.common.collect.Sets;
-import gg.eris.erisspigot.event.entity.PlayerMoveBlockEvent;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.lobby.Lobby;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -19,19 +19,9 @@ import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.hanging.HangingEvent;
 import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.EventExecutor;
 
 public abstract class LobbyRegion {
-
-  public enum RegionPriority {
-    HIGHEST,
-    HIGH,
-    NORMAL,
-    LOW,
-    LOWEST;
-  }
 
   private final UhcPlugin plugin;
   private final Lobby lobby;
@@ -45,12 +35,13 @@ public abstract class LobbyRegion {
     this.lobby = lobby;
     this.regionListeners = Sets.newHashSet();
     this.inRegion = Sets.newHashSet();
-    registerPlayerEvent(PlayerMoveBlockEvent.class, event -> updateInRegion(event.getPlayer()));
-    registerPlayerEvent(PlayerJoinEvent.class, event -> Bukkit.getScheduler()
-        .runTask(this.lobby.plugin, () -> updateInRegion(event.getPlayer())));
-    registerPlayerEvent(PlayerQuitEvent.class,
-        event -> this.inRegion.remove(event.getPlayer().getUniqueId()));
   }
+
+  public abstract void onEnter(Player player);
+
+  public abstract void onLeave(Player player);
+
+  public abstract boolean isInRegion(Location location);
 
   public final void enable() {
     for (RegionListener<?> regionListener : this.regionListeners) {
@@ -59,7 +50,7 @@ public abstract class LobbyRegion {
           regionListener,
           EventPriority.NORMAL,
           regionListener,
-          this.lobby.plugin
+          plugin
       );
     }
   }
@@ -69,12 +60,6 @@ public abstract class LobbyRegion {
       HandlerList.unregisterAll(regionListener);
     }
   }
-
-  public abstract boolean isInRegion(Location location);
-
-  public abstract void onEnter(Player player);
-
-  public abstract void onLeave(Player player);
 
   public final void updateInRegion(Player player) {
     boolean inRegion = isInRegion(player.getLocation());
@@ -97,7 +82,7 @@ public abstract class LobbyRegion {
         }
     );
 
-    registerRegionListener(eventClass, regionListener);
+    registerRegionListener(regionListener);
   }
 
   protected final <T extends EntityEvent> void registerEntityEvent(Class<T> eventClass,
@@ -107,14 +92,13 @@ public abstract class LobbyRegion {
         eventClass,
         event -> {
           Entity entity = event.getEntity();
-          if (this.inRegion.contains(entity.getUniqueId())
-              || this.isInRegion(entity.getLocation())) {
+          if (this.lobby.getRegion(entity.getUniqueId()) == this) {
             callback.accept(event);
           }
         }
     );
 
-    registerRegionListener(eventClass, regionListener);
+    registerRegionListener(regionListener);
   }
 
 
@@ -130,7 +114,7 @@ public abstract class LobbyRegion {
         }
     );
 
-    registerRegionListener(eventClass, regionListener);
+    registerRegionListener(regionListener);
   }
 
   protected final <T extends HangingEvent> void registerHangingEvent(Class<T> eventClass,
@@ -145,7 +129,7 @@ public abstract class LobbyRegion {
         }
     );
 
-    registerRegionListener(eventClass, regionListener);
+    registerRegionListener(regionListener);
   }
 
   /* NOTE: Does not make any check for applicability of the event to the region.
@@ -157,19 +141,11 @@ public abstract class LobbyRegion {
         eventClass,
         callback
     );
-    registerRegionListener(eventClass, regionListener);
+    registerRegionListener(regionListener);
   }
 
-  private <T extends Event> void registerRegionListener(Class<T> eventClass,
-      RegionListener<T> regionListener) {
-    Bukkit.getPluginManager().registerEvent(
-        eventClass,
-        regionListener,
-        EventPriority.NORMAL,
-        regionListener,
-        this.lobby.plugin,
-        true
-    );
+  private <T extends Event> void registerRegionListener(RegionListener<T> regionListener) {
+    this.regionListeners.add(regionListener);
   }
 
   @RequiredArgsConstructor

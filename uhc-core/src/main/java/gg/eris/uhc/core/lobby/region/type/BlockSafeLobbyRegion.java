@@ -1,25 +1,25 @@
-package gg.eris.uhc.core.lobby.region;
+package gg.eris.uhc.core.lobby.region.type;
 
+import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.lobby.region.LobbyRegion;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import gg.eris.uhc.core.lobby.Lobby;
 
 public abstract class BlockSafeLobbyRegion extends LobbyRegion {
 
-  public BlockSafeLobbyRegion(Lobby lobby) {
-    super(lobby);
+  public BlockSafeLobbyRegion(UhcPlugin plugin, Lobby lobby) {
+    super(plugin, lobby);
 
     registerBlockEvent(BlockBreakEvent.class, event -> event.setCancelled(true));
     registerBlockEvent(BlockPlaceEvent.class, event -> event.setCancelled(true));
     registerHangingEvent(HangingBreakEvent.class, event -> event.setCancelled(true));
-    registerPlayerEvent(PlayerInteractEvent.class, event -> {
-      if (event.getClickedBlock() != null) {
-        event.setCancelled(true);
-      }
-    });
+    registerPlayerEvent(PlayerInteractEvent.class, event -> event.setUseInteractedBlock(Result.DENY));
     registerPlayerEvent(PlayerInteractEntityEvent.class, event -> {
       EntityType entityType = event.getRightClicked().getType();
       switch (entityType) {

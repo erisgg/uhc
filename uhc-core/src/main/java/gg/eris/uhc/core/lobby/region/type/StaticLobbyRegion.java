@@ -1,5 +1,8 @@
-package gg.eris.uhc.core.lobby.region;
+package gg.eris.uhc.core.lobby.region.type;
 
+import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.lobby.Lobby;
+import gg.eris.uhc.core.lobby.region.LobbyRegion;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -13,8 +16,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public abstract class StaticLobbyRegion extends LobbyRegion {
 
-  public StaticLobbyRegion(Lobby lobby) {
-    super(lobby);
+  public StaticLobbyRegion(UhcPlugin plugin, Lobby lobby) {
+    super(plugin, lobby);
 
     registerBlockEvent(BlockBreakEvent.class, event -> event.setCancelled(true));
     registerBlockEvent(BlockPlaceEvent.class, event -> event.setCancelled(true));

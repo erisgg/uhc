@@ -6,11 +6,6 @@ import gg.eris.uhc.core.lobby.Lobby;
 
 public abstract class UhcModule<T extends UhcGame<?>> {
 
-  public enum Type {
-    CUSTOM_CRAFT,
-    SCENARIO;
-  }
-
   protected final UhcPlugin plugin;
   protected final T game;
   protected final Lobby lobby;
@@ -23,6 +18,7 @@ public abstract class UhcModule<T extends UhcGame<?>> {
 
   protected final void enable() {
     this.game.setupWorld();
+    enableLobby();
     onEnable();
   }
 
@@ -30,12 +26,12 @@ public abstract class UhcModule<T extends UhcGame<?>> {
     onDisable();
   }
 
-  public final void registerLobby() {
-    this.lobby.register();
+  public final void enableLobby() {
+    this.lobby.enable();
   }
 
-  public final void unregisterLobby() {
-    this.lobby.unregister();
+  public final void disableLobby() {
+    this.lobby.disable();
   }
 
   protected abstract void onEnable();
