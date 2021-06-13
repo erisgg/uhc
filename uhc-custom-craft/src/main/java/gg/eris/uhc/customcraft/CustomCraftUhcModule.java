@@ -4,6 +4,7 @@ import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
 import gg.eris.uhc.core.lobby.Lobby;
+import gg.eris.uhc.core.lobby.type.DropPvpLobby;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
@@ -34,6 +35,6 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
   @Override
   protected Lobby createLobby() {
-    return null;
+    return new DropPvpLobby(this.plugin, 40);
   }
 }
