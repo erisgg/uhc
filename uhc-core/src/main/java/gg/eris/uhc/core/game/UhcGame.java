@@ -63,6 +63,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public final void setGameState(GameState.Type type) {
+    this.gameState = this.gameStateFactory.getNewState(type);
   }
 
   public final void addPlayer(T player) {
@@ -119,6 +120,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
       UhcTickEvent tickEvent = new UhcTickEvent(this.game, this.tick);
       Bukkit.getPluginManager().callEvent(tickEvent);
+
+      if (tickEvent.isCancelled()) {
+        return;
+      }
+
+      this.game.gameState.tick();
     }
 
     public static void start(UhcGame<?> game) {
