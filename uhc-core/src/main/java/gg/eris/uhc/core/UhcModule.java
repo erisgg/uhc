@@ -1,7 +1,6 @@
 package gg.eris.uhc.core;
 
 import gg.eris.uhc.core.game.UhcGame;
-import gg.eris.uhc.core.game.player.stat.UhcPlayerStatRegistry;
 import gg.eris.uhc.core.lobby.Lobby;
 
 public abstract class UhcModule<T extends UhcGame<?>> {
@@ -39,8 +38,6 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   protected abstract void onDisable();
 
   protected abstract T createGame();
-
-  protected abstract UhcPlayerStatRegistry createStatRegistry();
 
   protected abstract Lobby createLobby();
 

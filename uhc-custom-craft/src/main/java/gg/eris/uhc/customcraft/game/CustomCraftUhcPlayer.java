@@ -4,15 +4,18 @@ import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import org.bukkit.entity.Player;
+import java.util.Set;
+import java.util.UUID;
+
 
 public final class CustomCraftUhcPlayer extends UhcPlayer {
 
   private final Object2IntMap<Identifier> unlocks;
   private final Object2IntMap<Identifier> crafted;
 
-  public CustomCraftUhcPlayer(Player player) {
-    super(player);
+  public CustomCraftUhcPlayer(UUID uuid, String name,
+      Set<String> knownAliases, long firstLogin, long lastLogin, long lastLogout) {
+    super(uuid, name, knownAliases, firstLogin, lastLogin, lastLogout);
     this.unlocks = new Object2IntArrayMap<>();
     this.crafted = new Object2IntArrayMap<>();
   }
