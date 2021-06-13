@@ -1,6 +1,7 @@
 package gg.eris.uhc.core.game;
 
 import com.google.common.collect.Maps;
+import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.event.UhcTickEvent;
@@ -22,8 +23,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class UhcGame<T extends UhcPlayer> {
 
+  @Getter
   protected final UhcPlugin plugin;
+  @Getter
   private final UhcModule<?> module;
+
   private final Map<UUID, T> players;
   protected final UhcGameSettings settings;
   private final UhcGameStateFactory<?, ?> gameStateFactory;
@@ -58,6 +62,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.gameState = this.gameStateFactory.initialState().get();
   }
 
+  public final void setGameState(GameState.Type type) {
+  }
+
   public final void addPlayer(T player) {
     this.players.put(player.getUniqueId(), player);
   }
@@ -76,6 +83,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   public final T getPlayer(UUID uuid) {
     return this.players.get(uuid);
+  }
+
+  public final void setPlayers() {
+    Validate.isTrue(this.players.isEmpty(), "players have already been set");
+    this.plugin.getCommons().getErisPlayerManager().getPlayers()
+        .forEach(player -> this.players.put(player.getUniqueId(), (T) player));
   }
 
   public final Collection<T> getPlayers() {

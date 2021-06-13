@@ -12,13 +12,13 @@ public abstract class AbstractDeathmatchGameState<S extends UhcPlayer, T extends
 
   @Override
   public final GameState.Type getType() {
-    return Type.DEATHMATCH;
+    return TypeRegistry.DEATHMATCH;
   }
 
   @Override
   public boolean canStart() {
-    return this.game.getGameState().getType() == Type.GRACE_PERIOD
-        || this.game.getGameState().getType() == Type.PVP;
+    return this.game.getGameState().getType() == TypeRegistry.GRACE_PERIOD
+        || this.game.getGameState().getType() == TypeRegistry.PVP;
   }
 
 }

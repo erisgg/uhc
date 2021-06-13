@@ -1,7 +1,6 @@
 package gg.eris.uhc.core.game;
 
 import gg.eris.commons.core.util.RandomUtil;
-import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +13,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public final class Scatterer {
 
-  private final UhcPlugin plugin;
   private final UhcGame<?> game;
   private final int scattersPerSecond;
+  private final Runnable finishCallback;
 
-  public Scatterer(UhcPlugin plugin, UhcGame<?> game, int scattersPerSecond) {
+  public Scatterer(UhcGame<?> game, int scattersPerSecond, Runnable finishCallback) {
     Validate.isTrue(scattersPerSecond > 0, "cannot scatter <= 0 players");
-    this.plugin = plugin;
     this.game = game;
     this.scattersPerSecond = scattersPerSecond;
+    this.finishCallback = finishCallback;
   }
 
   private boolean hasStarted = false;
@@ -41,11 +40,11 @@ public final class Scatterer {
     List<Location> locations = generateLocations(players.size());
 
     ScatterRunnable runnable = new ScatterRunnable(this, players, locations);
-    runnable.runTaskTimer(this.plugin, 20L, 20L);
+    runnable.runTaskTimer(this.game.plugin, 20L, 20L);
   }
 
   private void finish() {
-
+    this.finishCallback.run();
   }
 
   private List<Location> generateLocations(int count) {

@@ -11,13 +11,13 @@ public abstract class AbstractStartingGameState<S extends UhcPlayer, T extends U
   }
 
   @Override
-  public Type getType() {
-    return Type.STARTING;
+  public final Type getType() {
+    return TypeRegistry.STARTING;
   }
 
   @Override
   public boolean canStart() {
-    return this.game.getGameState().getType() == Type.COUNTDOWN;
+    return this.game.getGameState().getType() == TypeRegistry.COUNTDOWN;
   }
 
 }

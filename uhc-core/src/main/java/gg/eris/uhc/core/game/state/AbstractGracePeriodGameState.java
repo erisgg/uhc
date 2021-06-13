@@ -11,13 +11,13 @@ public abstract class AbstractGracePeriodGameState<S extends UhcPlayer, T extend
   }
 
   @Override
-  public Type getType() {
-    return Type.GRACE_PERIOD;
+  public final Type getType() {
+    return TypeRegistry.GRACE_PERIOD;
   }
 
   @Override
   public boolean canStart() {
-    return this.game.getGameState().getType() == Type.STARTING;
+    return this.game.getGameState().getType() == TypeRegistry.STARTING;
   }
 
 }

@@ -11,16 +11,16 @@ public abstract class AbstractEndedGameState<S extends UhcPlayer, T extends UhcG
   }
 
   @Override
-  public Type getType() {
-    return Type.ENDED;
+  public final Type getType() {
+    return TypeRegistry.ENDED;
   }
 
   @Override
   public boolean canStart() {
     GameState<?, ?> state = this.game.getGameState();
-    return state.getType() != Type.WAITING
-        && state.getType() != Type.COUNTDOWN
-        && state.getType() != Type.STARTING;
+    return state.getType() != TypeRegistry.WAITING
+        && state.getType() != TypeRegistry.COUNTDOWN
+        && state.getType() != TypeRegistry.STARTING;
   }
 
 }

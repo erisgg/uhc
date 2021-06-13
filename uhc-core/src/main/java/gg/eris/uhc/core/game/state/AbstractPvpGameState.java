@@ -11,13 +11,13 @@ public abstract class AbstractPvpGameState<S extends UhcPlayer, T extends UhcGam
   }
 
   @Override
-  public Type getType() {
-    return Type.PVP;
+  public final Type getType() {
+    return TypeRegistry.PVP;
   }
 
   @Override
   public boolean canStart() {
-    return this.game.getGameState().getType() == Type.GRACE_PERIOD;
+    return this.game.getGameState().getType() == TypeRegistry.GRACE_PERIOD;
   }
 
 }
