@@ -14,6 +14,13 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcCountdownGameState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcDeathmatchState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcEndedState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcGracePeriodState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcPvpState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcStartingState;
+import gg.eris.uhc.customcraft.game.state.CustomCraftUhcWaitingGameState;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -42,37 +49,37 @@ public class CustomCraftUhcGameStateFactory extends
 
   @Override
   public AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newCountdownGameState() {
-    return null;
+    return new CustomCraftUhcCountdownGameState(this.game);
   }
 
   @Override
   public AbstractDeathmatchGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newDeathmatchGameState() {
-    return null;
+    return new CustomCraftUhcDeathmatchState(this.game);
   }
 
   @Override
   public AbstractEndedGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newEndedGameState() {
-    return null;
+    return new CustomCraftUhcEndedState(this.game);
   }
 
   @Override
   public AbstractGracePeriodGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newGracePeriodGameState() {
-    return null;
+    return new CustomCraftUhcGracePeriodState(this.game);
   }
 
   @Override
   public AbstractPvpGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newPvpGameState() {
-    return null;
+    return new CustomCraftUhcPvpState(this.game);
   }
 
   @Override
   public AbstractStartingGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newStartingGameState() {
-    return null;
+    return new CustomCraftUhcStartingState(this.game);
   }
 
   @Override
   public AbstractWaitingGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newWaitingGameState() {
-    return null;
+    return new CustomCraftUhcWaitingGameState(this.game);
   }
 
   @Override

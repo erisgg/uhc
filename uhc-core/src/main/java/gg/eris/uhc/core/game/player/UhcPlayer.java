@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public abstract class UhcPlayer extends ErisPlayer {
 
   public UhcPlayer(UUID uuid, String name, Set<String> knownAliases, long firstLogin,
-      long lastLogin, long lastLogout, UUID uuid1) {
+      long lastLogin, long lastLogout) {
     super(uuid, name, knownAliases, firstLogin, lastLogin, lastLogout);
   }
 

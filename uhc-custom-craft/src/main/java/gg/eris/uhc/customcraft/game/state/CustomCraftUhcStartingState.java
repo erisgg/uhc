@@ -5,9 +5,11 @@ import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-public class CustomCraftUhcStartingState extends
+public final class CustomCraftUhcStartingState extends
     AbstractStartingGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
   private final Scatterer scatterer;
@@ -23,9 +25,10 @@ public class CustomCraftUhcStartingState extends
     this.game.setPlayers();
     this.scatterer.scatter();
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
-      player.getHandle()
-          .addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
-      player.getHandle().addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+      Player handle = player.getHandle();
+      handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
+      handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+      handle.setGameMode(GameMode.SURVIVAL);
     }
   }
 

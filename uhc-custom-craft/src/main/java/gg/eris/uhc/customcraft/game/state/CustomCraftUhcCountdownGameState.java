@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class CustomCraftUhcCountdownGameState extends
+public final class CustomCraftUhcCountdownGameState extends
     AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
   public static final int REQUIRED_PLAYERS = 10;
@@ -61,7 +61,7 @@ public class CustomCraftUhcCountdownGameState extends
       TextController.broadcast(TextController.builder(
           "The game will begin in $${0}$$",
           TextType.INFORMATION,
-          Time.toDisplayTime(this.countdown, TimeUnit.SECONDS, false)
+          Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
       ));
     }
   }
@@ -72,7 +72,7 @@ public class CustomCraftUhcCountdownGameState extends
     TextController.broadcast(TextController.builder(
         "The countdown has been $$started$$. The game will start in $${0}$$",
         TextType.INFORMATION,
-        Time.toDisplayTime(this.countdown, TimeUnit.SECONDS, false)
+        Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
     ));
   }
 
