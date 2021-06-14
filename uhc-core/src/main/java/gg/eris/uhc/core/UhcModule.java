@@ -30,7 +30,9 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   }
 
   public final void disableLobby() {
-    this.lobby.disable();
+    if (this.lobby.isEnabled()) {
+      this.lobby.disable();
+    }
   }
 
   protected abstract void onEnable();

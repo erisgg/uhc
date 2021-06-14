@@ -38,6 +38,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
   @Getter
   private GameState<?, ?> gameState;
 
+  private GameState<?, ?> updatingState;
+
   public UhcGame(UhcPlugin plugin, UhcModule<?> module, UhcGameSettings settings) {
     this.plugin = plugin;
     this.module = module;
@@ -45,6 +47,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.settings = settings;
     this.world = Bukkit.getWorld(settings.getWorldName());
     this.gameStateFactory = newStateFactory();
+    this.updatingState = null;
   }
 
   public abstract void onWorldSetup(World world);
@@ -63,7 +66,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public final void setGameState(GameState.Type type) {
-    this.gameState = this.gameStateFactory.getNewState(type);
+    Validate.isNull(this.updatingState, "state is already being updated");
+    this.updatingState = this.gameStateFactory.getNewState(type);
   }
 
   public final void addPlayer(T player) {
@@ -123,6 +127,13 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
       if (tickEvent.isCancelled()) {
         return;
+      }
+
+      if (this.game.updatingState != null) {
+        this.game.gameState.end();
+        this.game.gameState = this.game.updatingState;
+        this.game.gameState.start();
+        this.game.updatingState = null;
       }
 
       this.game.gameState.tick();
