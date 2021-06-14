@@ -5,6 +5,7 @@ import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState.Type;
+import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import java.util.Map;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,13 @@ public abstract class UhcGameStateFactory<S extends UhcPlayer, T extends UhcGame
   public UhcGameStateFactory(T game) {
     this.game = game;
     this.gameStateMap = Maps.newHashMap();
+    registerGameState(TypeRegistry.WAITING, this::newWaitingGameState);
+    registerGameState(TypeRegistry.COUNTDOWN, this::newCountdownGameState);
+    registerGameState(TypeRegistry.STARTING, this::newStartingGameState);
+    registerGameState(TypeRegistry.GRACE_PERIOD, this::newGracePeriodGameState);
+    registerGameState(TypeRegistry.PVP, this::newPvpGameState);
+    registerGameState(TypeRegistry.DEATHMATCH, this::newDeathmatchGameState);
+    registerGameState(TypeRegistry.ENDED, this::newEndedGameState);
   }
 
   protected final void registerGameState(Type type, Supplier<GameState<S, T>> stateSupplier) {

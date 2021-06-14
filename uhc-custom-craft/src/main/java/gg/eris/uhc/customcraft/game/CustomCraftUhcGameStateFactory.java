@@ -25,13 +25,6 @@ public class CustomCraftUhcGameStateFactory extends
 
   public CustomCraftUhcGameStateFactory(CustomCraftUhcGame game) {
     super(game);
-    registerGameState(TypeRegistry.WAITING, this::newWaitingGameState);
-    registerGameState(TypeRegistry.COUNTDOWN, this::newCountdownGameState);
-    registerGameState(TypeRegistry.STARTING, this::newStartingGameState);
-    registerGameState(TypeRegistry.GRACE_PERIOD, this::newGracePeriodGameState);
-    registerGameState(TypeRegistry.PVP, this::newPvpGameState);
-    registerGameState(TypeRegistry.DEATHMATCH, this::newDeathmatchGameState);
-    registerGameState(TypeRegistry.ENDED, this::newEndedGameState);
   }
 
 
