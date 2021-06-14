@@ -17,7 +17,7 @@ public abstract class UhcGameStateFactory<S extends UhcPlayer, T extends UhcGame
 
   public UhcGameStateFactory(T game) {
     this.game = game;
-    this.gameStateMap = Maps.newHashMap();
+    this.gameStateMap = Maps.newIdentityHashMap();
     registerGameState(TypeRegistry.WAITING, this::newWaitingGameState);
     registerGameState(TypeRegistry.COUNTDOWN, this::newCountdownGameState);
     registerGameState(TypeRegistry.STARTING, this::newStartingGameState);
@@ -28,7 +28,8 @@ public abstract class UhcGameStateFactory<S extends UhcPlayer, T extends UhcGame
   }
 
   protected final void registerGameState(Type type, Supplier<GameState<S, T>> stateSupplier) {
-    Validate.isTrue(!this.gameStateMap.containsKey(type));
+    Validate.isTrue(!this.gameStateMap.containsKey(type), "Type type=" + type
+        + " already registered");
     this.gameStateMap.put(type, stateSupplier);
   }
 

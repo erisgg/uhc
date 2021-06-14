@@ -55,7 +55,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     }
 
     this.settings = settings;
-    this.world = Bukkit.getWorld(settings.getWorldName());
+    this.world = Bukkit.getWorld(this.settings.getWorldName());
     this.gameStateFactory = newStateFactory();
     this.updatingState = null;
   }

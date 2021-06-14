@@ -21,11 +21,9 @@ import java.util.function.Supplier;
 public class CustomCraftUhcGameStateFactory extends
     UhcGameStateFactory<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-
   public CustomCraftUhcGameStateFactory(CustomCraftUhcGame game) {
     super(game);
   }
-
 
   @Override
   public AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> newCountdownGameState() {

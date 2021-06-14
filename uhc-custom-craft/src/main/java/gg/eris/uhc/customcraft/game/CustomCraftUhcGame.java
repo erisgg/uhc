@@ -30,7 +30,6 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   @Override
   public void onWorldSetup(World world) {
-    // Nothing special needed here. Standard
   }
 
   @Override
