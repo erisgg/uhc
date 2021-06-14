@@ -49,7 +49,7 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>gg.eriss:uhc-*</include>
+                  <include>gg.eris:uhc-*</include>
                 </includes>
               </artifactSet>
             </configuration>
