@@ -8,7 +8,6 @@ import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import java.util.Map;
 import java.util.function.Supplier;
-import lombok.RequiredArgsConstructor;
 
 
 public abstract class UhcGameStateFactory<S extends UhcPlayer, T extends UhcGame<S>> {

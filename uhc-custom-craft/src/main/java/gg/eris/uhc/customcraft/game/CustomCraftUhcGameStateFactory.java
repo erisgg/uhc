@@ -8,7 +8,6 @@ import gg.eris.uhc.core.game.state.AbstractGracePeriodGameState;
 import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.core.game.state.AbstractWaitingGameState;
-import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.customcraft.game.state.CustomCraftUhcCountdownGameState;
 import gg.eris.uhc.customcraft.game.state.CustomCraftUhcDeathmatchState;

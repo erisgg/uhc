@@ -5,6 +5,9 @@ import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
+import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import java.util.Collection;
+import java.util.List;
 import org.bukkit.World;
 
 public final class ScenarioUhcGame extends UhcGame<ScenarioUhcPlayer> {
@@ -23,4 +26,8 @@ public final class ScenarioUhcGame extends UhcGame<ScenarioUhcPlayer> {
     return null;
   }
 
+  @Override
+  protected Collection<MultiStateListener> getMultiStateListeners() {
+    return List.of();
+  }
 }

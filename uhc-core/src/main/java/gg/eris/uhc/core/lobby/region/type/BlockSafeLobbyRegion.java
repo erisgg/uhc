@@ -1,6 +1,7 @@
 package gg.eris.uhc.core.lobby.region.type;
 
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.lobby.Lobby;
 import gg.eris.uhc.core.lobby.region.LobbyRegion;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event.Result;
@@ -9,7 +10,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import gg.eris.uhc.core.lobby.Lobby;
 
 public abstract class BlockSafeLobbyRegion extends LobbyRegion {
 

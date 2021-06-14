@@ -1,11 +1,11 @@
 package gg.eris.uhc.core;
 
 import gg.eris.commons.bukkit.ErisBukkitCommons;
+import java.lang.reflect.InvocationTargetException;
 import org.bukkit.Bukkit;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class UhcPlugin extends JavaPlugin {
+public final class UhcPlugin extends JavaPlugin {
 
   private ErisBukkitCommons commons;
   private UhcModule<?> uhc;
@@ -13,8 +13,14 @@ public abstract class UhcPlugin extends JavaPlugin {
   @Override
   public void onEnable() {
     saveDefaultConfig();
-    this.uhc = createUhcModule();
-    this.commons = Bukkit.getServicesManager().getRegistration(ErisBukkitCommons.class).getProvider();
+    try {
+      this.uhc = createUhcModule();
+    } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException err) {
+      err.printStackTrace();
+      Bukkit.getPluginManager().disablePlugin(this);
+    }
+    this.commons = Bukkit.getServicesManager().getRegistration(ErisBukkitCommons.class)
+        .getProvider();
     Bukkit.getScheduler().runTask(this, () -> this.uhc.enable());
   }
 
@@ -23,7 +29,13 @@ public abstract class UhcPlugin extends JavaPlugin {
     this.uhc.disable();
   }
 
-  protected abstract UhcModule<?> createUhcModule();
+  protected UhcModule<?> createUhcModule()
+      throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    return (UhcModule<?>) Class.forName(getConfig().getString(
+        "uhc-module-path",
+        "gg.eris.uhc.customcraft.CustomCraftUhcModule"
+    )).getConstructor(UhcPlugin.class).newInstance(this);
+  }
 
   public ErisBukkitCommons getCommons() {
     return this.commons;

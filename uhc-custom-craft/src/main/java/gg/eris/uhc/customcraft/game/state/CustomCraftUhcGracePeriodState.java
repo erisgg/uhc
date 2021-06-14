@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractGracePeriodGameState;
-import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
