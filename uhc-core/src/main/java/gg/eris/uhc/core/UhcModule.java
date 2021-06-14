@@ -16,9 +16,10 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   }
 
   protected final void enable() {
-    this.game.setupWorld();
     enableLobby();
     onEnable();
+    this.game.setup();
+    this.game.start();
   }
 
   protected final void disable() {

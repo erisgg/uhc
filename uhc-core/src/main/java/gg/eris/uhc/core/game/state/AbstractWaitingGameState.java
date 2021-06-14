@@ -9,11 +9,6 @@ public abstract class AbstractWaitingGameState<S extends UhcPlayer, T extends Uh
   public AbstractWaitingGameState(T game) {
     super(game);
   }
-  
-  @Override
-  public boolean canStart() {
-    return this.game.getGameState().getType() == TypeRegistry.COUNTDOWN;
-  }
 
   @Override
   public final Type getType() {

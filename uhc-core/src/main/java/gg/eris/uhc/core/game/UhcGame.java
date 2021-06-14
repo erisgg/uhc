@@ -8,6 +8,8 @@ import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
+import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.core.game.state.listener.MultiStateListenerManager;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +30,10 @@ public abstract class UhcGame<T extends UhcPlayer> {
   @Getter
   private final UhcModule<?> module;
 
-  private final Map<UUID, T> players;
+  protected final MultiStateListenerManager multiStateListenerManager;
   protected final UhcGameSettings settings;
+
+  private final Map<UUID, T> players;
   private final UhcGameStateFactory<?, ?> gameStateFactory;
 
   @Getter(AccessLevel.PROTECTED)
@@ -44,13 +48,27 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.plugin = plugin;
     this.module = module;
     this.players = Maps.newHashMap();
+    this.multiStateListenerManager = new MultiStateListenerManager();
+
+    for (MultiStateListener multiStateListener : getMultiStateListeners()) {
+      this.multiStateListenerManager.addListener(multiStateListener);
+    }
+
     this.settings = settings;
     this.world = Bukkit.getWorld(settings.getWorldName());
     this.gameStateFactory = newStateFactory();
     this.updatingState = null;
   }
 
-  public abstract void onWorldSetup(World world);
+  public final void start() {
+    UhcGameTicker ticker = new UhcGameTicker(this);
+    ticker.runTaskTimer(this.plugin, 0L, 1L);
+  }
+
+  public final void setup() {
+    setupWorld();
+    this.gameState = this.gameStateFactory.initialState().get();
+  }
 
   public final void setupWorld() {
     this.world.setAutoSave(false);
@@ -60,26 +78,13 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.onWorldSetup(this.world);
   }
 
-  public void setup() {
-    setupWorld();
-    this.gameState = this.gameStateFactory.initialState().get();
-  }
-
   public final void setGameState(GameState.Type type) {
     Validate.isNull(this.updatingState, "state is already being updated");
     this.updatingState = this.gameStateFactory.getNewState(type);
   }
 
-  public final void addPlayer(T player) {
-    this.players.put(player.getUniqueId(), player);
-  }
-
-  public final T removePlayer(Player player) {
-    return removePlayer(player.getUniqueId());
-  }
-
-  public final T removePlayer(UUID uuid) {
-    return this.players.remove(uuid);
+  public final void removePlayer(Player player) {
+    this.players.remove(player.getUniqueId());
   }
 
   public final T getPlayer(Player player) {
@@ -105,6 +110,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public abstract UhcGameStateFactory<?, ?> newStateFactory();
+  public abstract void onWorldSetup(World world);
+
+  protected abstract Collection<MultiStateListener> getMultiStateListeners();
 
   @RequiredArgsConstructor
   private static class UhcGameTicker extends BukkitRunnable {
@@ -115,12 +123,6 @@ public abstract class UhcGame<T extends UhcPlayer> {
     @Override
     public void run() {
       this.tick++;
-
-      if (this.game.getGameState() != null) {
-        this.game.getGameState().tick();
-      } else {
-        throw new IllegalStateException("null gamestate tick=" + this.tick);
-      }
 
       UhcTickEvent tickEvent = new UhcTickEvent(this.game, this.tick);
       Bukkit.getPluginManager().callEvent(tickEvent);
@@ -133,17 +135,16 @@ public abstract class UhcGame<T extends UhcPlayer> {
         this.game.gameState.end();
         this.game.gameState = this.game.updatingState;
         this.game.gameState.start();
+        this.game.multiStateListenerManager.onStateStart(this.game.gameState);
         this.game.updatingState = null;
       }
 
-      this.game.gameState.tick();
+      if (this.game.getGameState() != null) {
+        this.game.gameState.tick();
+      } else {
+        throw new IllegalStateException("Cannot tick null game state [tick=" + this.tick + "]");
+      }
     }
-
-    public static void start(UhcGame<?> game) {
-      UhcGameTicker ticker = new UhcGameTicker(game);
-      ticker.runTaskTimer(game.plugin, 0L, 1L);
-    }
-
   }
 
 }

@@ -15,9 +15,4 @@ public abstract class AbstractGracePeriodGameState<S extends UhcPlayer, T extend
     return TypeRegistry.GRACE_PERIOD;
   }
 
-  @Override
-  public boolean canStart() {
-    return this.game.getGameState().getType() == TypeRegistry.STARTING;
-  }
-
 }

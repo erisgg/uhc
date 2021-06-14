@@ -23,4 +23,5 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     return new CustomCraftUhcGameStateFactory(this);
   }
 
+
 }

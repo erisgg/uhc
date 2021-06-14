@@ -15,10 +15,4 @@ public abstract class AbstractDeathmatchGameState<S extends UhcPlayer, T extends
     return TypeRegistry.DEATHMATCH;
   }
 
-  @Override
-  public boolean canStart() {
-    return this.game.getGameState().getType() == TypeRegistry.GRACE_PERIOD
-        || this.game.getGameState().getType() == TypeRegistry.PVP;
-  }
-
 }

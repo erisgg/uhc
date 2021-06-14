@@ -15,9 +15,4 @@ public abstract class AbstractCountdownGameState<S extends UhcPlayer, T extends 
     return TypeRegistry.COUNTDOWN;
   }
 
-  @Override
-  public boolean canStart() {
-    return this.game.getGameState().getType() == TypeRegistry.WAITING;
-  }
-
 }

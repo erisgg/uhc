@@ -6,7 +6,6 @@ import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.player.UhcPlayer;
-import net.minecraft.server.v1_8_R3.ItemNetherStar;
 import org.bukkit.event.Listener;
 
 public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Listener {
@@ -25,8 +24,7 @@ public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Li
     public static final Type PVP;
     public static final Type DEATHMATCH;
     public static final Type ENDED;
-
-
+    
     static {
       IdentifierProvider provider = new IdentifierProvider("eris");
       WAITING = REGISTRY.register(new Type(provider.id("waiting")));
@@ -65,7 +63,5 @@ public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Li
   void end();
 
   void tick();
-
-  boolean canStart();
 
 }
