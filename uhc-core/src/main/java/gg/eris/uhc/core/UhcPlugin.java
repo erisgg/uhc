@@ -26,7 +26,9 @@ public final class UhcPlugin extends JavaPlugin {
 
   @Override
   public void onDisable() {
-    this.uhc.disable();
+    if (this.uhc != null) {
+      this.uhc.disable();
+    }
   }
 
   protected UhcModule<?> createUhcModule()
