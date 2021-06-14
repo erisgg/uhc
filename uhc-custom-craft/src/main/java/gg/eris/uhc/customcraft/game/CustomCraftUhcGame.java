@@ -13,7 +13,19 @@ import org.bukkit.World;
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
-    super(plugin, module, UhcGameSettings.builder().build());
+    super(plugin, module, UhcGameSettings.builder()
+        .worldName("world")
+        .borderRadius(1000)
+        .shrunkBorderRadius(200)
+        .deathmatchBorderRadius(100)
+        .deathmatchBorderShrinkDelay(300)
+        .deathmatchBorderShrinkTime(300)
+        .deathmatchBorderShrunkRadius(10)
+        .coinsPerKill(100)
+        .coinsPerSurvive(10, 50)
+        .coinsPerSurvive(5, 100)
+        .coinsPerWin(500)
+        .build());
   }
 
   @Override
