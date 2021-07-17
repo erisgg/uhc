@@ -6,7 +6,6 @@ import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.player.UhcPlayer;
-import java.util.Objects;
 import org.bukkit.event.Listener;
 
 public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Listener {
