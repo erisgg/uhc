@@ -3,6 +3,7 @@ package gg.eris.uhc.core.lobby;
 import com.google.common.collect.Maps;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.region.LobbyRegion;
+import gg.eris.uhc.core.lobby.region.type.SpawnLobbyRegion;
 import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
 import java.util.Collections;
 import java.util.Map;
@@ -11,7 +12,9 @@ import java.util.UUID;
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 
 public abstract class Lobby {
 
@@ -19,15 +22,20 @@ public abstract class Lobby {
   @Getter
   private boolean enabled;
 
+  @Getter
+  private Location spawn;
+
   private final Int2ObjectAVLTreeMap<LobbyRegion> regions;
   private final Map<UUID, LobbyRegion> playerRegions;
 
   private int lobbyTask;
 
-  public Lobby(UhcPlugin plugin) {
+  public Lobby(UhcPlugin plugin, Location spawn) {
     this.plugin = plugin;
     this.regions = new Int2ObjectAVLTreeMap<>(Collections.reverseOrder());
     this.playerRegions = Maps.newHashMap();
+    this.spawn = spawn;
+    this.regions.put(0, new SpawnLobbyRegion(plugin, this));
   }
 
   public synchronized final void enable() {
@@ -36,6 +44,7 @@ public abstract class Lobby {
     for (LobbyRegion region : this.regions.values()) {
       region.enable();
     }
+
 
     this.lobbyTask = Bukkit.getScheduler().runTaskTimer(this.plugin, () -> {
       for (Player player : Bukkit.getOnlinePlayers()) {
@@ -79,6 +88,10 @@ public abstract class Lobby {
   }
 
   public final void addRegion(int priority, LobbyRegion region) {
+    if (priority <= 0) {
+      throw new IllegalArgumentException("Priority must be > 0");
+    }
+
     Validate.isTrue(!this.regions.containsKey(priority));
     this.regions.put(priority, region);
   }

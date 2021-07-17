@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.Lobby;
 import gg.eris.uhc.core.lobby.region.type.HeightActivatedPvpLobbyRegion;
+import gg.eris.uhc.core.lobby.region.type.SpawnLobbyRegion;
 import gg.eris.uhc.core.lobby.region.type.StaticLobbyRegion;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -11,10 +12,10 @@ import org.bukkit.entity.Player;
 
 public final class DropPvpLobby extends Lobby {
 
-  public DropPvpLobby(UhcPlugin plugin, int yLevel) {
-    super(plugin);
+  public DropPvpLobby(UhcPlugin plugin, Location spawn, int yLevel) {
+    super(plugin, spawn);
 
-    addRegion(0, new StaticLobbyRegion(plugin, this) {
+    addRegion(1, new StaticLobbyRegion(plugin, this) {
       @Override
       public boolean isInRegion(Location location) {
         return location.getY() > yLevel;
