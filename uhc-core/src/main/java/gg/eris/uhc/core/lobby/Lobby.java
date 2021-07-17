@@ -1,6 +1,7 @@
 package gg.eris.uhc.core.lobby;
 
 import com.google.common.collect.Maps;
+import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.region.LobbyRegion;
 import gg.eris.uhc.core.lobby.region.type.SpawnLobbyRegion;
@@ -10,11 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import lombok.Getter;
-import org.apache.commons.lang3.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 public abstract class Lobby {
 
@@ -88,10 +87,7 @@ public abstract class Lobby {
   }
 
   public final void addRegion(int priority, LobbyRegion region) {
-    if (priority <= 0) {
-      throw new IllegalArgumentException("Priority must be > 0");
-    }
-
+    Validate.isTrue(priority >= 0, "priority must be >= 0");
     Validate.isTrue(!this.regions.containsKey(priority));
     this.regions.put(priority, region);
   }
