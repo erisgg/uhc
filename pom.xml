@@ -10,7 +10,6 @@
   <modules>
     <module>uhc-core</module>
     <module>uhc-custom-craft</module>
-    <module>uhc-scenario</module>
     <module>uhc-shade</module>
   </modules>
   <packaging>pom</packaging>
