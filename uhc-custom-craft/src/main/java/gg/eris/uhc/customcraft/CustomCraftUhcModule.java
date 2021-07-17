@@ -5,6 +5,8 @@ import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.Lobby;
 import gg.eris.uhc.core.lobby.type.DropPvpLobby;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
@@ -29,6 +31,10 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
   @Override
   protected Lobby createLobby() {
-    return new DropPvpLobby(this.plugin, 40);
+    return new DropPvpLobby(
+        this.plugin,
+        new Location(Bukkit.getWorld("pregame_world"), 0, 200, 0),
+        40
+    );
   }
 }
