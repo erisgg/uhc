@@ -33,7 +33,7 @@ public final class DropPvpLobby extends Lobby {
       }
     });
 
-    addRegion(1, new HeightActivatedPvpLobbyRegion(plugin, this, yLevel));
+    addRegion(2, new HeightActivatedPvpLobbyRegion(plugin, this, yLevel));
   }
 
 
