@@ -1,10 +1,9 @@
-package gg.eris.uhc.core.lobby.type;
+package gg.eris.uhc.customcraft.lobby;
 
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.lobby.Lobby;
 import gg.eris.uhc.core.lobby.region.type.HeightActivatedPvpLobbyRegion;
-import gg.eris.uhc.core.lobby.region.type.SpawnLobbyRegion;
 import gg.eris.uhc.core.lobby.region.type.StaticLobbyRegion;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -33,7 +32,7 @@ public final class DropPvpLobby extends Lobby {
       }
     });
 
-    addRegion(2, new HeightActivatedPvpLobbyRegion(plugin, this, yLevel));
+    addRegion(2, new HeightActivatedPvpLobbyRegion(plugin, this));
   }
 
 

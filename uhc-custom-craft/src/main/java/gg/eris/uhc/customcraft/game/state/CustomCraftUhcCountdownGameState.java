@@ -49,40 +49,42 @@ public final class CustomCraftUhcCountdownGameState extends
         broadcast = true;
         break;
       case 0:
-        TextController.broadcast(TextController.builder(
-            "The game is $$starting$$!",
-            TextType.INFORMATION
-        ));
+        TextController.broadcastToServer(
+            TextType.INFORMATION,
+            "The game is <h>starting</h>"
+        );
         this.game.setGameState(TypeRegistry.STARTING);
         break;
     }
 
     if (broadcast) {
-      TextController.broadcast(TextController.builder(
-          "The game will begin in $${0}$$",
+      TextController.broadcastToServer(
           TextType.INFORMATION,
+          "The game will begin in <h>{0}</h>",
           Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
-      ));
+      );
     }
   }
 
   @Override
   public void onStart() {
     this.countdown = COUNTDOWN_TIME;
-    TextController.broadcast(TextController.builder(
-        "The countdown has been $$started$$. The game will start in $${0}$$",
+    TextController.broadcastToServer(
         TextType.INFORMATION,
+        "The countdown has <h>started</h>. The game will begin in <h>{0}</h>.",
         Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
-    ));
+    );
   }
 
   @Override
   public void onEnd() {
-    TextController.broadcast(TextController.builder(
-        "The countdown has been $$paused$$. It will resume at $$" + REQUIRED_PLAYERS
-            + "/70$$ players",
-        TextType.INFORMATION
-    ));
+    if (this.erisPlayerManager.getPlayers().size() < REQUIRED_PLAYERS) {
+      TextController.broadcastToServer(
+          TextType.INFORMATION,
+          "The countdown has been <h>paused</h>. It will resume at <h>{0}/70</h> players.",
+          REQUIRED_PLAYERS
+      );
+    }
   }
 
   @EventHandler

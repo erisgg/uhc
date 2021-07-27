@@ -55,20 +55,20 @@ public final class CustomCraftUhcGracePeriodState extends
         broadcast = true;
         break;
       case 0:
-        TextController.broadcast(TextController.builder(
-            "The grace period has $$ended$$! PvP is now $$enabled$$.",
-            TextType.INFORMATION
-        ));
+        TextController.broadcastToServer(
+            TextType.INFORMATION,
+            "The grace period has <h>ended</h>! PvP is now <h>enabled</h>."
+        );
         this.game.setGameState(TypeRegistry.PVP);
         return;
     }
 
     if (broadcast) {
-      TextController.broadcast(TextController.builder(
-          "The grace period will $$end$$ in $${0}$$.",
+      TextController.broadcastToServer(
           TextType.INFORMATION,
+          "The grace period will <h>end</h> in <h>{0}</h>.",
           Time.toLongDisplayTime(this.duration, TimeUnit.SECONDS)
-      ));
+      );
     }
   }
 
@@ -77,11 +77,12 @@ public final class CustomCraftUhcGracePeriodState extends
     if (event.getDamager().getType() == EntityType.PLAYER
         && event.getEntityType() == EntityType.PLAYER) {
       event.setCancelled(true);
-      TextController.send(TextController.builder(
-          "You cannot attack players until the grace period is $$over$$ in $${0}$$.",
+      TextController.send(
+          (Player) event.getDamager(),
           TextType.ERROR,
+          "You cannot attack players until the grace period is <h>over</h> (<h>{0}</h>).",
           Time.toShortDisplayTime(this.duration, TimeUnit.SECONDS)
-      ), (Player) event.getDamager());
+      );
     }
   }
 }

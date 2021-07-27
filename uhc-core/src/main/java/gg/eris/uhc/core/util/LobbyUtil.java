@@ -9,11 +9,12 @@ import org.bukkit.entity.Player;
 public class LobbyUtil {
 
   public static void broadcastJoin(Player player, int count) {
-    TextController.broadcast(TextController.builder(
-        "{0} has $$joined$$ the game $$(" + count + "/70)$$",
+    TextController.broadcastToServer(
         TextType.INFORMATION,
+        "{0} has <h>joined</h> the game (<h>{1}/70</h).",
+        count,
         player.getName()
-    ));
+    );
   }
 
 }

@@ -59,21 +59,21 @@ public final class CustomCraftUhcPvpState extends
               broadcast = true;
               break;
             case 0:
-              TextController.broadcast(TextController.builder(
-                  "Deathmatch is $$starting$$.",
-                  TextType.INFORMATION
-              ));
+              TextController.broadcastToServer(
+                  TextType.INFORMATION,
+                  "Deathmatch is <h>starting</h>."
+              );
               this.game.setGameState(TypeRegistry.DEATHMATCH);
               return;
           }
         }
 
         if (broadcast) {
-          TextController.broadcast(TextController.builder(
-              "Deathmatch is $$starting$$ in $${0}$$",
+          TextController.broadcastToServer(
               TextType.INFORMATION,
+              "Deathmatch is <h>starting</h> in <h>{0}>/h>.",
               Time.toLongDisplayTime(this.deathmatchCountdown, TimeUnit.SECONDS)
-          ));
+          );
         }
       }
 
@@ -91,17 +91,18 @@ public final class CustomCraftUhcPvpState extends
     Player killed = (Player) event.getEntity();
     Player killer = event.getEntity().getKiller();
     if (killer == null) {
-      TextController.broadcast(TextController.builder(
-          "$${0}$$ has died.",
+      TextController.broadcastToServer(
           TextType.INFORMATION,
+          "<h>{0}</h> has died.",
           killed.getName()
-      ));
+      );
     } else {
-      TextController.broadcast(TextController.builder(
-          "$${0} has been killed by {1}.",
+      TextController.broadcastToServer(
           TextType.INFORMATION,
-          killed.getName(), killer.getName()
-      ));
+          "<h>{0}</h> has been killed by {1}</h>.",
+          killed.getName(),
+          killer.getName()
+      );
     }
 
     this.game.removePlayer(killed);
@@ -116,22 +117,18 @@ public final class CustomCraftUhcPvpState extends
 
     if (this.game.getPlayers().size() <= DEATHMATCH_PLAYER_REQUIREMENT) {
       this.deathmatchCountdown = DEATHMATCH_COUNTDOWN_TIME;
-      TextController.broadcast(
-          TextController.builder(
-              "Deathmatch will start in $${0}$$ as there is only $${1}$$ players remaining.",
-              TextType.INFORMATION,
-              Time.toLongDisplayTime(this.deathmatchCountdown),
-              this.game.getPlayers().size()
-          )
+      TextController.broadcastToServer(
+          TextType.INFORMATION,
+          "Deathmatch will start <h>{0}</h> as there are only <h>{1}</h> players remaining.",
+          Time.toLongDisplayTime(this.deathmatchCountdown),
+          this.game.getPlayers().size()
       );
     } else if (this.pvpStateTime >= DEATHMATCH_TIME_REQUIREMENT) {
       this.deathmatchCountdown = DEATHMATCH_COUNTDOWN_TIME;
-      TextController.broadcast(
-          TextController.builder(
-              "Deathmatch will start in $${0}$$.",
-              TextType.INFORMATION,
-              Time.toLongDisplayTime(this.deathmatchCountdown)
-          )
+      TextController.broadcastToServer(
+          TextType.INFORMATION,
+          "Deathmatch will start in <h>{0}</h>.",
+          Time.toLongDisplayTime(this.deathmatchCountdown)
       );
     }
   }

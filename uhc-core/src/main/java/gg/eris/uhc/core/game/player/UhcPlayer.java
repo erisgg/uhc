@@ -13,8 +13,9 @@ import org.bukkit.entity.Player;
  */
 public abstract class UhcPlayer extends ErisPlayer {
 
-  public UhcPlayer(UUID uuid, String name, List<String> nameHistory, long firstLogin,
-      long lastLogin, Rank rank, List<Permission> permissions) {
-    super(uuid, name, nameHistory, firstLogin, lastLogin, rank, permissions);
+  public UhcPlayer(DefaultData data) {
+    super(data);
   }
+
+
 }

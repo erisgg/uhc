@@ -37,9 +37,19 @@ public abstract class LobbyRegion {
     this.inRegion = Sets.newHashSet();
   }
 
-  public abstract void onEnter(Player player);
+  public final void enter(Player player) {
+    this.inRegion.add(player.getUniqueId());
+    onEnter(player);
+  }
 
-  public abstract void onLeave(Player player);
+  public final void leave(Player player) {
+    this.inRegion.remove(player.getUniqueId());
+    onLeave(player);
+  }
+
+  protected abstract void onEnter(Player player);
+
+  protected abstract void onLeave(Player player);
 
   public abstract boolean isInRegion(Location location);
 
@@ -50,7 +60,8 @@ public abstract class LobbyRegion {
           regionListener,
           EventPriority.NORMAL,
           regionListener,
-          plugin
+          this.plugin,
+          true
       );
     }
   }
@@ -58,15 +69,6 @@ public abstract class LobbyRegion {
   public final void disable() {
     for (RegionListener<?> regionListener : this.regionListeners) {
       HandlerList.unregisterAll(regionListener);
-    }
-  }
-
-  public final void updateInRegion(Player player) {
-    boolean inRegion = isInRegion(player.getLocation());
-    if (inRegion) {
-      this.inRegion.add(player.getUniqueId());
-    } else {
-      this.inRegion.remove(player.getUniqueId());
     }
   }
 
@@ -134,6 +136,7 @@ public abstract class LobbyRegion {
 
   /* NOTE: Does not make any check for applicability of the event to the region.
   This must be done in the consumer by the implementation. */
+
   protected final <T extends Event> void registerChecklessEvent(Class<T> eventClass,
       Consumer<T> callback) {
     RegionListener<T> regionListener = new RegionListener<>(
@@ -143,9 +146,12 @@ public abstract class LobbyRegion {
     );
     registerRegionListener(regionListener);
   }
-
   private <T extends Event> void registerRegionListener(RegionListener<T> regionListener) {
     this.regionListeners.add(regionListener);
+  }
+
+  public void quit(Player player) {
+    this.inRegion.remove(player.getUniqueId());
   }
 
   @RequiredArgsConstructor
