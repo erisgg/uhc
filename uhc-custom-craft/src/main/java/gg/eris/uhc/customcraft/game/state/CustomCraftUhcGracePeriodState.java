@@ -25,7 +25,6 @@ public final class CustomCraftUhcGracePeriodState extends
 
   @Override
   public void onStart() {
-    this.game.getModule().disableLobby();
     this.duration = GRACE_PERIOD_DURATION;
   }
 
