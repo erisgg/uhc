@@ -120,10 +120,14 @@ public final class LobbyListener extends MultiStateListener {
   public void onPlayerJoin(PlayerJoinEvent event) {
     Player player = event.getPlayer();
     event.setJoinMessage(null);
-    LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
-    PlayerUtil.resetPlayer(player);
-    player.setGameMode(GameMode.ADVENTURE);
-    event.getPlayer().teleport(this.spawn);
+
+    Bukkit.getScheduler().runTask(this.game.getPlugin(), () -> {
+      event.getPlayer().teleport(this.spawn);
+      LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
+      PlayerUtil.resetPlayer(player);
+      player.setGameMode(GameMode.ADVENTURE);
+      System.out.println("gamemode m");
+    });
   }
 
   @EventHandler
