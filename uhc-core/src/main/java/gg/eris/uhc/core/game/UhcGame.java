@@ -21,6 +21,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class UhcGame<T extends UhcPlayer> {
@@ -110,6 +111,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public abstract UhcGameStateFactory<?, ?> newStateFactory();
+
   public abstract void onWorldSetup(World world);
 
   protected abstract Collection<MultiStateListener> getMultiStateListeners();
@@ -133,7 +135,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
       if (this.game.updatingState != null) {
         this.game.gameState.end();
+        HandlerList.unregisterAll(this.game.gameState);
         this.game.gameState = this.game.updatingState;
+        Bukkit.getPluginManager().registerEvents(this.game.gameState, this.game.plugin);
         this.game.gameState.start();
         this.game.multiStateListenerManager.onStateStart(this.game.gameState);
         this.game.updatingState = null;

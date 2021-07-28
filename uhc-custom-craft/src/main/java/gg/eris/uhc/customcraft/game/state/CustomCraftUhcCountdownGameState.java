@@ -87,18 +87,4 @@ public final class CustomCraftUhcCountdownGameState extends
     }
   }
 
-  @EventHandler
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    event.setJoinMessage(null);
-    LobbyUtil.broadcastJoin(event.getPlayer(), this.erisPlayerManager.getPlayers().size());
-  }
-
-  @EventHandler
-  public void onPlayerQuit(PlayerQuitEvent event) {
-    event.setQuitMessage(null);
-    if (this.erisPlayerManager.getPlayers().size() < REQUIRED_PLAYERS) {
-      this.game.setGameState(TypeRegistry.WAITING);
-    }
-  }
-
 }

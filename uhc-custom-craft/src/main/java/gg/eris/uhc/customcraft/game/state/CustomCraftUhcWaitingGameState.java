@@ -33,19 +33,4 @@ public final class CustomCraftUhcWaitingGameState extends AbstractWaitingGameSta
 
   }
 
-  @EventHandler
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    event.setJoinMessage(null);
-    LobbyUtil.broadcastJoin(event.getPlayer(), this.erisPlayerManager.getPlayers().size());
-
-    if (this.erisPlayerManager.getPlayers().size() >= CustomCraftUhcCountdownGameState.REQUIRED_PLAYERS) {
-      this.game.setGameState(TypeRegistry.COUNTDOWN);
-    }
-  }
-
-  @EventHandler
-  public void onPlayerQuit(PlayerQuitEvent event) {
-    event.setQuitMessage(null);
-  }
-
 }

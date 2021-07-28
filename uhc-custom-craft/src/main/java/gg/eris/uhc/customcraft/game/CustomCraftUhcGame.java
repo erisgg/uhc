@@ -1,16 +1,22 @@
 package gg.eris.uhc.customcraft.game;
 
+import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import java.util.Collection;
 import java.util.List;
+import lombok.Getter;
 import org.bukkit.World;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
+
+  @Getter
+  private final ErisBukkitCommons commons;
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
@@ -26,6 +32,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .coinsPerSurvive(5, 100)
         .coinsPerWin(500)
         .build());
+
+    this.commons = plugin.getCommons();
   }
 
   @Override
@@ -39,6 +47,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   @Override
   protected Collection<MultiStateListener> getMultiStateListeners() {
-    return List.of();
+    return List.of(
+        new LobbyListener(this, this.commons.getErisPlayerManager())
+    );
   }
 }
