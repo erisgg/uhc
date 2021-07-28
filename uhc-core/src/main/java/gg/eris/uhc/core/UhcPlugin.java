@@ -13,14 +13,20 @@ public final class UhcPlugin extends JavaPlugin {
   @Override
   public void onEnable() {
     saveDefaultConfig();
+    this.commons = Bukkit.getServicesManager()
+        .getRegistration(ErisBukkitCommons.class).getProvider();
+
     try {
       this.uhc = createUhcModule();
     } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException err) {
       err.printStackTrace();
       Bukkit.getPluginManager().disablePlugin(this);
     }
-    this.commons = Bukkit.getServicesManager().getRegistration(ErisBukkitCommons.class)
-        .getProvider();
+
+    if (!Bukkit.getPluginManager().isPluginEnabled(this)) {
+      return;
+    }
+
     Bukkit.getScheduler().runTask(this, () -> this.uhc.enable());
   }
 

@@ -11,9 +11,9 @@ public class LobbyUtil {
   public static void broadcastJoin(Player player, int count) {
     TextController.broadcastToServer(
         TextType.INFORMATION,
-        "{0} has <h>joined</h> the game (<h>{1}/70</h).",
-        count,
-        player.getName()
+        "{0} has <h>joined</h> the game (<h>{1}/70</h>).",
+        player.getName(),
+        count
     );
   }
 

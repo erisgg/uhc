@@ -9,7 +9,7 @@ import lombok.Value;
 public class UhcGameSettings {
 
   String worldName;
-  int borderRadius;
+  int borderSize;
   int shrunkBorderRadius;
 
   int deathmatchBorderShrinkDelay;
@@ -21,13 +21,13 @@ public class UhcGameSettings {
   int coinsPerWin;
   Int2IntMap coinsPerSurvive;
 
-  public UhcGameSettings(String worldName, int borderRadius, int shrunkBorderRadius,
+  public UhcGameSettings(String worldName, int borderSize, int shrunkBorderRadius,
       int deathmatchBorderShrinkDelay,
       int deathmatchBorderShrinkTime, int deathmatchBorderRadius, int deathmatchBorderShrunkRadius,
       int coinsPerKill,
       int coinsPerWin, Int2IntMap coinsPerSurvive) {
     this.worldName = worldName;
-    this.borderRadius = borderRadius;
+    this.borderSize = borderSize;
     this.shrunkBorderRadius = shrunkBorderRadius;
     this.deathmatchBorderShrinkDelay = deathmatchBorderShrinkDelay;
     this.deathmatchBorderShrinkTime = deathmatchBorderShrinkTime;
@@ -46,7 +46,7 @@ public class UhcGameSettings {
 
     private String worldName;
 
-    private int borderRadius;
+    private int borderSize;
     private int shrunkBorderRadius;
 
     private int deathmatchBorderShrinkDelay;
@@ -67,8 +67,8 @@ public class UhcGameSettings {
       return this;
     }
 
-    public UhcGameSettings.Builder borderRadius(int borderRadius) {
-      this.borderRadius = borderRadius;
+    public UhcGameSettings.Builder borderSize(int borderSize) {
+      this.borderSize = borderSize;
       return this;
     }
 
@@ -115,7 +115,7 @@ public class UhcGameSettings {
     public UhcGameSettings build() {
       return new UhcGameSettings(
           this.worldName,
-          this.borderRadius,
+          this.borderSize,
           this.shrunkBorderRadius,
           this.deathmatchBorderShrinkDelay,
           this.deathmatchBorderShrinkTime,

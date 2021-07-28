@@ -50,7 +50,7 @@ public final class Scatterer {
   private List<Location> generateLocations(int count) {
     List<Location> locations = new ArrayList<>(count);
 
-    int radius = this.game.settings.getBorderRadius();
+    int radius = this.game.settings.getBorderSize();
 
     for (int i = 0; i < count; i++) {
       int x = RandomUtil.randomInt(-radius, radius + 1);

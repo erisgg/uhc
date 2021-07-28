@@ -7,6 +7,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
@@ -19,11 +20,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -33,12 +37,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
  * MultiStage listener for waiting and countdown state
  */
 public final class LobbyListener extends MultiStateListener {
+
+  private static final Identifier SCOREBOARD_ID = Identifier.of("uhc_scoreboard", "pregame");
 
   private static final Set<Type> TYPES = Set.of(
       TypeRegistry.WAITING,
@@ -75,10 +82,9 @@ public final class LobbyListener extends MultiStateListener {
   private final ErisPlayerManager erisPlayerManager;
   private final Location spawn;
 
-  public LobbyListener(CustomCraftUhcGame game,
-      ErisPlayerManager erisPlayerManager) {
+  public LobbyListener(CustomCraftUhcGame game) {
     this.game = game;
-    this.erisPlayerManager = erisPlayerManager;
+    this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
     this.spawn = new Location(
         Bukkit.getWorld("pregame_world"),
         0.5,
@@ -96,7 +102,13 @@ public final class LobbyListener extends MultiStateListener {
 
   @Override
   protected void onEnable(GameState<?, ?> state) {
+    World world = this.spawn.getWorld();
+    world.setWeatherDuration(0);
 
+    addTask(() -> Bukkit.getScheduler().runTaskTimer(this.game.getPlugin(), () -> {
+      world.setFullTime(6000L);
+      world.setTime(6000L);
+    }, 0L, 1L).getTaskId());
   }
 
   @Override
@@ -123,7 +135,8 @@ public final class LobbyListener extends MultiStateListener {
   public void onPlayerQuit(PlayerQuitEvent event) {
     event.setQuitMessage(null);
     if (this.erisPlayerManager.getPlayers().size()
-        < CustomCraftUhcCountdownGameState.REQUIRED_PLAYERS) {
+        < CustomCraftUhcCountdownGameState.REQUIRED_PLAYERS
+        && this.game.getGameState().getType() != TypeRegistry.WAITING) {
       this.game.setGameState(TypeRegistry.WAITING);
     }
   }
@@ -139,8 +152,8 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
-    if (!isInPvp(event.getEntity().getLocation())
-        || !(event instanceof EntityDamageByEntityEvent)) {
+    if ((!isInPvp(event.getEntity().getLocation()) || !(event instanceof EntityDamageByEntityEvent))
+        && event.getCause() != DamageCause.VOID) {
       event.setCancelled(true);
     }
   }
@@ -232,6 +245,24 @@ public final class LobbyListener extends MultiStateListener {
         "You have been killed by <h>{0}</h>",
         damager.getName()
     );
+  }
+
+  @EventHandler
+  public void onBlockPlace(BlockPlaceEvent event) {
+    event.setCancelled(true);
+    event.setBuild(false);
+  }
+
+  @EventHandler
+  public void onBlockBreak(BlockBreakEvent event) {
+    event.setCancelled(true);
+  }
+
+  @EventHandler
+  public void onWeatherChange(WeatherChangeEvent event) {
+    if (event.toWeatherState()) {
+      event.setCancelled(true);
+    }
   }
 
   private boolean isInPvp(Location location) {

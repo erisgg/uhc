@@ -21,7 +21,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class UhcGame<T extends UhcPlayer> {
@@ -49,7 +48,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.plugin = plugin;
     this.module = module;
     this.players = Maps.newHashMap();
-    this.multiStateListenerManager = new MultiStateListenerManager();
+    this.multiStateListenerManager = new MultiStateListenerManager(plugin);
 
     for (MultiStateListener multiStateListener : getMultiStateListeners()) {
       this.multiStateListenerManager.addListener(multiStateListener);
@@ -59,6 +58,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.world = Bukkit.getWorld(this.settings.getWorldName());
     this.gameStateFactory = newStateFactory();
     this.updatingState = null;
+    this.gameState = null;
   }
 
   public final void start() {
@@ -68,19 +68,23 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   public final void setup() {
     setupWorld();
-    this.gameState = this.gameStateFactory.initialState().get();
+    // Will be properly started by the ticker
+    this.updatingState = this.gameStateFactory.initialState().get();
   }
 
   public final void setupWorld() {
     this.world.setAutoSave(false);
     WorldBorder border = this.world.getWorldBorder();
     border.setCenter(0.0, 0.0);
-    border.setSize(this.settings.getBorderRadius());
+    border.setSize(this.settings.getBorderSize());
     this.onWorldSetup(this.world);
   }
 
   public final void setGameState(GameState.Type type) {
     Validate.isNull(this.updatingState, "state is already being updated");
+    if (this.gameState != null) {
+      Validate.isTrue(type != this.gameState.getType(), "state set to its own type");
+    }
     this.updatingState = this.gameStateFactory.getNewState(type);
   }
 
@@ -134,10 +138,11 @@ public abstract class UhcGame<T extends UhcPlayer> {
       }
 
       if (this.game.updatingState != null) {
-        this.game.gameState.end();
-        HandlerList.unregisterAll(this.game.gameState);
+        if (this.game.gameState != null) { // Checking for initial start
+          this.game.gameState.end();
+        }
+
         this.game.gameState = this.game.updatingState;
-        Bukkit.getPluginManager().registerEvents(this.game.gameState, this.game.plugin);
         this.game.gameState.start();
         this.game.multiStateListenerManager.onStateStart(this.game.gameState);
         this.game.updatingState = null;
