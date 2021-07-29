@@ -65,8 +65,8 @@ public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Li
 
   void start();
 
-  void end();
-
   void tick();
+
+  void end();
 
 }

@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.game.listener;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
+import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
@@ -93,6 +94,17 @@ public final class LobbyListener extends MultiStateListener {
         -90.0f,
         0.0f
     );
+
+    TablistController tablistController = game.getPlugin().getCommons().getTablistController();
+
+    tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
+        "STORE.ERIS.GG");
+    tablistController.setDisplayNameFunction(player ->
+        (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
+            CC.GRAY + player.getName()
+            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() + "] "
+                + CC.WHITE + player.getName()));
   }
 
   @Override
@@ -121,13 +133,12 @@ public final class LobbyListener extends MultiStateListener {
     Player player = event.getPlayer();
     event.setJoinMessage(null);
 
-    Bukkit.getScheduler().runTask(this.game.getPlugin(), () -> {
+    Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       event.getPlayer().teleport(this.spawn);
       LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
       PlayerUtil.resetPlayer(player);
       player.setGameMode(GameMode.ADVENTURE);
-      System.out.println("gamemode m");
-    });
+    }, 2L);
   }
 
   @EventHandler
@@ -214,7 +225,7 @@ public final class LobbyListener extends MultiStateListener {
       TextController.send(
           event.getPlayer(),
           TextType.INFORMATION,
-          "You have fallen off of the map. Don't do that!"
+          "You fell off of the map... Don't do that!"
       );
     }
   }
