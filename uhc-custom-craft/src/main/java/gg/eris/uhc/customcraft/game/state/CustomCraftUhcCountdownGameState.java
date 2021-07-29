@@ -44,11 +44,11 @@ public final class CustomCraftUhcCountdownGameState extends
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.GRAY + "Starting in:");
     this.scoreboard.addLine((player, ticks) -> CC.YELLOW + Time.toShortDisplayTime(this.countdown,
-        TimeUnit.SECONDS), 20);
+        TimeUnit.SECONDS), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/70", 5);
+            .getErisPlayerManager().getPlayers().size() + "/70", 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderSize());
     this.scoreboard.addLine("");
@@ -81,7 +81,7 @@ public final class CustomCraftUhcCountdownGameState extends
       case 0:
         TextController.broadcastToServer(
             TextType.INFORMATION,
-            "The game is <h>starting</h>"
+            "The game is <h>starting</h>."
         );
         this.game.setGameState(TypeRegistry.STARTING);
         break;
@@ -90,7 +90,7 @@ public final class CustomCraftUhcCountdownGameState extends
     if (broadcast) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
-          "The game will begin in <h>{0}</h>",
+          "The game will begin in <h>{0}</h>.",
           Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
       );
     }
