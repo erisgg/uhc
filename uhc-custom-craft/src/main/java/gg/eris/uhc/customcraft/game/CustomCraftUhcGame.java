@@ -9,6 +9,7 @@ import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import java.util.Collection;
 import java.util.List;
 import org.bukkit.World;
@@ -38,7 +39,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   @Override
   public ErisPlayerSerializer<CustomCraftUhcPlayer> getErisPlayerSerializer() {
-    return null;
+    return new CustomCraftUhcPlayerSerializer();
   }
 
   @Override

@@ -97,7 +97,8 @@ public final class LobbyListener extends MultiStateListener {
 
     TablistController tablistController = game.getPlugin().getCommons().getTablistController();
 
-    tablistController.setHeader(CC.YELLOW + "You are playing on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC" + CC.YELLOW
+            + " on "+ CC.GOLD.bold() + "ERIS.GG");
     tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
         "STORE.ERIS.GG");
     tablistController.setDisplayNameFunction(player ->
