@@ -5,7 +5,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.AbstractWaitingGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

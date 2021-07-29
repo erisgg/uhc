@@ -4,7 +4,7 @@ import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;

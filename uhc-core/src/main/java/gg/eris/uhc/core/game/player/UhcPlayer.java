@@ -1,10 +1,6 @@
 package gg.eris.uhc.core.game.player;
 
-import gg.eris.commons.bukkit.permission.Permission;
 import gg.eris.commons.bukkit.player.ErisPlayer;
-import gg.eris.commons.bukkit.rank.Rank;
-import java.util.List;
-import java.util.UUID;
 import org.bukkit.entity.Player;
 
 /**

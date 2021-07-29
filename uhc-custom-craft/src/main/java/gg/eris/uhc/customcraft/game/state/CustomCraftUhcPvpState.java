@@ -5,7 +5,7 @@ import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

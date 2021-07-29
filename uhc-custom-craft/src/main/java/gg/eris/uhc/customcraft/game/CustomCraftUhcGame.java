@@ -1,11 +1,13 @@
 package gg.eris.uhc.customcraft.game;
 
+import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +34,11 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   @Override
   public void onWorldSetup(World world) {
+  }
+
+  @Override
+  public ErisPlayerSerializer<CustomCraftUhcPlayer> getErisPlayerSerializer() {
+    return null;
   }
 
   @Override

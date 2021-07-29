@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.game;
+package gg.eris.uhc.customcraft.game.player;
 
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;

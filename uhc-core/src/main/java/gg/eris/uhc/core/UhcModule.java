@@ -10,6 +10,8 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   public UhcModule(UhcPlugin plugin) {
     this.plugin = plugin;
     this.game = createGame();
+    plugin.getCommons().getErisPlayerManager()
+        .setPlayerSerializer(this.game.getErisPlayerSerializer());
   }
 
   protected final void enable() {

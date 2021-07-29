@@ -3,7 +3,7 @@ package gg.eris.uhc.customcraft.craft;
 import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.identifier.IdentifierProvider;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcPlayer;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 

@@ -1,6 +1,7 @@
 package gg.eris.uhc.core.game;
 
 import com.google.common.collect.Maps;
+import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
 import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
@@ -117,6 +118,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
   public abstract UhcGameStateFactory<?, ?> newStateFactory();
 
   public abstract void onWorldSetup(World world);
+
+  public abstract ErisPlayerSerializer<T> getErisPlayerSerializer();
 
   protected abstract Collection<MultiStateListener> getMultiStateListeners();
 
