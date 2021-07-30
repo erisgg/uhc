@@ -8,14 +8,13 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
-import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.util.LobbyUtil;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.state.CustomCraftUhcCountdownGameState;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -29,16 +28,14 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -46,11 +43,10 @@ import org.bukkit.inventory.ItemStack;
  */
 public final class LobbyListener extends MultiStateListener {
 
-  private static final Identifier SCOREBOARD_ID = Identifier.of("uhc_scoreboard", "pregame");
-
   private static final Set<Type> TYPES = Set.of(
       TypeRegistry.WAITING,
-      TypeRegistry.COUNTDOWN
+      TypeRegistry.COUNTDOWN,
+      TypeRegistry.STARTING
   );
 
   private final static int LOWER_LIMIT = 20;
@@ -87,7 +83,7 @@ public final class LobbyListener extends MultiStateListener {
     this.game = game;
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
     this.spawn = new Location(
-        Bukkit.getWorld("pregame_world"),
+        Bukkit.getWorld(CustomCraftUhcIdentifiers.PREGAME_WORLD),
         0.5,
         73,
         0.5,
@@ -97,10 +93,10 @@ public final class LobbyListener extends MultiStateListener {
 
     TablistController tablistController = game.getPlugin().getCommons().getTablistController();
 
-    tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC" + CC.YELLOW
-            + " on "+ CC.GOLD.bold() + "ERIS.GG");
-    tablistController.setFooter(CC.GOLD + "Visit our store at " + CC.YELLOW.bold() +
-        "STORE.ERIS.GG");
+    tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC"
+        + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setFooter(CC.GOLD + "Visit our store at "
+        + CC.YELLOW.bold() + "STORE.ERIS.GG");
     tablistController.setDisplayNameFunction(player ->
         (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
             CC.GRAY + player.getName()
@@ -117,7 +113,7 @@ public final class LobbyListener extends MultiStateListener {
   protected void onEnable(GameState<?, ?> state) {
     World world = this.spawn.getWorld();
     world.setWeatherDuration(0);
-
+    world.setAutoSave(false);
     addTask(() -> Bukkit.getScheduler().runTaskTimer(this.game.getPlugin(), () -> {
       world.setFullTime(6000L);
       world.setTime(6000L);
@@ -139,30 +135,22 @@ public final class LobbyListener extends MultiStateListener {
       LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
       PlayerUtil.resetPlayer(player);
       player.setGameMode(GameMode.ADVENTURE);
-    }, 2L);
+    }, 7L);
   }
 
   @EventHandler
   public void onPlayerRespawn(PlayerRespawnEvent event) {
     event.setRespawnLocation(this.spawn);
+    PlayerUtil.resetPlayer(event.getPlayer());
   }
 
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
     event.setQuitMessage(null);
     if (this.erisPlayerManager.getPlayers().size()
-        < CustomCraftUhcCountdownGameState.REQUIRED_PLAYERS
+        < this.game.getSettings().getRequiredPlayers()
         && this.game.getGameState().getType() != TypeRegistry.WAITING) {
       this.game.setGameState(TypeRegistry.WAITING);
-    }
-  }
-
-  @EventHandler
-  public void onFoodLevelChange(FoodLevelChangeEvent event) {
-    if (event.getFoodLevel() != 20) {
-      Player player = (Player) event.getEntity();
-      player.setSaturation(20f);
-      event.setCancelled(true);
     }
   }
 
@@ -177,18 +165,12 @@ public final class LobbyListener extends MultiStateListener {
   @EventHandler
   public void onItemConsume(PlayerItemConsumeEvent event) {
     if (event.getItem().getType() == Material.GOLDEN_APPLE) {
-      event.setCancelled(true);
       if (!StackUtil.decrement(event.getItem())) {
         event.getPlayer().setItemInHand(null);
       }
 
       event.getPlayer().setHealth(event.getPlayer().getMaxHealth());
     }
-  }
-
-  @EventHandler
-  public void onEntitySpawn(EntitySpawnEvent event) {
-    event.setCancelled(true);
   }
 
   @EventHandler
@@ -270,15 +252,13 @@ public final class LobbyListener extends MultiStateListener {
   }
 
   @EventHandler
-  public void onBlockBreak(BlockBreakEvent event) {
+  public void onPlayerInteract(PlayerInteractEvent event) {
     event.setCancelled(true);
   }
 
   @EventHandler
-  public void onWeatherChange(WeatherChangeEvent event) {
-    if (event.toWeatherState()) {
-      event.setCancelled(true);
-    }
+  public void onBlockBreak(BlockBreakEvent event) {
+    event.setCancelled(true);
   }
 
   private boolean isInPvp(Location location) {

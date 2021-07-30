@@ -28,21 +28,19 @@ public final class CustomCraftUhcWaitingGameState extends AbstractWaitingGameSta
     this.scoreboard.addLine("");
     this.scoreboard.addLine((player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons().getErisPlayerManager().getPlayers().size() + "/70", 5);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderSize());
+    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
 
   @Override
   public void onStart() {
-    for (Player player : Bukkit.getOnlinePlayers()) {
-      this.scoreboard.addPlayer(player);
-    }
+    this.scoreboard.addAllPlayers();
   }
 
   @Override
   public void onTick(int tick) {
-    if (this.game.getPlugin().getCommons().getErisPlayerManager().getPlayers().size() >= CustomCraftUhcCountdownGameState.REQUIRED_PLAYERS) {
+    if (this.game.getPlugin().getCommons().getErisPlayerManager().getPlayers().size() >= this.game.getSettings().getRequiredPlayers()) {
       this.game.setGameState(TypeRegistry.COUNTDOWN);
     }
   }
@@ -50,6 +48,7 @@ public final class CustomCraftUhcWaitingGameState extends AbstractWaitingGameSta
   @Override
   public void onEnd() {
     this.scoreboard.removeAllPlayers();
+    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
   }
 
   @EventHandler

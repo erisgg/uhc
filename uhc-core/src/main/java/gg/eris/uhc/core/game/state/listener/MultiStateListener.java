@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.function.Supplier;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class MultiStateListener implements Listener {
 

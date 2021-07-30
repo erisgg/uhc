@@ -18,7 +18,7 @@ public final class Scatterer {
   private final Runnable finishCallback;
 
   public Scatterer(UhcGame<?> game, int scattersPerSecond, Runnable finishCallback) {
-    Validate.isTrue(scattersPerSecond > 0, "cannot scatter <= 0 players");
+    Validate.isTrue(scattersPerSecond > 0, "cannot scatter <= 0 players per second");
     this.game = game;
     this.scattersPerSecond = scattersPerSecond;
     this.finishCallback = finishCallback;
@@ -50,12 +50,12 @@ public final class Scatterer {
   private List<Location> generateLocations(int count) {
     List<Location> locations = new ArrayList<>(count);
 
-    int radius = this.game.settings.getBorderSize();
+    int radius = this.game.settings.getBorderRadius();
 
     for (int i = 0; i < count; i++) {
       int x = RandomUtil.randomInt(-radius, radius + 1);
       int z = RandomUtil.randomInt(-radius, radius + 1);
-      int y = this.game.getWorld().getHighestBlockYAt(x, z);
+      int y = this.game.getWorld().getHighestBlockYAt(x, z) + 1;
       locations.add(new Location(this.game.getWorld(), x, y, z));
     }
 

@@ -15,17 +15,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public final class CustomCraftUhcCountdownGameState extends
     AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final Identifier SCOREBOARD_IDENTIFIER = Identifier.of("scoreboard", "waiting");
-
-  //public static final int REQUIRED_PLAYERS = 10;
-  //private static final int COUNTDOWN_TIME = 420;
-
-  public static final int REQUIRED_PLAYERS = 2;
-  private static final int COUNTDOWN_TIME = 30;
+  private static final Identifier SCOREBOARD_IDENTIFIER = Identifier.of("scoreboard", "countdown");
 
   private final ErisPlayerManager erisPlayerManager;
   private int countdown;
@@ -50,7 +45,7 @@ public final class CustomCraftUhcCountdownGameState extends
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
             .getErisPlayerManager().getPlayers().size() + "/70", 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderSize());
+    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -98,34 +93,39 @@ public final class CustomCraftUhcCountdownGameState extends
 
   @Override
   public void onStart() {
-    this.countdown = COUNTDOWN_TIME;
+    this.countdown = this.game.getSettings().getPregameCountdownDuration();
     TextController.broadcastToServer(
         TextType.INFORMATION,
         "The countdown has <h>started</h>. The game will begin in <h>{0}</h>.",
         Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
     );
-
-    for (Player player : Bukkit.getOnlinePlayers()) {
-      this.scoreboard.addPlayer(player);
-    }
+    this.scoreboard.addAllPlayers();
   }
 
   @Override
   public void onEnd() {
-    if (this.erisPlayerManager.getPlayers().size() < REQUIRED_PLAYERS) {
+    if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "The countdown has been <h>paused</h>. It will resume at <h>{0}/70</h> players.",
-          REQUIRED_PLAYERS
+          this.game.getSettings().getRequiredPlayers()
       );
     }
 
     this.scoreboard.removeAllPlayers();
+    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
   }
 
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
     this.scoreboard.addPlayer(event.getPlayer());
+  }
+
+  @EventHandler
+  public void onPlayerQuit(PlayerQuitEvent event) {
+    if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
+      this.game.setGameState(TypeRegistry.WAITING);
+    }
   }
 
 }

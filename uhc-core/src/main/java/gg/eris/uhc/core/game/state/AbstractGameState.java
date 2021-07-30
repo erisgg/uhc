@@ -19,18 +19,17 @@ public abstract class AbstractGameState<S extends UhcPlayer, T extends UhcGame<S
   public final void start() {
     Bukkit.getPluginManager().registerEvents(this, this.game.getPlugin());
     this.ticks = 0;
-    this.onStart();
+    onStart();
   }
 
   @Override
   public final void tick() {
-    this.ticks++;
-    this.onTick(this.ticks);
+    onTick(this.ticks++);
   }
 
   public final void end() {
     HandlerList.unregisterAll(this);
-    this.onEnd();
+    onEnd();
   }
 
   public abstract void onStart();

@@ -3,40 +3,46 @@ package gg.eris.uhc.core.game;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMaps;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @Value
+@RequiredArgsConstructor
 public class UhcGameSettings {
 
+  // General
   String worldName;
-  int borderSize;
-  int shrunkBorderRadius;
+  String netherName;
+  int borderRadius;
+  int maxHealth;
 
+  // Countdown state
+  int requiredPlayers;
+  int pregameCountdownDuration;
+
+  // Grace period
+  int gracePeriodDuration;
+
+  // PvP period
+  int pvpPeriodDuration; // Duration before countdown starts
+  int shrunkBorderRadius;
+  int deathmatchCountdownDuration;
+  int attackCreditDuration;
+
+  // Deathmatch state
+  int deathmatchPlayerThreshold;
   int deathmatchBorderShrinkDelay;
-  int deathmatchBorderShrinkTime;
+  int deathmatchBorderShrinkDuration;
   int deathmatchBorderRadius;
   int deathmatchBorderShrunkRadius;
+  int deathmatchBlockDecayDelay;
 
+  int postGameDelay;
+
+  // Coins
   int coinsPerKill;
   int coinsPerWin;
   Int2IntMap coinsPerSurvive;
-
-  public UhcGameSettings(String worldName, int borderSize, int shrunkBorderRadius,
-      int deathmatchBorderShrinkDelay,
-      int deathmatchBorderShrinkTime, int deathmatchBorderRadius, int deathmatchBorderShrunkRadius,
-      int coinsPerKill,
-      int coinsPerWin, Int2IntMap coinsPerSurvive) {
-    this.worldName = worldName;
-    this.borderSize = borderSize;
-    this.shrunkBorderRadius = shrunkBorderRadius;
-    this.deathmatchBorderShrinkDelay = deathmatchBorderShrinkDelay;
-    this.deathmatchBorderShrinkTime = deathmatchBorderShrinkTime;
-    this.deathmatchBorderRadius = deathmatchBorderRadius;
-    this.deathmatchBorderShrunkRadius = deathmatchBorderShrunkRadius;
-    this.coinsPerKill = coinsPerKill;
-    this.coinsPerWin = coinsPerWin;
-    this.coinsPerSurvive = Int2IntMaps.unmodifiable(coinsPerSurvive);
-  }
 
   public static Builder builder() {
     return new Builder();
@@ -44,16 +50,36 @@ public class UhcGameSettings {
 
   public static class Builder {
 
+    // General
     private String worldName;
+    private String netherName;
+    private int borderRadius;
+    private int maxHealth;
 
-    private int borderSize;
+    // Countdown state
+    int requiredPlayers;
+    int pregameCountdownDuration;
+
+    // Grace period
+    private int gracePeriodDuration;
+
+    // PvP period
+    private int pvpPeriodDuration;
     private int shrunkBorderRadius;
+    private int deathmatchCountdownDuration;
+    private int attackCreditDuration;
 
+    // Deathmatch state
+    private int deathmatchPlayerThreshold;
     private int deathmatchBorderShrinkDelay;
-    private int deathmatchBorderShrinkTime;
+    private int deathmatchBorderShrinkDuration;
     private int deathmatchBorderRadius;
     private int deathmatchBorderShrunkRadius;
+    private int deathmatchBlockDecayDelay;
 
+    private int postGameDelay;
+
+    // Coins
     private int coinsPerKill;
     private int coinsPerWin;
     private final Int2IntMap coinsPerSurvive;
@@ -67,8 +93,43 @@ public class UhcGameSettings {
       return this;
     }
 
-    public UhcGameSettings.Builder borderSize(int borderSize) {
-      this.borderSize = borderSize;
+    public UhcGameSettings.Builder netherName(String netherName) {
+      this.netherName = netherName;
+      return this;
+    }
+
+    public UhcGameSettings.Builder pregameCountdownDuration(int pregameCountdownDuration) {
+      this.pregameCountdownDuration = pregameCountdownDuration;
+      return this;
+    }
+
+    public UhcGameSettings.Builder maxHealth(int maxHealth) {
+      this.maxHealth = maxHealth;
+      return this;
+    }
+
+    public UhcGameSettings.Builder requiredPlayers(int requiredPlayers) {
+      this.requiredPlayers = requiredPlayers;
+      return this;
+    }
+
+    public UhcGameSettings.Builder gracePeriodDuration(int gracePeriodDuration) {
+      this.gracePeriodDuration = gracePeriodDuration;
+      return this;
+    }
+
+    public UhcGameSettings.Builder pvpPeriodDuration(int pvpPeriodDuration) {
+      this.pvpPeriodDuration = pvpPeriodDuration;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchPlayerThreshold(int deathmatchPlayerThreshold) {
+      this.deathmatchPlayerThreshold = deathmatchPlayerThreshold;
+      return this;
+    }
+
+    public UhcGameSettings.Builder borderRadius(int borderRadius) {
+      this.borderRadius = borderRadius;
       return this;
     }
 
@@ -77,13 +138,24 @@ public class UhcGameSettings {
       return this;
     }
 
+    public UhcGameSettings.Builder deathmatchCountdownDuration(int deathmatchCountdownDuration) {
+      this.deathmatchCountdownDuration = deathmatchCountdownDuration;
+      return this;
+    }
+
     public UhcGameSettings.Builder deathmatchBorderShrinkDelay(int deathmatchBorderShrinkDelay) {
       this.deathmatchBorderShrinkDelay = deathmatchBorderShrinkDelay;
       return this;
     }
 
-    public UhcGameSettings.Builder deathmatchBorderShrinkTime(int deathmatchBorderShrinkTime) {
-      this.deathmatchBorderShrinkTime = deathmatchBorderShrinkTime;
+    public UhcGameSettings.Builder deathmatchBorderShrinkDuration(
+        int deathmatchBorderShrinkDuration) {
+      this.deathmatchBorderShrinkDuration = deathmatchBorderShrinkDuration;
+      return this;
+    }
+
+    public UhcGameSettings.Builder attackCreditDuration(int attackCreditDuration) {
+      this.attackCreditDuration = attackCreditDuration;
       return this;
     }
 
@@ -94,6 +166,16 @@ public class UhcGameSettings {
 
     public UhcGameSettings.Builder deathmatchBorderShrunkRadius(int deathmatchBorderShrunkRadius) {
       this.deathmatchBorderShrunkRadius = deathmatchBorderShrunkRadius;
+      return this;
+    }
+
+    public UhcGameSettings.Builder deathmatchBlockDecayDelay(int deathmatchBlockDecayDelay) {
+      this.deathmatchBlockDecayDelay = deathmatchCountdownDuration;
+      return this;
+    }
+
+    public UhcGameSettings.Builder postGameDelay(int postGameDelay) {
+      this.postGameDelay = postGameDelay;
       return this;
     }
 
@@ -115,15 +197,26 @@ public class UhcGameSettings {
     public UhcGameSettings build() {
       return new UhcGameSettings(
           this.worldName,
-          this.borderSize,
+          this.netherName,
+          this.borderRadius,
+          this.maxHealth,
+          this.requiredPlayers,
+          this.pregameCountdownDuration,
+          this.gracePeriodDuration,
+          this.pvpPeriodDuration,
           this.shrunkBorderRadius,
+          this.deathmatchCountdownDuration,
+          this.attackCreditDuration,
+          this.deathmatchPlayerThreshold,
           this.deathmatchBorderShrinkDelay,
-          this.deathmatchBorderShrinkTime,
+          this.deathmatchBorderShrinkDuration,
           this.deathmatchBorderRadius,
           this.deathmatchBorderShrunkRadius,
+          this.deathmatchBlockDecayDelay,
+          this.postGameDelay,
           this.coinsPerKill,
           this.coinsPerWin,
-          this.coinsPerSurvive
+          Int2IntMaps.unmodifiable(this.coinsPerSurvive)
       );
     }
   }

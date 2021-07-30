@@ -19,7 +19,7 @@ import gg.eris.uhc.customcraft.game.state.CustomCraftUhcStartingState;
 import gg.eris.uhc.customcraft.game.state.CustomCraftUhcWaitingGameState;
 import java.util.function.Supplier;
 
-public class CustomCraftUhcGameStateFactory extends
+public final class CustomCraftUhcGameStateFactory extends
     UhcGameStateFactory<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
   public CustomCraftUhcGameStateFactory(CustomCraftUhcGame game) {

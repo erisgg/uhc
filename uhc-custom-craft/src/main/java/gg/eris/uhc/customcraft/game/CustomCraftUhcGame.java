@@ -7,36 +7,48 @@ import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import gg.eris.uhc.customcraft.game.listener.GameListener;
+import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
+import gg.eris.uhc.customcraft.game.listener.PvpListener;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import java.util.Collection;
 import java.util.List;
-import org.bukkit.World;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
-        .worldName("world")
-        .borderSize(1000)
-        .shrunkBorderRadius(200)
+        .worldName(CustomCraftUhcIdentifiers.GAME_WORLD)
+        .netherName(CustomCraftUhcIdentifiers.GAME_NETHER)
+        .borderRadius(1000)
+        .maxHealth(40)
+        .requiredPlayers(2)
+        .pregameCountdownDuration(30)
+        .gracePeriodDuration(30)
+        .pvpPeriodDuration(60)
+        .shrunkBorderRadius(400)
+        .deathmatchCountdownDuration(60)
+        .attackCreditDuration(20)
+        .deathmatchPlayerThreshold(12)
         .deathmatchBorderRadius(100)
         .deathmatchBorderShrinkDelay(300)
-        .deathmatchBorderShrinkTime(300)
+        .deathmatchBorderShrinkDuration(300)
         .deathmatchBorderShrunkRadius(10)
+        .postGameDelay(30)
         .coinsPerKill(100)
+        .coinsPerWin(500)
         .coinsPerSurvive(10, 50)
         .coinsPerSurvive(5, 100)
-        .coinsPerWin(500)
         .build()
     );
   }
 
-  @Override
-  public void onWorldSetup(World world) {
-  }
 
+  /*
+  Boring overrides
+   */
   @Override
   public ErisPlayerSerializer<CustomCraftUhcPlayer> getErisPlayerSerializer() {
     return new CustomCraftUhcPlayerSerializer();
@@ -50,7 +62,10 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   @Override
   protected Collection<MultiStateListener> getMultiStateListeners() {
     return List.of(
-        new LobbyListener(this)
+        new GlobalListener(this),
+        new LobbyListener(this),
+        new GameListener(this),
+        new PvpListener()
     );
   }
 }

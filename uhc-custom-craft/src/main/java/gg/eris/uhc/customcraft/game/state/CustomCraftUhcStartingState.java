@@ -26,6 +26,7 @@ public final class CustomCraftUhcStartingState extends
     this.scatterer.scatter();
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Player handle = player.getHandle();
+      PlayerUtil.resetPlayer(handle);
       handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
       handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
       handle.setGameMode(GameMode.SURVIVAL);
@@ -36,6 +37,8 @@ public final class CustomCraftUhcStartingState extends
   public void onEnd() {
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       PlayerUtil.resetPlayer(player.getHandle());
+      player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
+      player.getHandle().setHealth(player.getHandle().getMaxHealth());
     }
   }
 
