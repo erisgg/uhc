@@ -36,7 +36,7 @@ public final class CustomCraftUhcPvpState extends
       int time;
       if (this.deathmatchCountdown == -1) {
         time = (this.game.getSettings().getPvpPeriodDuration() - this.pvpStateTime) + this.game
-            .getSettings().getDeathmatchCountdownDuration();
+            .getSettings().getPreDeathmatchCountdownDuration();
       } else {
         time = this.deathmatchCountdown;
       }
@@ -116,7 +116,7 @@ public final class CustomCraftUhcPvpState extends
   private boolean checkDeathmatch() {
     if (this.deathmatchCountdown == -1) {
       if (this.game.getPlayers().size() <= this.game.getSettings().getDeathmatchPlayerThreshold()) {
-        this.deathmatchCountdown = this.game.getSettings().getDeathmatchCountdownDuration();
+        this.deathmatchCountdown = this.game.getSettings().getPreDeathmatchCountdownDuration();
         TextController.broadcastToServer(
             TextType.INFORMATION,
             "Deathmatch will start in <h>{0}</h> as there are only <h>{1}</h> players remaining.",
@@ -125,7 +125,7 @@ public final class CustomCraftUhcPvpState extends
         );
         return false;
       } else if (this.pvpStateTime >= this.game.getSettings().getPvpPeriodDuration()) {
-        this.deathmatchCountdown = this.game.getSettings().getDeathmatchCountdownDuration();
+        this.deathmatchCountdown = this.game.getSettings().getPreDeathmatchCountdownDuration();
       }
     }
 

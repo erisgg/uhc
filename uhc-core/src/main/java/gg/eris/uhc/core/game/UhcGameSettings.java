@@ -26,7 +26,7 @@ public class UhcGameSettings {
   // PvP period
   int pvpPeriodDuration; // Duration before countdown starts
   int shrunkBorderRadius;
-  int deathmatchCountdownDuration;
+  int preDeathmatchCountdownDuration;
   int attackCreditDuration;
 
   // Deathmatch state
@@ -36,6 +36,7 @@ public class UhcGameSettings {
   int deathmatchBorderRadius;
   int deathmatchBorderShrunkRadius;
   int deathmatchBlockDecayDelay;
+  int deathmatchStartCountdownDuration;
 
   int postGameDelay;
 
@@ -66,7 +67,7 @@ public class UhcGameSettings {
     // PvP period
     private int pvpPeriodDuration;
     private int shrunkBorderRadius;
-    private int deathmatchCountdownDuration;
+    private int preDeathmatchCountdownDuration;
     private int attackCreditDuration;
 
     // Deathmatch state
@@ -76,6 +77,7 @@ public class UhcGameSettings {
     private int deathmatchBorderRadius;
     private int deathmatchBorderShrunkRadius;
     private int deathmatchBlockDecayDelay;
+    private int deathmatchStartCountdownDuration;
 
     private int postGameDelay;
 
@@ -138,8 +140,8 @@ public class UhcGameSettings {
       return this;
     }
 
-    public UhcGameSettings.Builder deathmatchCountdownDuration(int deathmatchCountdownDuration) {
-      this.deathmatchCountdownDuration = deathmatchCountdownDuration;
+    public UhcGameSettings.Builder preDeathmatchCountdownDuration(int preDeathmatchCountdownDuration) {
+      this.preDeathmatchCountdownDuration = preDeathmatchCountdownDuration;
       return this;
     }
 
@@ -170,7 +172,7 @@ public class UhcGameSettings {
     }
 
     public UhcGameSettings.Builder deathmatchBlockDecayDelay(int deathmatchBlockDecayDelay) {
-      this.deathmatchBlockDecayDelay = deathmatchCountdownDuration;
+      this.deathmatchBlockDecayDelay = deathmatchBlockDecayDelay;
       return this;
     }
 
@@ -194,6 +196,11 @@ public class UhcGameSettings {
       return this;
     }
 
+    public UhcGameSettings.Builder deathmatchStartCountdownDuration(int deathmatchStartCountdownDuration) {
+      this.deathmatchStartCountdownDuration = deathmatchStartCountdownDuration;
+      return this;
+    }
+
     public UhcGameSettings build() {
       return new UhcGameSettings(
           this.worldName,
@@ -205,7 +212,7 @@ public class UhcGameSettings {
           this.gracePeriodDuration,
           this.pvpPeriodDuration,
           this.shrunkBorderRadius,
-          this.deathmatchCountdownDuration,
+          this.preDeathmatchCountdownDuration,
           this.attackCreditDuration,
           this.deathmatchPlayerThreshold,
           this.deathmatchBorderShrinkDelay,
@@ -213,6 +220,7 @@ public class UhcGameSettings {
           this.deathmatchBorderRadius,
           this.deathmatchBorderShrunkRadius,
           this.deathmatchBlockDecayDelay,
+          this.deathmatchStartCountdownDuration,
           this.postGameDelay,
           this.coinsPerKill,
           this.coinsPerWin,

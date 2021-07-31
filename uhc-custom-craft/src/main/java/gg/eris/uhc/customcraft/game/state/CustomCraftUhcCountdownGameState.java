@@ -11,8 +11,6 @@ import gg.eris.uhc.core.game.state.AbstractCountdownGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -52,6 +50,10 @@ public final class CustomCraftUhcCountdownGameState extends
 
   @Override
   public void onTick(int tick) {
+    if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
+      this.game.setGameState(TypeRegistry.WAITING);
+    }
+
     if (this.ticks % 20 != 0) {
       return;
     }
@@ -107,25 +109,18 @@ public final class CustomCraftUhcCountdownGameState extends
     if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
-          "The countdown has been <h>paused</h>. It will resume at <h>{0}/70</h> players.",
+          " The countdown has been <h>paused</h>. It will resume at <h>{0}/70</h> players.",
           this.game.getSettings().getRequiredPlayers()
       );
+    } else {
+      this.scoreboard.removeAllPlayers();
+      this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
     }
-
-    this.scoreboard.removeAllPlayers();
-    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
   }
 
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
     this.scoreboard.addPlayer(event.getPlayer());
-  }
-
-  @EventHandler
-  public void onPlayerQuit(PlayerQuitEvent event) {
-    if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
-      this.game.setGameState(TypeRegistry.WAITING);
-    }
   }
 
 }

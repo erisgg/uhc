@@ -24,7 +24,9 @@ public abstract class AbstractGameState<S extends UhcPlayer, T extends UhcGame<S
 
   @Override
   public final void tick() {
-    onTick(this.ticks++);
+    onTick(++this.ticks); // start from tick 1, so second checks can just use %20
+    // means that the first second is always 19/20ths of a second, but cope and seethe.
+    // i actually am seething this really bugs me but it's 3am 31/7/21 and i cba.
   }
 
   public final void end() {

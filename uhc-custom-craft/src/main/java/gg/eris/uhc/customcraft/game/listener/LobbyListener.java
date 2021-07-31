@@ -90,18 +90,6 @@ public final class LobbyListener extends MultiStateListener {
         -90.0f,
         0.0f
     );
-
-    TablistController tablistController = game.getPlugin().getCommons().getTablistController();
-
-    tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC"
-        + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
-    tablistController.setFooter(CC.GOLD + "Visit our store at "
-        + CC.YELLOW.bold() + "STORE.ERIS.GG");
-    tablistController.setDisplayNameFunction((player, viewer) ->
-        (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
-            CC.GRAY + player.getName()
-            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() + "] "
-                + CC.WHITE + player.getName()));
   }
 
   @Override
@@ -118,6 +106,17 @@ public final class LobbyListener extends MultiStateListener {
       world.setFullTime(6000L);
       world.setTime(6000L);
     }, 0L, 1L).getTaskId());
+
+    TablistController tablistController = game.getPlugin().getCommons().getTablistController();
+    tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC"
+        + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
+    tablistController.setFooter(CC.GOLD + "Visit our store at "
+        + CC.YELLOW.bold() + "STORE.ERIS.GG");
+    tablistController.setDisplayNameFunction((player, viewer) ->
+        (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
+            CC.GRAY + player.getName()
+            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() + "] "
+                + CC.WHITE + player.getName()));
   }
 
   @Override

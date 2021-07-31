@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.game.state;
 
 import gg.eris.commons.bukkit.scoreboard.CommonsScoreboard;
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Time;
@@ -18,6 +20,8 @@ import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public final class CustomCraftUhcDeathmatchState extends
     AbstractDeathmatchGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
@@ -160,6 +164,8 @@ public final class CustomCraftUhcDeathmatchState extends
   private final CommonsScoreboard scoreboard;
   private final Object2LongMap<Location> placedBlocks;
 
+  private int countdown;
+
   public CustomCraftUhcDeathmatchState(CustomCraftUhcGame game) {
     super(game);
     this.placedBlocks = new Object2LongArrayMap<>();
@@ -170,20 +176,27 @@ public final class CustomCraftUhcDeathmatchState extends
     this.scoreboard
         .setTitle((player, ticks) -> CC.GOLD.bold() + "Eris " + CC.YELLOW.bold() + "UHC");
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Deathmatch in:");
-    this.scoreboard.addLine(CC.YELLOW + "Now");
+    this.scoreboard.addLine((player, tick) -> this.countdown > 0 ? CC.GRAY + "Deathmatch in:" :
+        CC.GRAY + "Deathmatch has ", 1);
+    this.scoreboard.addLine((player, tick) -> this.countdown > 0 ?
+            CC.YELLOW + Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS)
+            : CC.YELLOW + "started",
+        1
+    );
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
             .getErisPlayerManager().getPlayers().size(), 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
+    this.scoreboard
+        .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
 
   @Override
   public void onStart() {
+    this.countdown = this.game.getSettings().getDeathmatchStartCountdownDuration();
     int index = 0;
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Location location = SPAWNS[index++];
@@ -203,7 +216,38 @@ public final class CustomCraftUhcDeathmatchState extends
 
   @Override
   public void onTick(int tick) {
+    if (this.ticks % 20 == 0 && this.countdown > 0) {
+      if (--this.countdown == 0) {
+        TextController.broadcastToServer(
+            TextType.INFORMATION,
+            "Deathmatch has <h>begun!</h>"
+        );
+      } else {
+        TextController.broadcastToServer(
+            TextType.INFORMATION,
+            "Deathmatch begins in <h>{0}</h>!",
+            Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
+        );
+      }
+    }
+  }
 
+  @EventHandler
+  public void onPlayerMove(PlayerMoveEvent event) {
+    if (this.countdown > 0) {
+      Location from = event.getFrom();
+      Location to = event.getTo();
+      if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
+        event.setCancelled(true);
+      }
+    }
+  }
+
+  @EventHandler
+  public void onEntityDamage(EntityDamageEvent event) {
+    if (this.countdown > 0) {
+      event.setCancelled(true);
+    }
   }
 
   @EventHandler
