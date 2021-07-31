@@ -10,9 +10,7 @@ import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
-import org.bukkit.World;
 import org.bukkit.WorldBorder;
-import org.bukkit.entity.Player;
 
 public final class CustomCraftUhcPvpState extends
     AbstractPvpGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
@@ -23,10 +21,13 @@ public final class CustomCraftUhcPvpState extends
   private static final Identifier SCOREBOARD_IDENTIFIER
       = Identifier.of("scoreboard", "pvp");
 
+  private boolean borderFinished;
   private final CommonsScoreboard scoreboard;
+
 
   public CustomCraftUhcPvpState(CustomCraftUhcGame game) {
     super(game);
+    this.borderFinished = false;
     this.scoreboard =
         game.getPlugin().getCommons().getScoreboardController()
             .newScoreboard(SCOREBOARD_IDENTIFIER);
@@ -50,7 +51,8 @@ public final class CustomCraftUhcPvpState extends
             .getErisPlayerManager().getPlayers().size() + "", 1);
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math.round(game.getWorld().getWorldBorder().getSize()), 1);
+        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math
+            .round(game.getWorld().getWorldBorder().getSize()), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -117,6 +119,12 @@ public final class CustomCraftUhcPvpState extends
 
     if (tick == this.game.getSettings().getBorderShrinkDelay()) {
       startBorderShrink();
+    } else if (!borderFinished && this.game.getWorld().getWorldBorder().getSize() / 2 == this.game
+        .getSettings().getBorderShrunkRadius()) {
+      TextController.broadcastToServer(
+          TextType.INFORMATION,
+          "The border has <h>finished</h> shrinking."
+      );
     }
 
     this.pvpStateTime++;
@@ -124,9 +132,15 @@ public final class CustomCraftUhcPvpState extends
 
   private void startBorderShrink() {
     WorldBorder border = this.game.getWorld().getWorldBorder();
-    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2, this.game.getSettings().getBorderShrinkDuration());
+    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
+        this.game.getSettings().getBorderShrinkDuration());
     border = this.game.getNether().getWorldBorder();
-    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2, this.game.getSettings().getBorderShrinkDuration());
+    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
+        this.game.getSettings().getBorderShrinkDuration());
+    TextController.broadcastToServer(
+        TextType.INFORMATION,
+        "The border has <h>begun</h> shrinking"
+    );
   }
 
   private boolean checkDeathmatch() {

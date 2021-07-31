@@ -11,7 +11,6 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import java.util.Set;
 import java.util.UUID;
 import org.bukkit.entity.EntityType;
@@ -125,7 +124,12 @@ public final class GameListener extends MultiStateListener {
       if (event instanceof EntityDamageByEntityEvent) {
         EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
         if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
-          damaged.setLastAttacker((Player) entityDamageByEntityEvent.getDamager());
+          Player damager = (Player) entityDamageByEntityEvent.getDamager();
+          if (this.game.isPlayer(damager)) {
+            damaged.setLastAttacker((Player) entityDamageByEntityEvent.getDamager());
+          } else {
+            event.setCancelled(true);
+          }
         }
       }
     }

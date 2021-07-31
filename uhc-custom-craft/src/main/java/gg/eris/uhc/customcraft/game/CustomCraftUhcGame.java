@@ -39,7 +39,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .pregameCountdownDuration(30)
         .gracePeriodDuration(30)
         .pvpPeriodDuration(60)
-        .shrunkBorderRadius(400)
+        .borderShrunkRadius(400)
         .borderShrinkDelay(10)
         .borderShrinkDuration(30)
         .preDeathmatchCountdownDuration(60)

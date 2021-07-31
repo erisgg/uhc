@@ -182,6 +182,14 @@ public abstract class UhcGame<T extends UhcPlayer> {
     return this.players.get(uuid);
   }
 
+  public final boolean isPlayer(Player player) {
+    return isPlayer(player.getUniqueId());
+  }
+
+  public final boolean isPlayer(UUID uuid) {
+    return this.players.containsKey(uuid);
+  }
+
   public final void setPlayers() {
     Validate.isTrue(this.players.isEmpty(), "players have already been set");
     this.plugin.getCommons().getErisPlayerManager().getPlayers()
