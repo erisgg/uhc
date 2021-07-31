@@ -13,6 +13,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public final class Scatterer {
 
+  private static final int MINIMUM_SPACING = 50;
+
+  // Factor from center is like a percentage from center, e.g. 0 is (0, 0) and 1 touches the border.
+  private static final double MINIMUM_FACTOR_FROM_CENTER = 0.25;
+  private static final double MAXIMUM_FACTOR_FROM_CENTER = 0.75;
+
   private final UhcGame<?> game;
   private final int scattersPerSecond;
   private final Runnable finishCallback;
@@ -52,14 +58,51 @@ public final class Scatterer {
 
     int radius = this.game.settings.getBorderRadius();
 
+    double step = Math.PI * 2 / count;
+
     for (int i = 0; i < count; i++) {
-      int x = RandomUtil.randomInt(-radius, radius + 1);
-      int z = RandomUtil.randomInt(-radius, radius + 1);
-      int y = this.game.getWorld().getHighestBlockYAt(x, z) + 1;
-      locations.add(new Location(this.game.getWorld(), x, y, z));
+      double angle = i * step;
+
+      double xOffset = Math.cos(angle);
+      double zOffset = Math.sin(angle);
+
+      double multiplier;
+      Location newLocation;
+
+      do {
+        // Sqrt compresses the range allowing for (0, 0) bias.
+        multiplier = Math.min(MAXIMUM_FACTOR_FROM_CENTER,
+            1 + MINIMUM_FACTOR_FROM_CENTER - Math.sqrt(1 - RandomUtil.randomDouble(0, 1)));
+
+        int x = (int)(xOffset * radius * multiplier);
+        int z = (int)(zOffset * radius * multiplier);
+        int y = this.game.getWorld().getHighestBlockYAt(x, z);
+
+        newLocation = new Location(this.game.getWorld(), x, y, z);
+
+      } while (!isLegalLocation(newLocation, locations));
+
+      locations.add(newLocation);
     }
 
     return locations;
+  }
+
+  private boolean isLegalLocation(Location location, List<Location> locations) {
+    // Spawning on water (or lava) is never desired.
+    if (location.getBlock().isLiquid()) {
+      return false;
+    }
+
+    // Ensures location is at least the minimum block distance away from all others.
+    for (Location otherLocation : locations) {
+      // Squared since it can reduce the expensiveness of sqrt.
+      if (location.distanceSquared(otherLocation) < MINIMUM_SPACING * MINIMUM_SPACING) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   @RequiredArgsConstructor
