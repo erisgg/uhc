@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -102,15 +103,26 @@ public final class CustomCraftUhcGracePeriodState extends
 
   @EventHandler
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-    if (event.getDamager().getType() == EntityType.PLAYER
-        && event.getEntityType() == EntityType.PLAYER) {
-      event.setCancelled(true);
-      TextController.send(
-          (Player) event.getDamager(),
-          TextType.ERROR,
-          "You cannot attack players until the grace period is <h>over</h> (<h>{0}</h>).",
-          Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS)
-      );
+    if (event.getEntityType() == EntityType.PLAYER) {
+      Player damager = null;
+      if (event.getDamager().getType() == EntityType.PLAYER) {
+        damager = (Player) event.getDamager();
+      } else if (event.getDamager() instanceof Projectile) {
+        Projectile projectile = (Projectile) event.getDamager();
+        if (projectile.getShooter() instanceof Player) {
+          damager = (Player) projectile.getShooter();
+        }
+      }
+
+      if (damager != null) {
+        event.setCancelled(true);
+        TextController.send(
+            damager,
+            TextType.ERROR,
+            "You cannot attack players until the grace period is <h>over</h> (<h>{0}</h>).",
+            Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS)
+        );
+      }
     }
   }
 

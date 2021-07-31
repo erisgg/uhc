@@ -5,11 +5,13 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractDeathmatchGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2LongArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import java.util.concurrent.TimeUnit;
@@ -208,9 +210,10 @@ public final class CustomCraftUhcDeathmatchState extends
   public void onStart() {
     this.countdown = this.game.getSettings().getDeathmatchStartCountdownDuration();
     int index = 0;
+    IntList indexList = RandomUtil.randomList(SPAWNS.length);
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
-      Location location = SPAWNS[index++];
-      if (index > 16) {
+      Location location = SPAWNS[indexList.get(index++)];
+      if (index > indexList.size()) {
         index = 0;
       }
       player.getHandle().teleport(location);
@@ -311,7 +314,7 @@ public final class CustomCraftUhcDeathmatchState extends
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       if (this.placedBlocks.get(event.getBlockPlaced().getLocation()) == time) {
         event.getBlock().setType(Material.AIR);
-        this.placedBlocks.remove(event.getBlockPlaced().getLocation());
+        this.placedBlocks.remove(event.getBlockPla3ced().getLocation());
       }
     }, this.game.getSettings().getDeathmatchBlockDecayDelay());
   }

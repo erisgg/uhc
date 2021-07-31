@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.game.listener;
 
+import com.avaje.ebean.config.dbplatform.H2SequenceIdGenerator;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
@@ -15,7 +16,9 @@ import java.util.Set;
 import java.util.UUID;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -52,7 +55,7 @@ public final class GameListener extends MultiStateListener {
 
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onEntityDamage(EntityDamageEvent event) {
     if (event.getEntityType() != EntityType.PLAYER) {
       return;
@@ -60,24 +63,34 @@ public final class GameListener extends MultiStateListener {
 
     CustomCraftUhcPlayer damaged = this.erisPlayerManager.getPlayer((Player) event.getEntity());
     Player damagedHandle = damaged.getHandle();
+    Player killerHandle = null;
+    CustomCraftUhcPlayer killer = null;
 
     if (damagedHandle.getHealth() - event.getFinalDamage() <= 0) {
-      Player killerHandle = damagedHandle.getKiller();
-      CustomCraftUhcPlayer killer = null;
-      if (killerHandle == null) {
-        Pair<UUID, Long> lastAttacker = damaged.getLastAttacker();
-        if (lastAttacker != null) {
-          CustomCraftUhcPlayer attacker = this.erisPlayerManager.getPlayer(lastAttacker.getKey());
-          if (attacker != null) {
-            if (System.currentTimeMillis()
-                + this.game.getSettings().getAttackCreditDuration() * 1000L < lastAttacker
-                .getValue()) {
-              killer = attacker;
+      if (event instanceof EntityDamageByEntityEvent) {
+        EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
+        if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
+          killerHandle = (Player) entityDamageByEntityEvent.getDamager();
+          killer = this.erisPlayerManager.getPlayer(killerHandle);
+        } else if (entityDamageByEntityEvent.getDamager() instanceof Projectile) {
+          Projectile projectile = (Projectile) entityDamageByEntityEvent.getDamager();
+          if (projectile.getShooter() instanceof Player) {
+            killerHandle = (Player) projectile.getShooter();
+            killer = this.erisPlayerManager.getPlayer(killerHandle);
+          }
+        } else {
+          Pair<UUID, Long> lastAttacker = damaged.getLastAttacker();
+          if (lastAttacker != null) {
+            CustomCraftUhcPlayer attacker = this.erisPlayerManager.getPlayer(lastAttacker.getKey());
+            if (attacker != null) {
+              if (lastAttacker.getValue() + this.game.getSettings().getAttackCreditDuration() * 1000L
+                  < System.currentTimeMillis()) {
+                killer = attacker;
+                killerHandle = killer.getHandle();
+              }
             }
           }
         }
-      } else {
-        killer = this.erisPlayerManager.getPlayer(killerHandle);
       }
 
       // Killer must be online to get the rewards (maybe change? but cba! LOL!)
