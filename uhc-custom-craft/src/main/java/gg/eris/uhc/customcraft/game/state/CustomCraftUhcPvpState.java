@@ -51,8 +51,7 @@ public final class CustomCraftUhcPvpState extends
             .getErisPlayerManager().getPlayers().size() + "", 1);
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math
-            .round(game.getWorld().getWorldBorder().getSize()), 1);
+        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math.round(game.getWorld().getWorldBorder().getSize() / 2), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -76,7 +75,8 @@ public final class CustomCraftUhcPvpState extends
       startBorderShrink();
     }
 
-    if (tick % 20 != 0) {
+    int secondsTick = tick % 20;
+    if (secondsTick % 20 != 0) {
       return;
     }
 
@@ -117,14 +117,15 @@ public final class CustomCraftUhcPvpState extends
       this.deathmatchCountdown--;
     }
 
-    if (tick == this.game.getSettings().getBorderShrinkDelay()) {
+    if (tick / 20 == this.game.getSettings().getBorderShrinkDelay()) {
       startBorderShrink();
-    } else if (!borderFinished && this.game.getWorld().getWorldBorder().getSize() / 2 == this.game
+    } else if (!this.borderFinished && this.game.getWorld().getWorldBorder().getSize() / 2 == this.game
         .getSettings().getBorderShrunkRadius()) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "The border has <h>finished</h> shrinking."
       );
+      this.borderFinished = true;
     }
 
     this.pvpStateTime++;
@@ -139,7 +140,7 @@ public final class CustomCraftUhcPvpState extends
         this.game.getSettings().getBorderShrinkDuration());
     TextController.broadcastToServer(
         TextType.INFORMATION,
-        "The border has <h>begun</h> shrinking"
+        "The border has <h>begun</h> shrinking."
     );
   }
 

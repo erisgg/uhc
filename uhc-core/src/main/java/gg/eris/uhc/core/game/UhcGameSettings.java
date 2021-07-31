@@ -14,6 +14,7 @@ public class UhcGameSettings {
   // General
   String worldName;
   String netherName;
+  String deathmatchName;
   int borderRadius;
   int maxHealth;
 

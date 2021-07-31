@@ -17,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -161,14 +162,21 @@ public final class CustomCraftUhcDeathmatchState extends
       )
   };
 
-  private final CommonsScoreboard scoreboard;
   private final Object2LongMap<Location> placedBlocks;
+  private final CommonsScoreboard scoreboard;
 
   private int countdown;
+  private int duration;
+  private boolean borderStarted;
+  private boolean borderFinshed;
 
   public CustomCraftUhcDeathmatchState(CustomCraftUhcGame game) {
     super(game);
     this.placedBlocks = new Object2LongArrayMap<>();
+    this.countdown = 0;
+    this.duration = 0;
+    this.borderStarted = false;
+    this.borderFinshed = false;
 
     this.scoreboard =
         game.getPlugin().getCommons().getScoreboardController()
@@ -197,6 +205,9 @@ public final class CustomCraftUhcDeathmatchState extends
   @Override
   public void onStart() {
     this.countdown = this.game.getSettings().getDeathmatchStartCountdownDuration();
+    this.game.getDeathmatch().getWorldBorder().setCenter(0, 0);
+    this.game.getDeathmatch().getWorldBorder()
+        .setSize(this.game.getSettings().getBorderRadius() * 2);
     int index = 0;
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Location location = SPAWNS[index++];
@@ -209,14 +220,17 @@ public final class CustomCraftUhcDeathmatchState extends
   }
 
   @Override
-  public void onEnd() {
-    this.scoreboard.removeAllPlayers();
-    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
-  }
-
-  @Override
   public void onTick(int tick) {
-    if (this.ticks % 20 == 0 && this.countdown > 0) {
+    if (this.countdown == 0 && !this.borderStarted
+        && this.game.getSettings().getBorderShrinkDelay() == 0) {
+      startBorderShrink();
+    }
+
+    if (this.ticks % 20 != 0) {
+      return;
+    }
+
+    if (this.countdown > 0) {
       if (--this.countdown == 0) {
         TextController.broadcastToServer(
             TextType.INFORMATION,
@@ -229,7 +243,39 @@ public final class CustomCraftUhcDeathmatchState extends
             Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
         );
       }
+    } else {
+      if (!this.borderStarted && this.duration / 20 == this.game.getSettings()
+          .getDeathmatchBorderShrinkDelay()) {
+        startBorderShrink();
+      } else if (this.borderStarted && !this.borderFinshed) {
+        if (this.game.getDeathmatch().getWorldBorder().getSize() / 2 == this.game.getSettings()
+            .getDeathmatchBorderShrunkRadius()) {
+          this.borderFinshed = true;
+          TextController.broadcastToServer(
+              TextType.INFORMATION,
+              "The deathmatch border has <h>stopped</h> shrinking."
+          );
+        }
+      }
+      this.duration++;
     }
+  }
+
+  @Override
+  public void onEnd() {
+    this.scoreboard.removeAllPlayers();
+    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
+  }
+
+  private void startBorderShrink() {
+    WorldBorder border = this.game.getDeathmatch().getWorldBorder();
+    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
+        this.game.getSettings().getBorderShrinkDuration());
+    TextController.broadcastToServer(
+        TextType.INFORMATION,
+        "The deathmatch border has <h>begun</h> shrinking."
+    );
+    this.borderStarted = true;
   }
 
   @EventHandler
@@ -252,7 +298,8 @@ public final class CustomCraftUhcDeathmatchState extends
 
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
-    if (!this.placedBlocks.containsKey(event.getBlock().getLocation())) {
+    if (!this.placedBlocks.containsKey(event.getBlock().getLocation()) && event.getBlock().getType()
+        .isSolid()) {
       event.setCancelled(true);
     }
   }

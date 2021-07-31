@@ -55,6 +55,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
   private final World nether;
 
   @Getter
+  private final World deathmatch;
+
+  @Getter
   private GameState<?, ?> gameState;
 
   private GameState<?, ?> updatingState;
@@ -73,6 +76,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.settings = settings;
     this.world = Bukkit.getWorld(this.settings.getWorldName());
     this.nether = Bukkit.getWorld(this.settings.getNetherName());
+    this.deathmatch = Bukkit.getWorld(this.settings.getDeathmatchName());
     this.gameStateFactory = newStateFactory();
     this.updatingState = null;
     this.gameState = null;
@@ -111,14 +115,6 @@ public abstract class UhcGame<T extends UhcPlayer> {
         world.setTime(6000L);
       }, 0L, 1L);
     }
-
-    // Setting borders for world and nether
-    WorldBorder border = this.world.getWorldBorder();
-    border.setCenter(0.0, 0.0);
-    border.setSize(this.settings.getBorderRadius() * 2);
-    border = this.nether.getWorldBorder();
-    border.setCenter(0.0, 0.0);
-    border.setSize(this.settings.getBorderRadius() * 2);
   }
 
   public final void setGameState(GameState.Type type) {

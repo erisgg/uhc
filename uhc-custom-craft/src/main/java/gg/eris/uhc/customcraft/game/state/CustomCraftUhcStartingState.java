@@ -6,6 +6,7 @@ import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.GameMode;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
@@ -22,7 +23,16 @@ public final class CustomCraftUhcStartingState extends
 
   @Override
   public void onStart() {
+    // Setting players
     this.game.setPlayers();
+
+    // Setting borders for world and nether
+    WorldBorder border = this.game.getWorld().getWorldBorder();
+    border.setCenter(0.0, 0.0);
+    border.setSize(this.game.getSettings().getBorderRadius() * 2);
+    border = this.game.getNether().getWorldBorder();
+    border.setCenter(0.0, 0.0);
+    border.setSize(this.game.getSettings().getBorderRadius() * 2);
     this.scatterer.scatter();
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Player handle = player.getHandle();
