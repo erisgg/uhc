@@ -33,6 +33,10 @@ public final class CustomCraftUhcStartingState extends
     border = this.game.getNether().getWorldBorder();
     border.setCenter(0.0, 0.0);
     border.setSize(this.game.getSettings().getBorderRadius() * 2);
+    border = this.game.getDeathmatch().getWorldBorder();
+    border.setCenter(0.0, 0.0);
+    border.setSize(this.game.getSettings().getDeathmatchBorderRadius() * 2);
+
     this.scatterer.scatter();
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Player handle = player.getHandle();

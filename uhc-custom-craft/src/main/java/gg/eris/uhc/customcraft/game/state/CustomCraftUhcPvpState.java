@@ -133,9 +133,11 @@ public final class CustomCraftUhcPvpState extends
 
   private void startBorderShrink() {
     WorldBorder border = this.game.getWorld().getWorldBorder();
+    border.setCenter(0, 0);
     border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
         this.game.getSettings().getBorderShrinkDuration());
     border = this.game.getNether().getWorldBorder();
+    border.setCenter(0, 0);
     border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
         this.game.getSettings().getBorderShrinkDuration());
     TextController.broadcastToServer(

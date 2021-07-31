@@ -166,7 +166,7 @@ public final class CustomCraftUhcDeathmatchState extends
   private final CommonsScoreboard scoreboard;
 
   private int countdown;
-  private int duration;
+  private int deathmatchDuration;
   private boolean borderStarted;
   private boolean borderFinshed;
 
@@ -174,7 +174,7 @@ public final class CustomCraftUhcDeathmatchState extends
     super(game);
     this.placedBlocks = new Object2LongArrayMap<>();
     this.countdown = 0;
-    this.duration = 0;
+    this.deathmatchDuration = 0;
     this.borderStarted = false;
     this.borderFinshed = false;
 
@@ -197,7 +197,9 @@ public final class CustomCraftUhcDeathmatchState extends
             .getErisPlayerManager().getPlayers().size(), 1);
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
+        .addLine((player, ticks) ->
+            CC.GRAY + "Border: " + CC.YELLOW + Math
+                .round(game.getDeathmatch().getWorldBorder().getSize() / 2), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -205,9 +207,6 @@ public final class CustomCraftUhcDeathmatchState extends
   @Override
   public void onStart() {
     this.countdown = this.game.getSettings().getDeathmatchStartCountdownDuration();
-    this.game.getDeathmatch().getWorldBorder().setCenter(0, 0);
-    this.game.getDeathmatch().getWorldBorder()
-        .setSize(this.game.getSettings().getBorderRadius() * 2);
     int index = 0;
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Location location = SPAWNS[index++];
@@ -244,7 +243,7 @@ public final class CustomCraftUhcDeathmatchState extends
         );
       }
     } else {
-      if (!this.borderStarted && this.duration / 20 == this.game.getSettings()
+      if (!this.borderStarted && this.deathmatchDuration == this.game.getSettings()
           .getDeathmatchBorderShrinkDelay()) {
         startBorderShrink();
       } else if (this.borderStarted && !this.borderFinshed) {
@@ -257,7 +256,8 @@ public final class CustomCraftUhcDeathmatchState extends
           );
         }
       }
-      this.duration++;
+
+      this.deathmatchDuration++;
     }
   }
 
