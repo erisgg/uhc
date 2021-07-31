@@ -11,6 +11,7 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import java.util.Set;
 import java.util.UUID;
 import org.bukkit.entity.EntityType;
@@ -43,7 +44,8 @@ public final class GameListener extends MultiStateListener {
   @Override
   protected void onEnable(GameState<?, ?> state) {
     this.game.getPlugin().getCommons().getTablistController().setDisplayNameFunction
-        ((player, viewer) -> player == viewer ? CC.GREEN + player.getName() : CC.RED + player.getName());
+        ((player, viewer) -> player == viewer ? CC.GREEN + player.getName()
+            : CC.RED + player.getName());
   }
 
   @Override
@@ -90,7 +92,7 @@ public final class GameListener extends MultiStateListener {
       event.setCancelled(true);
       this.game.killPlayer(damaged, killer);
 
-      // Giving custom craft UHC coins
+      // Giving kill coins
       if (killer != null) {
         int coinsPerKill = killer.giveCoins(this.game.getSettings().getCoinsPerKill());
         TextController.send(
@@ -102,6 +104,23 @@ public final class GameListener extends MultiStateListener {
         );
       }
 
+      // Giving survival coins
+      int playerSize = this.game.getPlayers().size();
+      int allocate = this.game.getSettings().getCoinsPerSurvive().getOrDefault(playerSize, 0);
+      if (allocate > 0) {
+        for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
+          if (player.getHandle() != null) {
+            int coins = player.giveCoins(allocate);
+            TextController.send(
+                player.getHandle(),
+                TextType.INFORMATION,
+                "You have survived to be in the top <h>{0}</h> players (+<h>{1}</h> coins)",
+                playerSize,
+                coins
+            );
+          }
+        }
+      }
     } else {
       if (event instanceof EntityDamageByEntityEvent) {
         EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;

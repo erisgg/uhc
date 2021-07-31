@@ -5,6 +5,7 @@ import gg.eris.uhc.core.game.player.UhcPlayer;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import lombok.Getter;
+import org.apache.commons.lang3.Validate;
 
 
 public final class CustomCraftUhcPlayer extends UhcPlayer {
@@ -41,12 +42,14 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
    * @return is the amount given with boosters applied
    */
   public int giveCoins(int amount) {
+    Validate.isTrue(amount >= 0, "cannot give negative coins");
     // TODO: Coin boosters
     this.coins += amount;
     return amount;
   }
 
   public void spendCoins(int amount) {
+    Validate.isTrue(amount >= 0, "cannot take negative coins");
     this.coins -= amount;
   }
 

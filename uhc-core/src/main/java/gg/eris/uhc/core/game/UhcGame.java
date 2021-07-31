@@ -15,6 +15,7 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.game.state.listener.MultiStateListenerManager;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -191,7 +192,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     return List.copyOf(this.players.values());
   }
 
-  public final void checkGameEnd() {
+  private void checkGameEnd() {
     T winner = calculateWinnerInternal();
 
     if (winner != null) {
