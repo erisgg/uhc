@@ -10,6 +10,8 @@ import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 
 public final class CustomCraftUhcPvpState extends
@@ -45,10 +47,10 @@ public final class CustomCraftUhcPvpState extends
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/70", 1);
+            .getErisPlayerManager().getPlayers().size() + "", 1);
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
+        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math.round(game.getWorld().getWorldBorder().getSize()), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -68,14 +70,17 @@ public final class CustomCraftUhcPvpState extends
 
   @Override
   public void onTick(int tick) {
+    if (tick == 1 && this.game.getSettings().getBorderShrinkDelay() == 0) {
+      startBorderShrink();
+    }
+
     if (tick % 20 != 0) {
       return;
     }
 
     // Check deathmatch. Variable represents whether a broadcast would be a repeat
     boolean canBroadcast = checkDeathmatch();
-
-    if (this.deathmatchCountdown != -1) {
+    if (this.deathmatchCountdown != -1) { // Handling deathmatch counting down
       boolean broadcast = false;
       if (this.deathmatchCountdown > 0 && this.deathmatchCountdown % 60 == 0) {
         broadcast = true;
@@ -110,7 +115,18 @@ public final class CustomCraftUhcPvpState extends
       this.deathmatchCountdown--;
     }
 
+    if (tick == this.game.getSettings().getBorderShrinkDelay()) {
+      startBorderShrink();
+    }
+
     this.pvpStateTime++;
+  }
+
+  private void startBorderShrink() {
+    WorldBorder border = this.game.getWorld().getWorldBorder();
+    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2, this.game.getSettings().getBorderShrinkDuration());
+    border = this.game.getNether().getWorldBorder();
+    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2, this.game.getSettings().getBorderShrinkDuration());
   }
 
   private boolean checkDeathmatch() {

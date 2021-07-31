@@ -13,10 +13,21 @@ import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntMaps;
 import java.util.Collection;
 import java.util.List;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
+
+  private static final Int2IntMap COIN_MAP;
+
+  static {
+    COIN_MAP = new Int2IntArrayMap();
+    COIN_MAP.put(10, 50);
+    COIN_MAP.put(1, 20);
+  }
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
@@ -29,6 +40,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .gracePeriodDuration(30)
         .pvpPeriodDuration(60)
         .shrunkBorderRadius(400)
+        .borderShrinkDelay(10)
+        .borderShrinkDuration(30)
         .preDeathmatchCountdownDuration(60)
         .attackCreditDuration(20)
         .deathmatchPlayerThreshold(12)
@@ -41,8 +54,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .postGameDelay(30)
         .coinsPerKill(100)
         .coinsPerWin(500)
-        .coinsPerSurvive(10, 50)
-        .coinsPerSurvive(5, 100)
+        .coinsPerSurvive(Int2IntMaps.unmodifiable(COIN_MAP))
         .build()
     );
   }
