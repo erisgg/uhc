@@ -314,7 +314,7 @@ public final class CustomCraftUhcDeathmatchState extends
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       if (this.placedBlocks.get(event.getBlockPlaced().getLocation()) == time) {
         event.getBlock().setType(Material.AIR);
-        this.placedBlocks.remove(event.getBlockPla3ced().getLocation());
+        this.placedBlocks.remove(event.getBlockPlaced().getLocation());
       }
     }, this.game.getSettings().getDeathmatchBlockDecayDelay());
   }
