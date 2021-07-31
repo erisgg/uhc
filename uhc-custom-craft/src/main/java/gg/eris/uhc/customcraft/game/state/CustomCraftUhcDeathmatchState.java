@@ -269,7 +269,7 @@ public final class CustomCraftUhcDeathmatchState extends
 
   private void startBorderShrink() {
     WorldBorder border = this.game.getDeathmatch().getWorldBorder();
-    border.setSize(this.game.getSettings().getBorderShrunkRadius() * 2,
+    border.setSize(this.game.getSettings().getDeathmatchBorderShrunkRadius() * 2,
         this.game.getSettings().getBorderShrinkDuration());
     TextController.broadcastToServer(
         TextType.INFORMATION,
