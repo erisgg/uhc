@@ -40,7 +40,7 @@ public final class CustomCraftUhcPvpState extends
       } else {
         time = this.deathmatchCountdown;
       }
-      return CC.YELLOW + Time.toShortDisplayTime(time);
+      return CC.YELLOW + Time.toShortDisplayTime(time, TimeUnit.SECONDS);
     }, 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(

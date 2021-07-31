@@ -175,7 +175,7 @@ public final class CustomCraftUhcDeathmatchState extends
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/70", 1);
+            .getErisPlayerManager().getPlayers().size(), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");

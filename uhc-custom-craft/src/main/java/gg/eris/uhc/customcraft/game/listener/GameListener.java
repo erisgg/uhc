@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.game.listener;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
@@ -41,7 +42,8 @@ public final class GameListener extends MultiStateListener {
 
   @Override
   protected void onEnable(GameState<?, ?> state) {
-
+    this.game.getPlugin().getCommons().getTablistController().setDisplayNameFunction
+        ((player, viewer) -> player == viewer ? CC.GREEN + player.getName() : CC.RED + player.getName());
   }
 
   @Override

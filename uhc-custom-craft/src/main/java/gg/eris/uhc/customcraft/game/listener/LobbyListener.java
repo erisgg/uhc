@@ -97,7 +97,7 @@ public final class LobbyListener extends MultiStateListener {
         + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
     tablistController.setFooter(CC.GOLD + "Visit our store at "
         + CC.YELLOW.bold() + "STORE.ERIS.GG");
-    tablistController.setDisplayNameFunction(player ->
+    tablistController.setDisplayNameFunction((player, viewer) ->
         (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
             CC.GRAY + player.getName()
             : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() + "] "
