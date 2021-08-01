@@ -24,7 +24,7 @@ public interface GameState<S extends UhcPlayer, T extends UhcGame<S>> extends Li
     public static final Type PVP;
     public static final Type DEATHMATCH;
     public static final Type ENDED;
-    
+
     static {
       IdentifierProvider provider = new IdentifierProvider("eris");
       WAITING = REGISTRY.register(new Type(provider.id("waiting")));

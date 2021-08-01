@@ -287,7 +287,7 @@ public final class CustomCraftUhcDeathmatchState extends
       Location from = event.getFrom();
       Location to = event.getTo();
       if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
-        event.setCancelled(true);
+        event.setTo(from);
       }
     }
   }
@@ -316,7 +316,7 @@ public final class CustomCraftUhcDeathmatchState extends
         event.getBlock().setType(Material.AIR);
         this.placedBlocks.remove(event.getBlockPlaced().getLocation());
       }
-    }, this.game.getSettings().getDeathmatchBlockDecayDelay());
+    }, this.game.getSettings().getDeathmatchBlockDecayDelay() * 20L);
   }
 
 }

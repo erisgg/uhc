@@ -2,11 +2,9 @@ package gg.eris.uhc.customcraft.game.state;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
-import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import net.minecraft.server.v1_8_R3.PlayerConnectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

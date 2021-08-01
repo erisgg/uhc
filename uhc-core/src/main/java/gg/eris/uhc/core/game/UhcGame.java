@@ -8,6 +8,8 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.event.UhcChangeStateEvent;
+import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState;
@@ -15,7 +17,8 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.game.state.listener.MultiStateListenerManager;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +30,11 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.WorldBorder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.github.paperspigot.Title;
 
@@ -47,6 +50,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   private final Map<UUID, T> players;
   private final UhcGameStateFactory<?, ?> gameStateFactory;
+
+  private final UhcGameTicker ticker;
 
   @Getter
   private final World world;
@@ -73,11 +78,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
     for (MultiStateListener multiStateListener : getMultiStateListeners()) {
       this.multiStateListenerManager.addListener(multiStateListener);
     }
+    this.gameStateFactory = newStateFactory();
+    this.ticker = new UhcGameTicker(this);
     this.settings = settings;
     this.world = Bukkit.getWorld(this.settings.getWorldName());
     this.nether = Bukkit.getWorld(this.settings.getNetherName());
     this.deathmatch = Bukkit.getWorld(this.settings.getDeathmatchName());
-    this.gameStateFactory = newStateFactory();
     this.updatingState = null;
     this.gameState = null;
   }
@@ -94,8 +100,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public final void start() {
-    UhcGameTicker ticker = new UhcGameTicker(this);
-    ticker.runTaskTimer(this.plugin, 0L, 1L);
+
+    this.ticker.runTaskTimer(this.plugin, 0L, 1L);
   }
 
   public final void setupWorld() {
@@ -125,15 +131,17 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.updatingState = this.gameStateFactory.getNewState(type);
   }
 
-  public final void killPlayer(T player, T killer) {
-    player.setAlive(false);
+  public final void killPlayer(T killed, T killer) {
+    Player killedHandle = killed.getHandle();
+
+    killed.setAlive(false);
 
     // Handling effects and stat tracking
     if (killer != null) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "<h>{0}</h> has been killed by <h>{1}</h>.",
-          player.getName(),
+          killed.getName(),
           killer.getName()
       );
 
@@ -143,13 +151,14 @@ public abstract class UhcGame<T extends UhcPlayer> {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "<h>{0}</h> has died.",
-          player.getName()
+          killed.getName()
       );
     }
 
-    player.getHandle().getLocation().getWorld().strikeLightningEffect(player.getHandle().getLocation()).getLocation();
+    killedHandle.getLocation().getWorld().strikeLightningEffect(killed.getHandle().getLocation())
+        .getLocation();
 
-    player.getHandle().sendTitle(new Title(
+    killedHandle.sendTitle(new Title(
         CC.RED.bold() + "YOU DIED!",
         killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getName() : null,
         20,
@@ -158,15 +167,25 @@ public abstract class UhcGame<T extends UhcPlayer> {
     ));
 
     // Hiding the player
-    player.getHandle().setGameMode(GameMode.CREATIVE);
+    killedHandle.setGameMode(GameMode.CREATIVE);
     for (Player other : Bukkit.getOnlinePlayers()) {
-      if (player.getHandle() != other) {
-        other.hidePlayer(player.getHandle());
+      if (killedHandle != other) {
+        other.hidePlayer(killed.getHandle());
       }
     }
 
-    this.players.remove(player.getUniqueId());
+    List<ItemStack> drops = new ArrayList<>(
+        Arrays.asList(killedHandle.getInventory().getContents()));
+    drops.addAll(Arrays.asList(killedHandle.getInventory().getArmorContents()));
 
+    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, killed, killer, drops);
+    Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
+
+    for (ItemStack drop : uhcPlayerDeathEvent.getDrops()) {
+      killedHandle.getLocation().getWorld().dropItem(killedHandle.getLocation(), drop);
+    }
+
+    this.players.remove(killed.getUniqueId());
     checkGameEnd();
   }
 
@@ -207,6 +226,10 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   public final UhcGameSettings getSettings() {
     return this.settings;
+  }
+
+  public final int getTick() {
+    return this.ticker.tick;
   }
 
   public final void shutdown() {
@@ -264,6 +287,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
         this.game.gameState.start();
         this.game.multiStateListenerManager.onStateStart(this.game.gameState);
         this.game.updatingState = null;
+
+        UhcChangeStateEvent stateEvent = new UhcChangeStateEvent(this.game, this.game.gameState);
+        Bukkit.getPluginManager().callEvent(stateEvent);
       }
 
       if (this.game.getGameState() != null) {

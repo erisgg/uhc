@@ -1,16 +1,19 @@
 package gg.eris.uhc.customcraft.game.player;
 
+import com.google.common.collect.Sets;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import java.util.Set;
 import lombok.Getter;
 import org.apache.commons.lang3.Validate;
 
 
 public final class CustomCraftUhcPlayer extends UhcPlayer {
 
-  private final Object2IntMap<Identifier> unlocks;
+  private final Object2IntMap<Identifier> perks;
+  private final Set<Identifier> crafts;
   private final Object2IntMap<Identifier> crafted;
 
   @Getter
@@ -18,13 +21,14 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
 
   public CustomCraftUhcPlayer(DefaultData data, int coins) {
     super(data);
-    this.unlocks = new Object2IntArrayMap<>();
+    this.perks = new Object2IntArrayMap<>();
+    this.crafts = Sets.newHashSet();
     this.crafted = new Object2IntArrayMap<>();
     this.coins = coins;
   }
 
-  public int getUnlockLevel(Identifier identifier) {
-    return this.unlocks.getOrDefault(identifier, 0);
+  public int getPerkLevel(Identifier identifier) {
+    return this.perks.getOrDefault(identifier, 0);
   }
 
   public int getTimesCrafted(Identifier identifier) {

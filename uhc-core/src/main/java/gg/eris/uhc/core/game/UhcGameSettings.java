@@ -1,10 +1,7 @@
 package gg.eris.uhc.core.game;
 
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMaps;
 import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 @Value

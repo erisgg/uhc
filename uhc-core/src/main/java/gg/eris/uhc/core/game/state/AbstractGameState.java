@@ -35,7 +35,9 @@ public abstract class AbstractGameState<S extends UhcPlayer, T extends UhcGame<S
   }
 
   public abstract void onStart();
+
   public abstract void onEnd();
+
   public abstract void onTick(int tick);
 
 }

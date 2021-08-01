@@ -13,7 +13,6 @@ import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public final class CustomCraftUhcCountdownGameState extends
     AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
@@ -43,7 +42,8 @@ public final class CustomCraftUhcCountdownGameState extends
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
             .getErisPlayerManager().getPlayers().size() + "/70", 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
+    this.scoreboard
+        .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -114,7 +114,8 @@ public final class CustomCraftUhcCountdownGameState extends
       );
     } else {
       this.scoreboard.removeAllPlayers();
-      this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
+      this.game.getPlugin().getCommons().getScoreboardController()
+          .removeScoreboard(this.scoreboard);
     }
   }
 

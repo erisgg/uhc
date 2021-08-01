@@ -49,6 +49,7 @@ public abstract class MultiStateListener implements Listener {
   }
 
   protected abstract void onEnable(GameState<?, ?> state);
+
   protected abstract void onDisable(GameState<?, ?> state);
 
 }

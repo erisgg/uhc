@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.game.listener;
 
-import com.avaje.ebean.config.dbplatform.H2SequenceIdGenerator;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
@@ -83,7 +82,8 @@ public final class GameListener extends MultiStateListener {
           if (lastAttacker != null) {
             CustomCraftUhcPlayer attacker = this.erisPlayerManager.getPlayer(lastAttacker.getKey());
             if (attacker != null) {
-              if (lastAttacker.getValue() + this.game.getSettings().getAttackCreditDuration() * 1000L
+              if (lastAttacker.getValue()
+                  + this.game.getSettings().getAttackCreditDuration() * 1000L
                   < System.currentTimeMillis()) {
                 killer = attacker;
                 killerHandle = killer.getHandle();

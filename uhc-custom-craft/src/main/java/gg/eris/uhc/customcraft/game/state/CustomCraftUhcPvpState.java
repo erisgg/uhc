@@ -51,7 +51,8 @@ public final class CustomCraftUhcPvpState extends
             .getErisPlayerManager().getPlayers().size() + "", 1);
     this.scoreboard.addLine("");
     this.scoreboard
-        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math.round(game.getWorld().getWorldBorder().getSize() / 2), 1);
+        .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math
+            .round(game.getWorld().getWorldBorder().getSize() / 2), 1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
@@ -119,7 +120,8 @@ public final class CustomCraftUhcPvpState extends
 
     if (tick / 20 == this.game.getSettings().getBorderShrinkDelay()) {
       startBorderShrink();
-    } else if (!this.borderFinished && this.game.getWorld().getWorldBorder().getSize() / 2 == this.game
+    } else if (!this.borderFinished
+        && this.game.getWorld().getWorldBorder().getSize() / 2 == this.game
         .getSettings().getBorderShrunkRadius()) {
       TextController.broadcastToServer(
           TextType.INFORMATION,

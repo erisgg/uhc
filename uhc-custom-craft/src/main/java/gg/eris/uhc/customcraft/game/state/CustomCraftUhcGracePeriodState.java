@@ -10,7 +10,6 @@ import gg.eris.uhc.core.game.state.AbstractGracePeriodGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -37,12 +36,15 @@ public final class CustomCraftUhcGracePeriodState extends
         .setTitle((player, ticks) -> CC.GOLD.bold() + "Eris " + CC.YELLOW.bold() + "UHC");
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.GRAY + "PvP in:");
-    this.scoreboard.addLine((player, ticks) -> CC.YELLOW + Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS), 1);
+    this.scoreboard.addLine(
+        (player, ticks) -> CC.YELLOW + Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS),
+        1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlayers().size(), 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
+    this.scoreboard
+        .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }

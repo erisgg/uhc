@@ -74,8 +74,8 @@ public final class Scatterer {
         multiplier = Math.min(MAXIMUM_FACTOR_FROM_CENTER,
             1 + MINIMUM_FACTOR_FROM_CENTER - Math.sqrt(1 - RandomUtil.randomDouble(0, 1)));
 
-        int x = (int)(xOffset * radius * multiplier);
-        int z = (int)(zOffset * radius * multiplier);
+        int x = (int) (xOffset * radius * multiplier);
+        int z = (int) (zOffset * radius * multiplier);
         int y = this.game.getWorld().getHighestBlockYAt(x, z);
 
         newLocation = new Location(this.game.getWorld(), x, y, z);
