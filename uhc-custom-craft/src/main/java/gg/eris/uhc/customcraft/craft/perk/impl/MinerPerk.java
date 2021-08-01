@@ -46,7 +46,7 @@ public final class MinerPerk extends Perk {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.EXTRACTOR;
+    return Vocation.MINER;
   }
 
 }
