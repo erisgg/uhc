@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -90,13 +91,13 @@ public final class Scatterer {
 
   private boolean isLegalLocation(Location location, List<Location> locations) {
     // If the block above the highest solid block is a liquid, spawning there should be disallowed.
-    if (location.getBlock().getRelative(0, 1, 0).isLiquid()) {
+    if (!location.getBlock().getRelative(BlockFace.UP).isEmpty()) {
       return false;
     }
 
     // Ensures location is at least the minimum block distance away from all others.
     for (Location otherLocation : locations) {
-      // Squared since it can reduce the expensiveness of sqrt.
+      // Squared since it can reduce the expensiveness of a sqrt call.
       if (location.distanceSquared(otherLocation) < MINIMUM_SPACING * MINIMUM_SPACING) {
         return false;
       }
