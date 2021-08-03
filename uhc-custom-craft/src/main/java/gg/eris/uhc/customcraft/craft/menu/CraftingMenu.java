@@ -7,11 +7,13 @@ import gg.eris.uhc.customcraft.craft.recipe.ShapedCraftingRecipe;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 
 /**
@@ -25,11 +27,11 @@ public final class CraftingMenu {
       11, 12, 13, 20, 21, 22, 29, 30, 31, 24
   )));
 
-  protected static final int[] CRAFTING_SLOTS = {
-    11, 12, 13,
-    20, 21, 22,
-    29, 30, 31
-  };
+  protected static final List<Integer> CRAFTING_SLOTS = List.of(
+      11, 12, 13,
+      20, 21, 22,
+      29, 30, 31
+  );
 
   protected static final int OUTPUT_SLOT = 24;
 
@@ -45,14 +47,14 @@ public final class CraftingMenu {
 
   public void openMenu(Player player) {
     CraftingMenuInventoryHolder holder = new CraftingMenuInventoryHolder();
-    Inventory inventory = Bukkit.createInventory(holder, 54, TITLE);
+    Inventory inventory = Bukkit.createInventory(holder, 45, TITLE);
     holder.setInventory(inventory);
 
-    for (int i = 0; i < 54; i++) {
+    for (int i = 0; i < 45; i++) {
       inventory.setItem(i, Menu.DARK_FILLER);
     }
 
-    inventory.setItem(OUTPUT_SLOT, null);
+    inventory.setItem(OUTPUT_SLOT, Menu.LIGHT_FILLER);
     for (int slot : CRAFTING_SLOTS) {
       inventory.setItem(slot, null);
     }
@@ -61,6 +63,10 @@ public final class CraftingMenu {
   }
 
   public void handle(InventoryClickEvent event) {
+    this.logic.handle(event);
+  }
+
+  public void handle(InventoryDragEvent event) {
     this.logic.handle(event);
   }
 

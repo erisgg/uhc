@@ -9,12 +9,10 @@ public class TestCraft extends ShapedCraftingRecipe {
   public TestCraft() {
     super((player) -> new ItemStack(Material.GOLD_NUGGET),
         new ShapedCraftingRecipe.MaterialBuilder()
-            .shape("aaa",
-                "bbb",
-                "ccc")
+            .shape("a  ",
+                "a  ",
+                "a  ")
             .setIngredient('a', Material.BEDROCK)
-            .setIngredient('b', Material.DIAMOND)
-            .setIngredient('c', Material.NETHERRACK)
             .build()
     );
   }

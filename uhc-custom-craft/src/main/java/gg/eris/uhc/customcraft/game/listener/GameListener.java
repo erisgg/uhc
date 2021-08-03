@@ -9,7 +9,6 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.craft.menu.CraftingMenuLogic;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
@@ -24,8 +23,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public final class GameListener extends MultiStateListener {
@@ -167,14 +166,14 @@ public final class GameListener extends MultiStateListener {
     this.game.getCraftingMenu().handle(event);
   }
 
-  @EventHandler
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    // Handle logger
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onInventoryClick(InventoryDragEvent event) {
+    this.game.getCraftingMenu().handle(event);
   }
 
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
-    // Handle logger
+    // TODO: Hnadle logging out during gamed
   }
 
 }

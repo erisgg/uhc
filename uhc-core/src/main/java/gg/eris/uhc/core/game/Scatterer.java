@@ -83,7 +83,8 @@ public final class Scatterer {
 
         System.out.println("Attempted to generate location:");
         System.out.println("Block: " + newLocation.getBlock().getType());
-        System.out.println("Block above: " + newLocation.getBlock().getRelative(BlockFace.UP).getType());
+        System.out
+            .println("Block above: " + newLocation.getBlock().getRelative(BlockFace.UP).getType());
 
       } while (!isLegalLocation(newLocation, locations));
 

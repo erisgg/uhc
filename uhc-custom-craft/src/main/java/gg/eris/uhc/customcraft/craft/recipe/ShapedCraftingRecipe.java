@@ -37,6 +37,21 @@ public abstract class ShapedCraftingRecipe {
     return true;
   }
 
+  // Consumes the correct amounts, ran on the assumption it matches
+  public final void consume(ItemStack[][] matrix) {
+    for (int x = 0; x < 3; x++) {
+      for (int y = 0; y < 3; y++) {
+        ItemStack matrixItem = matrix[x][y];
+        if (!StackUtil.isNullOrAir(matrixItem)) {
+          boolean exists = StackUtil.decrement(matrixItem);
+          if (!exists) {
+            matrix[x][y] = null;
+          }
+        }
+      }
+    }
+  }
+
   public static class MaterialBuilder {
 
     private final Char2ObjectMap<Material> itemMap;
