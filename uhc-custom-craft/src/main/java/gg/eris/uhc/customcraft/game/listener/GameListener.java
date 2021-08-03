@@ -9,17 +9,22 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.customcraft.craft.menu.CraftingMenuLogic;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import java.util.UUID;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -146,6 +151,20 @@ public final class GameListener extends MultiStateListener {
         }
       }
     }
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onPlayerInteract(PlayerInteractEvent event) {
+    if (event.hasBlock() && event.getClickedBlock().getType() == Material.WORKBENCH) {
+      event.setCancelled(true);
+      event.setUseInteractedBlock(Result.DENY);
+      this.game.getCraftingMenu().openMenu(event.getPlayer());
+    }
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onInventoryClick(InventoryClickEvent event) {
+    this.game.getCraftingMenu().handle(event);
   }
 
   @EventHandler

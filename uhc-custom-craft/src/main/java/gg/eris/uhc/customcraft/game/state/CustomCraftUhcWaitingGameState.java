@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.AbstractWaitingGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -12,7 +13,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public final class CustomCraftUhcWaitingGameState extends
     AbstractWaitingGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final Identifier SCOREBOARD_IDENTIFIER = Identifier.of("scoreboard", "waiting");
+  private static final Identifier SCOREBOARD_IDENTIFIER =
+      CustomCraftUhcIdentifiers.MENU_ID.id("waiting");
 
   private final CommonsScoreboard scoreboard;
 

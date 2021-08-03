@@ -8,6 +8,7 @@ import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractGracePeriodGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.entity.EntityType;
@@ -20,8 +21,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public final class CustomCraftUhcGracePeriodState extends
     AbstractGracePeriodGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final Identifier SCOREBOARD_IDENTIFIER
-      = Identifier.of("scoreboard", "grace_period");
+  private static final Identifier SCOREBOARD_IDENTIFIER =
+      CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("grace_period");
 
   private int countdown;
   private final CommonsScoreboard scoreboard;

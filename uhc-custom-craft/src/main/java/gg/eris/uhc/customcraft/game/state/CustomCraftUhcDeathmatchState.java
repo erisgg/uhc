@@ -31,7 +31,8 @@ public final class CustomCraftUhcDeathmatchState extends
 
   private static final World WORLD = Bukkit.getWorld(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD);
 
-  private static final Identifier SCOREBOARD_IDENTIFIER = Identifier.of("scoreboard", "deathmatch");
+  private static final Identifier SCOREBOARD_IDENTIFIER =
+      CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("deathmatch");
 
   private static final Location[] SPAWNS = {
       new Location(

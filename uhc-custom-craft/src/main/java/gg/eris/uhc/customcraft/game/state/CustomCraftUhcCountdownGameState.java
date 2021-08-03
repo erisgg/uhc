@@ -9,6 +9,7 @@ import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractCountdownGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public final class CustomCraftUhcCountdownGameState extends
     AbstractCountdownGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final Identifier SCOREBOARD_IDENTIFIER = Identifier.of("scoreboard", "countdown");
+  private static final Identifier SCOREBOARD_IDENTIFIER
+      = CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("countdown");
 
   private final ErisPlayerManager erisPlayerManager;
   private int countdown;

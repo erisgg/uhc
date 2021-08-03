@@ -8,6 +8,7 @@ import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.WorldBorder;
@@ -19,7 +20,7 @@ public final class CustomCraftUhcPvpState extends
   private int deathmatchCountdown;
 
   private static final Identifier SCOREBOARD_IDENTIFIER
-      = Identifier.of("scoreboard", "pvp");
+      = CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("pvp");
 
   private boolean borderFinished;
   private final CommonsScoreboard scoreboard;

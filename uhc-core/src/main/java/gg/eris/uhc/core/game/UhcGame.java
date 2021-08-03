@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
@@ -20,6 +21,7 @@ import gg.eris.uhc.core.game.state.listener.MultiStateListenerManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -177,13 +179,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
     List<ItemStack> drops = new ArrayList<>(
         Arrays.asList(killedHandle.getInventory().getContents()));
     drops.addAll(Arrays.asList(killedHandle.getInventory().getArmorContents()));
+    drops.removeIf(StackUtil::isNullOrAir);
 
     UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, killed, killer, drops);
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
 
-    for (ItemStack drop : uhcPlayerDeathEvent.getDrops()) {
-      killedHandle.getLocation().getWorld().dropItem(killedHandle.getLocation(), drop);
-    }
+    StackUtil.dropItems(killedHandle.getLocation(), drops, true);
 
     this.players.remove(killed.getUniqueId());
     checkGameEnd();

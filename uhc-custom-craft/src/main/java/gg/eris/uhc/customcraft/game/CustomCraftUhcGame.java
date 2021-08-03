@@ -7,6 +7,7 @@ import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.customcraft.craft.menu.CraftingMenu;
 import gg.eris.uhc.customcraft.game.listener.GameListener;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
@@ -18,6 +19,7 @@ import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMaps;
 import java.util.Collection;
 import java.util.List;
+import lombok.Getter;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
@@ -29,6 +31,9 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     COIN_MAP.put(1, 20);
   }
 
+  @Getter
+  private final CraftingMenu craftingMenu;
+
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
         .worldName(CustomCraftUhcIdentifiers.GAME_WORLD)
@@ -37,11 +42,11 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .borderRadius(1000)
         .maxHealth(40)
         .requiredPlayers(2)
-        .pregameCountdownDuration(30)
-        .gracePeriodDuration(30)
+        .pregameCountdownDuration(5)
+        .gracePeriodDuration(3000)
         .pvpPeriodDuration(60)
         .borderShrunkRadius(400)
-        .borderShrinkDelay(10)
+        .borderShrinkDelay(1000)
         .borderShrinkDuration(30)
         .preDeathmatchCountdownDuration(60)
         .attackCreditDuration(20)
@@ -58,6 +63,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .coinsPerSurvive(Int2IntMaps.unmodifiable(COIN_MAP))
         .build()
     );
+
+    this.craftingMenu = new CraftingMenu(this.plugin);
   }
 
 
