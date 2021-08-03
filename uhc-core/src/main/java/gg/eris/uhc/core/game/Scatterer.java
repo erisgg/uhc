@@ -89,8 +89,8 @@ public final class Scatterer {
   }
 
   private boolean isLegalLocation(Location location, List<Location> locations) {
-    // Spawning on water (or lava) is never desired.
-    if (location.getBlock().isLiquid()) {
+    // If the block above the highest solid block is a liquid, spawning there should be disallowed.
+    if (location.getBlock().getRelative(0, 1, 0).isLiquid()) {
       return false;
     }
 
