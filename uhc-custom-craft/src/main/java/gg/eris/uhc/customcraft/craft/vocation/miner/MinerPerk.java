@@ -1,8 +1,8 @@
-package gg.eris.uhc.customcraft.craft.perk.impl;
+package gg.eris.uhc.customcraft.craft.vocation.miner;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
-import gg.eris.uhc.customcraft.craft.Vocation;
-import gg.eris.uhc.customcraft.craft.perk.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.Material;

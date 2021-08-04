@@ -1,11 +1,11 @@
-package gg.eris.uhc.customcraft.craft.perk.impl;
+package gg.eris.uhc.customcraft.craft.vocation.armorer;
 
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
-import gg.eris.uhc.customcraft.craft.Vocation;
-import gg.eris.uhc.customcraft.craft.perk.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.entity.Player;
@@ -13,12 +13,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
 
 /**
- * Gives Strength I for 0.5s per level
+ * Gives Resistance 1 for 1s per level
  */
-public final class DuelistPerk extends Perk {
+public final class ArmorerPerk extends Perk {
 
-  public DuelistPerk() {
-    super("duelist_perk");
+  public ArmorerPerk() {
+    super("armorer_perk");
   }
 
   @EventHandler
@@ -36,13 +36,13 @@ public final class DuelistPerk extends Perk {
     int level = getLevel(killer);
     if (level > 0) {
       boolean added =
-          handle.addPotionEffect(PotionEffectType.INCREASE_DAMAGE.createEffect(level * 10, 0));
+          handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(level * 20, 0));
       if (added) {
         TextController.send(
             handle,
             TextType.INFORMATION,
-            "Your duelist perk has activated, giving you <h>Strength I</h> for <h>{0}<h>.",
-            Time.toShortDisplayTime(level / 2, TimeUnit.SECONDS)
+            "Your duelist perk has activated, giving you <h>Resistance I</h> for <h>{0}<h>.",
+            Time.toShortDisplayTime(level, TimeUnit.SECONDS)
         );
       }
     }
@@ -50,6 +50,7 @@ public final class DuelistPerk extends Perk {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.DUELIST;
+    return Vocation.ARMORER;
   }
+
 }

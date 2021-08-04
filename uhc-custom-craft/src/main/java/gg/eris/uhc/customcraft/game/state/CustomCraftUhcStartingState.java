@@ -3,6 +3,9 @@ package gg.eris.uhc.customcraft.game.state;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.GameMode;
@@ -43,7 +46,6 @@ public final class CustomCraftUhcStartingState extends
       PlayerUtil.resetPlayer(handle);
       handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
       handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
-      handle.setGameMode(GameMode.SURVIVAL);
     }
   }
 
@@ -51,8 +53,10 @@ public final class CustomCraftUhcStartingState extends
   public void onEnd() {
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       PlayerUtil.resetPlayer(player.getHandle());
+      player.getHandle().setGameMode(GameMode.SURVIVAL);
       player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
       player.getHandle().setHealth(player.getHandle().getMaxHealth());
+      TrinketBagItem.giveBag(player.getHandle());
     }
   }
 

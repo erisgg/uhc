@@ -152,25 +152,6 @@ public final class GameListener extends MultiStateListener {
     }
   }
 
-  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onPlayerInteract(PlayerInteractEvent event) {
-    if (event.hasBlock() && event.getClickedBlock().getType() == Material.WORKBENCH) {
-      event.setCancelled(true);
-      event.setUseInteractedBlock(Result.DENY);
-      this.game.getCraftingMenu().openMenu(event.getPlayer());
-    }
-  }
-
-  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onInventoryClick(InventoryClickEvent event) {
-    this.game.getCraftingMenu().handle(event);
-  }
-
-  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onInventoryClick(InventoryDragEvent event) {
-    this.game.getCraftingMenu().handle(event);
-  }
-
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
     // TODO: Hnadle logging out during gamed

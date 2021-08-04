@@ -1,8 +1,8 @@
-package gg.eris.uhc.customcraft.craft.perk.impl;
+package gg.eris.uhc.customcraft.craft.vocation.enchanter;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
-import gg.eris.uhc.customcraft.craft.Vocation;
-import gg.eris.uhc.customcraft.craft.perk.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerExpChangeEvent;

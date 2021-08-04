@@ -7,7 +7,10 @@ import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.craft.menu.CraftingMenu;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.listener.GameListener;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
@@ -20,6 +23,8 @@ import it.unimi.dsi.fastutil.ints.Int2IntMaps;
 import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Recipe;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
@@ -30,9 +35,6 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     COIN_MAP.put(10, 50);
     COIN_MAP.put(1, 20);
   }
-
-  @Getter
-  private final CraftingMenu craftingMenu;
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
@@ -64,7 +66,17 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .build()
     );
 
-    this.craftingMenu = new CraftingMenu(this.plugin);
+    // Registering custom crafts and trinkets
+    for (Vocation vocation : Vocation.values()) {
+      VocationRegistry vocationRegistry = vocation.getRegistry();
+      if (vocationRegistry == null) {
+        continue;
+      }
+      for (Recipe recipe : vocationRegistry.getRecipes()) {
+        Bukkit.addRecipe(recipe);
+      }
+    }
+
   }
 
 
@@ -87,7 +99,9 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new GlobalListener(this),
         new LobbyListener(this),
         new GameListener(this),
-        new PvpListener()
+        new PvpListener(),
+        new TrinketBagListener(this),
+        new TrinketBagInventoryListener(this)
     );
   }
 }

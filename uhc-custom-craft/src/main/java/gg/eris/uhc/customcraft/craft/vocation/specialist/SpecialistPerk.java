@@ -1,10 +1,10 @@
-package gg.eris.uhc.customcraft.craft.perk.impl;
+package gg.eris.uhc.customcraft.craft.vocation.specialist;
 
 import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.RandomUtil;
-import gg.eris.uhc.customcraft.craft.Vocation;
-import gg.eris.uhc.customcraft.craft.perk.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
 import java.util.List;

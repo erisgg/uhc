@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.game.player;
 import com.google.common.collect.Sets;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import java.util.Set;
@@ -13,8 +14,11 @@ import org.apache.commons.lang3.Validate;
 public final class CustomCraftUhcPlayer extends UhcPlayer {
 
   private final Object2IntMap<Identifier> perks;
-  private final Set<Identifier> crafts;
+  private final Set<Identifier> craftUnlocks;
   private final Object2IntMap<Identifier> crafted;
+
+  @Getter
+  private final TrinketBagItem trinketBagItem;
 
   @Getter
   private int coins;
@@ -22,8 +26,9 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   public CustomCraftUhcPlayer(DefaultData data, int coins) {
     super(data);
     this.perks = new Object2IntArrayMap<>();
-    this.crafts = Sets.newHashSet();
+    this.craftUnlocks = Sets.newHashSet();
     this.crafted = new Object2IntArrayMap<>();
+    this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
   }
 

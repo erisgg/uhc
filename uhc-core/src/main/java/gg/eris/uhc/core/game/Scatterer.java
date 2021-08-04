@@ -80,12 +80,6 @@ public final class Scatterer {
         int y = this.game.getWorld().getHighestBlockYAt(x, z);
 
         newLocation = new Location(this.game.getWorld(), x, y, z);
-
-        System.out.println("Attempted to generate location:");
-        System.out.println("Block: " + newLocation.getBlock().getType());
-        System.out
-            .println("Block above: " + newLocation.getBlock().getRelative(BlockFace.UP).getType());
-
       } while (!isLegalLocation(newLocation, locations));
 
       locations.add(newLocation);

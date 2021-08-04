@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.perk;
+package gg.eris.uhc.customcraft.craft;
 
 import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;

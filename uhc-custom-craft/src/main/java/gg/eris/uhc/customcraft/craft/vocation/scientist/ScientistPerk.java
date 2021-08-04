@@ -1,11 +1,11 @@
-package gg.eris.uhc.customcraft.craft.perk.impl;
+package gg.eris.uhc.customcraft.craft.vocation.scientist;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.uhc.core.event.UhcChangeStateEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
-import gg.eris.uhc.customcraft.craft.Vocation;
-import gg.eris.uhc.customcraft.craft.perk.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
