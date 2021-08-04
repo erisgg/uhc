@@ -52,6 +52,7 @@ public final class CustomCraftUhcStartingState extends
   @Override
   public void onEnd() {
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
+      player.playedGame();
       PlayerUtil.resetPlayer(player.getHandle());
       player.getHandle().setGameMode(GameMode.SURVIVAL);
       player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());

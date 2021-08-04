@@ -23,8 +23,8 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   @Getter
   private int coins;
 
-  public CustomCraftUhcPlayer(DefaultData data, int coins) {
-    super(data);
+  public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins) {
+    super(data, wins, kills, gamesPlayed);
     this.perks = new Object2IntArrayMap<>();
     this.craftUnlocks = Sets.newHashSet();
     this.crafted = new Object2IntArrayMap<>();

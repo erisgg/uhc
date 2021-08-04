@@ -161,7 +161,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
     killedHandle.sendTitle(new Title(
         CC.RED.bold() + "YOU DIED!",
-        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getName() : null,
+        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getName() + "." : null,
         20,
         20,
         20

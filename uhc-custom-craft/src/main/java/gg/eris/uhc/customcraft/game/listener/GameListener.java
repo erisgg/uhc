@@ -9,6 +9,7 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
@@ -27,7 +28,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public final class GameListener extends MultiStateListener {
+public final class GameListener extends GameStateListener {
 
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
@@ -35,15 +36,6 @@ public final class GameListener extends MultiStateListener {
   public GameListener(CustomCraftUhcGame game) {
     this.game = game;
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
-  }
-
-  @Override
-  protected Set<Type> getApplicableTypes() {
-    return Set.of(
-        TypeRegistry.GRACE_PERIOD,
-        TypeRegistry.PVP,
-        TypeRegistry.DEATHMATCH
-    );
   }
 
   @Override

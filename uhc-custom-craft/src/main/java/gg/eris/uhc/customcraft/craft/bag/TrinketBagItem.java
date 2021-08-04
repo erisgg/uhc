@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.craft.bag;
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -28,7 +29,9 @@ public final class TrinketBagItem {
   protected static final IntSet INVENTORY_SLOTS_SET =
       IntSets.unmodifiable(new IntArraySet(Set.of(11,13, 15)));
 
-
+  protected static final ItemStack EMPTY_SLOT = new ItemBuilder(Menu.LIGHT_FILLER.clone())
+      .withName(CC.RED + "No Trinket")
+      .build();
 
   protected static final ItemStack ITEM = new ItemBuilder(Material.FLOWER_POT_ITEM)
       .withName(CC.BLUE + "Trinket Bag " + CC.GRAY + "(Right Click)")
@@ -58,7 +61,7 @@ public final class TrinketBagItem {
       Trinket trinket = this.contents[i];
       int slot = INVENTORY_SLOTS.getInt(i);
       if (trinket == null) {
-        inventory.setItem(slot, Menu.LIGHT_FILLER);
+        inventory.setItem(slot, EMPTY_SLOT);
       } else {
         inventory.setItem(slot, trinket.getItem());
       }
@@ -69,8 +72,15 @@ public final class TrinketBagItem {
     return this.contents[index];
   }
 
-  public void removeTrinket(int index) {
+  public void addTrinket(Trinket trinket, int index) {
+    Validate.isNull(this.contents[index], "cannot overwrite trinket");
+    this.contents[index] = trinket;
+  }
+
+  public Trinket removeTrinket(int index) {
+    Trinket old = this.contents[index];
     this.contents[index] = null;
+    return old;
   }
 
   public static boolean isBag(ItemStack item) {

@@ -21,18 +21,39 @@ public abstract class UhcPlayer extends ErisPlayer {
   private boolean alive;
 
   @Getter
+  private int gamesPlayed;
+
+  @Getter
+  private int wins;
+
+  @Getter
   private int kills;
 
+  @Getter
+  private int gameKills;
 
-  public UhcPlayer(DefaultData data) {
+
+  public UhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed) {
     super(data);
 
     this.alive = false;
-    this.kills = 0;
+    this.wins = wins;
+    this.gamesPlayed = gamesPlayed;
+    this.kills = kills;
+    this.gameKills = 0;
   }
 
   public void incrementKills() {
     this.kills++;
+    this.gameKills++;
+  }
+
+  public void playedGame() {
+    this.gamesPlayed++;
+  }
+
+  public void won() {
+    this.wins++;
   }
 
   public void setLastAttacker(Player player) {

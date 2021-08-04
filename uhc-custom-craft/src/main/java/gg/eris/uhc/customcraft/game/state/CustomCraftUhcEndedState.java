@@ -27,14 +27,16 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
   @Override
   public void onStart() {
     CustomCraftUhcPlayer winner = this.game.getWinner();
+    winner.won();
 
     Title title = new Title(
         CC.DARK_GREEN + winner.getName() + CC.GREEN.bold() + " HAS WON!",
-        CC.RED + "Better luck next time",
+        CC.RED + "Better luck next time :(",
         20,
         40,
         20
     );
+
 
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player != winner.getHandle()) {

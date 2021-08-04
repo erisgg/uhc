@@ -16,7 +16,13 @@ public final class CustomCraftUhcPlayerSerializer extends
 
   @Override
   public CustomCraftUhcPlayer newPlayer(Player player) {
-    return new CustomCraftUhcPlayer(DefaultData.newData(player), 0);
+    return new CustomCraftUhcPlayer(
+        DefaultData.newData(player),
+        0,
+        0,
+        0,
+        0
+    );
   }
 
   @Override
@@ -24,15 +30,37 @@ public final class CustomCraftUhcPlayerSerializer extends
     DefaultData data = DefaultData.fromNode(node);
 
     int coins = 0;
+    int kills = 0;
+    int wins = 0;
+    int gamesPlayed = 0;
     if (node.has("games")) {
       JsonNode games = node.get("games");
       if (games.has(CustomCraftUhcIdentifiers.JSON_KEY)) {
-        coins = games.get(CustomCraftUhcIdentifiers.JSON_KEY).get("coins").asInt(0);
+        JsonNode customCraft = games.get(CustomCraftUhcIdentifiers.JSON_KEY);
+
+        if (customCraft.has("coins")) {
+          coins = customCraft.get("coins").asInt();
+        }
+
+        if (customCraft.has("kills")) {
+          kills = customCraft.get("kills").asInt();
+        }
+
+        if (customCraft.has("wins")) {
+          wins = customCraft.get("wins").asInt();
+        }
+
+        if (customCraft.has("games_played")) {
+          gamesPlayed = customCraft.get("games_played").asInt();
+        }
       }
     }
 
     return new CustomCraftUhcPlayer(
         data,
+        wins,
+        kills,
+        gamesPlayed,
         coins
     );
   }
@@ -54,6 +82,9 @@ public final class CustomCraftUhcPlayerSerializer extends
     }
 
     uhc.put("coins", player.getCoins());
+    uhc.put("wins", player.getWins());
+    uhc.put("games_played", player.getGamesPlayed());
+    uhc.put("kills", player.getKills());
 
     return node;
   }
