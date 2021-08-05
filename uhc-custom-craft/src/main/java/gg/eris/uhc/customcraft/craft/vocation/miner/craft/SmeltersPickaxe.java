@@ -14,7 +14,8 @@ public final class SmeltersPickaxe extends Craft {
 
   public SmeltersPickaxe() {
     super("smelters_pickaxe", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.IRON_PICKAXE).withEnchantment(Enchantment.DIG_SPEED, 1).build())
+        .base(new ItemBuilder(Material.IRON_PICKAXE).withEnchantment(Enchantment.DIG_SPEED, 1)
+            .build())
         .color(CC.GRAY)
         .name("Smelter's Pickaxe")
         .quote("Diggy diggy hole!")

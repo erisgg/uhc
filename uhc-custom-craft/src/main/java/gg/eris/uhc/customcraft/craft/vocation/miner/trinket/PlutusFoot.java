@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import javax.print.DocFlavor.READER;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;

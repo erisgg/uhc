@@ -5,7 +5,6 @@ import gg.eris.uhc.customcraft.craft.Craft;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 

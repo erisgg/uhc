@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.craft;
 
-import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.Listener;
 

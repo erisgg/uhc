@@ -9,37 +9,38 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class DefendersMedallion extends Trinket {
-    public DefendersMedallion() {
-        super("defenders_medallion", CraftableInfo.builder()
-                .material(Material.YELLOW_FLOWER)
-                .color(CC.GOLD)
-                .name("Defender's Medallion")
-                .quote("Those who are defended are stronger!")
-                .quoteGiver("Anicetus")
-                .effects("Gives a 50% chance to reduce damage taken by 20%")
-                .nonTransformable()
-                .build()
-        );
-    }
 
-    @Override
-    public Recipe getRecipe() {
-        return new ShapedRecipe(getItem())
-                .shape(
-                        "iii",
-                        "iGi",
-                        "iii"
-                ).setIngredient('i', Material.IRON_INGOT)
-                .setIngredient('G', Material.GOLD_BLOCK);
-    }
+  public DefendersMedallion() {
+    super("defenders_medallion", CraftableInfo.builder()
+        .material(Material.YELLOW_FLOWER)
+        .color(CC.GOLD)
+        .name("Defender's Medallion")
+        .quote("Those who are defended are stronger!")
+        .quoteGiver("Anicetus")
+        .effects("Gives a 50% chance to reduce damage taken by 20%")
+        .nonTransformable()
+        .build()
+    );
+  }
 
-    @Override
-    public String getName() {
-        return "Defender's Medallion";
-    }
+  @Override
+  public Recipe getRecipe() {
+    return new ShapedRecipe(getItem())
+        .shape(
+            "iii",
+            "iGi",
+            "iii"
+        ).setIngredient('i', Material.IRON_INGOT)
+        .setIngredient('G', Material.GOLD_BLOCK);
+  }
 
-    @Override
-    public Vocation getVocation() {
-        return Vocation.ARMORER;
-    }
+  @Override
+  public String getName() {
+    return "Defender's Medallion";
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.ARMORER;
+  }
 }

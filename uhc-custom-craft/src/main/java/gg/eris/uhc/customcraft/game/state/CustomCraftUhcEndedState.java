@@ -37,7 +37,6 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
         20
     );
 
-
     for (Player player : Bukkit.getOnlinePlayers()) {
       if (player != winner.getHandle()) {
         player.sendTitle(title);

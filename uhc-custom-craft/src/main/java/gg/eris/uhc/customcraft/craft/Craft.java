@@ -1,11 +1,9 @@
 package gg.eris.uhc.customcraft.craft;
 
 import gg.eris.commons.bukkit.util.NBTUtil;
-import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 
 public abstract class Craft extends Unlockable implements Craftable, Listener {
 

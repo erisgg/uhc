@@ -1,8 +1,8 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer;
 
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
-import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.AppleEconomyCraft;
+import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.LightAppleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.SpeedSoupCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.perk.HealerPerk;

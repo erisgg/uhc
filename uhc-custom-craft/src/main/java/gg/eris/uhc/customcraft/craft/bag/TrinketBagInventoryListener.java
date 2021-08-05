@@ -11,7 +11,6 @@ import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +83,7 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
       inventory.setItem(slot, TrinketBagItem.EMPTY_SLOT);
     } else {
       Identifier identifier = Unlockable.getIdentifierFromItemStack(cursor);
-      Unlockable newUnlockable  = Vocation.getUnlockable(identifier);
+      Unlockable newUnlockable = Vocation.getUnlockable(identifier);
       if (!(newUnlockable instanceof Trinket)) {
         return;
       }

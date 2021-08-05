@@ -11,7 +11,6 @@ import gg.eris.uhc.customcraft.craft.Craft;
 import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.Unlockable;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Material;

@@ -24,10 +24,10 @@ import org.bukkit.inventory.ItemStack;
 public final class TrinketBagItem {
 
   protected static final IntList INVENTORY_SLOTS =
-      IntLists.unmodifiable(new IntArrayList(List.of(11,13, 15)));
+      IntLists.unmodifiable(new IntArrayList(List.of(11, 13, 15)));
 
   protected static final IntSet INVENTORY_SLOTS_SET =
-      IntSets.unmodifiable(new IntArraySet(Set.of(11,13, 15)));
+      IntSets.unmodifiable(new IntArraySet(Set.of(11, 13, 15)));
 
   protected static final ItemStack EMPTY_SLOT = new ItemBuilder(Menu.LIGHT_FILLER.clone())
       .withName(CC.RED + "No Trinket")

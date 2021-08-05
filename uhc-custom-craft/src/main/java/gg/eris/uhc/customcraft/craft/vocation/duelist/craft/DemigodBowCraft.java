@@ -23,9 +23,9 @@ public final class DemigodBowCraft extends Craft {
         .quote("And you have my bow.")
         .quoteGiver("Legolas")
         .effects(
-        "Power I Bow",
-        "Power II 15 minutes after PvP",
-        "Power III during deathmatch"
+            "Power I Bow",
+            "Power II 15 minutes after PvP",
+            "Power III during deathmatch"
         )
         .nonTransformable()
         .build()

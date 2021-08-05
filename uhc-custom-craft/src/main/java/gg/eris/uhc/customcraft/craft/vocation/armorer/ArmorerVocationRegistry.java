@@ -7,13 +7,7 @@ import gg.eris.uhc.customcraft.craft.vocation.armorer.craft.ProtectionBook;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.perk.ArmorerPerk;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets.DefendersMedallion;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets.ZeusBlessing;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodBowCraft;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodSwordCraft;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.SharpnessBookCraft;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.SoulThirsterCraft;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.perk.DuelistPerk;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.trinket.ApollosBlessingTrinket;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.trinket.HydraToothTrinket;
 
 public final class ArmorerVocationRegistry extends VocationRegistry {
 
