@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.craft.vocation.specialist;
 import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.RandomUtil;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
@@ -71,6 +72,15 @@ public final class SpecialistPerk extends Perk {
     return RandomUtil.randomInt(0, 1000) < 25 * level;
   }
 
+  @Override
+  public String getName() {
+    return "Specialist Perk";
+  }
+
+  @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Has a {0}% chance to double ore drops", 2.5 * level);
+  }
 
   @Override
   public Vocation getVocation() {

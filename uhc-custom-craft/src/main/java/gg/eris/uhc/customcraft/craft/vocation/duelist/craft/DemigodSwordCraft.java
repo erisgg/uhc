@@ -54,4 +54,10 @@ public final class DemigodSwordCraft extends Craft {
         .setIngredient('r', Material.REDSTONE)
         .setIngredient('s', Material.IRON_SWORD);
   }
+
+  @Override
+  public String getName() {
+    return "Demigod Sword";
+  }
+
 }

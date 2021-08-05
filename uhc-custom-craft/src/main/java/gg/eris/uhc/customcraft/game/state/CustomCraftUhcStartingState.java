@@ -1,5 +1,7 @@
 package gg.eris.uhc.customcraft.game.state;
 
+import com.google.common.collect.Sets;
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
@@ -8,9 +10,13 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.util.Set;
 import org.bukkit.GameMode;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.potion.PotionEffectType;
 
 public final class CustomCraftUhcStartingState extends
@@ -41,29 +47,50 @@ public final class CustomCraftUhcStartingState extends
     border.setSize(this.game.getSettings().getDeathmatchBorderRadius() * 2);
 
     this.scatterer.scatter();
+
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
       Player handle = player.getHandle();
-      PlayerUtil.resetPlayer(handle);
-      handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
-      handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+      if (handle != null) {
+        PlayerUtil.resetPlayer(handle);
+        handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
+        handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+      }
     }
   }
 
   @Override
   public void onEnd() {
+    // Players that log off in the pregame
+    Set<CustomCraftUhcPlayer> logged = Sets.newHashSet();
+
     for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
-      player.playedGame();
-      PlayerUtil.resetPlayer(player.getHandle());
-      player.getHandle().setGameMode(GameMode.SURVIVAL);
-      player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
-      player.getHandle().setHealth(player.getHandle().getMaxHealth());
-      TrinketBagItem.giveBag(player.getHandle());
+      Player handle = player.getHandle();
+      if (handle == null) {
+        logged.add(player);
+      } else {
+        player.playedGame();
+        PlayerUtil.resetPlayer(player.getHandle());
+        player.getHandle().setGameMode(GameMode.SURVIVAL);
+        player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
+        player.getHandle().setHealth(player.getHandle().getMaxHealth());
+        TrinketBagItem.giveBag(player.getHandle());
+      }
+    }
+
+    for (CustomCraftUhcPlayer logger : logged) {
+      this.game.removePlayer(logger);
     }
   }
 
   @Override
   public void onTick(int tick) {
 
+  }
+
+  @EventHandler
+  public void onPlayerLogin(PlayerLoginEvent event) {
+    event.setResult(Result.KICK_FULL);
+    event.setKickMessage(CC.RED + "The game has started!");
   }
 
 

@@ -1,6 +1,7 @@
-package gg.eris.uhc.customcraft.craft.vocation.duelist;
+package gg.eris.uhc.customcraft.craft.vocation.armorer;
 
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.armorer.perk.ArmorerPerk;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodBowCraft;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodSwordCraft;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.SharpnessBookCraft;
@@ -9,11 +10,11 @@ import gg.eris.uhc.customcraft.craft.vocation.duelist.perk.DuelistPerk;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.trinket.ApollosBlessingTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.trinket.HydraToothTrinket;
 
-public final class DuelistVocationRegistry extends VocationRegistry {
+public final class ArmorerVocationRegistry extends VocationRegistry {
 
-  private static final DuelistVocationRegistry REGISTRY = new DuelistVocationRegistry();
+  private static final ArmorerVocationRegistry REGISTRY = new ArmorerVocationRegistry();
 
-  private final DuelistPerk perk;
+  private final ArmorerPerk perk;
   private final HydraToothTrinket firstTrinket;
   private final ApollosBlessingTrinket secondTrinket;
   private final DemigodSwordCraft firstCraft;
@@ -21,8 +22,8 @@ public final class DuelistVocationRegistry extends VocationRegistry {
   private final SharpnessBookCraft thirdCraft;
   private final SoulThirsterCraft fourthCraft;
 
-  private DuelistVocationRegistry() {
-    this.perk = register(new DuelistPerk());
+  private ArmorerVocationRegistry() {
+    this.perk = register(new ArmorerPerk());
     this.firstTrinket = register(new HydraToothTrinket());
     this.secondTrinket = register(new ApollosBlessingTrinket());
     this.firstCraft = register(new DemigodSwordCraft());
@@ -33,11 +34,11 @@ public final class DuelistVocationRegistry extends VocationRegistry {
 
   @Override
   public String getIdentifierValue() {
-    return "duelist";
+    return "armorer";
   }
 
   @Override
-  public DuelistPerk getPerk() {
+  public ArmorerPerk getPerk() {
     return this.perk;
   }
 
@@ -71,7 +72,7 @@ public final class DuelistVocationRegistry extends VocationRegistry {
     return this.fourthCraft;
   }
 
-  public static DuelistVocationRegistry get() {
+  public static ArmorerVocationRegistry get() {
     return REGISTRY;
   }
 

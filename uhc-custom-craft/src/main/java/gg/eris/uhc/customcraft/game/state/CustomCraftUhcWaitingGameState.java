@@ -55,7 +55,6 @@ public final class CustomCraftUhcWaitingGameState extends
   @Override
   public void onEnd() {
     this.scoreboard.removeAllPlayers();
-    this.game.getPlugin().getCommons().getScoreboardController().removeScoreboard(this.scoreboard);
   }
 
   @EventHandler

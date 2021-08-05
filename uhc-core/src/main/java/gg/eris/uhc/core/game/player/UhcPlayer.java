@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.core.util.Pair;
 import java.util.UUID;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.entity.Player;
 
 /**
@@ -15,10 +14,6 @@ public abstract class UhcPlayer extends ErisPlayer {
 
   @Getter
   private Pair<UUID, Long> lastAttacker;
-
-  @Getter
-  @Setter
-  private boolean alive;
 
   @Getter
   private int gamesPlayed;
@@ -35,8 +30,6 @@ public abstract class UhcPlayer extends ErisPlayer {
 
   public UhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed) {
     super(data);
-
-    this.alive = false;
     this.wins = wins;
     this.gamesPlayed = gamesPlayed;
     this.kills = kills;

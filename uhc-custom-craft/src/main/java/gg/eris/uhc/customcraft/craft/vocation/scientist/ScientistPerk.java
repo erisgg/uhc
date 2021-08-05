@@ -1,11 +1,12 @@
 package gg.eris.uhc.customcraft.craft.vocation.scientist;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcChangeStateEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.potion.PotionEffectType;
@@ -34,6 +35,16 @@ public final class ScientistPerk extends Perk {
         }
       }
     }
+  }
+
+  @Override
+  public String getName() {
+    return "Scientist Perk";
+  }
+
+  @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Gives absorption for {0} minutes when the game starts", level);
   }
 
   @Override

@@ -116,8 +116,6 @@ public final class CustomCraftUhcCountdownGameState extends
       );
     } else {
       this.scoreboard.removeAllPlayers();
-      this.game.getPlugin().getCommons().getScoreboardController()
-          .removeScoreboard(this.scoreboard);
     }
   }
 

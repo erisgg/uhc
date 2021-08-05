@@ -23,6 +23,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -51,6 +52,7 @@ public final class LobbyListener extends MultiStateListener {
 
   private final static int LOWER_LIMIT = 20;
 
+  // PvP items
   private static final ItemStack SWORD_ITEM;
   private static final ItemStack ROD_ITEM;
   private static final ItemStack BOW_ITEM;
@@ -58,6 +60,10 @@ public final class LobbyListener extends MultiStateListener {
   private final static ItemStack[] ARMOR;
   private final static ItemStack GAPPLE_REWARD;
   private final static ItemStack ARROW_REWARD;
+
+  // Hotbar items
+  private final static ItemStack SHOP = new ItemBuilder(Material.EMERALD)
+      .withName(CC.GOLD.bold() + "Shop" + CC.DARK_GRAY + " (Right Click)").build();
 
   static {
     SWORD_ITEM = new ItemBuilder(Material.DIAMOND_SWORD).unbreakable().build();
@@ -129,12 +135,14 @@ public final class LobbyListener extends MultiStateListener {
     Player player = event.getPlayer();
     event.setJoinMessage(null);
 
+    LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
+
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
-      event.getPlayer().teleport(this.spawn);
-      LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
       PlayerUtil.resetPlayer(player);
+      event.getPlayer().teleport(this.spawn);
       player.setGameMode(GameMode.ADVENTURE);
-    }, 7L);
+      player.getInventory().setItem(0, SHOP);
+    }, 10L);
   }
 
   @EventHandler
@@ -253,6 +261,19 @@ public final class LobbyListener extends MultiStateListener {
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
     event.setCancelled(true);
+
+    if (event.getAction() == Action.RIGHT_CLICK_AIR
+        || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+      ItemStack item = event.getItem();
+      if (StackUtil.isNullOrAir(item)) {
+        return;
+      }
+
+      switch (item.getType()) {
+        case EMERALD:
+          this.game.getShopMenu().openMenu(event.getPlayer());
+      }
+    }
   }
 
   @EventHandler

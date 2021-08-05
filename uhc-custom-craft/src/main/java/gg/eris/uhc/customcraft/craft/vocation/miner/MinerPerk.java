@@ -1,8 +1,9 @@
 package gg.eris.uhc.customcraft.craft.vocation.miner;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.Material;
@@ -45,8 +46,20 @@ public final class MinerPerk extends Perk {
   }
 
   @Override
+  public String getName() {
+    return "Miner Perk";
+  }
+
+  @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Gives you haste for {0} seconds when you break an ore",
+        (level - 1) + 7);
+  }
+
+  @Override
   public Vocation getVocation() {
     return Vocation.MINER;
   }
+
 
 }

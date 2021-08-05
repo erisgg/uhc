@@ -10,6 +10,8 @@ public abstract class Perk extends Unlockable implements Listener {
     super(identifierValue);
   }
 
+  public abstract String getDescription(int level);
+
   public final int getLevel(CustomCraftUhcPlayer player) {
     return player.getPerkLevel(getIdentifier());
   }

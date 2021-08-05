@@ -60,4 +60,10 @@ public final class SoulThirsterCraft extends Craft {
         .setIngredient('L', Material.LAPIS_BLOCK)
         .setIngredient('s', Material.DIAMOND_SWORD);
   }
+
+  @Override
+  public String getName() {
+    return "Soul Thirster";
+  }
+
 }

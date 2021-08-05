@@ -45,4 +45,10 @@ public final class SharpnessBookCraft extends Craft {
         .setIngredient('p', Material.PAPER)
         .setIngredient('s', Material.IRON_SWORD);
   }
+
+  @Override
+  public String getName() {
+    return "Sharpness I Book";
+  }
+
 }

@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.duelist.perk;
 
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -49,7 +50,18 @@ public final class DuelistPerk extends Perk {
   }
 
   @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Grants Strength I for {0} seconds when you kill a player",
+        level * 0.5) ;
+  }
+
+  @Override
   public Vocation getVocation() {
     return Vocation.DUELIST;
+  }
+
+  @Override
+  public String getName() {
+    return "Duelist Perk";
   }
 }

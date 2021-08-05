@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
+package gg.eris.uhc.customcraft.craft.vocation.armorer.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
@@ -10,31 +10,31 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public final class DemigodBowCraft extends Craft {
+public class DemigodHelmet extends Craft {
 
-  public DemigodBowCraft() {
-    super("demigod_bow", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.BOW)
-            .withEnchantment(Enchantment.ARROW_DAMAGE, 1)
+  public DemigodHelmet() {
+    super("demigod_helmet", CraftableInfo.builder()
+        .nonTransformable()
+        .base(new ItemBuilder(Material.IRON_HELMET)
+            .withEnchantment(Enchantment.DURABILITY, 1)
+            .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
+            .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
+            .withEnchantment(Enchantment.PROTECTION_FIRE, 1)
             .build()
         )
         .color(CC.AQUA)
-        .name("Demigod Bow")
-        .quote("And you have my bow.")
-        .quoteGiver("Legolas")
-        .effects(
-        "Power I Bow",
-        "Power II 15 minutes after PvP",
-        "Power III during deathmatch"
-        )
-        .nonTransformable()
+        .name("Demigod Helmet")
+        .quote("Eureka!")
+        .quoteGiver("Archimedes")
+        .effects("Protection 1, Fire Protection 1, Projectile Protection 1, Unbreaking 1 Iron "
+            + "Helmet")
         .build()
     );
   }
 
   @Override
   public Vocation getVocation() {
-    return Vocation.DUELIST;
+    return Vocation.ARMORER;
   }
 
   @Override
@@ -52,16 +52,15 @@ public final class DemigodBowCraft extends Craft {
     return new ShapedRecipe(getItem())
         .shape(
             " R ",
-            "rbr",
+            "rhr",
             " r "
         ).setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('b', Material.BOW);
+        .setIngredient('h', Material.IRON_HELMET);
   }
 
   @Override
   public String getName() {
-    return "Demigod Bow";
+    return "Demigod Helmet";
   }
-
 }

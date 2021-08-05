@@ -42,4 +42,10 @@ public final class ApollosBlessingTrinket extends Trinket {
   public Vocation getVocation() {
     return Vocation.DUELIST;
   }
+
+  @Override
+  public String getName() {
+    return "Apollo's Blessing";
+  }
+
 }

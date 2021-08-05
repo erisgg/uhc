@@ -1,8 +1,9 @@
 package gg.eris.uhc.customcraft.craft.vocation.extractor;
 
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,14 +33,29 @@ public final class ExtractorPerk extends Perk {
 
     int level = getLevel(killer);
     if (level > 0) {
-      int amount = (level - 1) + 2;
+      int amount = getAmount(level);
       event.getDrops().add(new ItemStack(Material.GOLD_NUGGET, amount));
     }
   }
 
   @Override
+  public String getName() {
+    return "Extractor Perk";
+  }
+
+  @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Grants {0} gold nuggets when you kill a player",
+        getAmount(level));
+  }
+
+  @Override
   public Vocation getVocation() {
     return Vocation.EXTRACTOR;
+  }
+
+  private int getAmount(int level) {
+    return (level - 1) + 2;
   }
 
 }

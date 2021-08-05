@@ -1,11 +1,12 @@
-package gg.eris.uhc.customcraft.craft.vocation.armorer;
+package gg.eris.uhc.customcraft.craft.vocation.armorer.perk;
 
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.entity.Player;
@@ -46,6 +47,17 @@ public final class ArmorerPerk extends Perk {
         );
       }
     }
+  }
+
+  @Override
+  public String getName() {
+    return "Armorer Perk";
+  }
+
+  @Override
+  public String getDescription(int level) {
+    return Text.replaceVariables("Grants resistance for {0} seconds when you kill a player.",
+        level);
   }
 
   @Override

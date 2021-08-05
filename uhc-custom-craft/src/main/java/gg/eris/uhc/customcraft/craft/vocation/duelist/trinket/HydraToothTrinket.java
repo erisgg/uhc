@@ -41,4 +41,8 @@ public final class HydraToothTrinket extends Trinket {
     return Vocation.DUELIST;
   }
 
+  @Override
+  public String getName() {
+    return "Hydra Tooth";
+  }
 }

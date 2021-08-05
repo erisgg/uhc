@@ -135,8 +135,6 @@ public abstract class UhcGame<T extends UhcPlayer> {
   public final void killPlayer(T killed, T killer) {
     Player killedHandle = killed.getHandle();
 
-    killed.setAlive(false);
-
     // Handling effects and stat tracking
     if (killer != null) {
       TextController.broadcastToServer(
@@ -185,8 +183,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
     StackUtil.dropItems(killedHandle.getLocation(), drops, true);
 
-    this.players.remove(killed.getUniqueId());
+    removePlayer(killed);
     checkGameEnd();
+  }
+
+  public final void removePlayer(T player) {
+    this.players.remove(player.getUniqueId());
   }
 
   public final T getPlayer(Player player) {
