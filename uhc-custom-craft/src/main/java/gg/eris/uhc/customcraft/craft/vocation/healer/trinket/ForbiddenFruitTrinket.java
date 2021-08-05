@@ -1,7 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer.trinket;
 
 import gg.eris.commons.bukkit.util.CC;
-import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
