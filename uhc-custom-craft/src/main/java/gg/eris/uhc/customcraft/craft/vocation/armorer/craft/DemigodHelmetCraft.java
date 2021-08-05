@@ -14,14 +14,13 @@ public class DemigodHelmetCraft extends Craft {
 
   public DemigodHelmetCraft() {
     super("demigod_helmet", CraftableInfo.builder()
-        .nonTransformable()
         .base(new ItemBuilder(Material.IRON_HELMET)
             .withEnchantment(Enchantment.DURABILITY, 1)
             .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
             .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
             .withEnchantment(Enchantment.PROTECTION_FIRE, 1)
             .build()
-        )
+        ).nonTransformable()
         .color(CC.AQUA)
         .name("Demigod Helmet")
         .quote("Eureka!")

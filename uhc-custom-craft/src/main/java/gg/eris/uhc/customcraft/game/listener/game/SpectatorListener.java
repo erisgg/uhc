@@ -66,7 +66,8 @@ public final class SpectatorListener extends GameStateListener {
 
   @EventHandler
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-    if (event.getDamager().getType() == EntityType.PLAYER && !this.game.isPlayer(event.getDamager().getUniqueId())) {
+    if (event.getDamager().getType() == EntityType.PLAYER && !this.game.isPlayer(
+        event.getDamager().getUniqueId())) {
       event.setCancelled(true);
     }
   }

@@ -3,11 +3,9 @@ package gg.eris.uhc.customcraft.craft.shop.skill.vocation;
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuViewer;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.craft.shop.BackMenuItem;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
-import org.apache.commons.lang3.text.WordUtils;
 
 public final class VocationMenu extends Menu {
 

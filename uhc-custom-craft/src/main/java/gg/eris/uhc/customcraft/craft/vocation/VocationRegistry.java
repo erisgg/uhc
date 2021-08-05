@@ -15,7 +15,8 @@ import org.bukkit.inventory.Recipe;
 
 public abstract class VocationRegistry extends Registry<Unlockable> {
 
-  private static final IdentifierProvider VOCATION_REGISTRY_PROVIDER = new IdentifierProvider("vocation");
+  private static final IdentifierProvider VOCATION_REGISTRY_PROVIDER = new IdentifierProvider(
+      "vocation");
 
   @Getter
   protected final Identifier identifier;

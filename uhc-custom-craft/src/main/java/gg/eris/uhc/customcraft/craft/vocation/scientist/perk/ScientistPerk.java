@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.craft.vocation.scientist.perk;
 
-import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcChangeStateEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;

@@ -1,10 +1,6 @@
 package gg.eris.uhc.customcraft.craft;
 
-import gg.eris.commons.bukkit.util.CC;
-import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
-import gg.eris.commons.core.util.Text;
-import java.util.List;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;

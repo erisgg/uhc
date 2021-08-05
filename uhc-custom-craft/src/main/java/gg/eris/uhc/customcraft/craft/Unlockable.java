@@ -5,7 +5,6 @@ import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class Unlockable implements Identifiable {

@@ -14,7 +14,8 @@ public final class SmeltersShovel extends Craft {
 
   public SmeltersShovel() {
     super("smelters_shovel", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.IRON_PICKAXE).withEnchantment(Enchantment.DIG_SPEED, 1).build())
+        .base(new ItemBuilder(Material.IRON_PICKAXE).withEnchantment(Enchantment.DIG_SPEED, 1)
+            .build())
         .color(CC.GRAY)
         .name("Smelter's Shovel")
         .quote("Diggy diggy dirt!")

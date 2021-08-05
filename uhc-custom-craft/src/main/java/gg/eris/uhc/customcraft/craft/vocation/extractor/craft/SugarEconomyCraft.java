@@ -20,6 +20,7 @@ public final class SugarEconomyCraft extends Craft {
         .quote("I'm Lovin' It.")
         .quoteGiver("Some restaurant")
         .effects("Gives 4 sugar cane")
+        .base(new ItemStack(Material.SUGAR_CANE, 4))
         .build());
   }
 

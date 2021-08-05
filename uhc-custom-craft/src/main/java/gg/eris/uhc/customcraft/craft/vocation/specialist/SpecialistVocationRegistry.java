@@ -2,13 +2,13 @@ package gg.eris.uhc.customcraft.craft.vocation.specialist;
 
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.HardenedHelmetCraft;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.LightAnvilCraft;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.LightObsidianCraft;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.SeekersCompassCraft;
-import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.HardenedHelmetCraft;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.perk.SpecialistPerk;
-import gg.eris.uhc.customcraft.craft.vocation.specialist.trinket.PrometheusProtectionTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.trinket.EirenesAllureTrinket;
+import gg.eris.uhc.customcraft.craft.vocation.specialist.trinket.PrometheusProtectionTrinket;
 
 public final class SpecialistVocationRegistry extends VocationRegistry {
 

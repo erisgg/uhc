@@ -1,10 +1,10 @@
 package gg.eris.uhc.customcraft.craft.vocation.extractor;
 
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
-import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SaddleCraft;
-import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SugarEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.ArrowEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.CompactBowCraft;
+import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SaddleCraft;
+import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SugarEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.perk.ExtractorPerk;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.trinket.ArtemisQuiverTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.trinket.DionysusBrewTrinket;

@@ -3,7 +3,6 @@ package gg.eris.uhc.customcraft.craft.shop.skill;
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuItem;
 import gg.eris.commons.bukkit.menu.MenuViewer;
-import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.inventory.InventoryClickEvent;
