@@ -14,6 +14,8 @@ public final class SharpnessBookCraft extends Craft {
     super("sharpness_book",
         new ItemBuilder(Material.ENCHANTED_BOOK)
             .withEnchantment(Enchantment.DAMAGE_ALL, 1)
+            .nonCraftable()
+            .nonBrewable()
             .build());
   }
 

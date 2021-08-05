@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.core.util.Text;
 import java.util.List;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public abstract class Trinket extends Unlockable implements Craftable, Listener 
   public Trinket(String identifierValue, CraftableInfo info) {
     super(identifierValue);
     this.info = info;
-    this.item = info.buildTrinket();
+    this.item = NBTUtil.setNbtData(info.buildTrinket(), NBT_KEY, this.getIdentifier().toString());
   }
 
   public final ItemStack getItem() {

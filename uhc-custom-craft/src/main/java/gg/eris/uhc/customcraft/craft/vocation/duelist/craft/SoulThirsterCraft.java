@@ -16,7 +16,10 @@ public final class SoulThirsterCraft extends Craft {
 
   public SoulThirsterCraft() {
     super("soul_thirster", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.DIAMOND_SWORD).withEnchantment(Enchantment.DAMAGE_ALL, 1).build())
+        .base(new ItemBuilder(Material.DIAMOND_SWORD)
+            .withEnchantment(Enchantment.DAMAGE_ALL, 1)
+            .build())
+        .color(CC.DARK_RED)
         .name("Soul Thirster")
         .quote("I want to suck your blood!")
         .quoteGiver("Dracula")
@@ -24,8 +27,7 @@ public final class SoulThirsterCraft extends Craft {
             "Sharpness I Diamond Sword",
             "Increases by 1 sharpness level each kill, up to Sharpness IV",
             "Decays a sharpness level every 5 minutes without a kill, down to Sharpness I"
-        )
-        .color(CC.DARK_RED)
+        ).nonTransformable()
         .build()
     );
   }

@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.util.Text;
 import java.util.List;
-import javax.swing.DefaultFocusManager;
 import lombok.Builder;
 import lombok.Value;
 import org.bukkit.Material;
@@ -78,6 +77,25 @@ public class CraftableInfo {
     public CraftableInfoBuilder material(Material material) {
       this.base = new ItemStack(material);
       return this;
+    }
+
+    public CraftableInfoBuilder nonAnvillable() {
+      this.base = new ItemBuilder(this.base).nonAnvillable().build();
+      return this;
+    }
+
+    public CraftableInfoBuilder nonCraftable() {
+      this.base = new ItemBuilder(this.base).nonCraftable().build();
+      return this;
+    }
+
+    public CraftableInfoBuilder nonBrewable() {
+      this.base = new ItemBuilder(this.base).nonBrewable().build();
+      return this;
+    }
+
+    public CraftableInfoBuilder nonTransformable() {
+      return nonAnvillable().nonCraftable().nonBrewable();
     }
 
     public CraftableInfoBuilder effects(String... effects) {

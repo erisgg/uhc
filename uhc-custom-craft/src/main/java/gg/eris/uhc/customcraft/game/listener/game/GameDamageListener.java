@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.game.listener;
+package gg.eris.uhc.customcraft.game.listener.game;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
@@ -6,34 +6,25 @@ import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.game.state.GameState;
-import gg.eris.uhc.core.game.state.GameState.Type;
-import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
-import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import java.util.Set;
 import java.util.UUID;
-import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
-import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public final class GameListener extends GameStateListener {
+public final class GameDamageListener extends GameStateListener {
 
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
 
-  public GameListener(CustomCraftUhcGame game) {
+  public GameDamageListener(CustomCraftUhcGame game) {
     this.game = game;
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
   }
@@ -142,11 +133,6 @@ public final class GameListener extends GameStateListener {
         }
       }
     }
-  }
-
-  @EventHandler
-  public void onPlayerQuit(PlayerQuitEvent event) {
-    // TODO: Hnadle logging out during gamed
   }
 
 }

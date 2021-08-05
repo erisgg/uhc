@@ -14,16 +14,20 @@ public final class DemigodBowCraft extends Craft {
 
   public DemigodBowCraft() {
     super("demigod_bow", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.BOW).withEnchantment(Enchantment.ARROW_DAMAGE, 1).build())
+        .base(new ItemBuilder(Material.BOW)
+            .withEnchantment(Enchantment.ARROW_DAMAGE, 1)
+            .build()
+        )
+        .color(CC.AQUA)
         .name("Demigod Bow")
         .quote("And you have my bow.")
         .quoteGiver("Legolas")
         .effects(
-            "Power I Bow",
-            "Power II 15 minutes after PvP",
-            "Power III during deathmatch"
+        "Power I Bow",
+        "Power II 15 minutes after PvP",
+        "Power III during deathmatch"
         )
-        .color(CC.AQUA)
+        .nonTransformable()
         .build()
     );
   }

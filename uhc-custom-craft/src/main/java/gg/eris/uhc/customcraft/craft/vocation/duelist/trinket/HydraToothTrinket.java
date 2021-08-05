@@ -12,12 +12,13 @@ public final class HydraToothTrinket extends Trinket {
 
   public HydraToothTrinket() {
     super("hydra_tooth", CraftableInfo.builder()
+        .material(Material.GHAST_TEAR)
         .color(CC.DARK_PURPLE)
-        .effects("Increases sword damage by 0.5")
         .name("Hydra Tooth")
         .quote("Ouch.")
         .quoteGiver("The Hydra")
-        .material(Material.GHAST_TEAR)
+        .effects("Increases sword damage by 0.5")
+        .nonTransformable()
         .build()
     );
   }

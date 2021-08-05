@@ -7,7 +7,6 @@ import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -20,13 +19,14 @@ public final class DemigodSwordCraft extends Craft {
             .build())
         .color(CC.AQUA)
         .name("Demigod Sword")
+        .quote("I can kill anything with this!")
+        .quoteGiver("Forgotten Adventurer")
         .effects(
             "Sharpness I Iron Sword",
             "Sharpness II after 70 damage dealt",
             "Sharpness III after 160 damage dealt"
         )
-        .quote("I can kill anything with this!")
-        .quoteGiver("Forgotten Adventurer")
+        .nonTransformable()
         .build()
     );
   }

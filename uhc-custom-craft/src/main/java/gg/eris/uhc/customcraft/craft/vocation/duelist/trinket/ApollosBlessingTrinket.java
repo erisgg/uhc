@@ -16,9 +16,10 @@ public final class ApollosBlessingTrinket extends Trinket {
             .material(Material.FEATHER)
             .color(CC.GOLD)
             .name("Apollo's Blessing")
-            .quoteGiver("Apollo")
             .quote("Consider yourself blessed?")
+            .quoteGiver("Apollo")
             .effects("10% chance for arrows to automatically aim towards your target")
+            .nonTransformable()
             .build()
     );
   }

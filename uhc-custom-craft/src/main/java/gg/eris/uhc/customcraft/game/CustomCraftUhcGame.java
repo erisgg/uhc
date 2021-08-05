@@ -11,10 +11,11 @@ import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
-import gg.eris.uhc.customcraft.game.listener.GameListener;
+import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
+import gg.eris.uhc.customcraft.game.listener.game.SpectatorListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -22,7 +23,6 @@ import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMaps;
 import java.util.Collection;
 import java.util.List;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Recipe;
 
@@ -98,7 +98,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     return List.of(
         new GlobalListener(this),
         new LobbyListener(this),
-        new GameListener(this),
+        new GameDamageListener(this),
+        new SpectatorListener(this),
         new PvpListener(),
         new TrinketBagListener(this),
         new TrinketBagInventoryListener(this)

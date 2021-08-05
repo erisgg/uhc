@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.craft.bag;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
@@ -66,30 +67,24 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
 
     int index = TrinketBagItem.INVENTORY_SLOTS.indexOf(slot);
     Trinket clicked = item.getTrinket(index);
-    if (clicked == null) {
-      if (StackUtil.isNullOrAir( cursor)) {
+    if (clicked != null) {
+      if (player.getInventory().firstEmpty() == -1) {
+        TextController.send(
+            player,
+            TextType.ERROR,
+            "Your inventory is <h>full</h>!"
+        );
         return;
       }
-      return;
+      Trinket trinket = item.removeTrinket(index);
+      player.getInventory().addItem(trinket.getItem());
     }
-
-    if (player.getInventory().firstEmpty() == -1) {
-      TextController.send(
-          player,
-          TextType.ERROR,
-          "Your inventory is <h>full</h>!"
-      );
-      return;
-    }
-
-    Trinket trinket = item.removeTrinket(index);
-    player.getInventory().addItem(trinket.getItem());
 
     if (StackUtil.isNullOrAir(cursor)) {
       inventory.setItem(slot, TrinketBagItem.EMPTY_SLOT);
     } else {
-      // TODO: Get NBT from thing
-      Unlockable newUnlockable  = Vocation.getUnlockable(null);
+      Identifier identifier = Unlockable.getIdentifierFromItemStack(cursor);
+      Unlockable newUnlockable  = Vocation.getUnlockable(identifier);
       if (!(newUnlockable instanceof Trinket)) {
         return;
       }
