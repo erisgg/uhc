@@ -26,7 +26,7 @@ public class DemigodHelmet extends Craft {
         .name("Demigod Helmet")
         .quote("Eureka!")
         .quoteGiver("Archimedes")
-        .effects("Protection 1, Fire Protection 1, Projectile Protection 1, Unbreaking 1 Iron "
+        .effects("Protection I, Fire Protection I, Projectile Protection I, Unbreaking I Iron "
             + "Helmet")
         .build()
     );

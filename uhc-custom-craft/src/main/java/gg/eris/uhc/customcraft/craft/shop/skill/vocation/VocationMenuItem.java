@@ -33,7 +33,7 @@ public final class VocationMenuItem implements MenuItem {
   public VocationMenuItem(Unlockable unlockable) {
     this.unlockable = unlockable;
 
-    if (unlockable.getVocation() != Vocation.DUELIST) {
+    if (unlockable.getVocation().getRegistry() == null) {
       this.locked = null;
       this.unlocked = null;
       return;

@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.enchanter;
+package gg.eris.uhc.customcraft.craft.vocation.enchanter.perk;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.Text;

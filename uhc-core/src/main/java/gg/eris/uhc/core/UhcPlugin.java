@@ -7,11 +7,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UhcPlugin extends JavaPlugin {
 
+  private static UhcPlugin INSTANCE;
+
   private ErisBukkitCommons commons;
   private UhcModule<?> uhc;
 
   @Override
   public void onEnable() {
+    INSTANCE = this;
+
     saveDefaultConfig();
     this.commons = Bukkit.getServicesManager()
         .getRegistration(ErisBukkitCommons.class).getProvider();
@@ -47,6 +51,11 @@ public final class UhcPlugin extends JavaPlugin {
 
   public ErisBukkitCommons getCommons() {
     return this.commons;
+  }
+
+  @Deprecated
+  public static UhcPlugin getPlugin() {
+    return INSTANCE;
   }
 
 }

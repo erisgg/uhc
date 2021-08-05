@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.miner;
+package gg.eris.uhc.customcraft.craft.vocation.miner.perk;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.Text;

@@ -22,7 +22,7 @@ public final class VocationMenu extends Menu {
     setFillItem(Menu.DARK_FILLER);
     setParent(parent);
 
-    if (vocation != Vocation.DUELIST) {
+    if (vocation.getRegistry() == null) {
       return;
     }
     // Hardcoded joy :)

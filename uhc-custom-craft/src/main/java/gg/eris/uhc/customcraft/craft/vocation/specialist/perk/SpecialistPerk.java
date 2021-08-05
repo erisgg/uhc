@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.specialist;
+package gg.eris.uhc.customcraft.craft.vocation.specialist.perk;
 
 import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;

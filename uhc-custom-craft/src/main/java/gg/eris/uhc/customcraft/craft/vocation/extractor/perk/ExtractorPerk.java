@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.extractor;
+package gg.eris.uhc.customcraft.craft.vocation.extractor.perk;
 
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;

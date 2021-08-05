@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.vocation.scientist;
+package gg.eris.uhc.customcraft.craft.vocation.scientist.perk;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.Text;
@@ -16,11 +16,8 @@ import org.bukkit.potion.PotionEffectType;
  */
 public final class ScientistPerk extends Perk {
 
-  private final ErisPlayerManager erisPlayerManager;
-
-  public ScientistPerk(ErisPlayerManager erisPlayerManager) {
+  public ScientistPerk() {
     super("scientist_perk");
-    this.erisPlayerManager = erisPlayerManager;
   }
 
   @EventHandler
