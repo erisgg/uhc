@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class DemigodBoots extends Craft {
-    public DemigodBoots() {
+public class DemigodBootsCraft extends Craft {
+    public DemigodBootsCraft() {
         super("demigod_boots", CraftableInfo.builder()
                 .nonTransformable()
                 .base(new ItemBuilder(Material.IRON_BOOTS)

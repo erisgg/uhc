@@ -1,23 +1,22 @@
 package gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets;
 
 import gg.eris.commons.bukkit.util.CC;
-import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.material.MaterialData;
 
-public class ZeusBlessing extends Trinket {
-    public ZeusBlessing() {
-        super("zeus_blessing", CraftableInfo.builder()
-                .material(Material.WEB)
+public class DefendersMedallionTrinket extends Trinket {
+    public DefendersMedallionTrinket() {
+        super("defenders_medallion", CraftableInfo.builder()
+                .material(Material.YELLOW_FLOWER)
                 .color(CC.GOLD)
-                .name("Zeus' Blessing")
-                .quote("You have been blessed!")
-                .quoteGiver("Zeus")
+                .name("Defender's Medallion")
+                .quote("Those who are defended are stronger!")
+                .quoteGiver("Anicetus")
+                .effects("Gives a 50% chance to reduce damage taken by 20%")
                 .nonTransformable()
                 .build()
         );
@@ -27,17 +26,16 @@ public class ZeusBlessing extends Trinket {
     public Recipe getRecipe() {
         return new ShapedRecipe(getItem())
                 .shape(
-                        "flf",
-                        "lwl",
-                        "flf"
-                ).setIngredient('f', Material.FEATHER)
-                .setIngredient('l', new MaterialData(Material.INK_SACK, DataUtil.LAPIS_LAZULI))
-                .setIngredient('w', Material.WATER_BUCKET);
+                        "iii",
+                        "iGi",
+                        "iii"
+                ).setIngredient('i', Material.IRON_INGOT)
+                .setIngredient('G', Material.GOLD_BLOCK);
     }
 
     @Override
     public String getName() {
-        return "Zeus' Blessing";
+        return "Defender's Medallion";
     }
 
     @Override

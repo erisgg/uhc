@@ -10,8 +10,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class ProtectionBook extends Craft {
-    public ProtectionBook() {
+public class ProtectionBookCraft extends Craft {
+    public ProtectionBookCraft() {
         super("protection_book", CraftableInfo.builder()
                 .nonTransformable()
                 .base(new ItemBuilder(Material.ENCHANTED_BOOK)

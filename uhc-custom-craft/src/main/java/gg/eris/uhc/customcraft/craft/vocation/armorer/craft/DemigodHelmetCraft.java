@@ -10,9 +10,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class DemigodHelmet extends Craft {
+public class DemigodHelmetCraft extends Craft {
 
-  public DemigodHelmet() {
+  public DemigodHelmetCraft() {
     super("demigod_helmet", CraftableInfo.builder()
         .nonTransformable()
         .base(new ItemBuilder(Material.IRON_HELMET)
