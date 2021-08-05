@@ -1,13 +1,15 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer;
 
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.enchanter.trinket.AresSiphon;
+import gg.eris.uhc.customcraft.craft.vocation.enchanter.trinket.IrisEnchantment;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.AppleEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.LightAppleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.SpeedSoupCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.perk.HealerPerk;
-import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.AresSiphon;
-import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.IrisEnchantment;
+import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.ForbiddenFruitTrinket;
+import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.KortexsGraceTrinket;
 
 public final class HealerVocationRegistry extends VocationRegistry {
 
@@ -15,8 +17,8 @@ public final class HealerVocationRegistry extends VocationRegistry {
 
   private final HealerPerk perk;
 
-  private final IrisEnchantment firstTrinket;
-  private final AresSiphon secondTrinket;
+  private final ForbiddenFruitTrinket firstTrinket;
+  private final KortexsGraceTrinket secondTrinket;
 
   private final GoldenHeadCraft firstCraft;
   private final AppleEconomyCraft secondCraft;
@@ -25,8 +27,8 @@ public final class HealerVocationRegistry extends VocationRegistry {
 
   private HealerVocationRegistry() {
     this.perk = register(new HealerPerk());
-    this.firstTrinket = register(new IrisEnchantment());
-    this.secondTrinket = register(new AresSiphon());
+    this.firstTrinket = register(new ForbiddenFruitTrinket());
+    this.secondTrinket = register(new KortexsGraceTrinket());
     this.firstCraft = register(new GoldenHeadCraft());
     this.secondCraft = register(new AppleEconomyCraft());
     this.thirdCraft = register(new SpeedSoupCraft());
@@ -44,12 +46,12 @@ public final class HealerVocationRegistry extends VocationRegistry {
   }
 
   @Override
-  public IrisEnchantment getFirstTrinket() {
+  public ForbiddenFruitTrinket getFirstTrinket() {
     return this.firstTrinket;
   }
 
   @Override
-  public AresSiphon getSecondTrinket() {
+  public KortexsGraceTrinket getSecondTrinket() {
     return this.secondTrinket;
   }
 
