@@ -15,14 +15,13 @@ public class DemigodBootsCraft extends Craft {
 
   public DemigodBootsCraft() {
     super("demigod_boots", CraftableInfo.builder()
-        .nonTransformable()
         .base(new ItemBuilder(Material.IRON_BOOTS)
             .withEnchantment(Enchantment.DURABILITY, 1)
             .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
             .withEnchantment(Enchantment.PROTECTION_FIRE, 1)
             .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
             .build()
-        )
+        ).nonTransformable()
         .color(CC.AQUA)
         .name("Demigod Boots")
         .quote("abcde")
@@ -62,6 +61,6 @@ public class DemigodBootsCraft extends Craft {
             " r "
         ).setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('h', Material.IRON_BOOTS);
+        .setIngredient('b', Material.IRON_BOOTS);
   }
 }
