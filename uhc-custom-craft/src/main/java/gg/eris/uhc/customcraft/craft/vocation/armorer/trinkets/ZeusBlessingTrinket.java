@@ -10,9 +10,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
 
-public class ZeusBlessing extends Trinket {
+public class ZeusBlessingTrinket extends Trinket {
 
-  public ZeusBlessing() {
+  public ZeusBlessingTrinket() {
     super("zeus_blessing", CraftableInfo.builder()
         .material(Material.WEB)
         .color(CC.GOLD)
@@ -24,6 +24,7 @@ public class ZeusBlessing extends Trinket {
         .build()
     );
   }
+
 
   @Override
   public Recipe getRecipe() {

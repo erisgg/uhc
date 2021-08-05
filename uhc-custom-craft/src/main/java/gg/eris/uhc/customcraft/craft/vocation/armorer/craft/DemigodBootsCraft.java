@@ -10,25 +10,32 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class DemigodHelmet extends Craft {
 
-  public DemigodHelmet() {
-    super("demigod_helmet", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.IRON_HELMET)
+public class DemigodBootsCraft extends Craft {
+
+  public DemigodBootsCraft() {
+    super("demigod_boots", CraftableInfo.builder()
+        .nonTransformable()
+        .base(new ItemBuilder(Material.IRON_BOOTS)
             .withEnchantment(Enchantment.DURABILITY, 1)
             .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
-            .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
             .withEnchantment(Enchantment.PROTECTION_FIRE, 1)
+            .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
             .build()
-        ).nonTransformable()
+        )
         .color(CC.AQUA)
-        .name("Demigod Helmet")
-        .quote("Eureka!")
-        .quoteGiver("Archimedes")
-        .effects("Protection I, Fire Protection I, Projectile Protection I, Unbreaking I Iron "
-            + "Helmet")
+        .name("Demigod Boots")
+        .quote("abcde")
+        .quoteGiver("Hippocrates")
+        .effects(
+            "Protection 1, Fire Protection 1, Projectile Protection 1, Unbreaking 1 Iron Boots")
         .build()
     );
+  }
+
+  @Override
+  public String getName() {
+    return "Demigod Boots";
   }
 
   @Override
@@ -51,15 +58,10 @@ public class DemigodHelmet extends Craft {
     return new ShapedRecipe(getItem())
         .shape(
             " R ",
-            "rhr",
+            "rbr",
             " r "
         ).setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('h', Material.IRON_HELMET);
-  }
-
-  @Override
-  public String getName() {
-    return "Demigod Helmet";
+        .setIngredient('h', Material.IRON_BOOTS);
   }
 }

@@ -8,9 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class DefendersMedallion extends Trinket {
+public class DefendersMedallionTrinket extends Trinket {
 
-  public DefendersMedallion() {
+  public DefendersMedallionTrinket() {
     super("defenders_medallion", CraftableInfo.builder()
         .material(Material.YELLOW_FLOWER)
         .color(CC.GOLD)
