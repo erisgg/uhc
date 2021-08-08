@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.game.listener.game;
 
-import gg.eris.commons.bukkit.player.ErisPlayerManager;
+import gg.eris.commons.bukkit.player.ErisPlayer;
+import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
@@ -9,6 +10,7 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.util.Comparator;
 import java.util.UUID;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,18 +23,45 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public final class GameDamageListener extends GameStateListener {
 
   private final CustomCraftUhcGame game;
-  private final ErisPlayerManager erisPlayerManager;
 
   public GameDamageListener(CustomCraftUhcGame game) {
     this.game = game;
-    this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
   }
 
   @Override
   protected void onEnable(GameState<?, ?> state) {
-    this.game.getPlugin().getCommons().getTablistController().setDisplayNameFunction
-        ((player, viewer) -> player == viewer ? CC.GREEN + player.getName()
-            : CC.RED + player.getName());
+    TablistController tablistController = this.game.getPlugin().getCommons().getTablistController();
+    tablistController.setDisplayNameFunction((player, viewer) -> {
+          if (player == viewer) {
+            if (this.game.isPlayer(player.getUniqueId())) {
+              return CC.GREEN + player.getName();
+            } else {
+              return CC.GRAY.italic() + player.getName();
+            }
+          } else {
+            if (this.game.isPlayer(player.getUniqueId())) {
+              return CC.RED + player.getName();
+            } else {
+              return null;
+            }
+          }
+        });
+
+    tablistController.setOrderingComparator((o1, o2) -> {
+      if (GameDamageListener.this.game.isPlayer(o1.getUniqueId())) {
+        if (GameDamageListener.this.game.isPlayer(o2.getUniqueId())) {
+          return o1.getName().compareTo(o2.getName());
+        } else {
+          return -1;
+        }
+      } else {
+        if (GameDamageListener.this.game.isPlayer(o2.getUniqueId())) {
+          return 1;
+        } else {
+          return o1.getName().compareTo(o2.getName());
+        }
+      }
+    });
   }
 
   @Override
@@ -46,7 +75,12 @@ public final class GameDamageListener extends GameStateListener {
       return;
     }
 
-    CustomCraftUhcPlayer damaged = this.erisPlayerManager.getPlayer((Player) event.getEntity());
+    CustomCraftUhcPlayer damaged = this.game.getPlayer((Player) event.getEntity());
+    if (damaged == null) {
+      event.setCancelled(true);
+      return;
+    }
+
     Player damagedHandle = damaged.getHandle();
     Player killerHandle = null;
     CustomCraftUhcPlayer killer = null;
@@ -56,17 +90,17 @@ public final class GameDamageListener extends GameStateListener {
         EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
         if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
           killerHandle = (Player) entityDamageByEntityEvent.getDamager();
-          killer = this.erisPlayerManager.getPlayer(killerHandle);
+          killer = this.game.getPlayer(killerHandle);
         } else if (entityDamageByEntityEvent.getDamager() instanceof Projectile) {
           Projectile projectile = (Projectile) entityDamageByEntityEvent.getDamager();
           if (projectile.getShooter() instanceof Player) {
             killerHandle = (Player) projectile.getShooter();
-            killer = this.erisPlayerManager.getPlayer(killerHandle);
+            killer = this.game.getPlayer(killerHandle);
           }
         } else {
           Pair<UUID, Long> lastAttacker = damaged.getLastAttacker();
           if (lastAttacker != null) {
-            CustomCraftUhcPlayer attacker = this.erisPlayerManager.getPlayer(lastAttacker.getKey());
+            CustomCraftUhcPlayer attacker = this.game.getPlayer(lastAttacker.getKey());
             if (attacker != null) {
               if (lastAttacker.getValue()
                   + this.game.getSettings().getAttackCreditDuration() * 1000L
@@ -81,10 +115,7 @@ public final class GameDamageListener extends GameStateListener {
 
       // Killer must be online to get the rewards (maybe change? but cba! LOL!)
       if (killerHandle == null && killer != null) {
-        killerHandle = killer.getHandle();
-        if (killerHandle == null) {
-          killer = null;
-        }
+        killer = null;
       }
 
       event.setCancelled(true);

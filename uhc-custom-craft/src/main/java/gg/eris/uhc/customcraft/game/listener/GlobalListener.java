@@ -18,6 +18,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
@@ -100,6 +102,16 @@ public final class GlobalListener extends MultiStateListener {
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
     event.setQuitMessage(null);
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    event.setJoinMessage(null);
+  }
+
+  @EventHandler
+  public void onAchievementGet(PlayerAchievementAwardedEvent event) {
+    event.setCancelled(true);
   }
 
 }

@@ -30,8 +30,11 @@ public final class CustomCraftUhcWaitingGameState extends
     this.scoreboard.addLine(CC.GRAY + "Waiting for players");
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
-        (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/70", 5);
+        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
+            .getCoins(), 20);
+    this.scoreboard.addLine("");
+    this.scoreboard.addLine((player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW
+        + game.getPlugin().getCommons().getErisPlayerManager().getPlayers().size() + "/70", 5);
     this.scoreboard.addLine("");
     this.scoreboard
         .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());

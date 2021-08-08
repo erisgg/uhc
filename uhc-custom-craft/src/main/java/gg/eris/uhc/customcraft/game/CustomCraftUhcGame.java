@@ -15,8 +15,9 @@ import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
+import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
 import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
-import gg.eris.uhc.customcraft.game.listener.game.SpectatorListener;
+import gg.eris.uhc.customcraft.game.listener.SpectatorListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -103,6 +104,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   protected Collection<MultiStateListener> getMultiStateListeners() {
     return List.of(
         new GlobalListener(this),
+        new WaitingCountdownListener(this),
         new LobbyListener(this),
         new GameDamageListener(this),
         new SpectatorListener(this),

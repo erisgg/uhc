@@ -1,13 +1,18 @@
-package gg.eris.uhc.customcraft.game.listener.game;
+package gg.eris.uhc.customcraft.game.listener;
 
+import gg.eris.commons.bukkit.player.ErisPlayer;
+import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.core.game.state.GameState;
+import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
-import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
+import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -22,7 +27,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public final class SpectatorListener extends GameStateListener {
+public final class SpectatorListener extends MultiStateListener {
+
+  @Override
+  protected Set<Type> getApplicableTypes() {
+    return Set.of(
+        TypeRegistry.STARTING,
+        TypeRegistry.GRACE_PERIOD,
+        TypeRegistry.PVP,
+        TypeRegistry.DEATHMATCH
+    );
+  }
 
   private final CustomCraftUhcGame game;
 
@@ -30,19 +45,37 @@ public final class SpectatorListener extends GameStateListener {
   public void onPlayerJoin(PlayerJoinEvent event) {
     Player player = event.getPlayer();
     PlayerUtil.resetPlayer(player);
-    player.setGameMode(GameMode.CREATIVE);
+
+    ErisPlayer erisPlayer =
+        this.game.getPlugin().getCommons().getErisPlayerManager().getPlayer(player);
+    boolean hasPermission =
+        erisPlayer.hasPermission(CustomCraftUhcIdentifiers.VIEWSPECTATORS_PERMISSION);
+
     for (Player other : Bukkit.getOnlinePlayers()) {
-      other.hidePlayer(player);
-      player.hidePlayer(other);
+      if (!this.game.isPlayer(other)) { // If the online player is not alive
+        if (!hasPermission) { // If they don't have permission to see spectators
+          player.hidePlayer(other); // Hide the joining spectator
+        }
+      }
+
+      // If the other player already on the server can't see spectators
+      if (!this.game.getPlugin().getCommons().getErisPlayerManager().getPlayer(other)
+          .hasPermission(CustomCraftUhcIdentifiers.VIEWSPECTATORS_PERMISSION)) {
+        other.hidePlayer(player); // Hide the new joining player
+      }
     }
 
-    Bukkit.getScheduler().runTask(this.game.getPlugin(), () -> {
+    Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
+      player.setGameMode(GameMode.CREATIVE);
       if (this.game.getGameState().getType() == TypeRegistry.DEATHMATCH) {
-        player.teleport(new Location(this.game.getDeathmatch(), 0, 60, 0));
+        player.teleport(new Location(this.game.getDeathmatch(), 0,
+            this.game.getWorld().getHighestBlockYAt(0, 0) + 50, 0));
       } else {
-        player.teleport(new Location(this.game.getWorld(), 0, 60, 0));
+        player.teleport(new Location(this.game.getWorld(), 0,
+            this.game.getWorld().getHighestBlockYAt(0, 0) + 5, 0));
       }
-    });
+      player.setFlying(true);
+    }, 5L);
   }
 
   @EventHandler

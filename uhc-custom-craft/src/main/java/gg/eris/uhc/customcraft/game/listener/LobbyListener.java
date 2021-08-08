@@ -61,9 +61,6 @@ public final class LobbyListener extends MultiStateListener {
   private final static ItemStack GAPPLE_REWARD;
   private final static ItemStack ARROW_REWARD;
 
-  // Hotbar items
-  private final static ItemStack SHOP = new ItemBuilder(Material.EMERALD)
-      .withName(CC.GOLD.bold() + "Shop" + CC.DARK_GRAY + " (Right Click)").build();
 
   static {
     SWORD_ITEM = new ItemBuilder(Material.DIAMOND_SWORD).unbreakable().build();
@@ -119,30 +116,15 @@ public final class LobbyListener extends MultiStateListener {
     tablistController.setFooter(CC.GOLD + "Visit our store at "
         + CC.YELLOW.bold() + "STORE.ERIS.GG");
     tablistController.setDisplayNameFunction((player, viewer) ->
-        (player.getRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
+        (player.getPriorityRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
             CC.GRAY + player.getName()
-            : player.getRank().getColor().getColor() + "[" + player.getRank().getRawDisplay() + "] "
-                + CC.WHITE + player.getName()));
+            : player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank().getRawDisplay()
+                + "] " + CC.WHITE + player.getName()));
   }
 
   @Override
   protected void onDisable(GameState<?, ?> state) {
 
-  }
-
-  @EventHandler
-  public void onPlayerJoin(PlayerJoinEvent event) {
-    Player player = event.getPlayer();
-    event.setJoinMessage(null);
-
-    LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
-
-    Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
-      PlayerUtil.resetPlayer(player);
-      event.getPlayer().teleport(this.spawn);
-      player.setGameMode(GameMode.ADVENTURE);
-      player.getInventory().setItem(0, SHOP);
-    }, 10L);
   }
 
   @EventHandler
