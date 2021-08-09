@@ -82,7 +82,7 @@ public final class CustomCraftUhcStartingState extends
 
     this.game.getPlugin().getCommons().getChatController()
         .setFormat("<col=gold>[{0}" + CustomCraftUhcIdentifiers.STAR
-                + "]</col> {1}[{2}]</col> {3}{4}<col=red>[{5}]</col>: <raw>{6}</raw></col>",
+                + "]</col> {1}[{2}]</col> {3}{4}[{5}]: <raw>{6}</raw></col>",
             (player, chatMessage) -> ("" + ((CustomCraftUhcPlayer) player).getStar()),
             (player, chatMessage) -> "<col=" + player.getPriorityRank().getColor().getId() + ">",
             (player, chatMessage) -> player.getPriorityRank().getRawDisplay(),
