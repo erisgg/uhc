@@ -1,7 +1,6 @@
 package gg.eris.uhc.customcraft.game.listener;
 
 import gg.eris.commons.bukkit.player.ErisPlayer;
-import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.core.game.state.GameState;

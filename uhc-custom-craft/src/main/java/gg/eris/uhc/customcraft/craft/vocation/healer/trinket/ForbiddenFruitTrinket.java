@@ -10,37 +10,38 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class ForbiddenFruitTrinket extends Trinket {
-    public ForbiddenFruitTrinket() {
-        super("forbidden_fruit", CraftableInfo.builder()
-                .base(new ItemStack(Material.RAW_FISH, 1, (short) 3))
-                .color(CC.GOLD)
-                .name("Forbidden Fruit")
-                .quote("An apple a day keeps the doctor at bay!")
-                .quoteGiver("The Doctor")
-                .effects("Gives the player 2 permanent extra hearts")
-                .build()
-        );
-    }
 
-    @Override
-    public Recipe getRecipe() {
-        return new ShapedRecipe(getItem())
-                .shape(
-                        "sss",
-                        "sas",
-                        "sss"
-                ).setIngredient('s', Material.SEEDS)
-                .setIngredient('a', Material.GOLDEN_APPLE);
+  public ForbiddenFruitTrinket() {
+    super("forbidden_fruit", CraftableInfo.builder()
+        .base(new ItemStack(Material.RAW_FISH, 1, (short) 3))
+        .color(CC.GOLD)
+        .name("Forbidden Fruit")
+        .quote("An apple a day keeps the doctor at bay!")
+        .quoteGiver("The Doctor")
+        .effects("Gives the player 2 permanent extra hearts")
+        .build()
+    );
+  }
 
-    }
+  @Override
+  public Recipe getRecipe() {
+    return new ShapedRecipe(getItem())
+        .shape(
+            "sss",
+            "sas",
+            "sss"
+        ).setIngredient('s', Material.SEEDS)
+        .setIngredient('a', Material.GOLDEN_APPLE);
 
-    @Override
-    public String getName() {
-        return "Forbidden Fruit";
-    }
+  }
 
-    @Override
-    public Vocation getVocation() {
-        return Vocation.HEALER;
-    }
+  @Override
+  public String getName() {
+    return "Forbidden Fruit";
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.HEALER;
+  }
 }

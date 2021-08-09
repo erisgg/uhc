@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.game.listener.game;
 
-import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
@@ -10,7 +9,6 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import java.util.Comparator;
 import java.util.UUID;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -32,20 +30,20 @@ public final class GameDamageListener extends GameStateListener {
   protected void onEnable(GameState<?, ?> state) {
     TablistController tablistController = this.game.getPlugin().getCommons().getTablistController();
     tablistController.setDisplayNameFunction((player, viewer) -> {
-          if (player == viewer) {
-            if (this.game.isPlayer(player.getUniqueId())) {
-              return CC.GREEN + player.getName();
-            } else {
-              return CC.GRAY.italic() + player.getName();
-            }
-          } else {
-            if (this.game.isPlayer(player.getUniqueId())) {
-              return CC.RED + player.getName();
-            } else {
-              return null;
-            }
-          }
-        });
+      if (player == viewer) {
+        if (this.game.isPlayer(player.getUniqueId())) {
+          return CC.GREEN + player.getName();
+        } else {
+          return CC.GRAY.italic() + player.getName();
+        }
+      } else {
+        if (this.game.isPlayer(player.getUniqueId())) {
+          return CC.RED + player.getName();
+        } else {
+          return null;
+        }
+      }
+    });
 
     tablistController.setOrderingComparator((o1, o2) -> {
       if (GameDamageListener.this.game.isPlayer(o1.getUniqueId())) {

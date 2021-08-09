@@ -41,7 +41,7 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Winner: " + CC.YELLOW + ((this.winner == player) ? "You!" :
-            (this.winner == null) ? "No one?" : this.winner.getName()) ,
+            (this.winner == null) ? "No one?" : this.winner.getName()),
         1);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(

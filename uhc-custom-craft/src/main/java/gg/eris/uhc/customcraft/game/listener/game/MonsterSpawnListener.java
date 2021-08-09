@@ -42,7 +42,6 @@ public final class MonsterSpawnListener extends GameStateListener {
       return;
     }
 
-
     // Lower spawn rates
     if (RandomUtil.randomInt(0, 100) < 55) {
       event.setCancelled(true);

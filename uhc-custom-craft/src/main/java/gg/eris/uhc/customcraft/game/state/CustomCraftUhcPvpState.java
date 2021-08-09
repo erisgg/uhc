@@ -51,7 +51,9 @@ public final class CustomCraftUhcPvpState extends
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
             .getErisPlayerManager().getPlayers().size() + "", 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine((player, ticks) -> CC.GRAY + "Kills: " + CC.YELLOW + ((CustomCraftUhcPlayer) player).getGameKills(), 1);
+    this.scoreboard.addLine(
+        (player, ticks) -> CC.GRAY + "Kills: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
+            .getGameKills(), 1);
     this.scoreboard.addLine("");
     this.scoreboard
         .addLine((player, tick) -> CC.GRAY + "Border: " + CC.YELLOW + Math

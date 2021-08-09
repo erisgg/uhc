@@ -12,12 +12,10 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.core.util.LobbyUtil;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import java.util.Set;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -33,7 +31,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -118,7 +115,8 @@ public final class LobbyListener extends MultiStateListener {
     tablistController.setDisplayNameFunction((player, viewer) ->
         (player.getPriorityRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
             CC.GRAY + player.getName()
-            : player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank().getRawDisplay()
+            : player.getPriorityRank().getColor().getColor() + "[" + player.getPriorityRank()
+                .getRawDisplay()
                 + "] " + CC.WHITE + player.getName()));
   }
 

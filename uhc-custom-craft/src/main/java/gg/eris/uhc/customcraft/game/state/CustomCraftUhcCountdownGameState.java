@@ -40,7 +40,9 @@ public final class CustomCraftUhcCountdownGameState extends
     this.scoreboard.addLine((player, ticks) -> CC.YELLOW + Time.toShortDisplayTime(this.countdown,
         TimeUnit.SECONDS), 1);
     this.scoreboard.addLine("");
-    this.scoreboard.addLine((player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player).getCoins(), 20);
+    this.scoreboard.addLine(
+        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
+            .getCoins(), 20);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
