@@ -41,8 +41,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   static {
     COIN_MAP = new Int2IntArrayMap();
-    COIN_MAP.put(10, 50);
-    COIN_MAP.put(1, 20);
+    //COIN_MAP.put(10, 50);
   }
 
   @Getter

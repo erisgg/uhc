@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.game.state;
 
 import gg.eris.commons.bukkit.scoreboard.CommonsScoreboard;
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.core.identifier.Identifier;
@@ -77,6 +79,12 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
             40,
             20
         ));
+        TextController.send(
+            player,
+            TextType.INFORMATION,
+            "You have <h>won</h>! (+<h>{1}</h> coins)",
+            coins
+        );
         PlayerUtil.playSound(player, Sound.LEVEL_UP);
       }
     }
