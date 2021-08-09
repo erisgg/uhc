@@ -23,6 +23,9 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   @Getter
   private int coins;
 
+  @Getter
+  private final int star;
+
   public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins) {
     super(data, wins, kills, gamesPlayed);
     this.perks = new Object2IntArrayMap<>();
@@ -30,6 +33,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     this.crafted = new Object2IntArrayMap<>();
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
+    this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
   }
 
   public int getPerkLevel(Identifier identifier) {

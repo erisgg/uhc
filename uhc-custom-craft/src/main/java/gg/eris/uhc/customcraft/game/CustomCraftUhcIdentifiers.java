@@ -29,6 +29,9 @@ public final class CustomCraftUhcIdentifiers {
   public static final String GAME_WORLD = "world";
   public static final String GAME_NETHER = "world_nether";
 
+  public static final char STAR = '\u2726';
+
+
   public static final Identifier VIEWSPECTATORS_PERMISSION = permission(
       "viewspectators",
       PermissionGroup.STAFF

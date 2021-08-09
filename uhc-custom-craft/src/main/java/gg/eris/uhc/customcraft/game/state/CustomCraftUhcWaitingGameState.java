@@ -30,6 +30,10 @@ public final class CustomCraftUhcWaitingGameState extends
     this.scoreboard.addLine(CC.GRAY + "Waiting for players");
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
+        (player, ticks) -> CC.GRAY + "Tier: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
+            .getStar() + CustomCraftUhcIdentifiers.STAR);
+    this.scoreboard.addLine("");
+    this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
             .getCoins(), 20);
     this.scoreboard.addLine("");

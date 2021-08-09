@@ -7,6 +7,7 @@ import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.GameMode;
@@ -78,6 +79,18 @@ public final class CustomCraftUhcStartingState extends
     for (CustomCraftUhcPlayer logger : logged) {
       this.game.removePlayer(logger);
     }
+
+    this.game.getPlugin().getCommons().getChatController()
+        .setFormat("<col=gold>[{0}" + CustomCraftUhcIdentifiers.STAR
+                + "]</col> {1}[{2}]</col> {3}{4}<col=red>[{5}]</col>: <raw>{6}</raw></col>",
+            (player, chatMessage) -> ("" + ((CustomCraftUhcPlayer) player).getStar()),
+            (player, chatMessage) -> "<col=" + player.getPriorityRank().getColor().getId() + ">",
+            (player, chatMessage) -> player.getPriorityRank().getRawDisplay(),
+            (player, chatMessage) -> player.getPriorityRank().isWhiteChat() ?
+                "<col=white>" : "<col=gray>",
+            (player, chatMessage) -> player.getName(),
+            (player, chatMessage) -> "" + ((CustomCraftUhcPlayer) player).getGameKills(),
+            (player, chatMessage) -> chatMessage);
   }
 
   @Override
