@@ -1,9 +1,12 @@
 package gg.eris.uhc.customcraft.game.state;
 
+import gg.eris.commons.bukkit.scoreboard.CommonsScoreboard;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
+import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -20,17 +23,41 @@ import org.github.paperspigot.Title;
 public final class CustomCraftUhcEndedState extends AbstractEndedGameState<CustomCraftUhcPlayer,
     CustomCraftUhcGame> {
 
+  private static final Identifier SCOREBOARD_IDENTIFIER =
+      CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("ended");
+
+  private final CommonsScoreboard scoreboard;
+
+  private CustomCraftUhcPlayer winner;
+
   public CustomCraftUhcEndedState(CustomCraftUhcGame game) {
     super(game);
+
+    this.scoreboard =
+        game.getPlugin().getCommons().getScoreboardController()
+            .newScoreboard(SCOREBOARD_IDENTIFIER);
+    this.scoreboard
+        .setTitle((player, ticks) -> CC.GOLD.bold() + "Eris " + CC.YELLOW.bold() + "UHC");
+    this.scoreboard.addLine("");
+    this.scoreboard.addLine(
+        (player, ticks) -> CC.GRAY + "Winner: " + CC.YELLOW + ((this.winner == player) ? "You!" :
+            (this.winner == null) ? "No one?" : this.winner.getName()) ,
+        1);
+    this.scoreboard.addLine("");
+    this.scoreboard.addLine(
+        (player, ticks) -> CC.GRAY + "Kills: " + CC.YELLOW
+            + ((CustomCraftUhcPlayer) player).getGameKills(), 1);
+    this.scoreboard.addLine("");
+    this.scoreboard.addLine(CC.YELLOW + "Play @ eris.gg");
   }
 
   @Override
   public void onStart() {
-    CustomCraftUhcPlayer winner = this.game.getWinner();
-    winner.won();
+    this.winner = this.game.getWinner();
+    this.winner.won();
 
     Title title = new Title(
-        CC.DARK_GREEN + winner.getName() + CC.GREEN.bold() + " HAS WON!",
+        CC.DARK_GREEN + this.winner.getName() + CC.GREEN.bold() + " HAS WON!",
         CC.RED + "Better luck next time :(",
         20,
         40,
@@ -53,11 +80,13 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
         PlayerUtil.playSound(player, Sound.LEVEL_UP);
       }
     }
+
+    this.scoreboard.addAllPlayers();
   }
 
   @Override
   public void onEnd() {
-
+    this.scoreboard.removeAllPlayers();
   }
 
   @Override

@@ -122,7 +122,7 @@ public final class CustomCraftUhcGracePeriodState extends
         TextController.send(
             damager,
             TextType.ERROR,
-            "You cannot attack players until the grace period is <h>over</h> (<h>{0}</h>).",
+            "You cannot attack players until the grace period is over (<h>{0}</h>).",
             Time.toShortDisplayTime(this.countdown, TimeUnit.SECONDS)
         );
       }
