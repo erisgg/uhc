@@ -67,15 +67,19 @@ public final class SpectatorListener extends MultiStateListener {
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       player.setGameMode(GameMode.CREATIVE);
-      if (this.game.getGameState().getType() == TypeRegistry.DEATHMATCH) {
-        player.teleport(new Location(this.game.getDeathmatch(), 0,
-            this.game.getWorld().getHighestBlockYAt(0, 0) + 50, 0));
-      } else {
-        player.teleport(new Location(this.game.getWorld(), 0,
-            this.game.getWorld().getHighestBlockYAt(0, 0) + 5, 0));
-      }
+      player.setAllowFlight(true);
       player.setFlying(true);
-    }, 5L);
+
+      Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
+        if (this.game.getGameState().getType() == TypeRegistry.DEATHMATCH) {
+          player.teleport(new Location(this.game.getDeathmatch(), 0,
+              this.game.getWorld().getHighestBlockYAt(0, 0) + 50, 0));
+        } else {
+          player.teleport(new Location(this.game.getWorld(), 0,
+              this.game.getWorld().getHighestBlockYAt(0, 0) + 5, 0));
+        }
+      }, 2L);
+    }, 2L);
   }
 
   @EventHandler
