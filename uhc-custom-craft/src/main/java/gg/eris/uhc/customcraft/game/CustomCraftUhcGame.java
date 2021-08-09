@@ -15,9 +15,15 @@ import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
 import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
-import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
-import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
 import gg.eris.uhc.customcraft.game.listener.SpectatorListener;
+import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
+import gg.eris.uhc.customcraft.game.listener.game.BlockBreakListener;
+import gg.eris.uhc.customcraft.game.listener.game.EntityDropsListener;
+import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
+import gg.eris.uhc.customcraft.game.listener.game.ItemCombustionListener;
+import gg.eris.uhc.customcraft.game.listener.game.MobBurnListener;
+import gg.eris.uhc.customcraft.game.listener.game.MonsterSpawnListener;
+import gg.eris.uhc.customcraft.game.listener.game.StrengthNerfListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -103,14 +109,25 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   @Override
   protected Collection<MultiStateListener> getMultiStateListeners() {
     return List.of(
+        // Standalone listeners
         new GlobalListener(this),
         new WaitingCountdownListener(this),
         new LobbyListener(this),
-        new GameDamageListener(this),
         new SpectatorListener(this),
         new PvpListener(),
+
+        // Trinket (contained in craft package)
         new TrinketBagListener(this),
-        new TrinketBagInventoryListener(this)
+        new TrinketBagInventoryListener(this),
+
+        // Game listeners
+        new BlockBreakListener(),
+        new EntityDropsListener(),
+        new GameDamageListener(this),
+        new ItemCombustionListener(),
+        new MobBurnListener(),
+        new MonsterSpawnListener(),
+        new StrengthNerfListener()
     );
   }
 }
