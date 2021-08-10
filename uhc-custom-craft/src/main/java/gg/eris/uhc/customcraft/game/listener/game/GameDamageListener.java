@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Pair;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
@@ -127,7 +128,7 @@ public final class GameDamageListener extends GameStateListener {
             TextType.INFORMATION,
             "You have killed <h>{0}</h> (+<h>{1}</h> coins)",
             damaged.getName(),
-            coinsPerKill
+            Text.formatInt(coinsPerKill)
         );
       }
 

@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
@@ -74,7 +75,7 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
         int coins = winner.giveCoins(this.game.getSettings().getCoinsPerWin());
         player.sendTitle(new Title(
             CC.GREEN.bold() + "YOU WIN!",
-            CC.GREEN + "(+" + coins + " coins)",
+            CC.GREEN + "(+" + Text.formatInt(coins) + " coins)",
             20,
             40,
             20
@@ -83,7 +84,7 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
             player,
             TextType.INFORMATION,
             "You have <h>won</h>! (+<h>{0}</h> coins)",
-            coins
+            Text.formatInt(coins)
         );
         PlayerUtil.playSound(player, Sound.LEVEL_UP);
       }

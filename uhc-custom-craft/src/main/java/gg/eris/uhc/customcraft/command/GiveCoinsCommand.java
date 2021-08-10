@@ -8,6 +8,7 @@ import gg.eris.commons.bukkit.command.argument.PlayerArgument;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +58,7 @@ public final class GiveCoinsCommand implements CommandProvider {
               TextType.SUCCESS,
               "Given <h>{0}</h> +<h>{1}</h> coins.",
               player.getName(),
-              amount
+              Text.formatInt(amount)
           );
         }).finished();
   }

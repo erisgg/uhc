@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractCountdownGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
@@ -45,8 +46,8 @@ public final class CustomCraftUhcCountdownGameState extends
             .getStar() + CustomCraftUhcIdentifiers.STAR);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
-        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
-            .getCoins(), 20);
+        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW
+            + Text.formatInt(((CustomCraftUhcPlayer) player).getCoins()), 5);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()

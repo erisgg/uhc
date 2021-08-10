@@ -3,9 +3,10 @@ package gg.eris.uhc.customcraft.game.state;
 import gg.eris.commons.bukkit.scoreboard.CommonsScoreboard;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.game.state.AbstractWaitingGameState;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -34,8 +35,8 @@ public final class CustomCraftUhcWaitingGameState extends
             .getStar() + CustomCraftUhcIdentifiers.STAR);
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
-        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW + ((CustomCraftUhcPlayer) player)
-            .getCoins(), 20);
+        (player, ticks) -> CC.GRAY + "Coins: " + CC.YELLOW
+            + Text.formatInt(((CustomCraftUhcPlayer) player).getCoins()), 5);
     this.scoreboard.addLine("");
     this.scoreboard.addLine((player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW
         + game.getPlugin().getCommons().getErisPlayerManager().getPlayers().size() + "/70", 5);
