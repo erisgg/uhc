@@ -27,4 +27,10 @@ public abstract class Craft extends Unlockable implements Craftable, Listener {
   public final ItemStack getItem() {
     return this.item;
   }
+
+  public final boolean isItem(ItemStack item){
+    String data = NBTUtil.getStringNbtData(item, NBT_KEY);
+
+    return true; // return whether it is actually the item
+  }
 }
