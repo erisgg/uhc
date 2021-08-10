@@ -78,7 +78,7 @@ public enum Vocation {
     List<Unlockable> unlockables = Lists.newArrayList();
     for (Vocation vocation : values()) {
       VocationRegistry registry = vocation.getRegistry();
-      for (Unlockable unlockable : registry.getUnlockables()) {
+      for (Unlockable unlockable : registry.values()) {
         unlockables.add(unlockable);
         if (unlockable.getVocation() != registry.getVocation()) {
           valid = false;

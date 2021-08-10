@@ -26,7 +26,7 @@ public final class CustomCraftUhcWaitingGameState extends
         game.getPlugin().getCommons().getScoreboardController()
             .newScoreboard(SCOREBOARD_IDENTIFIER);
     this.scoreboard
-        .setTitle((player, ticks) -> CC.GOLD.bold() + "Eris " + CC.YELLOW.bold() + "UHC");
+        .setTitle((player, ticks) -> CC.YELLOW.bold() + "Eris " + CC.GOLD.bold() + "UHC");
     this.scoreboard.addLine("");
     this.scoreboard.addLine(CC.GRAY + "Waiting for players");
     this.scoreboard.addLine("");

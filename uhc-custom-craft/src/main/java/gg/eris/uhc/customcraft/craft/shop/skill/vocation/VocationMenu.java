@@ -60,6 +60,11 @@ public final class VocationMenu extends Menu {
     addItem(25, new VocationMenuItem(vocation.getRegistry().getFourthCraft(), 25_000, FOURTH_CRAFT_SLOT, PERK_SLOTS[7], PERK_SLOTS[9]));
     addItem(26, new VocationMenuItem(vocation.getRegistry().getSecondTrinket(), 25_000, SECOND_TRINKET_SLOT, FOURTH_CRAFT_SLOT));
 
+    // Prestiges
+    addItem(45, new PrestigeMenuItem(vocation, true));
+    addItem(53, new PrestigeMenuItem(vocation, false));
+
+    // Back
     addItem(BACK_SLOT, new BackMenuItem());
   }
 

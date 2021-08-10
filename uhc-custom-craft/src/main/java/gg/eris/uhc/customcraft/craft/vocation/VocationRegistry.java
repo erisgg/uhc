@@ -41,10 +41,6 @@ public abstract class VocationRegistry extends Registry<Unlockable> {
     return recipes;
   }
 
-  public final Collection<Unlockable> getUnlockables() {
-    return Set.copyOf(this.values());
-  }
-
   public final Unlockable getUnlockableFromMenuSlot(int slot) {
     switch (slot) {
       case VocationMenu.FIRST_CRAFT_SLOT:

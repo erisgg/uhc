@@ -2,6 +2,8 @@ package gg.eris.uhc.customcraft.game.player;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.IntNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
@@ -10,6 +12,8 @@ import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import java.util.Map;
 import org.bukkit.entity.Player;
 
@@ -28,7 +32,8 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         0,
         1000,
-        Maps.newHashMap()
+        Maps.newHashMap(),
+        new Object2IntArrayMap<>()
     );
   }
 
@@ -41,6 +46,7 @@ public final class CustomCraftUhcPlayerSerializer extends
     int wins = 0;
     int gamesPlayed = 0;
     Map<Vocation, IntSet> treeData = Maps.newHashMap();
+    Object2IntMap<Vocation> prestigeData = new Object2IntArrayMap<>();
 
     if (node.has("games")) {
       JsonNode games = node.get("games");
@@ -76,6 +82,17 @@ public final class CustomCraftUhcPlayerSerializer extends
                 treeData.put(vocation, set);
               }
             }
+
+            if (unlocks.has(CustomCraftUhcIdentifiers.JSON_PRESTIGE_KEY)) {
+              ObjectNode prestiges =
+                  (ObjectNode) unlocks.get(CustomCraftUhcIdentifiers.JSON_PRESTIGE_KEY);
+              for (Vocation vocation : Vocation.values()) {
+                JsonNode prestigeNode = prestiges.get(vocation.getStorageKey());
+                if (prestigeNode instanceof IntNode) {
+                  prestigeData.put(vocation, prestigeNode.asInt());
+                }
+              }
+            }
           }
         }
       }
@@ -87,7 +104,8 @@ public final class CustomCraftUhcPlayerSerializer extends
         kills,
         gamesPlayed,
         coins,
-        treeData
+        treeData,
+        prestigeData
     );
   }
 
@@ -132,6 +150,19 @@ public final class CustomCraftUhcPlayerSerializer extends
         for (int value : entry.getValue()) {
           vocationNode.add(value);
         }
+      }
+    }
+
+    if (player.getPrestigeData().size() > 0) {
+      ObjectNode prestigesNode;
+      if (!unlocks.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
+        prestigesNode = unlocks.putObject(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+      } else {
+        prestigesNode = (ObjectNode) unlocks.get(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+      }
+
+      for (Object2IntMap.Entry<Vocation> entry : player.getPrestigeData().object2IntEntrySet()) {
+        prestigesNode.put(entry.getKey().getStorageKey(), entry.getIntValue());
       }
     }
 

@@ -13,6 +13,7 @@ import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
@@ -31,6 +32,8 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final Object2IntMap<Identifier> crafted;
   @Getter
   private final Map<Vocation, IntSet> treeData;
+  @Getter
+  private final Object2IntMap<Vocation> prestigeData;
 
   @Getter
   private final TrinketBagItem trinketBagItem;
@@ -42,12 +45,13 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final int star;
 
   public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins,
-      Map<Vocation, IntSet> treeData) {
+      Map<Vocation, IntSet> treeData, Object2IntMap<Vocation> prestigeData) {
     super(data, wins, kills, gamesPlayed);
     this.treeData = treeData;
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
     this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
+    this.prestigeData = prestigeData;
 
     this.perks = new Object2IntArrayMap<>();
     this.craftUnlocks = Sets.newHashSet();
@@ -82,6 +86,10 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   public boolean hasUnlockable(Identifier identifier) {
     Unlockable unlockable = Vocation.getUnlockable(identifier);
     return hasUnlockable(unlockable);
+  }
+
+  public int getPrestigeLevel(Vocation vocation) {
+    return this.prestigeData.getOrDefault(vocation, 0);
   }
 
   public void addUnlockable(Unlockable unlockable) {
@@ -123,6 +131,10 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     IntSet set = this.treeData.getOrDefault(vocation, new IntArraySet());
     set.add(slot);
     this.treeData.put(vocation, set);
+  }
+
+  public void addPrestige(Vocation vocation) {
+    this.prestigeData.put(vocation, this.prestigeData.getOrDefault(vocation, 0) + 1);
   }
 
   /**

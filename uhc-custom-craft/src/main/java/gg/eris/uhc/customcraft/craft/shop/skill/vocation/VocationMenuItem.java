@@ -20,7 +20,6 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -109,7 +108,7 @@ public final class VocationMenuItem implements MenuItem {
 
     this.purchasable = new ItemBuilder(base.build()).addLore(
         "",
-        CC.GOLD.bold() + "CLICK TO PURCHASE (" + this.price + " COINS)"
+        CC.GOLD.bold() + "CLICK TO PURCHASE (" + Text.formatInt(this.price) + " COINS)"
     ).build();
   }
 
@@ -138,8 +137,7 @@ public final class VocationMenuItem implements MenuItem {
         TextController.send(
             player.getHandle(),
             TextType.ERROR,
-            "You do not have enough coins to buy <h>{0}</h>! You need <h>{1}</h> more coins to buy "
-                + "this.",
+            "You do not have enough coins to buy <h>{0}</h>! You need <h>{1}</h> more coins.",
             this.unlockable.getName(),
             Text.formatInt(this.price - player.getCoins())
         );
