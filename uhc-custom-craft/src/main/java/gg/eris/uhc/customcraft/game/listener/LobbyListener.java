@@ -13,7 +13,7 @@ import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

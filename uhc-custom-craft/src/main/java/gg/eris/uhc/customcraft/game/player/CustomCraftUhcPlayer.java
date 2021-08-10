@@ -124,7 +124,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
    * @param amount is the amount of coins to give
    * @return is the amount given with boosters applied
    */
-  public int giveCoins(int amount) {
+  public int giveCoins(int amount, boolean applyBooster) {
     Validate.isTrue(amount >= 0, "cannot give negative coins");
     // TODO: Coin boosters
     this.coins += amount;

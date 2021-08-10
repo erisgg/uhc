@@ -20,7 +20,7 @@ public final class DemigodBowCraft extends Craft {
         )
         .color(CC.AQUA)
         .name("Demigod Bow")
-        .quote("And you have my bow.")
+        .quote("You have my bow.")
         .quoteGiver("Legolas")
         .effects(
             "Power I Bow",

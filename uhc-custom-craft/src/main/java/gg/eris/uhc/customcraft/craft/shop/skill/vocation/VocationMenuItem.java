@@ -15,6 +15,9 @@ import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.IntSets;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Material;
@@ -31,21 +34,17 @@ public final class VocationMenuItem implements MenuItem {
   private final Unlockable unlockable;
   private final Vocation vocation;
   private final int slot;
-  private final int prerequisiteSlot;
+  private final IntSet prerequisiteSlots;
   private final ItemStack purchasable;
   private final ItemStack locked;
   private final ItemStack unlocked;
   private final int price;
 
-  public VocationMenuItem(Unlockable unlockable, int price, int slot) {
-    this(unlockable, price, slot, -1);
-  }
-
-  public VocationMenuItem(Unlockable unlockable, int price, int slot, int prerequisiteSlot) {
+  public VocationMenuItem(Unlockable unlockable, int price, int slot, int... prerequisiteSlots) {
     this.unlockable = unlockable;
     this.vocation = unlockable.getVocation();
     this.slot = slot;
-    this.prerequisiteSlot = prerequisiteSlot;
+    this.prerequisiteSlots = IntSets.unmodifiable(new IntArraySet(prerequisiteSlots));
     this.price = price;
 
     if (unlockable.getVocation().getRegistry() == null) {
@@ -109,7 +108,7 @@ public final class VocationMenuItem implements MenuItem {
 
     this.purchasable = new ItemBuilder(base.build()).addLore(
         "",
-        CC.GOLD.bold() + "CLICK TO PURCHASE (-" + this.price + " COINS)"
+        CC.GOLD.bold() + "CLICK TO PURCHASE (" + this.price + " COINS)"
     ).build();
   }
 
@@ -117,15 +116,15 @@ public final class VocationMenuItem implements MenuItem {
   public ItemStack getItem(MenuViewer viewer, Menu menu) {
     CustomCraftUhcPlayer customCraftUhcPlayer = viewer.getErisPlayer();
     if (customCraftUhcPlayer == null) {
-      return this.purchasable;
+      return this.locked;
     }
 
-    if (customCraftUhcPlayer.hasUnlockable(this.unlockable)) {
+    if (customCraftUhcPlayer.hasSlot(this.vocation, this.slot)) {
       return this.unlocked;
-    } else if (this.prerequisiteSlot >= 0 &&
-        customCraftUhcPlayer.hasSlot(this.unlockable.getVocation(), this.prerequisiteSlot)) {
-      return this.purchasable;
     } else {
+      if (hasPrerequisite(customCraftUhcPlayer)) {
+        return this.purchasable;
+      }
       return this.locked;
     }
   }
@@ -133,8 +132,7 @@ public final class VocationMenuItem implements MenuItem {
   @Override
   public void onClick(MenuViewer viewer, InventoryClickEvent event) {
     CustomCraftUhcPlayer player = viewer.getErisPlayer();
-    if (player.hasSlot(this.vocation, prerequisiteSlot) && !player
-        .hasSlot(this.vocation, this.slot)) {
+    if (hasPrerequisite(player) && !player.hasSlot(this.vocation, this.slot)) {
       if (player.getCoins() < this.price) {
         TextController.send(
             player.getHandle(),
@@ -151,13 +149,26 @@ public final class VocationMenuItem implements MenuItem {
         TextController.send(
             player.getHandle(),
             TextType.SUCCESS,
-            "You have bought <h>{0}<h> (-<h>{1}</h> coins).",
+            "You have bought the <h>{0}</h> (-<h>{1}</h> coins).",
             this.unlockable.getName(),
             this.price
         );
         viewer.getViewing().updateMenu(viewer);
       }
     }
+  }
+
+  private boolean hasPrerequisite(CustomCraftUhcPlayer player) {
+    if (this.prerequisiteSlots.isEmpty()) {
+      return true;
+    }
+
+    for (int prerequisite : this.prerequisiteSlots) {
+      if (player.hasSlot(this.vocation, prerequisite)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

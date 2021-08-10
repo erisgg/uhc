@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.game;
+package gg.eris.uhc.customcraft;
 
 import gg.eris.commons.bukkit.permission.Permission;
 import gg.eris.commons.bukkit.permission.PermissionGroup;
@@ -35,6 +35,11 @@ public final class CustomCraftUhcIdentifiers {
   public static final Identifier VIEWSPECTATORS_PERMISSION = permission(
       "viewspectators",
       PermissionGroup.STAFF
+  );
+
+  public static final Identifier GIVECOINS_PERMISSION = permission(
+      "givecoins",
+      PermissionGroup.OWNER_DEVELOPER
   );
 
   private static Identifier permission(String name, PermissionGroup group) {

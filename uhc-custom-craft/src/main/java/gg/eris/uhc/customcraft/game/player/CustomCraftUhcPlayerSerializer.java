@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
 import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import org.bukkit.entity.Player;
 
 public final class CustomCraftUhcPlayerSerializer extends

@@ -7,7 +7,7 @@ import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.GameMode;

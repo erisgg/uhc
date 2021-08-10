@@ -7,6 +7,7 @@ import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
 import gg.eris.uhc.customcraft.craft.shop.skill.SkillShopMenu;

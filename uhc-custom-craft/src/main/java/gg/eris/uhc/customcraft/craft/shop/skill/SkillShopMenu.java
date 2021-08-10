@@ -6,7 +6,7 @@ import gg.eris.commons.bukkit.menu.MenuViewer;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import java.util.Map;
 
 public final class SkillShopMenu extends Menu {

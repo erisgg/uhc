@@ -8,7 +8,7 @@ import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

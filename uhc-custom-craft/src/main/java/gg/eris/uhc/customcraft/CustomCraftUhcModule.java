@@ -2,13 +2,9 @@ package gg.eris.uhc.customcraft;
 
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodSwordCraft;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.SoulThirsterCraft;
-import gg.eris.uhc.customcraft.craft.vocation.enchanter.craft.ModularWand;
+import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import org.bukkit.Bukkit;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
@@ -28,9 +24,9 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
                 "<col=white>" : "<col=gray>",
             (player, chatMessage) -> player.getName(),
             (player, chatMessage) -> chatMessage);
-    Bukkit.getPluginManager().registerEvents(new DemigodSwordCraft(), this.plugin);
-    Bukkit.getPluginManager().registerEvents(new SoulThirsterCraft(), this.plugin);
-    Bukkit.getPluginManager().registerEvents(new ModularWand(), this.plugin);
+    this.plugin.getCommons().getCommandManager()
+        .registerCommands(new GiveCoinsCommand(this.plugin.getCommons()
+            .getErisPlayerManager()));
   }
 
   @Override
