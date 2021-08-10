@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.miner;
 
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.miner.craft.LuckPick;
 import gg.eris.uhc.customcraft.craft.vocation.miner.craft.LumberAxe;
@@ -72,6 +73,11 @@ public final class MinerVocationRegistry extends VocationRegistry {
   @Override
   public LuckPick getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.MINER;
   }
 
   public static MinerVocationRegistry get() {

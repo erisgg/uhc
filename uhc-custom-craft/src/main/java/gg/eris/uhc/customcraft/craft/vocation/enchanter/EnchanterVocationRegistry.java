@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.enchanter;
 
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.craft.ExperienceBottleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.craft.LightEnchantTableCraft;
@@ -73,6 +74,11 @@ public final class EnchanterVocationRegistry extends VocationRegistry {
   @Override
   public ModularWand getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.ENCHANTER;
   }
 
   public static EnchanterVocationRegistry get() {

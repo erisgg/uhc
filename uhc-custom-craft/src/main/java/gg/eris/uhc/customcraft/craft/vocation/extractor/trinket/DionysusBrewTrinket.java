@@ -44,6 +44,6 @@ public final class DionysusBrewTrinket extends Trinket {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.SPECIALIST;
+    return Vocation.EXTRACTOR;
   }
 }

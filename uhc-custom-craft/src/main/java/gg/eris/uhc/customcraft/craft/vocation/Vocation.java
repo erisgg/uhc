@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation;
 
+import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.identifier.Identifier;
@@ -12,7 +13,10 @@ import gg.eris.uhc.customcraft.craft.vocation.healer.HealerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.miner.MinerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.scientist.ScientistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
+import java.util.Collection;
+import java.util.List;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -57,6 +61,31 @@ public enum Vocation {
     }
 
     return null;
+  }
+
+  public static boolean validateRegistries() {
+    boolean valid = true;
+    List<Unlockable> unlockables = Lists.newArrayList();
+    for (Vocation vocation : values()) {
+      VocationRegistry registry = vocation.getRegistry();
+      for (Unlockable unlockable : registry.getUnlockables()) {
+        unlockables.add(unlockable);
+        if (unlockable.getVocation() != registry.getVocation()) {
+          valid = false;
+          Bukkit.getLogger().warning(unlockable.getName() + " has invalid vocation (has " + unlockable.getVocation() + " and requires " + registry.getVocation() + ").");
+        }
+      }
+    }
+
+    for (Unlockable a : unlockables) {
+      for (Unlockable b : unlockables) {
+        if (a != b && a.getName().equalsIgnoreCase(b.getName())) {
+          valid = false;
+          Bukkit.getLogger().warning("Unlockable " + a.getName() + " has the same name as " + b.getName());
+        }
+      }
+    }
+    return valid;
   }
 
 }

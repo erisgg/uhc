@@ -28,7 +28,7 @@ public final class HealerPerk extends Perk {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.ENCHANTER;
+    return Vocation.HEALER;
   }
 
 }

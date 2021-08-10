@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer;
 
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.AppleEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
@@ -71,6 +72,11 @@ public final class HealerVocationRegistry extends VocationRegistry {
   @Override
   public LightAppleCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.HEALER;
   }
 
   public static HealerVocationRegistry get() {

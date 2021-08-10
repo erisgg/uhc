@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation.scientist;
 
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.scientist.craft.AbsorberCraft;
 import gg.eris.uhc.customcraft.craft.vocation.scientist.craft.GlowstoneCraft;
@@ -71,6 +72,11 @@ public final class ScientistVocationRegistry extends VocationRegistry {
   @Override
   public InstantDamagePotionCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.SCIENTIST;
   }
 
   public static ScientistVocationRegistry get() {

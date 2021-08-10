@@ -26,7 +26,7 @@ public final class SugarEconomyCraft extends Craft {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.SPECIALIST;
+    return Vocation.EXTRACTOR;
   }
 
   @Override

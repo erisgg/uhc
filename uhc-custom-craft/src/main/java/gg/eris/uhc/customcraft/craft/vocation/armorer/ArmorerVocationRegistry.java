@@ -1,13 +1,14 @@
 package gg.eris.uhc.customcraft.craft.vocation.armorer;
 
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.craft.DemigodBootsCraft;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.craft.DemigodHelmetCraft;
+import gg.eris.uhc.customcraft.craft.vocation.armorer.craft.FusionArmorCraft;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.craft.ProtectionBookCraft;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.perk.ArmorerPerk;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets.DefendersMedallionTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets.ZeusBlessingTrinket;
-import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.SoulThirsterCraft;
 
 public final class ArmorerVocationRegistry extends VocationRegistry {
 
@@ -19,7 +20,7 @@ public final class ArmorerVocationRegistry extends VocationRegistry {
   private final DemigodHelmetCraft firstCraft;
   private final DemigodBootsCraft secondCraft;
   private final ProtectionBookCraft thirdCraft;
-  private final SoulThirsterCraft fourthCraft;
+  private final FusionArmorCraft fourthCraft;
 
   private ArmorerVocationRegistry() {
     this.perk = register(new ArmorerPerk());
@@ -28,7 +29,7 @@ public final class ArmorerVocationRegistry extends VocationRegistry {
     this.firstCraft = register(new DemigodHelmetCraft());
     this.secondCraft = register(new DemigodBootsCraft());
     this.thirdCraft = register(new ProtectionBookCraft());
-    this.fourthCraft = register(new SoulThirsterCraft());
+    this.fourthCraft = register(new FusionArmorCraft());
   }
 
   @Override
@@ -67,12 +68,16 @@ public final class ArmorerVocationRegistry extends VocationRegistry {
   }
 
   @Override
-  public SoulThirsterCraft getFourthCraft() {
+  public FusionArmorCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.ARMORER;
   }
 
   public static ArmorerVocationRegistry get() {
     return REGISTRY;
   }
-
 }

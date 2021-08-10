@@ -40,6 +40,6 @@ public final class AppleEconomyCraft extends Craft {
 
   @Override
   public String getName() {
-    return "Light Apple";
+    return "Apple Economy";
   }
 }

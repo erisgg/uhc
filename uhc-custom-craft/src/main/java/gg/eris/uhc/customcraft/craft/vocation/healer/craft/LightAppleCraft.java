@@ -14,11 +14,6 @@ public final class LightAppleCraft extends Craft {
   }
 
   @Override
-  public Vocation getVocation() {
-    return Vocation.HEALER;
-  }
-
-  @Override
   public int getCraftableAmount() {
     return 1;
   }
@@ -43,6 +38,11 @@ public final class LightAppleCraft extends Craft {
   @Override
   public String getName() {
     return "Light Apple";
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.HEALER;
   }
 
 }

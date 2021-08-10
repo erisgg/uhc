@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation.duelist;
 
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodBowCraft;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.craft.DemigodSwordCraft;
@@ -69,6 +70,11 @@ public final class DuelistVocationRegistry extends VocationRegistry {
   @Override
   public SoulThirsterCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.DUELIST;
   }
 
   public static DuelistVocationRegistry get() {

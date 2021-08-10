@@ -26,7 +26,7 @@ public final class SeekersCompassCraft extends Craft {
 
   @Override
   public Vocation getVocation() {
-    return Vocation.HEALER;
+    return Vocation.SPECIALIST;
   }
 
   @Override
@@ -53,7 +53,7 @@ public final class SeekersCompassCraft extends Craft {
 
   @Override
   public String getName() {
-    return "Light Apple";
+    return "Seeker's Compass";
   }
 
 }

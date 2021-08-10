@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.specialist;
 
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.HardenedHelmetCraft;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.craft.LightAnvilCraft;
@@ -73,6 +74,11 @@ public final class SpecialistVocationRegistry extends VocationRegistry {
   @Override
   public SeekersCompassCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.SPECIALIST;
   }
 
   public static SpecialistVocationRegistry get() {

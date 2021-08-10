@@ -1,5 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.extractor;
 
+import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.ArrowEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.CompactBowCraft;
@@ -71,6 +73,11 @@ public final class ExtractorVocationRegistry extends VocationRegistry {
   @Override
   public SaddleCraft getFourthCraft() {
     return this.fourthCraft;
+  }
+
+  @Override
+  public Vocation getVocation() {
+    return Vocation.EXTRACTOR;
   }
 
   public static ExtractorVocationRegistry get() {

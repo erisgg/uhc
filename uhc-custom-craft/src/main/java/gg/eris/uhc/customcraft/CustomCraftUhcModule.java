@@ -3,8 +3,11 @@ package gg.eris.uhc.customcraft;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import org.bukkit.Bukkit;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
@@ -27,6 +30,10 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
     this.plugin.getCommons().getCommandManager()
         .registerCommands(new GiveCoinsCommand(this.plugin.getCommons()
             .getErisPlayerManager()));
+
+    if (!Vocation.validateRegistries()) {
+      Bukkit.getServer().shutdown();
+    }
   }
 
   @Override
