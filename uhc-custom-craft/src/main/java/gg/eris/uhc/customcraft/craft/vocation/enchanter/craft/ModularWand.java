@@ -9,12 +9,22 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.customcraft.craft.Craft;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.Damageable;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -98,6 +108,45 @@ public final class ModularWand extends Craft {
         TextController.send(player, message.getJsonMessage());
       }
       player.setItemInHand(item);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void onAttack(EntityDamageByEntityEvent event){
+    if((event.getEntityType() != EntityType.PLAYER) || (event.getDamager().getType() != EntityType.PLAYER)){
+      return;
+    }
+
+    Player player = (Player) event.getDamager();
+    ItemStack item = player.getItemInHand();
+    Player target = (Player) event.getEntity();
+
+    if(!this.isItem(item)){
+      return;
+    }
+
+
+    int cooldown = NBTUtil.getIntNbtData(item, "cooldown");
+    if(!(cooldown > 0)){
+      event.setCancelled(true);
+
+      String action = NBTUtil.getStringNbtData(item, "action");
+
+      if(action.equals("fire")){
+        target.setFireTicks(5);
+      } else{
+        World world = player.getWorld();
+        Location location = target.getLocation();
+        world.strikeLightning(location);
+
+        EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.ENTITY_ATTACK;
+
+        EntityDamageByEntityEvent event1 = new EntityDamageByEntityEvent(target, player, cause, 3);
+        target.setLastDamageCause(event1);
+        Bukkit.getServer().getPluginManager().callEvent(event1);
+      }
+
+      item = NBTUtil.setNbtData(item, "cooldown", 10);
     }
   }
 }
