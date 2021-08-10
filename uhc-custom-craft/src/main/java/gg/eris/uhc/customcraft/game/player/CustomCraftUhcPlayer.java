@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.game.player;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.customcraft.craft.Craft;
@@ -143,7 +144,17 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
    */
   public int giveCoins(int amount, boolean applyBooster) {
     Validate.isTrue(amount >= 0, "cannot give negative coins");
-    // TODO: Coin boosters
+
+    if (applyBooster) {
+      if (this.ranks.contains(RankRegistry.get().DEMIGOD)) {
+        amount *= 1.75;
+      } else if (this.ranks.contains(RankRegistry.get().ELITE)) {
+        amount *= 1.5;
+      } else if (this.ranks.contains(RankRegistry.get().PRO)) {
+        amount *= 1.25;
+      }
+    }
+
     this.coins += amount;
     return amount;
   }
