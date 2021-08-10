@@ -3,11 +3,18 @@ package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.customcraft.craft.Craft;
 import gg.eris.uhc.customcraft.craft.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
@@ -65,5 +72,20 @@ public final class SoulThirsterCraft extends Craft {
   public String getName() {
     return "Soul Thirster";
   }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void onKill(PlayerDeathEvent event){
+    Player player = event.getEntity();
+    Player killer = player.getKiller();
+
+    ItemStack item = killer.getItemInHand();
+
+    if(this.isItem(item)){
+       item.addEnchantment(Enchantment.DAMAGE_ALL, 4);
+       item = NBTUtil.setNbtData(item, "kill_thirst", 5*60);
+       player.setItemInHand(item);
+    }
+  }
+
 
 }
