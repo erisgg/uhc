@@ -144,7 +144,7 @@ public final class GameDamageListener extends GameStateListener {
                 TextType.INFORMATION,
                 "You have survived to be in the top <h>{0}</h> players (+<h>{1}</h> coins)",
                 playerSize,
-                coins
+                Text.formatInt(coins)
             );
           }
         }

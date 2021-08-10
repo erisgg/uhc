@@ -141,7 +141,7 @@ public final class VocationMenuItem implements MenuItem {
             "You do not have enough coins to buy <h>{0}</h>! You need <h>{1}</h> more coins to buy "
                 + "this.",
             this.unlockable.getName(),
-            this.price - player.getCoins()
+            Text.formatInt(this.price - player.getCoins())
         );
       } else {
         player.addTreeData(this.vocation, this.slot);
@@ -152,7 +152,7 @@ public final class VocationMenuItem implements MenuItem {
             TextType.SUCCESS,
             "You have bought the <h>{0}</h> (-<h>{1}</h> coins).",
             this.unlockable.getName(),
-            this.price
+            Text.formatInt(this.price)
         );
         viewer.getViewing().updateMenu(viewer);
       }
