@@ -26,6 +26,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final Object2IntMap<Identifier> perks;
   private final Set<Identifier> craftUnlocks;
   private final Object2IntMap<Identifier> crafted;
+  @Getter
   private final Map<Vocation, IntSet> treeData;
 
   @Getter
@@ -37,12 +38,13 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   @Getter
   private final int star;
 
-  public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins) {
+  public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins,
+      Map<Vocation, IntSet> treeData) {
     super(data, wins, kills, gamesPlayed);
     this.perks = new Object2IntArrayMap<>();
     this.craftUnlocks = Sets.newHashSet();
     this.crafted = new Object2IntArrayMap<>();
-    this.treeData = Maps.newHashMap();
+    this.treeData = treeData;
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
     this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));

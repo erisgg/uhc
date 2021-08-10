@@ -23,6 +23,7 @@ public final class CustomCraftUhcIdentifiers {
       = new IdentifierProvider(NAMESPACE + "_unlockable");
 
   public static final String JSON_KEY = "custom_craft_uhc";
+  public static final String JSON_UNLOCKS_KEY = "unlocks";
 
   public static final String DEATHMATCH_WORLD = "deathmatch_world";
   public static final String PREGAME_WORLD = "pregame_world";

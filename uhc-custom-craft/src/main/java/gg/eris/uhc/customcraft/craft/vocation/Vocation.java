@@ -15,6 +15,7 @@ import gg.eris.uhc.customcraft.craft.vocation.scientist.ScientistVocationRegistr
 import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -48,6 +49,10 @@ public enum Vocation {
             CC.GREEN.italic() + "Click to enter the " + display,
             CC.GREEN.italic() + "skill shop"
         ).build();
+  }
+
+  public String getStorageKey() {
+    return name().toLowerCase(Locale.ROOT);
   }
 
   public static Unlockable getUnlockable(Identifier identifier) {

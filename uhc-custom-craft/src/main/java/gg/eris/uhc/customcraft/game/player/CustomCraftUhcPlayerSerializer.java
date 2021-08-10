@@ -1,10 +1,16 @@
 package gg.eris.uhc.customcraft.game.player;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
 import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import it.unimi.dsi.fastutil.ints.IntArraySet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import java.util.Map;
 import org.bukkit.entity.Player;
 
 public final class CustomCraftUhcPlayerSerializer extends
@@ -21,7 +27,8 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         0,
         0,
-        0
+        0,
+        Maps.newHashMap()
     );
   }
 
@@ -33,6 +40,8 @@ public final class CustomCraftUhcPlayerSerializer extends
     int kills = 0;
     int wins = 0;
     int gamesPlayed = 0;
+    Map<Vocation, IntSet> treeData = Maps.newHashMap();
+
     if (node.has("games")) {
       JsonNode games = node.get("games");
       if (games.has(CustomCraftUhcIdentifiers.JSON_KEY)) {
@@ -53,6 +62,22 @@ public final class CustomCraftUhcPlayerSerializer extends
         if (customCraft.has("games_played")) {
           gamesPlayed = customCraft.get("games_played").asInt();
         }
+
+        if (customCraft.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
+          JsonNode unlocks = customCraft.get(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+          if (unlocks instanceof ObjectNode) {
+            for (Vocation vocation : Vocation.values()) {
+              if (unlocks.has(vocation.getStorageKey())) {
+                ArrayNode vocations = (ArrayNode) unlocks.get(vocation.getStorageKey());
+                IntSet set = new IntArraySet();
+                for (JsonNode slot : vocations) {
+                  set.add(slot.asInt());
+                }
+                treeData.put(vocation, set);
+              }
+            }
+          }
+        }
       }
     }
 
@@ -61,7 +86,8 @@ public final class CustomCraftUhcPlayerSerializer extends
         wins,
         kills,
         gamesPlayed,
-        coins
+        coins,
+        treeData
     );
   }
 
@@ -85,6 +111,29 @@ public final class CustomCraftUhcPlayerSerializer extends
     uhc.put("wins", player.getWins());
     uhc.put("games_played", player.getGamesPlayed());
     uhc.put("kills", player.getKills());
+
+    ObjectNode unlocks;
+    if (!uhc.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
+      unlocks = uhc.putObject(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+    } else {
+      unlocks = (ObjectNode) games.get(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+    }
+
+    for (Map.Entry<Vocation, IntSet> entry : player.getTreeData().entrySet()) {
+      if (entry.getValue() != null) {
+        ArrayNode vocationNode;
+        String key = entry.getKey().getStorageKey();
+        if (!unlocks.has(key)) {
+          vocationNode = unlocks.putArray(key);
+        } else {
+          vocationNode = (ArrayNode) unlocks.get(key);
+        }
+
+        for (int value : entry.getValue()) {
+          vocationNode.add(value);
+        }
+      }
+    }
 
     return node;
   }
