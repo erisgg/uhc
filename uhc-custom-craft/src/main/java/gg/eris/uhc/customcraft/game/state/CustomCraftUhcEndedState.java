@@ -82,7 +82,7 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
         TextController.send(
             player,
             TextType.INFORMATION,
-            "You have <h>won</h>! (+<h>{1}</h> coins)",
+            "You have <h>won</h>! (+<h>{0}</h> coins)",
             coins
         );
         PlayerUtil.playSound(player, Sound.LEVEL_UP);

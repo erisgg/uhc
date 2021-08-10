@@ -75,8 +75,8 @@ public final class WaitingCountdownListener extends MultiStateListener {
       player.getInventory().setItem(4, SHOP);
       player.getInventory().setHeldItemSlot(4);
       Bukkit.getScheduler().runTaskLater(this.game.getPlugin(),
-          () -> event.getPlayer().teleport(this.spawn), 2L);
-    }, 2L);
+          () -> event.getPlayer().teleport(this.spawn), 3L);
+    }, 4L);
   }
 
 }
