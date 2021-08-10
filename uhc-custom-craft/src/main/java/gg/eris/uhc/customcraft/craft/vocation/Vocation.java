@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.craft.Unlockable;
+import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.ArmorerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.DuelistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.EnchanterVocationRegistry;
@@ -53,6 +54,10 @@ public enum Vocation {
 
   public String getStorageKey() {
     return name().toLowerCase(Locale.ROOT);
+  }
+
+  public Unlockable getUnlockableFromMenuSlot(int slot) {
+    return this.registry.getUnlockableFromMenuSlot(slot);
   }
 
   public static Unlockable getUnlockable(Identifier identifier) {

@@ -9,8 +9,8 @@ import gg.eris.uhc.customcraft.craft.Craftable;
 import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.Unlockable;
+import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 import lombok.Getter;
 import org.bukkit.inventory.Recipe;
@@ -43,6 +43,28 @@ public abstract class VocationRegistry extends Registry<Unlockable> {
 
   public final Collection<Unlockable> getUnlockables() {
     return Set.copyOf(this.values());
+  }
+
+  public final Unlockable getUnlockableFromMenuSlot(int slot) {
+    switch (slot) {
+      case VocationMenu.FIRST_CRAFT_SLOT:
+        return getFirstCraft();
+      case VocationMenu.SECOND_CRAFT_SLOT:
+        return getSecondCraft();
+      case VocationMenu.THIRD_CRAFT_SLOT:
+        return getThirdCraft();
+      case VocationMenu.FOURTH_CRAFT_SLOT:
+        return getFourthCraft();
+      case VocationMenu.FIRST_TRINKET_SLOT:
+        return getFirstTrinket();
+      case VocationMenu.SECOND_TRINKET_SLOT:
+        return getSecondTrinket();
+      default:
+        if (VocationMenu.PERK_SLOTS_SET.contains(slot)) {
+          return getPerk();
+        }
+        return null;
+    }
   }
 
   public abstract String getIdentifierValue();

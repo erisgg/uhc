@@ -9,7 +9,9 @@ import gg.eris.uhc.customcraft.craft.Perk;
 import gg.eris.uhc.customcraft.craft.Trinket;
 import gg.eris.uhc.customcraft.craft.Unlockable;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
@@ -41,13 +43,15 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins,
       Map<Vocation, IntSet> treeData) {
     super(data, wins, kills, gamesPlayed);
-    this.perks = new Object2IntArrayMap<>();
-    this.craftUnlocks = Sets.newHashSet();
-    this.crafted = new Object2IntArrayMap<>();
     this.treeData = treeData;
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
     this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
+
+    this.perks = new Object2IntArrayMap<>();
+    this.craftUnlocks = Sets.newHashSet();
+    this.crafted = new Object2IntArrayMap<>();
+    loadCraftsFromData();
   }
 
   public int getPerkLevel(Perk perk) {
@@ -147,6 +151,20 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   public void spendCoins(int amount) {
     Validate.isTrue(amount >= 0, "cannot take negative coins");
     this.coins -= amount;
+  }
+
+  public void loadCraftsFromData() {
+    for (Map.Entry<Vocation, IntSet> entry : this.treeData.entrySet()) {
+      Vocation vocation = entry.getKey();
+      IntSet set = entry.getValue();
+      if (set == null) {
+        continue;
+      }
+
+      for (int slot : set) {
+        addUnlockable(vocation.getUnlockableFromMenuSlot(slot));
+      }
+    }
   }
 
 
