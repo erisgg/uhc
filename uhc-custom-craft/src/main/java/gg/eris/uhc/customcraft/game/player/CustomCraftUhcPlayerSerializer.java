@@ -27,7 +27,7 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         0,
         0,
-        0,
+        1000,
         Maps.newHashMap()
     );
   }

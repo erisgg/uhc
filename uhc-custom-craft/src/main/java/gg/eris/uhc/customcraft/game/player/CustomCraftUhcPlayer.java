@@ -164,6 +164,11 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     this.coins -= amount;
   }
 
+  public void setCoins(int amount) {
+    Validate.isTrue(amount >= 0, "cannot set negative coins");
+    this.coins = amount;
+  }
+
   public void loadCraftsFromData() {
     for (Map.Entry<Vocation, IntSet> entry : this.treeData.entrySet()) {
       Vocation vocation = entry.getKey();
