@@ -7,6 +7,7 @@ import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
 import gg.eris.uhc.customcraft.command.SetCoinsCommand;
+import gg.eris.uhc.customcraft.command.StatsCommand;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
@@ -36,7 +37,8 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
     ErisPlayerManager erisPlayerManager = this.plugin.getCommons().getErisPlayerManager();
     commandManager.registerCommands(
         new GiveCoinsCommand(erisPlayerManager),
-        new SetCoinsCommand(erisPlayerManager)
+        new SetCoinsCommand(erisPlayerManager),
+        new StatsCommand(erisPlayerManager)
     );
 
     if (!Vocation.validateRegistries()) {

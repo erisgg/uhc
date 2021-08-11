@@ -31,7 +31,7 @@ public final class CustomCraftUhcIdentifiers {
   public static final String GAME_WORLD = "world";
   public static final String GAME_NETHER = "world_nether";
 
-  public static final char STAR = '\u2726';
+  public static final char STAR = '⭐';
 
 
   public static final Identifier VIEWSPECTATORS_PERMISSION = permission(
@@ -42,6 +42,11 @@ public final class CustomCraftUhcIdentifiers {
   public static final Identifier GIVECOINS_PERMISSION = permission(
       "givecoins",
       PermissionGroup.OWNER_DEVELOPER
+  );
+
+  public static final Identifier STATS_PERMISSION = permission(
+      "stats",
+      PermissionGroup.ALL
   );
 
   private static Identifier permission(String name, PermissionGroup group) {

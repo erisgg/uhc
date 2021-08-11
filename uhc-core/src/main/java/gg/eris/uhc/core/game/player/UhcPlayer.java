@@ -25,14 +25,18 @@ public abstract class UhcPlayer extends ErisPlayer {
   private int kills;
 
   @Getter
+  private int deaths;
+
+  @Getter
   private int gameKills;
 
 
-  public UhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed) {
+  public UhcPlayer(DefaultData data,  int gamesPlayed, int wins, int kills, int deaths) {
     super(data);
-    this.wins = wins;
     this.gamesPlayed = gamesPlayed;
+    this.wins = wins;
     this.kills = kills;
+    this.deaths = deaths;
     this.gameKills = 0;
   }
 
@@ -47,6 +51,10 @@ public abstract class UhcPlayer extends ErisPlayer {
 
   public void won() {
     this.wins++;
+  }
+
+  public void died() {
+    this.deaths++;
   }
 
   public void setLastAttacker(Player player) {

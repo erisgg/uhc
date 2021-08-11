@@ -42,11 +42,14 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private int coins;
 
   @Getter
+  private int deaths;
+
+  @Getter
   private final int star;
 
-  public CustomCraftUhcPlayer(DefaultData data, int wins, int kills, int gamesPlayed, int coins,
-      Map<Vocation, IntSet> treeData, Object2IntMap<Vocation> prestigeData) {
-    super(data, wins, kills, gamesPlayed);
+  public CustomCraftUhcPlayer(DefaultData data, int gamesPlayed, int wins, int kills, int deaths,
+      int coins, Map<Vocation, IntSet> treeData, Object2IntMap<Vocation> prestigeData) {
+    super(data, gamesPlayed, wins, kills, deaths);
     this.treeData = treeData;
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
@@ -158,11 +161,11 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     Validate.isTrue(amount >= 0, "cannot give negative coins");
 
     if (applyBooster) {
-      if (this.ranks.contains(RankRegistry.get().DEMIGOD)) {
+      if (this.ranks.contains(RankRegistry.get().DEMIGOD) || this.ranks.contains(RankRegistry.get().PARTNER)) {
         amount *= 1.75;
       } else if (this.ranks.contains(RankRegistry.get().ELITE)) {
         amount *= 1.5;
-      } else if (this.ranks.contains(RankRegistry.get().PRO)) {
+      } else if (this.ranks.contains(RankRegistry.get().PRO) || this.ranks.contains(RankRegistry.get().CREATOR)) {
         amount *= 1.25;
       }
     }

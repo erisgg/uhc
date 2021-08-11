@@ -135,6 +135,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
   public final void killPlayer(T killed, T killer) {
     Player killedHandle = killed.getHandle();
 
+    killed.died();
+
     // Handling effects and stat tracking
     if (killer != null) {
       TextController.broadcastToServer(

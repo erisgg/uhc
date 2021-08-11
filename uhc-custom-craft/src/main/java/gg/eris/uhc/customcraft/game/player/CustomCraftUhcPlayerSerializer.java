@@ -31,6 +31,7 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         0,
         0,
+        0,
         1000,
         Maps.newHashMap(),
         new Object2IntArrayMap<>()
@@ -42,9 +43,10 @@ public final class CustomCraftUhcPlayerSerializer extends
     DefaultData data = DefaultData.fromNode(node);
 
     int coins = 0;
-    int kills = 0;
-    int wins = 0;
     int gamesPlayed = 0;
+    int wins = 0;
+    int kills = 0;
+    int deaths = 0;
     Map<Vocation, IntSet> treeData = Maps.newHashMap();
     Object2IntMap<Vocation> prestigeData = new Object2IntArrayMap<>();
 
@@ -57,16 +59,20 @@ public final class CustomCraftUhcPlayerSerializer extends
           coins = customCraft.get("coins").asInt();
         }
 
-        if (customCraft.has("kills")) {
-          kills = customCraft.get("kills").asInt();
+        if (customCraft.has("games_played")) {
+          gamesPlayed = customCraft.get("games_played").asInt();
         }
 
         if (customCraft.has("wins")) {
           wins = customCraft.get("wins").asInt();
         }
 
-        if (customCraft.has("games_played")) {
-          gamesPlayed = customCraft.get("games_played").asInt();
+        if (customCraft.has("kills")) {
+          kills = customCraft.get("kills").asInt();
+        }
+
+        if (customCraft.has("deaths")) {
+          deaths = customCraft.get("deaths").asInt();
         }
 
         if (customCraft.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
@@ -100,9 +106,10 @@ public final class CustomCraftUhcPlayerSerializer extends
 
     return new CustomCraftUhcPlayer(
         data,
+        gamesPlayed,
         wins,
         kills,
-        gamesPlayed,
+        deaths,
         coins,
         treeData,
         prestigeData
@@ -125,10 +132,11 @@ public final class CustomCraftUhcPlayerSerializer extends
       uhc = (ObjectNode) games.get(CustomCraftUhcIdentifiers.JSON_KEY);
     }
 
-    uhc.put("coins", player.getCoins());
-    uhc.put("wins", player.getWins());
     uhc.put("games_played", player.getGamesPlayed());
+    uhc.put("wins", player.getWins());
     uhc.put("kills", player.getKills());
+    uhc.put("deaths", player.getDeaths());
+    uhc.put("coins", player.getCoins());
 
     ObjectNode unlocks;
     if (!uhc.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
