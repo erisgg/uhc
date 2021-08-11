@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 public final class CustomCraftUhcPlayerSerializer extends
     ErisPlayerSerializer<CustomCraftUhcPlayer> {
 
+  private static final int DEFAULT_COINS = 0;
+
   public CustomCraftUhcPlayerSerializer() {
     super(CustomCraftUhcPlayer.class);
   }
@@ -32,7 +34,7 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         0,
         0,
-        1000,
+        DEFAULT_COINS,
         Maps.newHashMap(),
         new Object2IntArrayMap<>()
     );
@@ -42,7 +44,7 @@ public final class CustomCraftUhcPlayerSerializer extends
   public CustomCraftUhcPlayer deserializePlayer(JsonNode node) {
     DefaultData data = DefaultData.fromNode(node);
 
-    int coins = 0;
+    int coins = DEFAULT_COINS;
     int gamesPlayed = 0;
     int wins = 0;
     int kills = 0;
