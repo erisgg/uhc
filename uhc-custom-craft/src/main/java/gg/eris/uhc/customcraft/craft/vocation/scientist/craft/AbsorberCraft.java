@@ -11,7 +11,7 @@ import org.bukkit.inventory.ShapedRecipe;
 public final class AbsorberCraft extends Craft {
 
   public AbsorberCraft() {
-    super("absorpber", CraftableInfo.builder()
+    super("absorber", CraftableInfo.builder()
         .material(Material.IRON_AXE)
         .color(CC.GREEN)
         .name("Absorber")
