@@ -134,6 +134,13 @@ public final class ModularWand extends Craft {
 
       if(action.equals("fire")){
         target.setFireTicks(5);
+        EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.FIRE;
+
+        EntityDamageByEntityEvent event1 = new EntityDamageByEntityEvent(target, player, cause, 0);
+        target.setLastDamageCause(event1);
+        Bukkit.getServer().getPluginManager().callEvent(event1);
+
+
       } else{
         World world = player.getWorld();
         Location location = target.getLocation();
