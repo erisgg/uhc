@@ -11,6 +11,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -74,7 +75,9 @@ public final class GlobalListener extends MultiStateListener {
       return;
     }
 
-    event.setCancelled(true);
+    if (event.getEntity() instanceof LivingEntity) {
+      event.setCancelled(true);
+    }
   }
 
   // Message on arrow / rod
