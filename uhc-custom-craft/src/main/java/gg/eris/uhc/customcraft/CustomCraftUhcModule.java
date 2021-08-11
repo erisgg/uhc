@@ -38,7 +38,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
     commandManager.registerCommands(
         new GiveCoinsCommand(erisPlayerManager),
         new SetCoinsCommand(erisPlayerManager),
-        new StatsCommand(erisPlayerManager)
+        new StatsCommand(this.plugin, erisPlayerManager)
     );
 
     if (!Vocation.validateRegistries()) {

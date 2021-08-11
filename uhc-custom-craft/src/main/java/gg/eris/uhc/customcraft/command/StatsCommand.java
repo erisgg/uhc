@@ -100,7 +100,8 @@ public final class StatsCommand implements CommandProvider {
               return;
             }
 
-
+            // TODO: Have a custom craft data class and move all data into there, so can serialize
+            // into a node without an ErisPlayer reference
             JsonNode node = this.erisPlayerManager.getOfflineDataManager().getRaw(uuid);
             String name = node.get("name").asText();
             int coins = 0;
