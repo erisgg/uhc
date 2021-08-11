@@ -155,10 +155,10 @@ public final class CustomCraftUhcPlayerSerializer extends
 
     if (player.getPrestigeData().size() > 0) {
       ObjectNode prestigesNode;
-      if (!unlocks.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
-        prestigesNode = unlocks.putObject(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+      if (!unlocks.has(CustomCraftUhcIdentifiers.JSON_PRESTIGE_KEY)) {
+        prestigesNode = unlocks.putObject(CustomCraftUhcIdentifiers.JSON_PRESTIGE_KEY);
       } else {
-        prestigesNode = (ObjectNode) unlocks.get(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
+        prestigesNode = (ObjectNode) unlocks.get(CustomCraftUhcIdentifiers.JSON_PRESTIGE_KEY);
       }
 
       for (Object2IntMap.Entry<Vocation> entry : player.getPrestigeData().object2IntEntrySet()) {
