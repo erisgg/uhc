@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft;
 
 import gg.eris.commons.bukkit.command.CommandManager;
+import gg.eris.commons.bukkit.command.CommandProvider;
 import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.uhc.core.UhcModule;
@@ -12,6 +13,7 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.util.Set;
 import org.bukkit.Bukkit;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
@@ -33,13 +35,6 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
             (player, chatMessage) -> player.getName(),
             (player, chatMessage) -> chatMessage);
 
-    CommandManager commandManager = this.plugin.getCommons().getCommandManager();
-    ErisPlayerManager erisPlayerManager = this.plugin.getCommons().getErisPlayerManager();
-    commandManager.registerCommands(
-        new GiveCoinsCommand(erisPlayerManager),
-        new SetCoinsCommand(erisPlayerManager),
-        new StatsCommand(this.plugin, erisPlayerManager)
-    );
 
     if (!Vocation.validateRegistries()) {
       Bukkit.getServer().shutdown();
@@ -56,4 +51,12 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
     return new CustomCraftUhcGame(this.plugin, this);
   }
 
+  @Override
+  protected Set<CommandProvider> getCommands() {
+    return Set.of(
+        new SetCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
+        new GiveCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
+        new StatsCommand(this.plugin, this.plugin.getCommons().getErisPlayerManager())
+    );
+  }
 }

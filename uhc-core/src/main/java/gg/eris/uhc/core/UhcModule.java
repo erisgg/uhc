@@ -1,6 +1,8 @@
 package gg.eris.uhc.core;
 
+import gg.eris.commons.bukkit.command.CommandProvider;
 import gg.eris.uhc.core.game.UhcGame;
+import java.util.Set;
 
 public abstract class UhcModule<T extends UhcGame<?>> {
 
@@ -29,5 +31,7 @@ public abstract class UhcModule<T extends UhcGame<?>> {
   protected abstract void onDisable();
 
   protected abstract T createGame();
+
+  protected abstract Set<CommandProvider> getCommands();
 
 }

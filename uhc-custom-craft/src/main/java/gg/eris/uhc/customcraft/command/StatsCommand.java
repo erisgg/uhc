@@ -43,11 +43,11 @@ public final class StatsCommand implements CommandProvider {
   @Override
   public Builder getCommand(CommandManager manager) {
     return manager.newCommandBuilder(
-        "statistics",
+        "stats",
         "shows stats",
         "stats [player]",
         CustomCraftUhcIdentifiers.STATS_PERMISSION,
-        "stats"
+        "statsf"
         ).noArgsHandler(context -> {
       CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(context.getSenderAsPlayer());
 

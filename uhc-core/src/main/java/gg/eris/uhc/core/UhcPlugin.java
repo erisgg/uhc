@@ -1,6 +1,7 @@
 package gg.eris.uhc.core;
 
 import gg.eris.commons.bukkit.ErisBukkitCommons;
+import gg.eris.commons.bukkit.command.CommandProvider;
 import java.lang.reflect.InvocationTargetException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,10 @@ public final class UhcPlugin extends JavaPlugin {
 
     if (!Bukkit.getPluginManager().isPluginEnabled(this)) {
       return;
+    }
+
+    for (CommandProvider provider : this.uhc.getCommands()) {
+      this.commons.getCommandManager().registerCommands(provider);
     }
 
     Bukkit.getScheduler().runTask(this, () -> this.uhc.enable());
