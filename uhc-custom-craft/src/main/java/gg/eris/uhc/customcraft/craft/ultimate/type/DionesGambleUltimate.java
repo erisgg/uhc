@@ -15,7 +15,7 @@ public final class DionesGambleUltimate extends UltimateCraft {
     .name("Dione's Gamble")
     .quote("Risk your possibilities, to see if they will turn out in your favor!")
     .quoteGiver("Dione")
-        .effects("Gives the user a completely random Legendary.")
+        .effects("Gives the user a completely random ultimate.")
         .build());
   }
 

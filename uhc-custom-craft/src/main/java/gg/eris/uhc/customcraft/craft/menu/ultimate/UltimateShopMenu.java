@@ -26,6 +26,14 @@ public final class UltimateShopMenu extends Menu {
       addItem(index++, new UltimateShopItem(ultimate));
     }
 
+    while (index < 44) {
+      if (index == 17 || index == 26 || index == 35 || index == 44) {
+        index += 2;
+        continue;
+      }
+      addItem(index++, new UltimateShopItem(null));
+    }
+
     addItem(49, new BackMenuItem());
   }
 

@@ -33,13 +33,13 @@ public final class GameDamageListener extends GameStateListener {
     tablistController.setDisplayNameFunction((player, viewer) -> {
       if (player == viewer) {
         if (this.game.isPlayer(player.getUniqueId())) {
-          return CC.GREEN + player.getName();
+          return CC.GREEN + player.getNicknameProfile().getDisplayName();
         } else {
-          return CC.GRAY.italic() + player.getName();
+          return CC.GRAY.italic() + player.getNicknameProfile().getDisplayName();
         }
       } else {
         if (this.game.isPlayer(player.getUniqueId())) {
-          return CC.RED + player.getName();
+          return CC.RED + player.getNicknameProfile().getDisplayName();
         } else {
           return null;
         }

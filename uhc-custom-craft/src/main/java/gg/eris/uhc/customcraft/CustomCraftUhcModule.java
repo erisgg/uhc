@@ -23,12 +23,14 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
     this.plugin.getCommons().getChatController()
         .setFormat("<col=gold>[{0}" + CustomCraftUhcIdentifiers.STAR
                 + "]</col> {1}[{2}]</col> {3}{4}: <raw>{5}</raw></col>",
-            (player, chatMessage) -> ("" + ((CustomCraftUhcPlayer) player).getStar()),
-            (player, chatMessage) -> "<col=" + player.getPriorityRank().getColor().getId() + ">",
-            (player, chatMessage) -> player.getPriorityRank().getRawDisplay(),
-            (player, chatMessage) -> player.getPriorityRank().isWhiteChat() ?
+            (player, chatMessage) -> player.getNicknameProfile().isNicked() ?
+             "" + 0 : ("" + ((CustomCraftUhcPlayer) player).getStar()),
+            (player, chatMessage) -> "<col="
+                + player.getNicknameProfile().getPriorityDisplayRank().getColor().getId() + ">",
+            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().getRawDisplay(),
+            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
                 "<col=white>" : "<col=gray>",
-            (player, chatMessage) -> player.getName(),
+            (player, chatMessage) -> player.getNicknameProfile().getDisplayName(),
             (player, chatMessage) -> chatMessage);
 
     if (!Vocation.validateRegistries()) {

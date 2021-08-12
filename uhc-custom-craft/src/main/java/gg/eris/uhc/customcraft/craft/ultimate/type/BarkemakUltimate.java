@@ -8,7 +8,7 @@ import org.bukkit.Material;
 public final class BarkemakUltimate extends UltimateCraft {
 
   public BarkemakUltimate() {
-    super("diones_gamble", CraftableInfo.builder()
+    super("barkemak", CraftableInfo.builder()
     .material(Material.DIAMOND_HELMET)
     .nonTransformable()
     .color(CC.GOLD)

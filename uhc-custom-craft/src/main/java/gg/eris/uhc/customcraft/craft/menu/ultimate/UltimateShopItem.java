@@ -15,12 +15,27 @@ import org.bukkit.inventory.ItemStack;
 @RequiredArgsConstructor
 public class UltimateShopItem implements MenuItem {
 
+  private static final ItemStack UNKNOWN =
+      new ItemBuilder(Menu.LIGHT_FILLER).withName(CC.RED.bold() + "???").withLore("",
+          CC.DARK_RED.bold() + "UNDISCOVERED").build();
+
   private final UltimateCraft ultimate;
+
+  private final ItemStack locked;
+
+  public UltimateShopItem(UltimateCraft ultimate) {
+    this.ultimate = ultimate;
+    this.locked = ultimate == null ? null : new ItemBuilder(this.ultimate.getItem())
+        .addLore("", CC.RED.bold() + "LOCKED").build();
+  }
 
   @Override
   public ItemStack getItem(MenuViewer viewer, Menu menu) {
-    return new ItemBuilder(this.ultimate.getItem())
-        .addLore("", CC.RED.bold() + "LOCKED").build();
+    if (this.ultimate == null) {
+       return UNKNOWN;
+    } else {
+      return this.locked;
+    }
   }
 
   @Override

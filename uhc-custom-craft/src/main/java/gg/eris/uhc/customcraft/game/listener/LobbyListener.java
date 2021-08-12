@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.game.listener;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
+import gg.eris.commons.bukkit.rank.Rank;
+import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.bukkit.tablist.TablistController;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
@@ -112,11 +114,13 @@ public final class LobbyListener extends MultiStateListener {
         + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
     tablistController.setFooter(CC.GOLD + "Visit our store at "
         + CC.YELLOW.bold() + "STORE.ERIS.GG");
-    tablistController.setDisplayNameFunction((player, viewer) ->
-        (player.getPriorityRank() == game.getPlugin().getCommons().getRankRegistry().DEFAULT ?
-            CC.GRAY + player.getName()
-            : player.getPriorityRank().getColor().getColor() + "["
-                + player.getPriorityRank().getRawDisplay() + "] " + CC.WHITE + player.getName()));
+    tablistController.setDisplayNameFunction((player, viewer) -> {
+      Rank rank = player.getNicknameProfile().getPriorityDisplayRank();
+      return rank == RankRegistry.get().DEFAULT ?
+          CC.GRAY + player.getNicknameProfile().getDisplayName() : rank.getColor().getColor() +
+          "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getNicknameProfile()
+          .getDisplayName();
+    });
   }
 
   @Override
