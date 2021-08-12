@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.game.listener;
 
+import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
@@ -67,15 +68,19 @@ public final class WaitingCountdownListener extends MultiStateListener {
     Player player = event.getPlayer();
     event.setJoinMessage(null);
 
-    LobbyUtil.broadcastJoin(player, this.erisPlayerManager.getPlayers().size());
+    ErisPlayer erisPlayer = this.erisPlayerManager.getPlayer(player);
+    erisPlayer.addLoadingConsumer(ignored -> LobbyUtil.broadcastJoin(erisPlayer,
+        WaitingCountdownListener.this.erisPlayerManager.getPlayers().size()));
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       PlayerUtil.resetPlayer(player);
       player.setGameMode(GameMode.ADVENTURE);
       player.getInventory().setItem(4, MAIN_MENU);
       player.getInventory().setHeldItemSlot(4);
-      Bukkit.getScheduler().runTaskLater(this.game.getPlugin(),
-          () -> event.getPlayer().teleport(this.spawn), 3L);
+      Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
+        event.getPlayer().teleport(this.spawn);
+        player.setGameMode(GameMode.ADVENTURE);
+      }, 3L);
     }, 4L);
   }
 
