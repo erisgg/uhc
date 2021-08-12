@@ -8,8 +8,8 @@ import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.game.state.AbstractEndedGameState;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -18,9 +18,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.github.paperspigot.Title;
 
 public final class CustomCraftUhcEndedState extends AbstractEndedGameState<CustomCraftUhcPlayer,
@@ -128,6 +131,21 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
 
   @EventHandler
   public void onInteract(PlayerInteractEvent event) {
+    event.setCancelled(true);
+  }
+
+  @EventHandler
+  public void onEntitySpawn(EntitySpawnEvent event) {
+    event.setCancelled(true);
+  }
+
+  @EventHandler
+  public void onItemDrop(PlayerDropItemEvent event) {
+    event.setCancelled(true);
+  }
+
+  @EventHandler
+  public void onItemPickup(PlayerPickupItemEvent event) {
     event.setCancelled(true);
   }
 

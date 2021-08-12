@@ -95,6 +95,13 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   protected abstract Collection<MultiStateListener> getMultiStateListeners();
 
+  /**
+   * Filter drops on player death
+   *
+   * @param drops are the drops
+   */
+  protected abstract void filterDrops(List<ItemStack> drops);
+
   public final void setup() {
     setupWorld();
     this.updatingState = this.gameStateFactory.initialState().get(); // Ticker sets the state
@@ -179,6 +186,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
         Arrays.asList(killedHandle.getInventory().getContents()));
     drops.addAll(Arrays.asList(killedHandle.getInventory().getArmorContents()));
     drops.removeIf(StackUtil::isNullOrAir);
+    filterDrops(drops);
 
     UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, killed, killer, drops);
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);

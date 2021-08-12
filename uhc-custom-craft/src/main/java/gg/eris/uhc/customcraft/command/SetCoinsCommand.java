@@ -24,7 +24,7 @@ public final class SetCoinsCommand implements CommandProvider {
     return manager.newCommandBuilder(
         "setcoins",
         "sets coins of a player",
-        "givecoins <player> <amount>",
+        "setcoins <player> <amount>",
         CustomCraftUhcIdentifiers.GIVECOINS_PERMISSION
     ).withSubCommand()
         .argument(PlayerArgument.of("player"))

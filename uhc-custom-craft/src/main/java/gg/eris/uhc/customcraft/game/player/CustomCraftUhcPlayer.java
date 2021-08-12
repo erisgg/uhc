@@ -1,19 +1,16 @@
 package gg.eris.uhc.customcraft.game.player;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
-import gg.eris.uhc.customcraft.craft.Craft;
-import gg.eris.uhc.customcraft.craft.Perk;
-import gg.eris.uhc.customcraft.craft.Trinket;
-import gg.eris.uhc.customcraft.craft.Unlockable;
+import gg.eris.uhc.customcraft.craft.kit.Kit;
+import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Trinket;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
-import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
@@ -31,6 +28,8 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final Set<Identifier> craftUnlocks;
   private final Object2IntMap<Identifier> crafted;
   @Getter
+  private final Object2IntMap<Identifier> kits;
+  @Getter
   private final Map<Vocation, IntSet> treeData;
   @Getter
   private final Object2IntMap<Vocation> prestigeData;
@@ -39,22 +38,25 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final TrinketBagItem trinketBagItem;
 
   @Getter
+  private final int star;
+
+  @Getter
   private int coins;
 
   @Getter
-  private int deaths;
-
-  @Getter
-  private final int star;
+  private Identifier activeKit;
 
   public CustomCraftUhcPlayer(DefaultData data, int gamesPlayed, int wins, int kills, int deaths,
-      int coins, Map<Vocation, IntSet> treeData, Object2IntMap<Vocation> prestigeData) {
+      int coins, Map<Vocation, IntSet> treeData, Object2IntMap<Vocation> prestigeData,
+      Object2IntMap<Identifier> kits, Identifier activeKit) {
     super(data, gamesPlayed, wins, kills, deaths);
     this.treeData = treeData;
     this.trinketBagItem = new TrinketBagItem(this);
     this.coins = coins;
     this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
     this.prestigeData = prestigeData;
+    this.kits = kits;
+    this.activeKit = activeKit;
 
     this.perks = new Object2IntArrayMap<>();
     this.craftUnlocks = Sets.newHashSet();
@@ -87,7 +89,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   }
 
   public boolean hasUnlockable(Identifier identifier) {
-    Unlockable unlockable = Vocation.getUnlockable(identifier);
+    VocationUnlockable unlockable = Vocation.getUnlockable(identifier);
     return hasUnlockable(unlockable);
   }
 
@@ -95,18 +97,26 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     return this.prestigeData.getOrDefault(vocation, 0);
   }
 
-  public void addUnlockable(Unlockable unlockable) {
+  public int getKitLevel(Kit kit) {
+    return getKitLevel(kit.getIdentifier());
+  }
+
+  public int getKitLevel(Identifier identifier) {
+    return this.kits.getOrDefault(identifier, 0);
+  }
+
+  public void addUnlockable(VocationUnlockable unlockable) {
     if (unlockable instanceof Craft || unlockable instanceof Trinket) {
       this.craftUnlocks.add(unlockable.getIdentifier());
     } else if (unlockable instanceof Perk) {
       this.perks.put(unlockable.getIdentifier(),
-          this.perks.getOrDefault(unlockable.getIdentifier(),0) + 1);
+          this.perks.getOrDefault(unlockable.getIdentifier(), 0) + 1);
     } else {
       throw new IllegalArgumentException("Unknown unlockable passed: " + unlockable);
     }
   }
 
-  public boolean hasUnlockable(Unlockable unlockable) {
+  public boolean hasUnlockable(VocationUnlockable unlockable) {
     if (unlockable instanceof Craft) {
       return hasCraft((Craft) unlockable);
     } else if (unlockable instanceof Perk) {
@@ -153,7 +163,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   /**
    * Gives an amount of coins (amount does not contain boosted amounts)
    *
-   * @param amount is the amount of coins to give
+   * @param amount       is the amount of coins to give
    * @param applyBooster is whether to apply a booster
    * @return the coins given
    */
@@ -161,11 +171,13 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     Validate.isTrue(amount >= 0, "cannot give negative coins");
 
     if (applyBooster) {
-      if (this.ranks.contains(RankRegistry.get().DEMIGOD) || this.ranks.contains(RankRegistry.get().PARTNER)) {
+      if (this.ranks.contains(RankRegistry.get().DEMIGOD) || this.ranks
+          .contains(RankRegistry.get().PARTNER)) {
         amount *= 1.75;
       } else if (this.ranks.contains(RankRegistry.get().ELITE)) {
         amount *= 1.5;
-      } else if (this.ranks.contains(RankRegistry.get().PRO) || this.ranks.contains(RankRegistry.get().CREATOR)) {
+      } else if (this.ranks.contains(RankRegistry.get().PRO) || this.ranks
+          .contains(RankRegistry.get().CREATOR)) {
         amount *= 1.25;
       }
     }

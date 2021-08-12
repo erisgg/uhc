@@ -1,7 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 
 import gg.eris.commons.bukkit.util.ItemBuilder;
-import gg.eris.uhc.customcraft.craft.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

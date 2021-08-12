@@ -1,10 +1,6 @@
 package gg.eris.uhc.customcraft.command;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.IntNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.command.Command.Builder;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.command.CommandProvider;
@@ -12,20 +8,12 @@ import gg.eris.commons.bukkit.command.argument.StringArgument;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.CenteredChatData;
 import gg.eris.commons.bukkit.text.TextController;
-import gg.eris.commons.bukkit.text.TextMessage;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import it.unimi.dsi.fastutil.ints.IntArraySet;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +36,7 @@ public final class StatsCommand implements CommandProvider {
         "stats [player]",
         CustomCraftUhcIdentifiers.STATS_PERMISSION,
         "statsf"
-        ).noArgsHandler(context -> {
+    ).noArgsHandler(context -> {
       CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(context.getSenderAsPlayer());
 
       int kills = player.getKills();
@@ -146,7 +134,6 @@ public final class StatsCommand implements CommandProvider {
 
             double winLoss = wins / Math.max(1.0, gamesPlayed);
 
-
             String message = getMessage(
                 name,
                 kills,
@@ -158,7 +145,8 @@ public final class StatsCommand implements CommandProvider {
                 winLoss
             );
 
-            Bukkit.getScheduler().runTask(this.plugin, () -> context.getCommandSender().sendMessage(message));
+            Bukkit.getScheduler()
+                .runTask(this.plugin, () -> context.getCommandSender().sendMessage(message));
           });
         }).finished();
 
@@ -167,13 +155,18 @@ public final class StatsCommand implements CommandProvider {
   private String getMessage(String name, int kills, int deaths, int wins, int gamesPlayed,
       int coins, double kd, double winLoss) {
     return STRIKE + "\n"
-            + CenteredChatData.getCentredMessage("&e&l" + name + "'s Stats") + "\n" + CC.RESET
-            + CenteredChatData.getCentredMessage("&6Kills: &e" + Text.formatInt(kills)) + "\n" + CC.RESET
-            + CenteredChatData.getCentredMessage("&6Deaths: &e" + Text.formatInt(deaths)) + "\n" + CC.RESET
-            + CenteredChatData.getCentredMessage("&6K/D Ratio: &e" + Text.formatDouble(kd)) + "\n" + CC.RESET
-            + CenteredChatData.getCentredMessage("&6Games Played: &e" + Text.formatInt(gamesPlayed)) + "\n" + CC.RESET
+        + CenteredChatData.getCentredMessage("&e&l" + name + "'s Stats") + "\n" + CC.RESET
+        + CenteredChatData.getCentredMessage("&6Kills: &e" + Text.formatInt(kills)) + "\n"
+        + CC.RESET
+        + CenteredChatData.getCentredMessage("&6Deaths: &e" + Text.formatInt(deaths)) + "\n"
+        + CC.RESET
+        + CenteredChatData.getCentredMessage("&6K/D Ratio: &e" + Text.formatDouble(kd)) + "\n"
+        + CC.RESET
+        + CenteredChatData.getCentredMessage("&6Games Played: &e" + Text.formatInt(gamesPlayed))
+        + "\n" + CC.RESET
         + CenteredChatData.getCentredMessage("&6Wins: &e" + Text.formatInt(wins)) + "\n" + CC.RESET
-        + CenteredChatData.getCentredMessage("&6Win/Loss Ratio: &e" + Text.formatDouble(winLoss)) + "\n" + CC.RESET
+        + CenteredChatData.getCentredMessage("&6Win/Loss Ratio: &e" + Text.formatDouble(winLoss))
+        + "\n" + CC.RESET
         + CenteredChatData.getCentredMessage("&6Coins: &e" + Text.formatInt(coins)) + CC.RESET +
         "\n" + STRIKE;
 

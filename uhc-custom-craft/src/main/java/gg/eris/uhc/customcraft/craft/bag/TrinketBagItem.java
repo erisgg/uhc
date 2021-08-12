@@ -4,7 +4,7 @@ import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.util.Validate;
-import gg.eris.uhc.customcraft.craft.Trinket;
+import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
@@ -40,7 +40,6 @@ public final class TrinketBagItem {
 
   private final CustomCraftUhcPlayer player;
   private final Trinket[] contents;
-
 
   public TrinketBagItem(CustomCraftUhcPlayer player) {
     this.player = player;

@@ -12,8 +12,8 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -132,7 +132,6 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
-    event.setQuitMessage(null);
     if (this.erisPlayerManager.getPlayers().size()
         < this.game.getSettings().getRequiredPlayers()
         && this.game.getGameState().getType() != TypeRegistry.WAITING) {
@@ -250,7 +249,7 @@ public final class LobbyListener extends MultiStateListener {
 
       switch (item.getType()) {
         case EMERALD:
-          this.game.getShopMenu().openMenu(event.getPlayer());
+          this.game.getMainMenu().openMenu(event.getPlayer());
       }
     }
   }

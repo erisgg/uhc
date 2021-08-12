@@ -5,7 +5,7 @@ import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
-import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;

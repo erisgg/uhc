@@ -2,7 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.extractor.perk;
 
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
-import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;

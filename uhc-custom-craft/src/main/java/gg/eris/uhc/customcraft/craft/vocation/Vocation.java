@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.identifier.Identifier;
-import gg.eris.uhc.customcraft.craft.Unlockable;
-import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.ArmorerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.DuelistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.EnchanterVocationRegistry;
@@ -14,7 +12,6 @@ import gg.eris.uhc.customcraft.craft.vocation.healer.HealerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.miner.MinerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.scientist.ScientistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import lombok.Getter;
@@ -56,11 +53,11 @@ public enum Vocation {
     return name().toLowerCase(Locale.ROOT);
   }
 
-  public Unlockable getUnlockableFromMenuSlot(int slot) {
+  public VocationUnlockable getUnlockableFromMenuSlot(int slot) {
     return this.registry.getUnlockableFromMenuSlot(slot);
   }
 
-  public static Unlockable getUnlockable(Identifier identifier) {
+  public static VocationUnlockable getUnlockable(Identifier identifier) {
     if (identifier == null) {
       return null;
     }
@@ -75,23 +72,26 @@ public enum Vocation {
 
   public static boolean validateRegistries() {
     boolean valid = true;
-    List<Unlockable> unlockables = Lists.newArrayList();
+    List<VocationUnlockable> unlockables = Lists.newArrayList();
     for (Vocation vocation : values()) {
       VocationRegistry registry = vocation.getRegistry();
-      for (Unlockable unlockable : registry.values()) {
+      for (VocationUnlockable unlockable : registry.values()) {
         unlockables.add(unlockable);
         if (unlockable.getVocation() != registry.getVocation()) {
           valid = false;
-          Bukkit.getLogger().warning(unlockable.getName() + " has invalid vocation (has " + unlockable.getVocation() + " and requires " + registry.getVocation() + ").");
+          Bukkit.getLogger().warning(
+              unlockable.getName() + " has invalid vocation (has " + unlockable.getVocation()
+                  + " and requires " + registry.getVocation() + ").");
         }
       }
     }
 
-    for (Unlockable a : unlockables) {
-      for (Unlockable b : unlockables) {
+    for (VocationUnlockable a : unlockables) {
+      for (VocationUnlockable b : unlockables) {
         if (a != b && a.getName().equalsIgnoreCase(b.getName())) {
           valid = false;
-          Bukkit.getLogger().warning("Unlockable " + a.getName() + " has the same name as " + b.getName());
+          Bukkit.getLogger()
+              .warning("Unlockable " + a.getName() + " has the same name as " + b.getName());
         }
       }
     }

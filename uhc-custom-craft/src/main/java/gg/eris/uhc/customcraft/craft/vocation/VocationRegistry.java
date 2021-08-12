@@ -4,18 +4,13 @@ import com.google.common.collect.Sets;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.identifier.IdentifierProvider;
 import gg.eris.commons.core.registry.Registry;
-import gg.eris.uhc.customcraft.craft.Craft;
 import gg.eris.uhc.customcraft.craft.Craftable;
-import gg.eris.uhc.customcraft.craft.Perk;
-import gg.eris.uhc.customcraft.craft.Trinket;
-import gg.eris.uhc.customcraft.craft.Unlockable;
-import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
-import java.util.Collection;
+import gg.eris.uhc.customcraft.craft.menu.shop.vocation.VocationMenu;
 import java.util.Set;
 import lombok.Getter;
 import org.bukkit.inventory.Recipe;
 
-public abstract class VocationRegistry extends Registry<Unlockable> {
+public abstract class VocationRegistry extends Registry<VocationUnlockable> {
 
   private static final IdentifierProvider VOCATION_REGISTRY_PROVIDER
       = new IdentifierProvider("vocation");
@@ -29,7 +24,7 @@ public abstract class VocationRegistry extends Registry<Unlockable> {
 
   public final Set<Recipe> getRecipes() {
     Set<Recipe> recipes = Sets.newHashSet();
-    for (Unlockable unlockable : this.values()) {
+    for (VocationUnlockable unlockable : this.values()) {
       if (unlockable instanceof Craftable) {
         Recipe recipe = ((Craftable) unlockable).getRecipe();
         if (recipe != null) {
@@ -41,7 +36,7 @@ public abstract class VocationRegistry extends Registry<Unlockable> {
     return recipes;
   }
 
-  public final Unlockable getUnlockableFromMenuSlot(int slot) {
+  public final VocationUnlockable getUnlockableFromMenuSlot(int slot) {
     switch (slot) {
       case VocationMenu.FIRST_CRAFT_SLOT:
         return getFirstCraft();

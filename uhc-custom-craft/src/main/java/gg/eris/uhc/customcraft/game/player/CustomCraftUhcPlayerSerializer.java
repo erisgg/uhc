@@ -3,7 +3,6 @@ package gg.eris.uhc.customcraft.game.player;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
-import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
@@ -36,7 +35,9 @@ public final class CustomCraftUhcPlayerSerializer extends
         0,
         DEFAULT_COINS,
         Maps.newHashMap(),
-        new Object2IntArrayMap<>()
+        new Object2IntArrayMap<>(),
+        new Object2IntArrayMap<>(),
+        null
     );
   }
 
@@ -114,7 +115,10 @@ public final class CustomCraftUhcPlayerSerializer extends
         deaths,
         coins,
         treeData,
-        prestigeData
+        prestigeData,
+
+        new Object2IntArrayMap<>(),
+        null
     );
   }
 

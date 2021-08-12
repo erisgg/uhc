@@ -4,7 +4,7 @@ import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.event.UhcChangeStateEvent;
 import gg.eris.uhc.core.game.player.UhcPlayer;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
-import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.event.EventHandler;

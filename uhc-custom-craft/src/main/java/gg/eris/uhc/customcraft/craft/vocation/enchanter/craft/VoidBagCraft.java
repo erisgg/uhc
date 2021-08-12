@@ -2,8 +2,8 @@ package gg.eris.uhc.customcraft.craft.vocation.enchanter.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
-import gg.eris.uhc.customcraft.craft.Craft;
-import gg.eris.uhc.customcraft.craft.CraftableInfo;
+import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;

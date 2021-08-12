@@ -1,16 +1,12 @@
 package gg.eris.uhc.customcraft;
 
-import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.command.CommandProvider;
-import gg.eris.commons.bukkit.player.ErisPlayer;
-import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
 import gg.eris.uhc.customcraft.command.SetCoinsCommand;
 import gg.eris.uhc.customcraft.command.StatsCommand;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
@@ -34,7 +30,6 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
                 "<col=white>" : "<col=gray>",
             (player, chatMessage) -> player.getName(),
             (player, chatMessage) -> chatMessage);
-
 
     if (!Vocation.validateRegistries()) {
       Bukkit.getServer().shutdown();

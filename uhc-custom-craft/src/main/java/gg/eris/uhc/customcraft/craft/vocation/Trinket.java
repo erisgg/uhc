@@ -1,11 +1,12 @@
-package gg.eris.uhc.customcraft.craft;
+package gg.eris.uhc.customcraft.craft.vocation;
 
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.uhc.customcraft.craft.Craftable;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class Trinket extends Unlockable implements Craftable, Listener {
+public abstract class Trinket extends VocationUnlockable implements Craftable, Listener {
 
   private final ItemStack item;
   @Getter

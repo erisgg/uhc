@@ -6,15 +6,13 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextMessage;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.NBTUtil;
-import gg.eris.uhc.customcraft.craft.Craft;
-import gg.eris.uhc.customcraft.craft.CraftableInfo;
+import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Damageable;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,9 +20,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -82,27 +78,30 @@ public final class ModularWand extends Craft {
   }
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-  public void onInteract(PlayerInteractEvent event){
+  public void onInteract(PlayerInteractEvent event) {
     Player player = event.getPlayer();
     ItemStack item = player.getItemInHand();
 
-    if(!(this.isItem(item))){
+    if (!(this.isItem(item))) {
       return;
     }
 
-    if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK){
+    if (event.getAction() == Action.RIGHT_CLICK_AIR
+        || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
       String action = NBTUtil.getStringNbtData(item, "action");
-      if(action.equals("lightning")){
+      if (action.equals("lightning")) {
         item = NBTUtil.setNbtData(item, "action", "fire");
 
-        TextMessage message = TextMessage.of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
+        TextMessage message = TextMessage
+            .of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
                 TextComponent.builder("FIRE").color(TextColor.GOLD).bold().build());
         TextController.send(player, message.getJsonMessage());
 
-      } else if(action.equals("fire")){
+      } else if (action.equals("fire")) {
         item = NBTUtil.setNbtData(item, "action", "lightning");
 
-        TextMessage message = TextMessage.of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
+        TextMessage message = TextMessage
+            .of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
                 TextComponent.builder("LIGHTNING").color(TextColor.GOLD).bold().build());
 
         TextController.send(player, message.getJsonMessage());
@@ -112,8 +111,9 @@ public final class ModularWand extends Craft {
   }
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-  public void onAttack(EntityDamageByEntityEvent event){
-    if((event.getEntityType() != EntityType.PLAYER) || (event.getDamager().getType() != EntityType.PLAYER)){
+  public void onAttack(EntityDamageByEntityEvent event) {
+    if ((event.getEntityType() != EntityType.PLAYER) || (event.getDamager().getType()
+        != EntityType.PLAYER)) {
       return;
     }
 
@@ -121,18 +121,17 @@ public final class ModularWand extends Craft {
     ItemStack item = player.getItemInHand();
     Player target = (Player) event.getEntity();
 
-    if(!this.isItem(item)){
+    if (!this.isItem(item)) {
       return;
     }
 
-
     int cooldown = NBTUtil.getIntNbtData(item, "cooldown");
-    if(!(cooldown > 0)){
+    if (!(cooldown > 0)) {
       event.setCancelled(true);
 
       String action = NBTUtil.getStringNbtData(item, "action");
 
-      if(action.equals("fire")){
+      if (action.equals("fire")) {
         target.setFireTicks(5);
         EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.FIRE;
 
@@ -141,7 +140,7 @@ public final class ModularWand extends Craft {
         Bukkit.getServer().getPluginManager().callEvent(event1);
 
 
-      } else{
+      } else {
         World world = player.getWorld();
         Location location = target.getLocation();
         world.strikeLightning(location);

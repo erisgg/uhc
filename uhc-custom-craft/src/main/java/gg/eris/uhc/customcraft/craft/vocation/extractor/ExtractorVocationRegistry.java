@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.craft.vocation.extractor;
 
-import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.ArrowEconomyCraft;

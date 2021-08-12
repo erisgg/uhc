@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.shop.skill.vocation;
+package gg.eris.uhc.customcraft.craft.menu.shop.vocation;
 
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuItem;
@@ -9,10 +9,10 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.util.Text;
-import gg.eris.uhc.customcraft.craft.Craft;
-import gg.eris.uhc.customcraft.craft.Perk;
-import gg.eris.uhc.customcraft.craft.Trinket;
-import gg.eris.uhc.customcraft.craft.Unlockable;
+import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Trinket;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
@@ -31,7 +31,7 @@ public final class VocationMenuItem implements MenuItem {
   private static final short TRINKETS = DataUtil.LIGHT_BLUE;
   private static final short UNLOCKED = DataUtil.LIME;
 
-  private final Unlockable unlockable;
+  private final VocationUnlockable unlockable;
   private final Vocation vocation;
   private final int slot;
   private final IntSet prerequisiteSlots;
@@ -40,7 +40,7 @@ public final class VocationMenuItem implements MenuItem {
   private final ItemStack unlocked;
   private final int price;
 
-  public VocationMenuItem(Unlockable unlockable, int price, int slot, int... prerequisiteSlots) {
+  public VocationMenuItem(VocationUnlockable unlockable, int price, int slot, int... prerequisiteSlots) {
     this.unlockable = unlockable;
     this.vocation = unlockable.getVocation();
     this.slot = slot;

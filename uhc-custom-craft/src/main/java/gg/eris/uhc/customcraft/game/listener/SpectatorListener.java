@@ -7,8 +7,8 @@ import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
 import java.util.Set;
@@ -87,9 +87,6 @@ public final class SpectatorListener extends MultiStateListener {
   @EventHandler
   public void onPlayerQuit(PlayerQuitEvent event) {
     Player handle = event.getPlayer();
-    Collection<ItemStack> items = PlayerUtil.getItems(handle);
-    StackUtil.dropItems(handle.getLocation(), items, true);
-
     if (this.game.isPlayer(handle)) {
       CustomCraftUhcPlayer player = this.game.getPlayer(event.getPlayer());
       this.game.killPlayer(player, null);

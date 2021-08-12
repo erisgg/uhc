@@ -2,7 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.perk;
 
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.core.util.Text;
-import gg.eris.uhc.customcraft.craft.Perk;
+import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;

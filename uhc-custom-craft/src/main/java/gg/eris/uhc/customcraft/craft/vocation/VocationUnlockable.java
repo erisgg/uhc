@@ -1,19 +1,19 @@
-package gg.eris.uhc.customcraft.craft;
+package gg.eris.uhc.customcraft.craft.vocation;
 
 import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.inventory.ItemStack;
 
-public abstract class Unlockable implements Identifiable {
+public abstract class VocationUnlockable implements Identifiable {
 
   public static final String NBT_KEY = "unlockable";
 
   private final Identifier identifier;
 
-  public Unlockable(String identifierValue) {
+  public VocationUnlockable(String identifierValue) {
     this.identifier = CustomCraftUhcIdentifiers.UNLOCKABLE.id(identifierValue);
   }
 

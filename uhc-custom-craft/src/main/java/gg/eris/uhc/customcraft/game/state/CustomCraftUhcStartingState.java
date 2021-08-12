@@ -5,9 +5,11 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
-import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.kit.Kit;
+import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.GameMode;
@@ -72,6 +74,9 @@ public final class CustomCraftUhcStartingState extends
         player.getHandle().setGameMode(GameMode.SURVIVAL);
         player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
         player.getHandle().setHealth(player.getHandle().getMaxHealth());
+
+        // Give kits then trinket bag
+        KitRegistry.get().getKit(player).give(player);
         TrinketBagItem.giveBag(player.getHandle());
       }
     }

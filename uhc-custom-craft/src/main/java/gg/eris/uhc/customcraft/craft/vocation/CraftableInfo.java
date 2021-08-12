@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft;
+package gg.eris.uhc.customcraft.craft.vocation;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
@@ -19,7 +19,6 @@ public class CraftableInfo {
   String quoteGiver;
   String[] effects;
   CC color;
-
 
   public ItemStack buildTrinket() {
     return buildItem("TRINKET", this);
@@ -72,7 +71,7 @@ public class CraftableInfo {
     return builder.build();
   }
 
-  public static class CraftableInfoBuilder {
+  public static final class CraftableInfoBuilder {
 
     public CraftableInfoBuilder material(Material material) {
       this.base = new ItemStack(material);

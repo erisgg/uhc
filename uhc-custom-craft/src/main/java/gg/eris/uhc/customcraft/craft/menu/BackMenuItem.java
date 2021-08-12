@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.shop;
+package gg.eris.uhc.customcraft.craft.menu;
 
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuViewer;

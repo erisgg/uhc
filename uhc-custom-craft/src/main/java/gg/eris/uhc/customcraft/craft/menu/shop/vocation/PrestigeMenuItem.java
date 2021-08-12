@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.shop.skill.vocation;
+package gg.eris.uhc.customcraft.craft.menu.shop.vocation;
 
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuItem;
@@ -9,7 +9,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.util.Text;
-import gg.eris.uhc.customcraft.craft.Unlockable;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import lombok.RequiredArgsConstructor;
@@ -167,7 +167,7 @@ public class PrestigeMenuItem implements MenuItem {
   }
 
   private boolean hasFullTree(CustomCraftUhcPlayer player) {
-    for (Unlockable unlockable : this.vocation.getRegistry().values()) {
+    for (VocationUnlockable unlockable : this.vocation.getRegistry().values()) {
       if (!player.hasUnlockable(unlockable)) {
         return false;
       }

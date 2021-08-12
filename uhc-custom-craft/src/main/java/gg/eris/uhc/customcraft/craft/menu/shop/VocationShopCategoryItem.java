@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.craft.shop.skill;
+package gg.eris.uhc.customcraft.craft.menu.shop;
 
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuItem;
@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public final class SkillShopCategoryItem implements MenuItem {
+public final class VocationShopCategoryItem implements MenuItem {
 
   private final Vocation vocation;
 
@@ -20,6 +20,6 @@ public final class SkillShopCategoryItem implements MenuItem {
 
   @Override
   public void onClick(MenuViewer viewer, InventoryClickEvent event) {
-    ((SkillShopMenu) viewer.getViewing()).getMenu(this.vocation).openMenu(viewer);
+    ((VocationShopMenu) viewer.getViewing()).getMenu(this.vocation).openMenu(viewer);
   }
 }

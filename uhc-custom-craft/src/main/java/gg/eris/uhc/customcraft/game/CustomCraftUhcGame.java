@@ -9,8 +9,10 @@ import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
-import gg.eris.uhc.customcraft.craft.shop.skill.SkillShopMenu;
+import gg.eris.uhc.customcraft.craft.menu.main.MainMenu;
+import gg.eris.uhc.customcraft.craft.menu.shop.VocationShopMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
@@ -34,6 +36,7 @@ import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
@@ -46,7 +49,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   }
 
   @Getter
-  private final SkillShopMenu shopMenu;
+  private final MainMenu mainMenu;
 
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
@@ -90,7 +93,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     }
 
     // Shop
-    this.shopMenu = new SkillShopMenu(this.plugin);
+    this.mainMenu = new MainMenu(this.getPlugin());
   }
 
   /*
@@ -104,6 +107,11 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   @Override
   public UhcGameStateFactory<?, ?> newStateFactory() {
     return new CustomCraftUhcGameStateFactory(this);
+  }
+
+  @Override
+  protected void filterDrops(List<ItemStack> drops) {
+    drops.removeIf(TrinketBagItem::isBag);
   }
 
   @Override

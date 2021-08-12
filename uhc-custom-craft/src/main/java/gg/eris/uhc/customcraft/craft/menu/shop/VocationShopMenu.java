@@ -1,15 +1,17 @@
-package gg.eris.uhc.customcraft.craft.shop.skill;
+package gg.eris.uhc.customcraft.craft.menu.shop;
 
 import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.menu.Menu;
 import gg.eris.commons.bukkit.menu.MenuViewer;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.customcraft.craft.shop.skill.vocation.VocationMenu;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.menu.BackMenuItem;
+import gg.eris.uhc.customcraft.craft.menu.main.MainMenu;
+import gg.eris.uhc.customcraft.craft.menu.shop.vocation.VocationMenu;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import java.util.Map;
 
-public final class SkillShopMenu extends Menu {
+public final class VocationShopMenu extends Menu {
 
   private static final int[] slots = {
       10, 12, 14, 16,
@@ -18,23 +20,26 @@ public final class SkillShopMenu extends Menu {
 
   private final Map<Vocation, Menu> menus;
 
-  public SkillShopMenu(UhcPlugin plugin) {
-    super(plugin, CustomCraftUhcIdentifiers.MENU_ID.id("shop"), 5);
+  public VocationShopMenu(UhcPlugin plugin, MainMenu parent) {
+    super(plugin, CustomCraftUhcIdentifiers.MENU_ID.id("shop"), 6);
     this.menus = Maps.newHashMap();
 
     setFillItem(Menu.DARK_FILLER);
+    setParent(parent);
 
     for (int i = 0; i < Vocation.values().length; i++) {
       Vocation vocation = Vocation.values()[i];
       int slot = slots[i];
-      addItem(slot, new SkillShopCategoryItem(vocation));
+      addItem(slot, new VocationShopCategoryItem(vocation));
       this.menus.put(vocation, new VocationMenu(plugin, this, vocation));
     }
+
+    addItem(49, new BackMenuItem());
   }
 
   @Override
   public String getTitle(MenuViewer viewer) {
-    return "Shop";
+    return "Skill Shop";
   }
 
   public Menu getMenu(Vocation vocation) {

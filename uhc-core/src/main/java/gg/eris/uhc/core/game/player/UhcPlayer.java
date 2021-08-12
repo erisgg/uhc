@@ -16,22 +16,22 @@ public abstract class UhcPlayer extends ErisPlayer {
   private Pair<UUID, Long> lastAttacker;
 
   @Getter
-  private int gamesPlayed;
+  protected int gamesPlayed;
 
   @Getter
-  private int wins;
+  protected int wins;
 
   @Getter
-  private int kills;
+  protected int kills;
 
   @Getter
-  private int deaths;
+  protected int deaths;
 
   @Getter
-  private int gameKills;
+  protected int gameKills;
 
 
-  public UhcPlayer(DefaultData data,  int gamesPlayed, int wins, int kills, int deaths) {
+  public UhcPlayer(DefaultData data, int gamesPlayed, int wins, int kills, int deaths) {
     super(data);
     this.gamesPlayed = gamesPlayed;
     this.wins = wins;
