@@ -5,6 +5,7 @@ import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.util.Validate;
 import gg.eris.uhc.core.UhcModule;
@@ -177,7 +178,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     ));
 
     // Hiding the player
-    killedHandle.setGameMode(GameMode.CREATIVE);
+    PlayerUtil.setSafeGameMode(killedHandle, GameMode.CREATIVE);
     for (Player other : Bukkit.getOnlinePlayers()) {
       if (killedHandle != other) {
         other.hidePlayer(killed.getHandle());

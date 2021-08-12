@@ -71,7 +71,7 @@ public final class CustomCraftUhcStartingState extends
       } else {
         player.playedGame();
         PlayerUtil.resetPlayer(player.getHandle());
-        player.getHandle().setGameMode(GameMode.SURVIVAL);
+        PlayerUtil.setSafeGameMode(player.getHandle(), GameMode.SURVIVAL);
         player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
         player.getHandle().setHealth(player.getHandle().getMaxHealth());
 

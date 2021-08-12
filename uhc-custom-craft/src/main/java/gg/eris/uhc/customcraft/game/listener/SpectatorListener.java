@@ -68,7 +68,7 @@ public final class SpectatorListener extends MultiStateListener {
     }
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
-      player.setGameMode(GameMode.CREATIVE);
+      PlayerUtil.setSafeGameMode(player, GameMode.CREATIVE);
       player.setAllowFlight(true);
       player.setFlying(true);
 
