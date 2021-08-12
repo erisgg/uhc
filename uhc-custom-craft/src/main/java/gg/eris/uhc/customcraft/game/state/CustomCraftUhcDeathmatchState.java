@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
+import org.bukkit.WorldCreator;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -29,7 +30,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public final class CustomCraftUhcDeathmatchState extends
     AbstractDeathmatchGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final World WORLD = Bukkit.getWorld(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD);
+  private static final World WORLD = new WorldCreator(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD).createWorld();
 
   private static final Identifier SCOREBOARD_IDENTIFIER =
       CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("deathmatch");

@@ -31,6 +31,8 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -82,9 +84,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.gameStateFactory = newStateFactory();
     this.ticker = new UhcGameTicker(this);
     this.settings = settings;
-    this.world = Bukkit.getWorld(this.settings.getWorldName());
-    this.nether = Bukkit.getWorld(this.settings.getNetherName());
-    this.deathmatch = Bukkit.getWorld(this.settings.getDeathmatchName());
+    this.world = new WorldCreator(this.settings.getWorldName()).createWorld();
+    this.nether = new WorldCreator(this.settings.getNetherName()).environment(Environment.NETHER).createWorld();
+    this.deathmatch = new WorldCreator(this.settings.getDeathmatchName()).createWorld();
     this.updatingState = null;
     this.gameState = null;
   }

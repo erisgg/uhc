@@ -21,6 +21,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -85,7 +86,7 @@ public final class LobbyListener extends MultiStateListener {
     this.game = game;
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
     this.spawn = new Location(
-        Bukkit.getWorld(CustomCraftUhcIdentifiers.PREGAME_WORLD),
+        new WorldCreator(CustomCraftUhcIdentifiers.PREGAME_WORLD).createWorld(),
         0.5,
         73,
         0.5,
