@@ -12,7 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public final class UltimateShopItem implements MenuItem {
+public final class UltimateMenuOpenItem implements MenuItem {
 
   private static final ItemStack ITEM = new ItemBuilder(Material.NETHER_STAR)
       .withName(CC.YELLOW.bold() + "Ultimate Menu")

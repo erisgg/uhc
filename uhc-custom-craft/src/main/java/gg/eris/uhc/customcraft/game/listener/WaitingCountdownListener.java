@@ -24,8 +24,8 @@ import org.bukkit.inventory.ItemStack;
 public final class WaitingCountdownListener extends MultiStateListener {
 
   // Hotbar items
-  private final static ItemStack SHOP = new ItemBuilder(Material.EMERALD)
-      .withName(CC.GOLD.bold() + "Shop" + CC.DARK_GRAY + " (Right Click)").build();
+  private final static ItemStack MAIN_MENU = new ItemBuilder(Material.EMERALD)
+      .withName(CC.GOLD.bold() + "Main Menu" + CC.DARK_GRAY + " (Right Click)").build();
 
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
@@ -72,7 +72,7 @@ public final class WaitingCountdownListener extends MultiStateListener {
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       PlayerUtil.resetPlayer(player);
       player.setGameMode(GameMode.ADVENTURE);
-      player.getInventory().setItem(4, SHOP);
+      player.getInventory().setItem(4, MAIN_MENU);
       player.getInventory().setHeldItemSlot(4);
       Bukkit.getScheduler().runTaskLater(this.game.getPlugin(),
           () -> event.getPlayer().teleport(this.spawn), 3L);

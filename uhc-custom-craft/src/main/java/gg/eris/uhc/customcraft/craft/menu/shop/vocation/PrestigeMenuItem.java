@@ -18,7 +18,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public class PrestigeMenuItem implements MenuItem {
+public final class PrestigeMenuItem implements MenuItem {
 
   private static final int FIRST_PRICE = 50_000;
   private static final int SECOND_PRICE = 100_000;

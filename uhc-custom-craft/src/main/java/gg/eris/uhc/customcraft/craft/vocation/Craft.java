@@ -15,7 +15,7 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
 
   public Craft(String identifierValue, ItemStack item) {
     super(identifierValue);
-    this.item = NBTUtil.setNbtData(item, NBT_KEY, this.getIdentifier().toString());
+    this.item = NBTUtil.setNbtData(item, NBT_KEY, this.getIdentifier().getValue());
   }
 
   public abstract Vocation getVocation();
@@ -31,7 +31,6 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
   public final boolean isItem(ItemStack item) {
     String data = NBTUtil.getStringNbtData(this.item, NBT_KEY);
     String data2 = NBTUtil.getStringNbtData(item, NBT_KEY);
-
-    return data == data2; //TODO check if this works
+    return data.equals(data2);
   }
 }

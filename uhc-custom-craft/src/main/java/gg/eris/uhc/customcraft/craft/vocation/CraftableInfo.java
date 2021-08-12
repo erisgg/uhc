@@ -27,6 +27,10 @@ public class CraftableInfo {
   public ItemStack buildCraft() {
     return buildItem("CRAFT", this);
   }
+  public ItemStack buildUltimateCraft() {
+    return buildItem("ULTIMATE", this);
+  }
+
 
   private static ItemStack buildItem(String prefix, CraftableInfo info) {
     ItemBuilder builder = new ItemBuilder(info.getBase())

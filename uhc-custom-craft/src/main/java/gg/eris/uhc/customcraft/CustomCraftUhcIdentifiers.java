@@ -22,6 +22,9 @@ public final class CustomCraftUhcIdentifiers {
   public static final IdentifierProvider UNLOCKABLE
       = new IdentifierProvider(NAMESPACE + "_unlockable");
 
+  public static final IdentifierProvider ULTIMATE_UNLOCKABLE
+      = new IdentifierProvider(NAMESPACE + "_ultimate_unlockable");
+
   public static final IdentifierProvider KIT
       = new IdentifierProvider(NAMESPACE + "kits");
 

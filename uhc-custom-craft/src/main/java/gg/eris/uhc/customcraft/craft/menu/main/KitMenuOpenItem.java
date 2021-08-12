@@ -11,11 +11,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
-public final class VocationShopItem implements MenuItem {
+public final class KitMenuOpenItem implements MenuItem {
 
-  private static final ItemStack ITEM = new ItemBuilder(Material.DIAMOND)
-      .withName(CC.GREEN.bold() + "Skills Menu")
-      .withLore(CC.GREEN.italic() + "Click to enter the skills menu")
+  private static final ItemStack ITEM = new ItemBuilder(Material.WOOD_PICKAXE)
+      .withName(CC.GOLD.bold() + "Kit Menu")
+      .withLore(CC.GOLD.italic() + "Click to enter the kits menu")
       .build();
 
   private final Menu menu;
