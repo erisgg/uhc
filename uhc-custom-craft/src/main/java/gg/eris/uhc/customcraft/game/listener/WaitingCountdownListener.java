@@ -69,8 +69,8 @@ public final class WaitingCountdownListener extends MultiStateListener {
     event.setJoinMessage(null);
 
     ErisPlayer erisPlayer = this.erisPlayerManager.getPlayer(player);
-    erisPlayer.addLoadingConsumer(ignored -> LobbyUtil.broadcastJoin(erisPlayer,
-        WaitingCountdownListener.this.erisPlayerManager.getPlayers().size()));
+    erisPlayer.addLoadingConsumer(joined -> LobbyUtil.broadcastJoin(joined,
+            WaitingCountdownListener.this.erisPlayerManager.getPlayers().size()));
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       PlayerUtil.resetPlayer(player);

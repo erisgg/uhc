@@ -115,14 +115,10 @@ public final class CustomCraftUhcPlayerSerializer extends
             }
 
             if (unlocks.has("kits")) {
-              System.out.println("has kits");
               ObjectNode kitsNode = (ObjectNode) unlocks.get("kits");
               for (Kit value : KitRegistry.get().values()) {
-                System.out.println("checking value " + value.getIdentifier());
                 if (kitsNode.has(value.getStorageKey())) {
-                  System.out.println("has value and putting " + value.getIdentifier());
                   kits.put(value.getIdentifier(), kitsNode.get(value.getStorageKey()).asInt());
-                  System.out.println(kitsNode.get(value.getStorageKey()).asInt());
                 }
               }
             }
