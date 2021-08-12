@@ -105,6 +105,10 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     return this.kits.getOrDefault(identifier, 0);
   }
 
+  public void setActiveKit(Kit kit) {
+    this.activeKit = kit.getIdentifier();
+  }
+
   public void addUnlockable(VocationUnlockable unlockable) {
     if (unlockable instanceof Craft || unlockable instanceof Trinket) {
       this.craftUnlocks.add(unlockable.getIdentifier());
@@ -138,6 +142,10 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
 
   public boolean hasSlot(Vocation vocation, int slot) {
     return this.treeData.getOrDefault(vocation, IntSets.EMPTY_SET).contains(slot);
+  }
+
+  public void levelUpKit(Kit kit) {
+    this.kits.put(kit.getIdentifier(), this.kits.getOrDefault(kit.getIdentifier(), 0) + 1);
   }
 
   public void addTreeData(Vocation vocation, int slot) {

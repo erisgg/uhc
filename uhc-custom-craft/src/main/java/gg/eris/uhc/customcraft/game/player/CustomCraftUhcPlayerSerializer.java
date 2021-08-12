@@ -7,8 +7,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
 import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
+import gg.eris.commons.core.identifier.Identifiable;
+import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.kit.Kit;
+import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
@@ -52,6 +57,8 @@ public final class CustomCraftUhcPlayerSerializer extends
     int deaths = 0;
     Map<Vocation, IntSet> treeData = Maps.newHashMap();
     Object2IntMap<Vocation> prestigeData = new Object2IntArrayMap<>();
+    Object2IntMap<Identifier> kits = new Object2IntArrayMap<>();
+    Identifier activeKit = null;
 
     if (node.has("games")) {
       JsonNode games = node.get("games");
@@ -78,6 +85,10 @@ public final class CustomCraftUhcPlayerSerializer extends
           deaths = customCraft.get("deaths").asInt();
         }
 
+        if (customCraft.has("active_kit")) {
+          activeKit = CustomCraftUhcIdentifiers.KIT.id(customCraft.get("active_kit").asText());
+        }
+
         if (customCraft.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
           JsonNode unlocks = customCraft.get(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
           if (unlocks instanceof ObjectNode) {
@@ -102,6 +113,19 @@ public final class CustomCraftUhcPlayerSerializer extends
                 }
               }
             }
+
+            if (unlocks.has("kits")) {
+              System.out.println("has kits");
+              ObjectNode kitsNode = (ObjectNode) unlocks.get("kits");
+              for (Kit value : KitRegistry.get().values()) {
+                System.out.println("checking value " + value.getIdentifier());
+                if (kitsNode.has(value.getStorageKey())) {
+                  System.out.println("has value and putting " + value.getIdentifier());
+                  kits.put(value.getIdentifier(), kitsNode.get(value.getStorageKey()).asInt());
+                  System.out.println(kitsNode.get(value.getStorageKey()).asInt());
+                }
+              }
+            }
           }
         }
       }
@@ -116,9 +140,8 @@ public final class CustomCraftUhcPlayerSerializer extends
         coins,
         treeData,
         prestigeData,
-
-        new Object2IntArrayMap<>(),
-        null
+        kits,
+        activeKit
     );
   }
 
@@ -144,6 +167,11 @@ public final class CustomCraftUhcPlayerSerializer extends
     uhc.put("deaths", player.getDeaths());
     uhc.put("coins", player.getCoins());
 
+    if (player.getActiveKit() != null) {
+      System.out.println(player.getActiveKit());
+      uhc.put("active_kit", KitRegistry.get().get(player.getActiveKit()).getStorageKey());
+    }
+
     ObjectNode unlocks;
     if (!uhc.has(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY)) {
       unlocks = uhc.putObject(CustomCraftUhcIdentifiers.JSON_UNLOCKS_KEY);
@@ -165,6 +193,17 @@ public final class CustomCraftUhcPlayerSerializer extends
           vocationNode.add(value);
         }
       }
+    }
+
+    ObjectNode kits;
+    if (!unlocks.has("kits")) {
+      kits = unlocks.putObject("kits");
+    } else {
+      kits = (ObjectNode) unlocks.get("kits");
+    }
+
+    for (Object2IntMap.Entry<Identifier> entry : player.getKits().object2IntEntrySet()) {
+      kits.put(KitRegistry.get().get(entry.getKey()).getStorageKey(), entry.getIntValue());
     }
 
     if (player.getPrestigeData().size() > 0) {

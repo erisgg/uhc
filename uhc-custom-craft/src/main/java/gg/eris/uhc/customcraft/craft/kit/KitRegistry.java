@@ -26,8 +26,9 @@ public final class KitRegistry extends Registry<Kit> {
   public KitRegistry() {
     IdentifierProvider provider = CustomCraftUhcIdentifiers.KIT;
 
-    this.excavator = Kit.builder(
+    this.excavator = register(Kit.builder(
         provider.id("excavator"),
+        "Excavator",
         new ItemBuilder(Material.STONE_PICKAXE)
             .withName(CC.GRAY + "Excavator")
             .withLore(
@@ -83,10 +84,11 @@ public final class KitRegistry extends Registry<Kit> {
             .build()
         ).addItem(4, new ItemStack(Material.COAL, 10))
         .addItem(4, new ItemStack(Material.IRON_INGOT, 5))
-        .build();
+        .build());
 
-    this.fisher = Kit.builder(
+    this.fisher = register(Kit.builder(
         provider.id("fisher"),
+        "Fisher",
         new ItemBuilder(Material.FISHING_ROD)
             .withName(CC.GRAY + "Fisher")
             .withLore(
@@ -102,8 +104,7 @@ public final class KitRegistry extends Registry<Kit> {
                 CC.WHITE + " - Gain higher enchants on fishing rod",
                 CC.WHITE + " - Gain more sand and sugar cane",
                 CC.WHITE + " - Gain lilypads (and a pufferfish!)"
-            )
-            .build()
+            ).build()
     ).addItem(0, new ItemBuilder(Material.FISHING_ROD).withEnchantment(Enchantment.LURE, 1)
         .withEnchantment(Enchantment.LUCK, 1).build())
         .addItem(0, new ItemStack(Material.SUGAR_CANE, 3))
@@ -135,10 +136,11 @@ public final class KitRegistry extends Registry<Kit> {
         .addItem(4, new ItemStack(Material.SUGAR_CANE, 15))
         .addItem(4, new ItemStack(Material.SAND, 15))
         .addItem(4, new ItemStack(Material.WATER_LILY, 64))
-        .build();
+        .build());
 
-    this.forester = Kit.builder(
+    this.forester = register(Kit.builder(
         provider.id("forester"),
+        "Forester",
         new ItemBuilder(Material.STONE_AXE)
             .withName(CC.GRAY + "Forester")
             .withLore(
@@ -181,10 +183,11 @@ public final class KitRegistry extends Registry<Kit> {
         .addItem(4, new ItemStack(Material.LOG, 16))
         .addItem(4, new ItemStack(Material.APPLE, 3))
         .addItem(4, new ItemStack(Material.VINE, 64))
-        .build();
+        .build());
 
-    this.warrior = Kit.builder(
+    this.warrior = register(Kit.builder(
         provider.id("warrior"),
+        "Warrior",
         new ItemBuilder(Material.STONE_SWORD)
             .withName(CC.GRAY + "Warrior")
             .withLore(
@@ -235,7 +238,7 @@ public final class KitRegistry extends Registry<Kit> {
         .addItem(4, new ItemStack(Material.SULPHUR))
         .addItem(4, new ItemStack(RandomUtil.randomBoolean() ? Material.SLIME_BALL :
             Material.ENDER_PEARL)) // TODO: Change to be individual
-        .build();
+        .build());
   }
 
   public Kit getKit(CustomCraftUhcPlayer player) {
