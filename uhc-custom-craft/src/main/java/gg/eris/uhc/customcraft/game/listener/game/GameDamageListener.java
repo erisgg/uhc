@@ -33,13 +33,13 @@ public final class GameDamageListener extends GameStateListener {
     tablistController.setDisplayNameFunction((player, viewer) -> {
       if (player == viewer) {
         if (this.game.isPlayer(player.getUniqueId())) {
-          return CC.GREEN + player.getNicknameProfile().getDisplayName();
+          return CC.GREEN + player.getDisplayName();
         } else {
-          return CC.GRAY.italic() + player.getNicknameProfile().getDisplayName();
+          return CC.GRAY.italic() + player.getDisplayName();
         }
       } else {
         if (this.game.isPlayer(player.getUniqueId())) {
-          return CC.RED + player.getNicknameProfile().getDisplayName();
+          return CC.RED + player.getDisplayName();
         } else {
           return null;
         }
@@ -49,7 +49,7 @@ public final class GameDamageListener extends GameStateListener {
     tablistController.setOrderingComparator((o1, o2) -> {
       if (GameDamageListener.this.game.isPlayer(o1.getUniqueId())) {
         if (GameDamageListener.this.game.isPlayer(o2.getUniqueId())) {
-          return o1.getName().compareTo(o2.getName());
+          return o1.getDisplayName().compareTo(o2.getDisplayName());
         } else {
           return -1;
         }
@@ -57,7 +57,7 @@ public final class GameDamageListener extends GameStateListener {
         if (GameDamageListener.this.game.isPlayer(o2.getUniqueId())) {
           return 1;
         } else {
-          return o1.getName().compareTo(o2.getName());
+          return o1.getDisplayName().compareTo(o2.getDisplayName());
         }
       }
     });

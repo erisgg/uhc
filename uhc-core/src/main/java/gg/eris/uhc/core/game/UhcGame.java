@@ -149,8 +149,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "<h>{0}</h> has been killed by <h>{1}</h>.",
-          killed.getName(),
-          killer.getName()
+          killed.getDisplayName(),
+          killer.getDisplayName()
       );
 
       killer.incrementKills();
@@ -159,7 +159,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
       TextController.broadcastToServer(
           TextType.INFORMATION,
           "<h>{0}</h> has died.",
-          killed.getName()
+          killed.getDisplayName()
       );
     }
 
@@ -168,7 +168,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
     killedHandle.sendTitle(new Title(
         CC.RED.bold() + "YOU DIED!",
-        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getName() + "." : null,
+        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getDisplayName() + "." : null,
         20,
         20,
         20

@@ -12,7 +12,7 @@ public class LobbyUtil {
     TextController.broadcastToServer(
         TextType.INFORMATION,
         "{0} has <h>joined</h> the game (<h>{1}/70</h>).",
-        player.getName(),
+        player.getDisplayName(),
         count
     );
   }

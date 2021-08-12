@@ -117,7 +117,7 @@ public final class LobbyListener extends MultiStateListener {
     tablistController.setDisplayNameFunction((player, viewer) -> {
       Rank rank = player.getNicknameProfile().getPriorityDisplayRank();
       return rank == RankRegistry.get().DEFAULT ?
-          CC.GRAY + player.getNicknameProfile().getDisplayName() : rank.getColor().getColor() +
+          CC.GRAY + player.getDisplayName() : rank.getColor().getColor() +
           "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getNicknameProfile()
           .getDisplayName();
     });

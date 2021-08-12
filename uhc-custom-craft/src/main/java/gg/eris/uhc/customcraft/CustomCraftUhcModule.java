@@ -30,7 +30,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
             (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().getRawDisplay(),
             (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
                 "<col=white>" : "<col=gray>",
-            (player, chatMessage) -> player.getNicknameProfile().getDisplayName(),
+            (player, chatMessage) -> player.getDisplayName(),
             (player, chatMessage) -> chatMessage);
 
     if (!Vocation.validateRegistries()) {
