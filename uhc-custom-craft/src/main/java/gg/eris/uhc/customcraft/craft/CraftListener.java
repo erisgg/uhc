@@ -90,6 +90,17 @@ public final class CraftListener extends GameStateListener {
 
     int alreadyCrafted = player.getTimesCrafted(unlockable);
 
+    if (maxAmount == alreadyCrafted) {
+      event.setResult(Result.DENY);
+      event.setCancelled(true);
+      TextController.send(
+          player,
+          TextType.ERROR,
+          "You cannot craft any more of <h>{0}</h>.",
+          unlockable.getName()
+      );
+    }
+
     int finalAmount = maxAmount - alreadyCrafted;
 
     if (amount > finalAmount) {
@@ -98,7 +109,7 @@ public final class CraftListener extends GameStateListener {
       TextController.send(
           player,
           TextType.ERROR,
-          "You cannot craft that many. You can only craft <h>{1}</h> more.",
+          "You cannot craft that many. You can only craft <h>{0}</h> more.",
           finalAmount
       );
     } else {
@@ -106,7 +117,7 @@ public final class CraftListener extends GameStateListener {
       TextController.send(
           player,
           TextType.SUCCESS,
-          "You have crafted <h>{0}</h> (<h>{1}</h>/{2}).",
+          "You have crafted <h>{0}</h> (<h>{1}/{2}</h>).",
           unlockable.getName(),
           finalAmount,
           maxAmount
