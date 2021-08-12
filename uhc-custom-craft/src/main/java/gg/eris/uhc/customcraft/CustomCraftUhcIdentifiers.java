@@ -37,6 +37,9 @@ public final class CustomCraftUhcIdentifiers {
   public static final String GAME_WORLD = "world";
   public static final String GAME_NETHER = "world_nether";
 
+  public static final String VOCATION_CRAFT_NBT_KEY = "unlockable";
+
+
   public static final char STAR = '⭐';
 
 

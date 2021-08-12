@@ -9,8 +9,6 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class VocationUnlockable implements Identifiable {
 
-  public static final String NBT_KEY = "unlockable";
-
   private final Identifier identifier;
 
   public VocationUnlockable(String identifierValue) {
@@ -27,7 +25,7 @@ public abstract class VocationUnlockable implements Identifiable {
   }
 
   public static Identifier getIdentifierFromItemStack(ItemStack item) {
-    return Identifier.fromString(NBTUtil.getStringNbtData(item, NBT_KEY));
+    return Identifier.fromString(NBTUtil.getStringNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY));
   }
 
 }

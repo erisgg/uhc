@@ -8,6 +8,7 @@ import gg.eris.uhc.core.game.UhcGameSettings;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.CraftListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
@@ -135,7 +136,10 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new ItemCombustionListener(),
         new MobBurnListener(),
         new MonsterSpawnListener(),
-        new StrengthNerfListener()
+        new StrengthNerfListener(),
+
+        // Craft
+        new CraftListener(this.getPlugin().getCommons().getErisPlayerManager())
     );
   }
 }

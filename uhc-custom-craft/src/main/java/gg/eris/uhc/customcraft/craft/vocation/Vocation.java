@@ -3,7 +3,9 @@ package gg.eris.uhc.customcraft.craft.vocation;
 import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.core.identifier.Identifier;
+import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.ArmorerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.DuelistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.EnchanterVocationRegistry;
@@ -61,6 +63,25 @@ public enum Vocation {
     if (identifier == null) {
       return null;
     }
+    for (Vocation vocation : values()) {
+      if (vocation.getRegistry().get(identifier) != null) {
+        return vocation.getRegistry().get(identifier);
+      }
+    }
+
+    return null;
+  }
+
+  public static VocationUnlockable getUnlockable(ItemStack item) {
+
+    String value = NBTUtil.getStringNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
+
+    if (value == null) {
+      return null;
+    }
+
+    Identifier identifier = CustomCraftUhcIdentifiers.UNLOCKABLE.id(value);
+
     for (Vocation vocation : values()) {
       if (vocation.getRegistry().get(identifier) != null) {
         return vocation.getRegistry().get(identifier);

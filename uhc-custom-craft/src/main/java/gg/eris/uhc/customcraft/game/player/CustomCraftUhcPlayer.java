@@ -72,20 +72,16 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     return this.perks.getOrDefault(identifier, 0);
   }
 
-  public int getTimesCrafted(Craft craft) {
-    return getTimesCrafted(craft.getIdentifier());
-  }
-
-  public int getTimesCrafted(Trinket trinket) {
-    return getTimesCrafted(trinket.getIdentifier());
+  public int getTimesCrafted(VocationUnlockable unlockable) {
+    return getTimesCrafted(unlockable.getIdentifier());
   }
 
   public int getTimesCrafted(Identifier identifier) {
     return this.crafted.getOrDefault(identifier, 0);
   }
 
-  public void incrementCraftCount(Identifier identifier) {
-    this.crafted.put(identifier, getTimesCrafted(identifier) + 1);
+  public void incrementCraftCount(Identifier identifier, int amount) {
+    this.crafted.put(identifier, getTimesCrafted(identifier) + amount);
   }
 
   public boolean hasUnlockable(Identifier identifier) {
