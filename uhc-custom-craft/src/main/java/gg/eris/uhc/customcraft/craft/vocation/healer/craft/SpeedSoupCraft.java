@@ -68,7 +68,7 @@ public final class SpeedSoupCraft extends Craft {
     return "Speed Soup";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  @EventHandler(priority = EventPriority.HIGHEST)
   public void onInteract(PlayerInteractEvent event) {
     ItemStack item = event.getItem();
     if (!(isItem(item))) {

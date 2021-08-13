@@ -66,7 +66,7 @@ public final class VoidBagCraft extends Craft {
     return "Void Bag";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  @EventHandler(priority = EventPriority.HIGHEST)
   public void onInteract(PlayerInteractEvent event) {
     ItemStack item = event.getItem();
     if (!(isItem(item))) {
