@@ -42,8 +42,7 @@ public final class DemigodBowCraft extends Craft implements Tickable {
         .build()
     );
 
-    this.powerTwoTime =
-        UhcPlugin.getPlugin().getUhc().getGame().getSettings().getGracePeriodDuration() * 20L + (15 * 20L);
+    this.powerTwoTime = 20L + (15 * 20L);
   }
 
   @Override
@@ -92,7 +91,7 @@ public final class DemigodBowCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}</h> has upgraded to <h>Power II</h>.",
+          "Your <h>{0}</h> has been upgraded to <h>Power II</h>.",
           getName()
       );
     } else if (event.getGame().getGameState().getType() == TypeRegistry.DEATHMATCH) {
@@ -102,7 +101,7 @@ public final class DemigodBowCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}</h> has upgraded to <h>Power III</h>.",
+          "Your <h>{0}</h> has been upgraded to <h>Power III</h>.",
           getName()
       );
     }

@@ -105,7 +105,8 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}</h> has dealt <h>160 damage</h> and has upgraded to <h>Sharpness III</h>.",
+          "Your <h>{0}</h> has dealt <h>160 damage</h> and has been upgraded to <h>Sharpness "
+              + "III</h>.",
           getName()
       );
     } else if (damage >= 70 && enchantmentLevel == 1) {
@@ -114,7 +115,8 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}</h> has dealt <h>70 damage</h> and has upgraded to <h>Sharpness II</h>.",
+          "Your <h>{0}</h> has dealt <h>70 damage</h> and has been upgraded to <h>Sharpness "
+              + "II</h>.",
           getName()
       );
     }

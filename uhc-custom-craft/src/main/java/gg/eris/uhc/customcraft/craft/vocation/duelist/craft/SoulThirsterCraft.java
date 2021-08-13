@@ -1,9 +1,15 @@
 package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 
+import gg.eris.commons.bukkit.player.ErisPlayer;
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.bukkit.util.RomanNumeral;
+import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.Tickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -18,7 +24,10 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
 
-public final class SoulThirsterCraft extends Craft {
+public final class SoulThirsterCraft extends Craft implements Tickable {
+
+  private static final String NBT_KEY = "soul_thirster_decay";
+  private static final long DECAY_TIME = 1000 * 60 * 5;
 
   public SoulThirsterCraft() {
     super("soul_thirster", CraftableInfo.builder()
@@ -77,14 +86,58 @@ public final class SoulThirsterCraft extends Craft {
     Player player = event.getEntity();
     Player killer = player.getKiller();
 
-    ItemStack item = killer.getItemInHand();
+    if (killer == null) {
+      return;
+    }
 
-    if (this.isItem(item)) {
-      item.addEnchantment(Enchantment.DAMAGE_ALL, 4);
-      item = NBTUtil.setNbtData(item, "kill_thirst", 5 * 60);
-      player.setItemInHand(item);
+    ItemStack item = killer.getItemInHand();
+    if (isItem(item)) {
+      int sharpnessLevel = item.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+      if (sharpnessLevel >= 4) {
+        return;
+      }
+
+      sharpnessLevel++;
+      item.addEnchantment(Enchantment.DAMAGE_ALL, sharpnessLevel);
+      item = NBTUtil.setNbtData(item, NBT_KEY, System.currentTimeMillis());
+      killer.setItemInHand(item);
+      TextController.send(
+          player,
+          TextType.INFORMATION,
+          "Your <h>0</h> has levelled up to <h>Sharpness {1}</h>.",
+          getName(),
+          RomanNumeral.toRoman(sharpnessLevel)
+      );
     }
   }
 
+  @Override
+  public void tick(UhcTickEvent event, ItemStack item, int itemSlot, ErisPlayer player) {
+    int sharpnessLevel = item.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+    if (sharpnessLevel == 1) {
+      return;
+    }
 
+    double time = NBTUtil.getDoubleNbtData(item, NBT_KEY);
+    if (time == 0) {
+      return;
+    }
+
+    long current = System.currentTimeMillis();
+    if (current - DECAY_TIME > time) {
+      sharpnessLevel--;
+      item.addEnchantment(Enchantment.DAMAGE_ALL, sharpnessLevel);
+      item = NBTUtil.setNbtData(item, NBT_KEY, System.currentTimeMillis());
+      player.getHandle().getInventory().setItem(itemSlot, item);
+      TextController.send(
+          player,
+          TextType.INFORMATION,
+          "Your <h>{0}</h> has decayed to <h>Sharpness {1}</h>",
+          getName(),
+          RomanNumeral.toRoman(sharpnessLevel)
+      );
+    }
+
+
+  }
 }

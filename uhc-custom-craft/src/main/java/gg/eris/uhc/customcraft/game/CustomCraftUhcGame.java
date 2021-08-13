@@ -42,11 +42,16 @@ import org.bukkit.inventory.Recipe;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
+  public static final int GRACE_PERIOD_TIME = 10 * 60;
+  public static final int PVP_PERIOD_TIME = 30 * 60; // Overall
+  public static final int PVP_NON_COUNTDOWN_TIME = 20 * 60;
+  public static final int DEATHMATCH_COUNTDOWN_TIME = 10 * 60;
+
   private static final Int2IntMap COIN_MAP;
 
   static {
     COIN_MAP = new Int2IntArrayMap();
-    //COIN_MAP.put(10, 50);
+    COIN_MAP.put(10, 500);
   }
 
   @Getter
@@ -62,7 +67,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .requiredPlayers(2)
         .pregameCountdownDuration(5)
         .gracePeriodDuration(20)
-        .pvpPeriodDuration(1800)
+        .pvpPeriodDuration(15)
         .borderShrunkRadius(400)
         .borderShrinkDelay(1000)
         .borderShrinkDuration(30)
@@ -76,8 +81,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchBlockDecayDelay(30)
         .deathmatchStartCountdownDuration(5)
         .postGameDelay(30)
-        .coinsPerKill(100)
-        .coinsPerWin(500)
+        .coinsPerKill(300)
+        .coinsPerWin(3000)
         .coinsPerSurvive(Int2IntMaps.unmodifiable(COIN_MAP))
         .build()
     );

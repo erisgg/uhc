@@ -42,7 +42,7 @@ public final class ArmorerPerk extends Perk {
         TextController.send(
             handle,
             TextType.INFORMATION,
-            "Your duelist perk has activated, giving you <h>Resistance I</h> for <h>{0}<h>.",
+            "Your armorer perk has activated, giving you <h>Resistance I</h> for <h>{0}<h>.",
             Time.toShortDisplayTime(level, TimeUnit.SECONDS)
         );
       }
