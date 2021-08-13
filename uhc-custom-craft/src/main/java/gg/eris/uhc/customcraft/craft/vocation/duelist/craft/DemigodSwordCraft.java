@@ -11,7 +11,6 @@ import gg.eris.uhc.customcraft.craft.Tickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -78,7 +77,8 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onDamage(EntityDamageByEntityEvent event) {
-    if (event.getEntityType() == EntityType.PLAYER && event.getDamager().getType() == EntityType.PLAYER) {
+    if (event.getEntityType() == EntityType.PLAYER
+        && event.getDamager().getType() == EntityType.PLAYER) {
       double damageAmount = event.getFinalDamage();
       Player player = (Player) event.getDamager();
       ItemStack item = player.getItemInHand();
@@ -105,7 +105,7 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}<h> has dealt 160 damage and upgrade to <h>Sharpness III</h>.",
+          "Your <h>{0}</h> has dealt <h>160 damage</h> and has upgraded to <h>Sharpness III</h>.",
           getName()
       );
     } else if (damage >= 70 && enchantmentLevel == 1) {
@@ -114,7 +114,7 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
       TextController.send(
           player,
           TextType.INFORMATION,
-          "Your <h>{0}<h> has dealt 160 damage and upgrade to <h>Sharpness II</h>.",
+          "Your <h>{0}</h> has dealt <h>70 damage</h> and has upgraded to <h>Sharpness II</h>.",
           getName()
       );
     }
