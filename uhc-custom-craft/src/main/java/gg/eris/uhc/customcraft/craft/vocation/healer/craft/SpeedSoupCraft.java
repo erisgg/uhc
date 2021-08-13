@@ -75,9 +75,9 @@ public final class SpeedSoupCraft extends Craft {
       return;
     }
 
+    event.setCancelled(true);
     Player player = event.getPlayer();
     player.getInventory().setItemInHand(null);
-
     player.setHealth(Math.min(player.getHealth() + 6, player.getMaxHealth()));
     player.addPotionEffect(PotionEffectType.SPEED.createEffect(20 * 10, 0));
     TextController.send(

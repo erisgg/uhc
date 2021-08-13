@@ -74,6 +74,7 @@ public final class VoidBagCraft extends Craft {
     }
 
     Player player = event.getPlayer();
+    event.setCancelled(true);
     player.getInventory().setItemInHand(null);
     player.getInventory().addItem(getReward());
     TextController.send(
