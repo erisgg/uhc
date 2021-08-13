@@ -12,6 +12,7 @@ import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
@@ -33,9 +34,11 @@ public final class CustomCraftUhcStartingState extends
 
   @Override
   public void onStart() {
-    this.game.getPlugin().getCommons().getRedisWrapper()
-        .addToSet(CustomCraftUhcIdentifiers.LIVE_GAME_SET,
-            "" + ((CustomCraftUhcModule) this.game.getModule()).getPort());
+    Bukkit.getScheduler().runTaskAsynchronously(this.game.getPlugin(), () ->
+        this.game.getPlugin().getCommons().getRedisWrapper().addToSet(
+            CustomCraftUhcIdentifiers.LIVE_GAME_SET,
+            "" + ((CustomCraftUhcModule) this.game.getModule()).getPort())
+    );
 
     // Setting players
     this.game.setPlayers();
