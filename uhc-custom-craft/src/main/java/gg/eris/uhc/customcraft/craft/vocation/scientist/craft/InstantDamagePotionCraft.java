@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.craft.vocation.scientist.craft;
 
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
+import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
@@ -14,7 +16,8 @@ public final class InstantDamagePotionCraft extends Craft {
 
   public InstantDamagePotionCraft() {
     super("instant_damage_potion",
-        new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1));
+        new ItemBuilder(new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1))
+    .withName(CC.WHITE + "Instant Damage II").build());
   }
 
   @Override
