@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation;
 
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.Craftable;
 import org.bukkit.event.Listener;
@@ -31,13 +32,19 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
   }
 
   public final boolean isItem(ItemStack item) {
+    if (StackUtil.isNullOrAir(item)) {
+      return false;
+    }
+
     String thisData = NBTUtil.getStringNbtData(this.item,
         CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
     String theirData = NBTUtil.getStringNbtData(item,
         CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
+
     if (thisData == null || theirData == null) {
       return false;
+    } else {
+      return thisData.equals(theirData);
     }
-    return thisData.equals(theirData);
   }
 }

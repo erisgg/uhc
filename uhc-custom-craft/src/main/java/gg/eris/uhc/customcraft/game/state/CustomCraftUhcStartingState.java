@@ -64,8 +64,8 @@ public final class CustomCraftUhcStartingState extends
       Player handle = player.getHandle();
       if (handle != null) {
         PlayerUtil.resetPlayer(handle);
-        handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
-        handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+        handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9), true);
+        handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9), true);
       }
     }
 
@@ -92,14 +92,15 @@ public final class CustomCraftUhcStartingState extends
         logged.add(player);
       } else {
         player.playedGame();
-        PlayerUtil.resetPlayer(player.getHandle());
-        PlayerUtil.setSafeGameMode(player.getHandle(), GameMode.SURVIVAL);
-        player.getHandle().setMaxHealth(this.game.getSettings().getMaxHealth());
-        player.getHandle().setHealth(player.getHandle().getMaxHealth());
+        PlayerUtil.resetPlayer(handle);
+        PlayerUtil.setSafeGameMode(handle, GameMode.SURVIVAL);
+        handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE.createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
+        handle.setMaxHealth(this.game.getSettings().getMaxHealth());
+        handle.setHealth(player.getHandle().getMaxHealth());
 
         // Give kits then trinket bag
         KitRegistry.get().getKit(player).give(player);
-        TrinketBagItem.giveBag(player.getHandle());
+        TrinketBagItem.giveBag(handle);
       }
     }
 

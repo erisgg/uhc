@@ -27,7 +27,7 @@ public final class ScientistPerk extends Perk {
         int level = getLevel(craftPlayer);
         if (level > 0) {
           craftPlayer.getHandle()
-              .addPotionEffect(PotionEffectType.ABSORPTION.createEffect(20 * 60 * level, 1));
+              .addPotionEffect(PotionEffectType.ABSORPTION.createEffect(20 * 60 * level, 1), true);
         }
       }
     }

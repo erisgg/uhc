@@ -41,7 +41,7 @@ public final class MinerPerk extends Perk {
     int level = getLevel(player);
     if (APPLICABLE.contains(event.getBlock().getType()) && level > 0) {
       event.getPlayer()
-          .addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(140 + 20 * (level - 1), 0));
+          .addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(140 + 20 * (level - 1), 0), true);
     }
   }
 

@@ -37,7 +37,7 @@ public final class ArmorerPerk extends Perk {
     int level = getLevel(killer);
     if (level > 0) {
       boolean added =
-          handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(level * 20, 0));
+          handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(level * 20, 0), true);
       if (added) {
         TextController.send(
             handle,

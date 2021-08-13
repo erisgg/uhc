@@ -37,7 +37,7 @@ public final class DuelistPerk extends Perk {
     int level = getLevel(killer);
     if (level > 0) {
       boolean added =
-          handle.addPotionEffect(PotionEffectType.INCREASE_DAMAGE.createEffect(level * 10, 0));
+          handle.addPotionEffect(PotionEffectType.INCREASE_DAMAGE.createEffect(level * 10, 0), true);
       if (added) {
         TextController.send(
             handle,

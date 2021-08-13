@@ -2,15 +2,27 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import java.util.Map;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public final class SmeltersShovel extends Craft {
+
+  private static final Map<Material, Material> DROP_MAP = Map.of(
+      Material.SAND, Material.GLASS,
+      Material.GRAVEL, Material.FLINT
+  );
 
   public SmeltersShovel() {
     super("smelters_shovel", CraftableInfo.builder()
@@ -20,8 +32,8 @@ public final class SmeltersShovel extends Craft {
         .name("Smelter's Shovel")
         .quote("Diggy diggy dirt!")
         .quoteGiver("Dirtscast")
-        .effects("Efficiency 1 Iron Shovel", "Automatically smelts sand into glass", "100% chance"
-            + " of receiving flint from gravel")
+        .effects("Efficiency 1 Iron Shovel", "Automatically smelts sand into glass",
+            "100% chance of receiving flint from gravel")
         .nonTransformable()
         .build());
   }
@@ -54,4 +66,20 @@ public final class SmeltersShovel extends Craft {
   public String getName() {
     return "Smelters's Shovel";
   }
+
+  @EventHandler
+  public void onBlockBreak(BlockBreakEvent event) {
+    if (!isItem(event.getPlayer().getItemInHand())) {
+      return;
+    }
+
+    Block block = event.getBlock();
+    Material type = block.getType();
+    if (DROP_MAP.containsKey(type)) {
+      event.setCancelled(true);
+      event.getBlock().setType(Material.AIR);
+      StackUtil.dropItem(event.getBlock(), true, new ItemStack(DROP_MAP.get(type)));
+    }
+  }
+
 }
