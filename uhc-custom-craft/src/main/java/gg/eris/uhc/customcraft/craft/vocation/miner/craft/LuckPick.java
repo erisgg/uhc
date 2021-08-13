@@ -15,7 +15,7 @@ public final class LuckPick extends Craft {
   public LuckPick() {
     super("luck_pick", CraftableInfo.builder()
         .base(new ItemBuilder(Material.DIAMOND_PICKAXE, 1)
-            .withDurability((short) 2)
+            .withDurability((short) 1559)
             .withEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2)
             .build()
         )

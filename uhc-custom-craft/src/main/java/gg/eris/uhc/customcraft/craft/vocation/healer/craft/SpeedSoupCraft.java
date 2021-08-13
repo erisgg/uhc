@@ -1,12 +1,24 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer.craft;
 
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.core.util.Text;
+import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.potion.PotionEffectType;
 
 public final class SpeedSoupCraft extends Craft {
 
@@ -55,4 +67,25 @@ public final class SpeedSoupCraft extends Craft {
   public String getName() {
     return "Speed Soup";
   }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void onInteract(PlayerInteractEvent event) {
+    ItemStack item = event.getItem();
+    if (!(isItem(item))) {
+      return;
+    }
+
+    Player player = event.getPlayer();
+    player.getInventory().setItemInHand(null);
+
+    player.setHealth(Math.min(player.getHealth() + 6, player.getMaxHealth()));
+    player.addPotionEffect(PotionEffectType.SPEED.createEffect(20 * 10, 0));
+    TextController.send(
+        player,
+        TextType.INFORMATION,
+        "You have consumed <h>{0}</h>.",
+        getName()
+    );
+  }
+
 }

@@ -70,7 +70,7 @@ public final class SeekersCompassCraft extends Craft {
     return "Seeker's Compass";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST)
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onInteract(PlayerInteractEvent event) {
     ItemStack item = event.getItem();
     if (!(isItem(item))) {
@@ -124,7 +124,6 @@ public final class SeekersCompassCraft extends Craft {
           "Could not locate a player. They may be in another dimension?"
       );
     }
-
   }
 
 }
