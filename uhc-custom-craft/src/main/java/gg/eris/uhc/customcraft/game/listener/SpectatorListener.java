@@ -93,7 +93,7 @@ public final class SpectatorListener extends MultiStateListener {
       CustomCraftUhcPlayer player = this.game.getPlayer(event.getPlayer());
       CustomCraftUhcPlayer killer = null;
       Pair<UUID, Long> lastAttacker = player.getLastAttacker();
-      if (lastAttacker.getKey() != null) {
+      if (lastAttacker != null && lastAttacker.getKey() != null) {
         killer = this.game.getPlayer(lastAttacker.getKey());
       }
       this.game.killPlayer(player, killer, null);
