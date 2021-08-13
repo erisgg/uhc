@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public final class Scatterer {
 
-  private static final int MINIMUM_SPACING = 50;
+  private static final int MINIMUM_SPACING = 30;
 
   // Factor from center is like a percentage from center, e.g. 0 is (0, 0) and 1 touches the border.
   private static final double MINIMUM_FACTOR_FROM_CENTER = 0.25;
@@ -89,8 +89,8 @@ public final class Scatterer {
   }
 
   private boolean isLegalLocation(Location location, List<Location> locations) {
-    // If the block above the highest solid block is a liquid, spawning there should be disallowed.
-    if (!location.getBlock().getRelative(BlockFace.UP).isEmpty()) {
+    // If the highest block is a liquid, spawning there should be disallowed.
+    if (location.getBlock().getRelative(BlockFace.DOWN).isLiquid()) {
       return false;
     }
 
