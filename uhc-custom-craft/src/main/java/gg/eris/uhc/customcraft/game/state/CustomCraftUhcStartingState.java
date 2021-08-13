@@ -6,8 +6,8 @@ import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcModule;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
-import gg.eris.uhc.customcraft.craft.kit.Kit;
 import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
@@ -33,6 +33,10 @@ public final class CustomCraftUhcStartingState extends
 
   @Override
   public void onStart() {
+    this.game.getPlugin().getCommons().getRedisWrapper()
+        .addToSet(CustomCraftUhcIdentifiers.LIVE_GAME_SET,
+            "" + ((CustomCraftUhcModule) this.game.getModule()).getPort());
+
     // Setting players
     this.game.setPlayers();
 
@@ -92,9 +96,11 @@ public final class CustomCraftUhcStartingState extends
                 "" + 0 : ("" + ((CustomCraftUhcPlayer) player).getStar()),
             (player, chatMessage) -> "<col="
                 + player.getNicknameProfile().getPriorityDisplayRank().getColor().getId() + ">",
-            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().getRawDisplay(),
-            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
-                "<col=white>" : "<col=gray>",
+            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank()
+                .getRawDisplay(),
+            (player, chatMessage) ->
+                player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
+                    "<col=white>" : "<col=gray>",
             (player, chatMessage) -> player.getDisplayName(),
             (player, chatMessage) -> "" + ((CustomCraftUhcPlayer) player).getGameKills(),
             (player, chatMessage) -> chatMessage);

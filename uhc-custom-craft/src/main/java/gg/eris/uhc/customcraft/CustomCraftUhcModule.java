@@ -9,13 +9,24 @@ import gg.eris.uhc.customcraft.command.StatsCommand;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Set;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 
 public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
 
-  public CustomCraftUhcModule(UhcPlugin plugin) {
+  @Getter
+  private final int port;
+
+  public CustomCraftUhcModule(UhcPlugin plugin) throws IOException {
     super(plugin);
+
+    Properties props = new Properties();
+    props.load(new FileInputStream("server.properties"));
+    this.port = Integer.parseInt(props.getProperty("server-port"));
   }
 
   @Override
@@ -24,14 +35,20 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
         .setFormat("<col=gold>[{0}" + CustomCraftUhcIdentifiers.STAR
                 + "]</col> {1}[{2}]</col> {3}{4}: <raw>{5}</raw></col>",
             (player, chatMessage) -> player.getNicknameProfile().isNicked() ?
-             "" + 0 : ("" + ((CustomCraftUhcPlayer) player).getStar()),
+                "" + 0 : ("" + ((CustomCraftUhcPlayer) player).getStar()),
             (player, chatMessage) -> "<col="
                 + player.getNicknameProfile().getPriorityDisplayRank().getColor().getId() + ">",
-            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().getRawDisplay(),
-            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
-                "<col=white>" : "<col=gray>",
+            (player, chatMessage) -> player.getNicknameProfile().getPriorityDisplayRank()
+                .getRawDisplay(),
+            (player, chatMessage) ->
+                player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
+                    "<col=white>" : "<col=gray>",
             (player, chatMessage) -> player.getDisplayName(),
             (player, chatMessage) -> chatMessage);
+
+    this.plugin.getCommons().getRedisWrapper()
+        .removeFromSet(CustomCraftUhcIdentifiers.LIVE_GAME_SET,
+            "" + ((CustomCraftUhcModule) this.game.getModule()).getPort());
 
     if (!Vocation.validateRegistries()) {
       Bukkit.getServer().shutdown();

@@ -28,6 +28,8 @@ public final class CustomCraftUhcIdentifiers {
   public static final IdentifierProvider KIT
       = new IdentifierProvider(NAMESPACE + "kits");
 
+  public static final String LIVE_GAME_SET = "custom_craft_uhc_games";
+
   public static final String JSON_KEY = "custom_craft_uhc";
   public static final String JSON_UNLOCKS_KEY = "unlocks";
   public static final String JSON_PRESTIGE_KEY = "prestiges";
