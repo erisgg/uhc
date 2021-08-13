@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.game.listener;
 
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
@@ -94,7 +95,7 @@ public final class GlobalListener extends MultiStateListener {
               TextType.INFORMATION,
               "<h>{0}</h> is on <h>{1}</h> HP.",
               event.getEntity().getName(),
-              ((Player) event.getEntity()).getHealth()
+              Text.formatDouble(((Player) event.getEntity()).getHealth())
           );
         }
       }

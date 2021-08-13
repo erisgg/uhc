@@ -132,7 +132,7 @@ public final class SoulThirsterCraft extends Craft implements Tickable {
       return;
     }
 
-    double time = NBTUtil.getDoubleNbtData(item, NBT_KEY);
+    long time = NBTUtil.getLongNbtData(item, NBT_KEY);
     if (time == 0) {
       return;
     }

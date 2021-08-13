@@ -1,31 +1,36 @@
 package gg.eris.uhc.customcraft.craft.vocation.enchanter.craft;
 
-import gg.eris.commons.bukkit.text.TextColor;
-import gg.eris.commons.bukkit.text.TextComponent;
 import gg.eris.commons.bukkit.text.TextController;
-import gg.eris.commons.bukkit.text.TextMessage;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.core.util.Time;
+import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import java.util.concurrent.TimeUnit;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public final class ModularWand extends Craft {
+
+  private static final String COOLDOWN_KEY = "modular_wand_cooldown";
+  private static final String MODE_KEY = "modular_wand_mode";
+  private static final long COOLDOWN = 10_000;
+
+  public enum Mode {
+    LIGHTNING,
+    FIRE;
+  }
 
   public ModularWand() {
     super("modular_wand", CraftableInfo.builder()
@@ -77,82 +82,109 @@ public final class ModularWand extends Craft {
     return "Modular Wand";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+
+  @EventHandler(ignoreCancelled = true)
+  public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    if (event.getEntityType() != EntityType.PLAYER
+        || event.getDamager().getType() != EntityType.PLAYER) {
+      return;
+    }
+
+    Player damager = (Player) event.getDamager();
+    Player damaged = (Player) event.getEntity();
+
+    ItemStack item = damager.getItemInHand();
+
+    if (!isItem(item)) {
+      return;
+    }
+
+    long canUse = NBTUtil.getLongNbtData(item, COOLDOWN_KEY);
+    if (canUse != 0) {
+      if (System.currentTimeMillis() < canUse) {
+        TextController.send(
+            damager,
+            TextType.ERROR,
+            "You can use the <h>{0}</h> again in <h>{1}</h>.",
+            getName(),
+            Time.toShortDisplayTime(canUse - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+        );
+        return;
+      }
+    }
+
+    item = NBTUtil.setNbtData(item, COOLDOWN_KEY, System.currentTimeMillis() + COOLDOWN);
+    damager.setItemInHand(item);
+
+    int modeOrdinal = NBTUtil.getIntNbtData(item, MODE_KEY);
+    if (modeOrdinal < 0 || modeOrdinal > Mode.values().length) {
+      modeOrdinal = 0;
+    }
+
+    Mode mode = Mode.values()[modeOrdinal];
+
+    if (mode == Mode.LIGHTNING) {
+      damaged.setHealth(Math.max(0, damaged.getHealth() - 3));
+      damaged.getWorld().strikeLightningEffect(damaged.getLocation());
+      TextController.send(
+          damager,
+          TextType.INFORMATION,
+          "You struck <h>{0}</h> with lightning from your <h>{1}</h>.",
+          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged).getDisplayName(),
+          getName()
+      );
+    } else {
+      damaged.setFireTicks(20 * 5);
+      TextController.send(
+          damager,
+          TextType.INFORMATION,
+          "You set <h>{0}</h> on fire with your <h>{1}</h>.",
+          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged).getDisplayName(),
+          getName()
+      );
+    }
+  }
+
+  @EventHandler
   public void onInteract(PlayerInteractEvent event) {
-    Player player = event.getPlayer();
-    ItemStack item = player.getItemInHand();
-
-    if (!(this.isItem(item))) {
+    if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
 
-    if (event.getAction() == Action.RIGHT_CLICK_AIR
-        || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-      String action = NBTUtil.getStringNbtData(item, "action");
-      if (action.equals("lightning")) {
-        item = NBTUtil.setNbtData(item, "action", "fire");
+    ItemStack item = event.getItem();
+    if (!isItem(item)) {
+      return;
+    }
 
-        TextMessage message = TextMessage
-            .of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
-                TextComponent.builder("FIRE").color(TextColor.GOLD).bold().build());
-        TextController.send(player, message.getJsonMessage());
+    int modeOrdinal = NBTUtil.getIntNbtData(item, MODE_KEY);
+    if (modeOrdinal < 0 || modeOrdinal > Mode.values().length) {
+      modeOrdinal = 0;
+    }
 
-      } else if (action.equals("fire")) {
-        item = NBTUtil.setNbtData(item, "action", "lightning");
+    if (modeOrdinal == 0) {
+      modeOrdinal = 1;
+    } else {
+      modeOrdinal = 0;
+    }
 
-        TextMessage message = TextMessage
-            .of(TextComponent.builder("Wand mode set to ").color(TextColor.RED).build(),
-                TextComponent.builder("LIGHTNING").color(TextColor.GOLD).bold().build());
+    event.getPlayer().setItemInHand(NBTUtil.setNbtData(item, MODE_KEY, modeOrdinal));
 
-        TextController.send(player, message.getJsonMessage());
-      }
-      player.setItemInHand(item);
+    Mode mode = Mode.values()[modeOrdinal];
+    if (mode == Mode.LIGHTNING) {
+      TextController.send(
+          event.getPlayer(),
+          TextType.INFORMATION,
+          "Your <h>{0}</h> is now in <h>lightning</h> mode.",
+          getName()
+      );
+    } else {
+      TextController.send(
+          event.getPlayer(),
+          TextType.INFORMATION,
+          "Your <h>{0}</h> is now in <h>fire</h> mode.",
+          getName()
+      );
     }
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-  public void onAttack(EntityDamageByEntityEvent event) {
-    if ((event.getEntityType() != EntityType.PLAYER) || (event.getDamager().getType()
-        != EntityType.PLAYER)) {
-      return;
-    }
-
-    Player player = (Player) event.getDamager();
-    ItemStack item = player.getItemInHand();
-    Player target = (Player) event.getEntity();
-
-    if (!this.isItem(item)) {
-      return;
-    }
-
-    int cooldown = NBTUtil.getIntNbtData(item, "cooldown");
-    if (!(cooldown > 0)) {
-      event.setCancelled(true);
-
-      String action = NBTUtil.getStringNbtData(item, "action");
-
-      if (action.equals("fire")) {
-        target.setFireTicks(5);
-        EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.FIRE;
-
-        EntityDamageByEntityEvent event1 = new EntityDamageByEntityEvent(target, player, cause, 0);
-        target.setLastDamageCause(event1);
-        Bukkit.getServer().getPluginManager().callEvent(event1);
-
-
-      } else {
-        World world = player.getWorld();
-        Location location = target.getLocation();
-        world.strikeLightning(location);
-
-        EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.ENTITY_ATTACK;
-
-        EntityDamageByEntityEvent event1 = new EntityDamageByEntityEvent(target, player, cause, 3);
-        target.setLastDamageCause(event1);
-        Bukkit.getServer().getPluginManager().callEvent(event1);
-      }
-
-      item = NBTUtil.setNbtData(item, "cooldown", 10);
-    }
-  }
 }

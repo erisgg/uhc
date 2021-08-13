@@ -77,7 +77,7 @@ public final class Scatterer {
 
         int x = (int) (xOffset * radius * multiplier);
         int z = (int) (zOffset * radius * multiplier);
-        int y = this.game.getWorld().getHighestBlockYAt(x, z);
+        int y = this.game.getWorld().getHighestBlockYAt(x, z) + 0.5;
 
         newLocation = new Location(this.game.getWorld(), x, y, z);
       } while (!isLegalLocation(newLocation, locations));

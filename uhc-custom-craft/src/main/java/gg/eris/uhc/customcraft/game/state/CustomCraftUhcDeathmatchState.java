@@ -22,6 +22,7 @@ import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.WorldCreator;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -297,7 +298,7 @@ public final class CustomCraftUhcDeathmatchState extends
     }
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOWEST)
   public void onEntityDamage(EntityDamageEvent event) {
     if (this.countdown > 0) {
       event.setCancelled(true);
