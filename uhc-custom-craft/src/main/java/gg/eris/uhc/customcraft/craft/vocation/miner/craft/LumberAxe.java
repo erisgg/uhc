@@ -61,7 +61,7 @@ public final class LumberAxe extends Craft {
     return "Lumber Axe";
   }
 
-  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  @EventHandler(ignoreCancelled = true)
   private void handleWoodBreak(BlockBreakEvent event) {
     Block block = event.getBlock();
     Material type = block.getType();

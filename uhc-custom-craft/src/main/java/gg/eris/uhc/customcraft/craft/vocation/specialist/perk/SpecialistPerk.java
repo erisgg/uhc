@@ -2,6 +2,8 @@ package gg.eris.uhc.customcraft.craft.vocation.specialist.perk;
 
 import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.vocation.Perk;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -27,7 +30,9 @@ public final class SpecialistPerk extends Perk {
       Material.COAL,
       Material.IRON_ORE,
       Material.GOLD_ORE,
-      Material.REDSTONE
+      Material.REDSTONE,
+      Material.GOLD_INGOT,
+      Material.IRON_INGOT
   );
 
   private final ErisPlayerManager erisPlayerManager;
@@ -40,8 +45,9 @@ public final class SpecialistPerk extends Perk {
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onBlockBreak(BlockBreakEvent event) {
     Block block = event.getBlock();
-    CustomCraftUhcPlayer player = erisPlayerManager.getPlayer(event.getPlayer());
+    CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(event.getPlayer());
     Collection<ItemStack> drops = handle(
+        player.getHandle(),
         block.getDrops(event.getPlayer().getItemInHand()),
         getLevel(player)
     );
@@ -52,14 +58,26 @@ public final class SpecialistPerk extends Perk {
     }
   }
 
-  public static Collection<ItemStack> handle(Collection<ItemStack> drops, int level) {
+  public static Collection<ItemStack> handle(Player handle,Collection<ItemStack> drops,
+      int level) {
     List<ItemStack> newDrops = Lists.newArrayList();
+    boolean lucky = false;
     for (ItemStack drop : drops) {
       if (isApplicable(drop) && roll(level)) {
         drop.setAmount(drop.getAmount() * 2);
+        lucky = true;
       }
       newDrops.add(drop);
     }
+
+    if (lucky) {
+      TextController.send(
+          handle,
+          TextType.INFORMATION,
+          "Your Specialist Perk has <h>increased</h> block drops."
+      );
+    }
+
     return newDrops;
   }
 

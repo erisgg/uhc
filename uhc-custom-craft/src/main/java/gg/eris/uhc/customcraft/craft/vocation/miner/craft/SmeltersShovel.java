@@ -3,9 +3,15 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.specialist.perk.SpecialistPerk;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -26,7 +32,7 @@ public final class SmeltersShovel extends Craft {
 
   public SmeltersShovel() {
     super("smelters_shovel", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.IRON_PICKAXE).withEnchantment(Enchantment.DIG_SPEED, 1)
+        .base(new ItemBuilder(Material.IRON_SPADE).withEnchantment(Enchantment.DIG_SPEED, 1)
             .build())
         .color(CC.GRAY)
         .name("Smelter's Shovel")
@@ -78,7 +84,16 @@ public final class SmeltersShovel extends Craft {
     if (DROP_MAP.containsKey(type)) {
       event.setCancelled(true);
       event.getBlock().setType(Material.AIR);
-      StackUtil.dropItem(event.getBlock(), true, new ItemStack(DROP_MAP.get(type)));
+      ItemStack drop = new ItemStack(DROP_MAP.get(type));
+
+      CustomCraftUhcPlayer player =
+          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(event.getPlayer());
+      int level = player.getPerkLevel(SpecialistVocationRegistry.get().getPerk());
+     StackUtil.dropItems(
+         block,
+         SpecialistPerk.handle(player.getHandle(), Collections.singleton(drop), level),
+         true
+     );
     }
   }
 
