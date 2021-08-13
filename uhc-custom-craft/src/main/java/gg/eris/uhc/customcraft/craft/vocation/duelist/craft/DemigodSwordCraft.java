@@ -84,8 +84,8 @@ public final class DemigodSwordCraft extends Craft implements Tickable {
       ItemStack item = player.getItemInHand();
       if (isItem(item)) {
         double damage = NBTUtil.getDoubleNbtData(item, DAMAGE_KEY);
-        item = NBTUtil.setNbtData(item, DAMAGE_KEY, damage + damageAmount);
-        player.setItemInHand(item);
+        NBTUtil.setNbtData(item, DAMAGE_KEY, damage + damageAmount);
+        player.updateInventory();
       }
     }
   }
