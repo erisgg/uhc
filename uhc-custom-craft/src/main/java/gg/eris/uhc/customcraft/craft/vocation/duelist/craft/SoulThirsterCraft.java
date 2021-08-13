@@ -8,17 +8,20 @@ import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.bukkit.util.RomanNumeral;
+import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.customcraft.craft.Tickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -81,12 +84,23 @@ public final class SoulThirsterCraft extends Craft implements Tickable {
     return "Soul Thirster";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-  public void onKill(PlayerDeathEvent event) {
-    Player player = event.getEntity();
-    Player killer = player.getKiller();
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onKill(UhcPlayerDeathEvent event) {
+    Player killer = event.getKiller().getHandle();
 
     if (killer == null) {
+      return;
+    }
+
+    // Checking for arrows and switching hand
+    if (event.getHandle() instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) event.getHandle()).getDamager().getType() != EntityType.PLAYER) {
+      return;
+    } else if (event.getKilled().getLastAttacker() == null || System.currentTimeMillis() - event.getKilled().getLastAttacker().getValue() > 1000) {
+      Bukkit.broadcastMessage("Last atacker is: " + event.getKilled().getLastAttacker());
+      // Only level up the sword if they log out within a second of last being hit
+      // a not-100%-safe way of checking if they were last hit
+      // TODO: Switch to storing data about the last damage event they took from the attacker
+      // TOOD: and checking that
       return;
     }
 
@@ -98,13 +112,13 @@ public final class SoulThirsterCraft extends Craft implements Tickable {
       }
 
       sharpnessLevel++;
-      item.addEnchantment(Enchantment.DAMAGE_ALL, sharpnessLevel);
+      item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, sharpnessLevel);
       item = NBTUtil.setNbtData(item, NBT_KEY, System.currentTimeMillis());
       killer.setItemInHand(item);
       TextController.send(
-          player,
+          killer,
           TextType.INFORMATION,
-          "Your <h>0</h> has levelled up to <h>Sharpness {1}</h>.",
+          "Your <h>{0}</h> has levelled up to <h>Sharpness {1}</h>.",
           getName(),
           RomanNumeral.toRoman(sharpnessLevel)
       );

@@ -84,6 +84,30 @@ public final class GameDamageListener extends GameStateListener {
     Player killerHandle = null;
     CustomCraftUhcPlayer killer = null;
 
+    if (event instanceof EntityDamageByEntityEvent) {
+      EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
+      if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
+        Player damager = (Player) entityDamageByEntityEvent.getDamager();
+        if (this.game.isPlayer(damager)) {
+          damaged.setLastAttacker(damagedHandle);
+        } else {
+          event.setCancelled(true);
+          return;
+        }
+      } else if (entityDamageByEntityEvent.getDamager() instanceof Projectile) {
+        Projectile projectile = (Projectile) entityDamageByEntityEvent.getDamager();
+        if (projectile.getShooter() instanceof Player) {
+          Player damager = (Player) projectile.getShooter();
+          if (this.game.isPlayer(damager)) {
+            damaged.setLastAttacker(damagedHandle);
+          } else {
+            event.setCancelled(true);
+            return;
+          }
+        }
+      }
+    }
+
     if (damagedHandle.getHealth() - event.getFinalDamage() <= 0) {
       if (event instanceof EntityDamageByEntityEvent) {
         EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
@@ -101,12 +125,8 @@ public final class GameDamageListener extends GameStateListener {
           if (lastAttacker != null) {
             CustomCraftUhcPlayer attacker = this.game.getPlayer(lastAttacker.getKey());
             if (attacker != null) {
-              if (lastAttacker.getValue()
-                  + this.game.getSettings().getAttackCreditDuration() * 1000L
-                  < System.currentTimeMillis()) {
                 killer = attacker;
                 killerHandle = killer.getHandle();
-              }
             }
           }
         }
@@ -118,7 +138,7 @@ public final class GameDamageListener extends GameStateListener {
       }
 
       event.setCancelled(true);
-      this.game.killPlayer(damaged, killer);
+      this.game.killPlayer(damaged, killer, event);
 
       // Giving kill coins
       if (killer != null) {
@@ -146,18 +166,6 @@ public final class GameDamageListener extends GameStateListener {
                 playerSize,
                 Text.formatInt(coins)
             );
-          }
-        }
-      }
-    } else {
-      if (event instanceof EntityDamageByEntityEvent) {
-        EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
-        if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
-          Player damager = (Player) entityDamageByEntityEvent.getDamager();
-          if (this.game.isPlayer(damager)) {
-            damaged.setLastAttacker((Player) entityDamageByEntityEvent.getDamager());
-          } else {
-            event.setCancelled(true);
           }
         }
       }

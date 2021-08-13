@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.game.listener;
 import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
@@ -12,6 +13,7 @@ import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -89,7 +91,12 @@ public final class SpectatorListener extends MultiStateListener {
     Player handle = event.getPlayer();
     if (this.game.isPlayer(handle)) {
       CustomCraftUhcPlayer player = this.game.getPlayer(event.getPlayer());
-      this.game.killPlayer(player, null);
+      CustomCraftUhcPlayer killer = null;
+      Pair<UUID, Long> lastAttacker = player.getLastAttacker();
+      if (lastAttacker.getKey() != null) {
+        killer = this.game.getPlayer(lastAttacker.getKey());
+      }
+      this.game.killPlayer(player, killer, null);
     }
   }
 

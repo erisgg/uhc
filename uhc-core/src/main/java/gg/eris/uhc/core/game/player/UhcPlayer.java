@@ -2,6 +2,7 @@ package gg.eris.uhc.core.game.player;
 
 import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.core.util.Pair;
+import gg.eris.uhc.core.UhcPlugin;
 import java.util.UUID;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
  */
 public abstract class UhcPlayer extends ErisPlayer {
 
-  @Getter
   private Pair<UUID, Long> lastAttacker;
 
   @Getter
@@ -58,7 +58,16 @@ public abstract class UhcPlayer extends ErisPlayer {
   }
 
   public void setLastAttacker(Player player) {
-    lastAttacker = Pair.of(player.getUniqueId(), System.currentTimeMillis());
+    this.lastAttacker = Pair.of(player.getUniqueId(), System.currentTimeMillis());
   }
 
+  public Pair<UUID, Long> getLastAttacker() {
+    if (this.lastAttacker != null) {
+      if (this.lastAttacker.getValue() + UhcPlugin.getPlugin().getUhc().getGame().getSettings().getAttackCreditDuration() * 1000L < System.currentTimeMillis()) {
+        this.lastAttacker = null;
+      }
+    }
+
+    return this.lastAttacker;
+  }
 }

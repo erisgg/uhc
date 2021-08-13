@@ -38,6 +38,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.github.paperspigot.Title;
@@ -86,7 +88,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.ticker = new UhcGameTicker(this);
     this.settings = settings;
     this.world = new WorldCreator(this.settings.getWorldName()).createWorld();
-    this.nether = new WorldCreator(this.settings.getNetherName()).environment(Environment.NETHER).createWorld();
+    this.nether = new WorldCreator(this.settings.getNetherName()).environment(Environment.NETHER)
+        .createWorld();
     this.deathmatch = new WorldCreator(this.settings.getDeathmatchName()).createWorld();
     this.updatingState = null;
     this.gameState = null;
@@ -142,7 +145,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
     this.updatingState = this.gameStateFactory.getNewState(type);
   }
 
-  public final void killPlayer(T killed, T killer) {
+  public final void killPlayer(T killed, T killer, EntityDamageEvent event) {
     Player killedHandle = killed.getHandle();
 
     killed.died();
@@ -171,7 +174,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
     killedHandle.sendTitle(new Title(
         CC.RED.bold() + "YOU DIED!",
-        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getDisplayName() + "." : null,
+        killer != null ? CC.GRAY + "You were killed by " + CC.RED + killer.getDisplayName() + "."
+            : null,
         20,
         20,
         20
@@ -191,7 +195,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
     drops.removeIf(StackUtil::isNullOrAir);
     filterDrops(drops);
 
-    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, killed, killer, drops);
+    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, event, killed, killer,
+        drops);
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
 
     StackUtil.dropItems(killedHandle.getLocation(), drops, true);
