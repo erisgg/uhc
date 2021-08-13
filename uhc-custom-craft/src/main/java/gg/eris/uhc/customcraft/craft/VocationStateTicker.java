@@ -25,28 +25,29 @@ public final class VocationStateTicker extends GameStateListener {
         continue;
       }
 
-      for (ItemStack item : handle.getInventory().getContents()) {
+      for (int i = 0; i < handle.getInventory().getContents().length; i++) {
+        ItemStack item = handle.getInventory().getContents()[i];
         VocationUnlockable unlockable = Vocation.getUnlockable(item);
         if (unlockable == null) {
           continue;
         }
 
         if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, player);
+          ((Tickable) unlockable).tick(event, item, i, player);
         }
       }
 
-      for (ItemStack item : handle.getInventory().getArmorContents()) {
+      for (int i = 0; i < handle.getInventory().getArmorContents().length; i++) {
+        ItemStack item = handle.getInventory().getArmorContents()[i];
         VocationUnlockable unlockable = Vocation.getUnlockable(item);
         if (unlockable == null) {
           continue;
         }
 
         if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, player);
+          ((Tickable) unlockable).tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
         }
       }
-
     }
   }
 

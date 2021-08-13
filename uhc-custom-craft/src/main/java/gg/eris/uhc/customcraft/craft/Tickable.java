@@ -7,6 +7,6 @@ import org.bukkit.inventory.ItemStack;
 @FunctionalInterface
 public interface Tickable {
 
-  void tick(UhcTickEvent event, ItemStack item, ErisPlayer player);
+  void tick(UhcTickEvent event, ItemStack item, int itemSlot, ErisPlayer player);
 
 }
