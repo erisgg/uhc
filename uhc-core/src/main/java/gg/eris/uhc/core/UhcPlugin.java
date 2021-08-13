@@ -3,6 +3,7 @@ package gg.eris.uhc.core;
 import gg.eris.commons.bukkit.ErisBukkitCommons;
 import gg.eris.commons.bukkit.command.CommandProvider;
 import java.lang.reflect.InvocationTargetException;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,6 +12,7 @@ public final class UhcPlugin extends JavaPlugin {
   private static UhcPlugin INSTANCE;
 
   private ErisBukkitCommons commons;
+  @Getter
   private UhcModule<?> uhc;
 
   @Override

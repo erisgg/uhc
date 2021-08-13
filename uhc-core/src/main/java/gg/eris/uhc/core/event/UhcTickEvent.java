@@ -10,11 +10,11 @@ public final class UhcTickEvent extends UhcEvent implements Cancellable {
 
   private static final HandlerList HANDLERS = new HandlerList();
 
-  private final int tick;
+  private final long tick;
 
   private boolean cancelled;
 
-  public UhcTickEvent(UhcGame<?> game, int tick) {
+  public UhcTickEvent(UhcGame<?> game, long tick) {
     super(game);
     this.tick = tick;
     this.cancelled = false;

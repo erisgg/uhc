@@ -3,10 +3,12 @@ package gg.eris.uhc.core;
 import gg.eris.commons.bukkit.command.CommandProvider;
 import gg.eris.uhc.core.game.UhcGame;
 import java.util.Set;
+import lombok.Getter;
 
 public abstract class UhcModule<T extends UhcGame<?>> {
 
   protected final UhcPlugin plugin;
+  @Getter
   protected final T game;
 
   public UhcModule(UhcPlugin plugin) {
