@@ -12,6 +12,7 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
@@ -76,21 +77,24 @@ public final class CraftListener extends GameStateListener {
       return;
     }
 
-    int amount = getRecipeAmount(event);
+    int amountCrafted = getRecipeAmount(event);
 
-    if (amount == 0) {
+    if (amountCrafted == 0) {
       return;
     }
 
     boolean prestige = player.getPrestigeLevel(unlockable.getVocation()) > 0;
 
-    int maxAmount = unlockable instanceof Craft ? prestige ?
-        ((Craft) unlockable).getPrestigeCraftableAmount() :
-        ((Craft) unlockable).getCraftableAmount() : 1;
+    Bukkit.broadcastMessage("prestige:" + prestige);
+
+    int maxAmount = unlockable instanceof Craft ?
+        prestige ? ((Craft) unlockable).getPrestigeCraftableAmount() : ((Craft) unlockable).getCraftableAmount()
+        : 1;
 
     int alreadyCrafted = player.getTimesCrafted(unlockable);
+    Bukkit.broadcastMessage("alreayd crafted: " + alreadyCrafted);
 
-    if (maxAmount == alreadyCrafted) {
+    if (maxAmount <= alreadyCrafted) {
       event.setResult(Result.DENY);
       event.setCancelled(true);
       TextController.send(
@@ -101,25 +105,25 @@ public final class CraftListener extends GameStateListener {
       );
     }
 
-    int finalAmount = maxAmount - alreadyCrafted;
+    int leftCraftable = maxAmount - alreadyCrafted;
 
-    if (amount > finalAmount) {
+    if (amountCrafted > leftCraftable) {
       event.setResult(Result.DENY);
       event.setCancelled(true);
       TextController.send(
           player,
           TextType.ERROR,
           "You cannot craft that many. You can only craft <h>{0}</h> more.",
-          finalAmount
+          leftCraftable
       );
     } else {
-      player.incrementCraftCount(unlockable.getIdentifier(), finalAmount);
+      player.incrementCraftCount(unlockable.getIdentifier(), amountCrafted);
       TextController.send(
           player,
           TextType.SUCCESS,
           "You have crafted <h>{0}</h> (<h>{1}/{2}</h>).",
           unlockable.getName(),
-          finalAmount,
+          amountCrafted,
           maxAmount
       );
     }

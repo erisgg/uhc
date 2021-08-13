@@ -9,6 +9,7 @@ import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.CraftListener;
+import gg.eris.uhc.customcraft.craft.VocationStateTicker;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
@@ -58,16 +59,16 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchName(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD)
         .borderRadius(1000)
         .maxHealth(40)
-        .requiredPlayers(3)
+        .requiredPlayers(2)
         .pregameCountdownDuration(5)
-        .gracePeriodDuration(60)
-        .pvpPeriodDuration(120)
+        .gracePeriodDuration(20)
+        .pvpPeriodDuration(1800)
         .borderShrunkRadius(400)
         .borderShrinkDelay(1000)
         .borderShrinkDuration(30)
         .preDeathmatchCountdownDuration(60)
         .attackCreditDuration(20)
-        .deathmatchPlayerThreshold(12)
+        .deathmatchPlayerThreshold(1)
         .deathmatchBorderRadius(200)
         .deathmatchBorderShrinkDelay(30)
         .deathmatchBorderShrinkDuration(300)
@@ -138,7 +139,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new StrengthNerfListener(),
 
         // Craft
-        new CraftListener(this.getPlugin().getCommons().getErisPlayerManager())
+        new CraftListener(this.getPlugin().getCommons().getErisPlayerManager()),
+        new VocationStateTicker()
     );
   }
 }

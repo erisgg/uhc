@@ -55,6 +55,11 @@ public final class CustomCraftUhcIdentifiers {
       PermissionGroup.OWNER_DEVELOPER
   );
 
+  public static final Identifier GIVEITEM_PERMISSION = permission(
+      "giveitem",
+      PermissionGroup.OWNER_DEVELOPER
+  );
+
   public static final Identifier STATS_PERMISSION = permission(
       "stats",
       PermissionGroup.ALL

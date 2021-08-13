@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.ArmorerVocationRegistry;
@@ -73,6 +74,9 @@ public enum Vocation {
   }
 
   public static VocationUnlockable getUnlockable(ItemStack item) {
+    if (StackUtil.isNullOrAir(item)) {
+      return null;
+    }
 
     String value = NBTUtil.getStringNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
 

@@ -9,6 +9,9 @@ import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.CustomCraftUhcModule;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
@@ -17,6 +20,7 @@ import org.bukkit.GameMode;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.potion.PotionEffectType;
@@ -62,6 +66,17 @@ public final class CustomCraftUhcStartingState extends
         PlayerUtil.resetPlayer(handle);
         handle.addPotionEffect(PotionEffectType.BLINDNESS.createEffect(Integer.MAX_VALUE, 9));
         handle.addPotionEffect(PotionEffectType.SLOW.createEffect(Integer.MAX_VALUE, 9));
+      }
+    }
+
+
+    // I hate it but there is no other way
+    for (Vocation vocation : Vocation.values()) {
+      VocationRegistry registry = vocation.getRegistry();
+      for (VocationUnlockable unlockable : registry.values()) {
+        if (unlockable instanceof Listener) {
+          Bukkit.getPluginManager().registerEvents(((Listener) unlockable), this.game.getPlugin());
+        }
       }
     }
   }

@@ -1,11 +1,17 @@
 package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 
+import gg.eris.commons.bukkit.player.ErisPlayer;
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.Tickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -17,7 +23,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public final class DemigodSwordCraft extends Craft {
+public final class DemigodSwordCraft extends Craft implements Tickable {
+
+  private static final String DAMAGE_KEY = "demigod_damage";
 
   public DemigodSwordCraft() {
     super("demigod_sword", CraftableInfo.builder()
@@ -70,24 +78,45 @@ public final class DemigodSwordCraft extends Craft {
 
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onDamage(EntityDamageByEntityEvent event) {
-    double damageAmount = event.getDamage();
-
-    if (event.getEntityType() == EntityType.PLAYER) {
-      Player player = (Player) event.getEntity();
+    if (event.getEntityType() == EntityType.PLAYER && event.getDamager().getType() == EntityType.PLAYER) {
+      double damageAmount = event.getFinalDamage();
+      Player player = (Player) event.getDamager();
       ItemStack item = player.getItemInHand();
-
-      if (this.isItem(item)) {
-        double damage = NBTUtil.getDoubleNbtData(item, "damage");
-
-        item = NBTUtil.setNbtData(item, "damage", damage + damageAmount);
+      if (isItem(item)) {
+        double damage = NBTUtil.getDoubleNbtData(item, DAMAGE_KEY);
+        item = NBTUtil.setNbtData(item, DAMAGE_KEY, damage + damageAmount);
         player.setItemInHand(item);
-
-        if ((damage + damageAmount) >= 150) {
-          item.addEnchantment(Enchantment.DAMAGE_ALL, 3);
-        } else if ((damage + damageAmount) >= 70) {
-          item.addEnchantment(Enchantment.DAMAGE_ALL, 2);
-        }
       }
+    }
+  }
+
+  @Override
+  public void tick(UhcTickEvent event, ItemStack item, ErisPlayer player) {
+    int enchantmentLevel = item.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+    if (enchantmentLevel == 3) {
+      return;
+    }
+
+    double damage = NBTUtil.getDoubleNbtData(item, DAMAGE_KEY);
+
+    if (damage >= 160) {
+      item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 3);
+      player.getHandle().updateInventory();
+      TextController.send(
+          player,
+          TextType.INFORMATION,
+          "Your <h>{0}<h> has dealt 160 damage and upgrade to <h>Sharpness III</h>.",
+          getName()
+      );
+    } else if (damage >= 70 && enchantmentLevel == 1) {
+      item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
+      player.getHandle().updateInventory();
+      TextController.send(
+          player,
+          TextType.INFORMATION,
+          "Your <h>{0}<h> has dealt 160 damage and upgrade to <h>Sharpness II</h>.",
+          getName()
+      );
     }
   }
 }

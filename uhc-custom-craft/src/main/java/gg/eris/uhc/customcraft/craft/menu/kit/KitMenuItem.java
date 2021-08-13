@@ -81,9 +81,9 @@ public final class KitMenuItem implements MenuItem {
         TextController.send(
             player.getHandle(),
             TextType.SUCCESS,
-            "You have upgraded the <h>{0}</h> kit. You need <h>{1}</h> more coins.",
+            "You have upgraded the <h>{0}</h> kit (-<h>{1}</h> coins).",
             this.kit.getName(),
-            Text.formatInt(cost - player.getCoins())
+            Text.formatInt(cost)
         );
         player.levelUpKit(this.kit);
       }
