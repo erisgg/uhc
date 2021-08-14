@@ -8,6 +8,7 @@ import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -55,7 +56,7 @@ public final class HydraToothTrinket extends Trinket {
     return "Hydra Tooth";
   }
 
-  @EventHandler
+  @EventHandler(ignoreCancelled = true)
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
     if (event.getDamager().getType() != EntityType.PLAYER) {
       return;

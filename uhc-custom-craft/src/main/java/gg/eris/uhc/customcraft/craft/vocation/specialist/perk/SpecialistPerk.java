@@ -30,10 +30,11 @@ public final class SpecialistPerk extends Perk {
 
   // Lapis handled separately because 1.8 :D
   private static final Set<Material> APPLICABLE = Set.of(
-      Material.COAL,
+      Material.COAL_ORE,
       Material.IRON_ORE,
       Material.GOLD_ORE,
-      Material.REDSTONE,
+      Material.REDSTONE_ORE,
+      Material.GLOWING_REDSTONE_ORE,
       Material.GOLD_INGOT,
       Material.IRON_INGOT
   );
@@ -50,6 +51,10 @@ public final class SpecialistPerk extends Perk {
     Block block = event.getBlock();
     Player handle = event.getPlayer();
     CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(handle);
+
+    if (!APPLICABLE.contains(event.getBlock().getType())) {
+      return;
+    }
 
     Pair<Boolean, Collection<ItemStack>> drops = handle(
         handle,
