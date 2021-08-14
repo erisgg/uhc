@@ -1,7 +1,6 @@
 package gg.eris.uhc.customcraft.craft;
 
 import gg.eris.commons.core.identifier.Identifier;
-import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;

@@ -173,7 +173,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         // Craft
         new CraftListener(this.getPlugin().getCommons().getErisPlayerManager()),
-        new TrinketListener(),
+        new TrinketListener(this),
         new VocationStateTicker(),
 
         // Regular player heads
