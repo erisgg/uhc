@@ -103,7 +103,7 @@ public final class CustomCraftUhcEndedState extends AbstractEndedGameState<Custo
 
   @Override
   public void onTick(int tick) {
-    if (tick / 20 >= this.game.getSettings().getPostGameDelay()) {
+    if (tick / 20 >= this.game.getSettings().getPostGameShutdownDelay()) {
       this.game.shutdown();
     }
   }

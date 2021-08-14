@@ -17,6 +17,7 @@ import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenuViewer;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.leaderboard.Leaderboard;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -83,6 +84,9 @@ public final class LobbyListener extends MultiStateListener {
   private final ErisPlayerManager erisPlayerManager;
   private final Location spawn;
 
+  private final Leaderboard killsLeaderboard;
+  private final Leaderboard winsLeaderboard;
+
   public LobbyListener(CustomCraftUhcGame game) {
     this.game = game;
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
@@ -93,6 +97,26 @@ public final class LobbyListener extends MultiStateListener {
         0.5,
         -90.0f,
         0.0f
+    );
+
+    this.killsLeaderboard = new Leaderboard(
+        this.game.getPlugin(),
+        "kills",
+        new Location(new WorldCreator(CustomCraftUhcIdentifiers.PREGAME_WORLD).createWorld(),
+            24.5,
+            76.5,
+            -8.5
+        )
+    );
+
+    this.winsLeaderboard = new Leaderboard(
+        this.game.getPlugin(),
+        "wins",
+        new Location(new WorldCreator(CustomCraftUhcIdentifiers.PREGAME_WORLD).createWorld(),
+            29.5,
+            76.5,
+            -8.5
+        )
     );
   }
 
@@ -111,6 +135,7 @@ public final class LobbyListener extends MultiStateListener {
       world.setTime(6000L);
     }, 0L, 1L).getTaskId());
 
+    // Tablist
     TablistController tablistController = game.getPlugin().getCommons().getTablistController();
     tablistController.setHeader(CC.YELLOW + "You are playing " + CC.GREEN.bold() + "UHC"
         + CC.YELLOW + " on " + CC.GOLD.bold() + "ERIS.GG");
@@ -123,11 +148,13 @@ public final class LobbyListener extends MultiStateListener {
           "[" + rank.getRawDisplay() + "] " + CC.WHITE + player.getNicknameProfile()
           .getDisplayName();
     });
+
   }
 
   @Override
   protected void onDisable(GameState<?, ?> state) {
-
+    this.killsLeaderboard.remove();
+    this.winsLeaderboard.remove();
   }
 
   @EventHandler

@@ -76,14 +76,18 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .borderRadius(1000)
         .maxHealth(40)
         .requiredPlayers(2)
+        .attackCreditDuration(20)
+
         .pregameCountdownDuration(5)
-        .gracePeriodDuration(5 * 60)
-        .pvpPeriodDuration(20 * 60)
+        .gracePeriodDuration(5)
+        .pvpPeriodDuration(20)
+        .preDeathmatchCountdownDuration(10)
+        .postGameShutdownDelay(15)
+
         .borderShrunkRadius(400)
         .borderShrinkDelay(1000)
         .borderShrinkDuration(30)
-        .preDeathmatchCountdownDuration(10 * 60)
-        .attackCreditDuration(20)
+
         .deathmatchPlayerThreshold(1)
         .deathmatchBorderRadius(200)
         .deathmatchBorderShrinkDelay(30)
@@ -91,7 +95,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchBorderShrunkRadius(20)
         .deathmatchBlockDecayDelay(30)
         .deathmatchStartCountdownDuration(5)
-        .postGameDelay(30)
+
+
         .coinsPerKill(300)
         .coinsPerWin(3000)
         .coinsPerSurvive(Int2IntMaps.unmodifiable(COIN_MAP))
@@ -137,9 +142,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     }
 
     ItemStack head = new ItemBuilder(new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal()))
-        .applyMeta(SkullMeta.class, meta -> {
-          meta.setOwner(player.getDisplayName());
-        }).build();
+        .applyMeta(SkullMeta.class, meta -> meta.setOwner(player.getDisplayName())).build();
 
     drops.add(head);
   }

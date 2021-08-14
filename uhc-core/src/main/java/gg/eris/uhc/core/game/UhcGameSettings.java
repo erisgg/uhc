@@ -39,7 +39,7 @@ public class UhcGameSettings {
   int deathmatchBlockDecayDelay;
   int deathmatchStartCountdownDuration;
 
-  int postGameDelay;
+  int postGameShutdownDelay;
 
   // Coins
   int coinsPerKill;
