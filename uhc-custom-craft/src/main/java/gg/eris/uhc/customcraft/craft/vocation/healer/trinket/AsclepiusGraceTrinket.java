@@ -68,4 +68,8 @@ public class AsclepiusGraceTrinket extends Trinket {
     }
   }
 
+  @Override
+  public boolean canRemove(CustomCraftUhcPlayer player) {
+    return false;
+  }
 }

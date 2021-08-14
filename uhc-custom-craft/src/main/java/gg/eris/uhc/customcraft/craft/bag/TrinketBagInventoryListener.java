@@ -67,19 +67,30 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
     ItemStack cursor = event.getCursor();
 
     int index = TrinketBag.INVENTORY_SLOTS.indexOf(slot);
+
     Trinket clicked = trinketBag.getTrinket(index);
     if (clicked != null) {
       if (handle.getInventory().firstEmpty() == -1) {
         TextController.send(
             handle,
             TextType.ERROR,
-            "Your inventory is <h>full</h>!"
+            "Your inventory is <h>full</h>."
         );
         return;
       }
-      Trinket trinket = trinketBag.removeTrinket(index);
-      trinket.onRemove(player);
-      handle.getInventory().addItem(trinket.getItem());
+
+      if (clicked.canRemove(player)) {
+        Trinket trinket = trinketBag.removeTrinket(index);
+        trinket.onRemove(player);
+        handle.getInventory().addItem(trinket.getItem());
+      } else {
+        TextController.send(
+            handle,
+            TextType.ERROR,
+            "You <h>cannot</h> remove that trinket."
+        );
+        return;
+      }
     }
 
     if (StackUtil.isNullOrAir(cursor)) {

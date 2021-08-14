@@ -8,6 +8,7 @@ import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractPvpGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.AsclepiusGraceTrinket;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
@@ -66,6 +67,9 @@ public final class CustomCraftUhcPvpState extends
     this.pvpStateTime = 0;
     this.deathmatchCountdown = -1;
     this.scoreboard.addAllPlayers();
+
+    // Perform final heal for those with the trinket
+    AsclepiusGraceTrinket.performFinalHeal();
   }
 
   @Override
