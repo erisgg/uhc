@@ -85,15 +85,12 @@ public final class CraftListener extends GameStateListener {
 
     boolean prestige = player.getPrestigeLevel(unlockable.getVocation()) > 0;
 
-    Bukkit.broadcastMessage("prestige:" + prestige);
-
     int maxAmount = unlockable instanceof Craft ?
         prestige ? ((Craft) unlockable).getPrestigeCraftableAmount()
             : ((Craft) unlockable).getCraftableAmount()
         : 1;
 
     int alreadyCrafted = player.getTimesCrafted(unlockable);
-    Bukkit.broadcastMessage("alreayd crafted: " + alreadyCrafted);
 
     if (maxAmount <= alreadyCrafted) {
       event.setResult(Result.DENY);

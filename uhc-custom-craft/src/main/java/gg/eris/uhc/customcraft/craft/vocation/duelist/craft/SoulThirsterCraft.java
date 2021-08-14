@@ -99,7 +99,6 @@ public final class SoulThirsterCraft extends Craft implements CraftTickable {
       return;
     } else if (event.getKilled().getLastAttacker() == null
         || System.currentTimeMillis() - event.getKilled().getLastAttacker().getValue() > 1000) {
-      Bukkit.broadcastMessage("Last atacker is: " + event.getKilled().getLastAttacker());
       // Only level up the sword if they log out within a second of last being hit
       // a not-100%-safe way of checking if they were last hit
       // TODO: Switch to storing data about the last damage event they took from the attacker

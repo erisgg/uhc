@@ -21,7 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
-public final class TrinketBagItem {
+public final class TrinketBag {
 
   protected static final IntList INVENTORY_SLOTS =
       IntLists.unmodifiable(new IntArrayList(List.of(11, 13, 15)));
@@ -41,7 +41,7 @@ public final class TrinketBagItem {
   private final CustomCraftUhcPlayer player;
   private final Trinket[] contents;
 
-  public TrinketBagItem(CustomCraftUhcPlayer player) {
+  public TrinketBag(CustomCraftUhcPlayer player) {
     this.player = player;
     this.contents = new Trinket[3];
   }

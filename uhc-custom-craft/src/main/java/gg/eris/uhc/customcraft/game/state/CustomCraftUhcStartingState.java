@@ -7,7 +7,7 @@ import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.CustomCraftUhcModule;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
@@ -101,7 +101,7 @@ public final class CustomCraftUhcStartingState extends
 
         // Give kits then trinket bag
         KitRegistry.get().getKit(player).give(player);
-        TrinketBagItem.giveBag(handle);
+        TrinketBag.giveBag(handle);
       }
     }
 

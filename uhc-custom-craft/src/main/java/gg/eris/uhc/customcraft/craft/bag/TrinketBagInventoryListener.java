@@ -12,6 +12,7 @@ import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
@@ -56,31 +57,33 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
     event.setCancelled(true);
 
     int slot = event.getRawSlot();
-    if (!TrinketBagItem.INVENTORY_SLOTS_SET.contains(slot)) {
+    if (!TrinketBag.INVENTORY_SLOTS_SET.contains(slot)) {
       return;
     }
 
-    Player player = (Player) event.getWhoClicked();
+    Player handle = (Player) event.getWhoClicked();
+    TrinketBag trinketBag = ((TrinketBagInventoryHolder) inventory.getHolder()).getBag();
+    CustomCraftUhcPlayer player = trinketBag.getPlayer();
     ItemStack cursor = event.getCursor();
-    TrinketBagItem item = ((TrinketBagInventoryHolder) inventory.getHolder()).getBag();
 
-    int index = TrinketBagItem.INVENTORY_SLOTS.indexOf(slot);
-    Trinket clicked = item.getTrinket(index);
+    int index = TrinketBag.INVENTORY_SLOTS.indexOf(slot);
+    Trinket clicked = trinketBag.getTrinket(index);
     if (clicked != null) {
-      if (player.getInventory().firstEmpty() == -1) {
+      if (handle.getInventory().firstEmpty() == -1) {
         TextController.send(
-            player,
+            handle,
             TextType.ERROR,
             "Your inventory is <h>full</h>!"
         );
         return;
       }
-      Trinket trinket = item.removeTrinket(index);
-      player.getInventory().addItem(trinket.getItem());
+      Trinket trinket = trinketBag.removeTrinket(index);
+      trinket.onRemove(player);
+      handle.getInventory().addItem(trinket.getItem());
     }
 
     if (StackUtil.isNullOrAir(cursor)) {
-      inventory.setItem(slot, TrinketBagItem.EMPTY_SLOT);
+      inventory.setItem(slot, TrinketBag.EMPTY_SLOT);
     } else {
       Identifier identifier = VocationUnlockable.getIdentifierFromItemStack(cursor);
       VocationUnlockable newUnlockable = Vocation.getUnlockable(identifier);
@@ -88,9 +91,10 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
         return;
       }
       Trinket newTrinket = (Trinket) newUnlockable;
-      item.addTrinket(newTrinket, index);
+      trinketBag.addTrinket(newTrinket, index);
+      newTrinket.onAdd(player);
       inventory.setItem(slot, cursor);
-      player.setItemOnCursor(null);
+      handle.setItemOnCursor(null);
     }
   }
 

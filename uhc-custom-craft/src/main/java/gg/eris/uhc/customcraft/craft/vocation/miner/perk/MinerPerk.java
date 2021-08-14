@@ -6,6 +6,7 @@ import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -42,10 +43,8 @@ public final class MinerPerk extends Perk {
     int level = getLevel(player);
     if (APPLICABLE.contains(event.getBlock().getType()) && level > 0) {
       int newLevel = 0;
-      for (PotionEffect effect : event.getPlayer().getActivePotionEffects()) {
-        if (effect.getType() == PotionEffectType.FAST_DIGGING) {
-          newLevel = effect.getAmplifier() + 1;
-        }
+      if (player.hasTrinket(Vocation.MINER.getRegistry().getFirstTrinket())) {
+        newLevel = 1;
       }
 
       event.getPlayer().addPotionEffect(PotionEffectType.FAST_DIGGING

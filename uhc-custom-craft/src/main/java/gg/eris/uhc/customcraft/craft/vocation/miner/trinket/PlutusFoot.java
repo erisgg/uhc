@@ -7,6 +7,7 @@ import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -56,14 +57,17 @@ public final class PlutusFoot extends Trinket implements TrinketTickable {
   public void tick(UhcTickEvent event, CustomCraftUhcPlayer player) {
     boolean hasHaste = false;
     for (PotionEffect effect : player.getHandle().getActivePotionEffects()) {
-      if (effect.getType() == PotionEffectType.FAST_DIGGING && effect.getAmplifier() == 1) {
-        hasHaste = true;
+      if (effect.getType() == PotionEffectType.FAST_DIGGING) {
+        if (effect.getAmplifier() == 1) {
+          hasHaste = true;
+        }
         break;
       }
     }
 
     if (!hasHaste) {
-      player.getHandle().addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(7 * 20, 0));
+      player.getHandle().addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(7 * 20, 0),
+          true);
     }
   }
 }

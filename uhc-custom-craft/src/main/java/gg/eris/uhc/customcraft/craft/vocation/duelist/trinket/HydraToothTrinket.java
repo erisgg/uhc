@@ -3,7 +3,7 @@ package gg.eris.uhc.customcraft.craft.vocation.duelist.trinket;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.core.UhcPlugin;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -73,7 +73,7 @@ public final class HydraToothTrinket extends Trinket {
     if (item.getType() == Material.WOOD_SWORD || item.getType() == Material.STONE_SWORD
         || item.getType() == Material.IRON_SWORD || item.getType() == Material.GOLD_SWORD
         || item.getType() == Material.DIAMOND_SWORD) {
-      TrinketBagItem trinketBagItem = player.getTrinketBagItem();
+      TrinketBag trinketBagItem = player.getTrinketBagItem();
       if (trinketBagItem.hasTrinket(this)) {
         event.setDamage(event.getDamage() + 0.5);
       }

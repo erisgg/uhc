@@ -11,7 +11,7 @@ import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.CraftListener;
 import gg.eris.uhc.customcraft.craft.VocationStateTicker;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
 import gg.eris.uhc.customcraft.craft.menu.main.MainMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -117,7 +117,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   @Override
   protected void filterDrops(List<ItemStack> drops) {
-    drops.removeIf(TrinketBagItem::isBag);
+    drops.removeIf(TrinketBag::isBag);
   }
 
   @Override

@@ -162,7 +162,6 @@ public final class CustomCraftUhcPlayerSerializer extends
     uhc.put("coins", player.getCoins());
 
     if (player.getActiveKit() != null) {
-      System.out.println(player.getActiveKit());
       uhc.put("active_kit", KitRegistry.get().get(player.getActiveKit()).getStorageKey());
     }
 
