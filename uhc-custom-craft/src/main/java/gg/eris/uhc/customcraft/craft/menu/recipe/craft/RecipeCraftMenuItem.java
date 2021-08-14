@@ -44,7 +44,11 @@ public final class RecipeCraftMenuItem implements MenuItem {
       return shapedRecipe.getIngredientMap().get(rowString.charAt(column));
     } else if (recipe instanceof ShapelessRecipe) {
       ShapelessRecipe shapelessRecipe = (ShapelessRecipe) recipe;
-      return shapelessRecipe.getIngredientList().get(this.index);
+      if (this.index >= shapelessRecipe.getIngredientList().size()) {
+        return null;
+      } else {
+        return shapelessRecipe.getIngredientList().get(this.index);
+      }
     } else {
       return null;
     }
