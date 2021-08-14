@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation;
 
 import gg.eris.commons.bukkit.util.NBTUtil;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
@@ -24,8 +25,16 @@ public abstract class VocationUnlockable implements Identifiable {
   }
 
   public static Identifier getIdentifierFromItemStack(ItemStack item) {
-    return Identifier.fromString(
-        NBTUtil.getStringNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY));
+    if (StackUtil.isNullOrAir(item)) {
+      return null;
+    }
+
+    String idValue = NBTUtil.getStringNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
+    if (idValue == null) {
+      return null;
+    }
+
+    return CustomCraftUhcIdentifiers.UNLOCKABLE.id(idValue);
   }
 
 }

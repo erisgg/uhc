@@ -10,6 +10,7 @@ import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.CraftListener;
+import gg.eris.uhc.customcraft.craft.TrinketListener;
 import gg.eris.uhc.customcraft.craft.VocationStateTicker;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
@@ -79,9 +80,9 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .attackCreditDuration(20)
 
         .pregameCountdownDuration(5)
-        .gracePeriodDuration(5)
-        .pvpPeriodDuration(20)
-        .preDeathmatchCountdownDuration(10)
+        .gracePeriodDuration(60)
+        .pvpPeriodDuration(120)
+        .preDeathmatchCountdownDuration(30)
         .postGameShutdownDelay(15)
 
         .borderShrunkRadius(400)
@@ -172,6 +173,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         // Craft
         new CraftListener(this.getPlugin().getCommons().getErisPlayerManager()),
+        new TrinketListener(),
         new VocationStateTicker(),
 
         // Regular player heads

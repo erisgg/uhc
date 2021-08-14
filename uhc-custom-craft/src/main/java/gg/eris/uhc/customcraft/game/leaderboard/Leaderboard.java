@@ -79,6 +79,10 @@ public final class Leaderboard {
   }
 
   private void setPosition(int position, String fieldName, int value) {
+    if (this.hologram.isDeleted()) {
+      return;
+    }
+
     HologramLine line = this.lines.get(position);
     line.removeLine();
     if (fieldName != null) {
@@ -94,5 +98,6 @@ public final class Leaderboard {
     if (!this.hologram.isDeleted()) {
       this.hologram.delete();
     }
+    Bukkit.getScheduler().cancelTask(this.taskId);
   }
 }
