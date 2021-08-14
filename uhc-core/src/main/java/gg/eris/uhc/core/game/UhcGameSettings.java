@@ -17,8 +17,10 @@ public class UhcGameSettings {
 
   // Countdown state
   int requiredPlayers;
+  int shortenPlayers;
   int maxPlayers;
   int pregameCountdownDuration;
+  int shortenCountdownDuration;
 
   // Grace period
   int gracePeriodDuration;

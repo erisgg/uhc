@@ -26,12 +26,15 @@ public final class CustomCraftUhcCountdownGameState extends
 
   private final ErisPlayerManager erisPlayerManager;
   private int countdown;
+  private boolean shortened;
 
   private final CommonsScoreboard scoreboard;
 
   public CustomCraftUhcCountdownGameState(CustomCraftUhcGame game) {
     super(game);
     this.erisPlayerManager = game.getPlugin().getCommons().getErisPlayerManager();
+    this.countdown = 0;
+    this.shortened = false;
 
     this.scoreboard =
         game.getPlugin().getCommons().getScoreboardController()
@@ -53,7 +56,8 @@ public final class CustomCraftUhcCountdownGameState extends
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/" + game.getSettings().getMaxPlayers(), 1);
+            .getErisPlayerManager().getPlayers().size() + "/" + game.getSettings().getMaxPlayers(),
+        1);
     this.scoreboard.addLine("");
     this.scoreboard
         .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
@@ -73,6 +77,19 @@ public final class CustomCraftUhcCountdownGameState extends
               CustomCraftUhcIdentifiers.LIVE_GAME_SET,
               "" + ((CustomCraftUhcModule) this.game.getModule()).getPort())
       );
+    }
+
+    if (!this.shortened && this.erisPlayerManager.getPlayers().size() >= this.game.getSettings().getShortenPlayers()) {
+      this.shortened = true;
+      if (this.countdown > this.game.getSettings().getShortenCountdownDuration()) {
+        this.countdown = this.game.getSettings().getShortenCountdownDuration();
+        TextController.broadcastToServer(
+            TextType.INFORMATION,
+            "The countdown has been shortened to <h>{0}</h>.",
+            Time.toLongDisplayTime(this.countdown, TimeUnit.SECONDS)
+        );
+        return;
+      }
     }
 
     if (this.ticks % 20 != 0) {
@@ -134,9 +151,10 @@ public final class CustomCraftUhcCountdownGameState extends
           this.game.getSettings().getRequiredPlayers(),
           this.game.getSettings().getMaxPlayers()
       );
-    } else {
-      this.scoreboard.removeAllPlayers();
+      this.shortened = false;
     }
+
+    this.scoreboard.removeAllPlayers();
   }
 
   @EventHandler

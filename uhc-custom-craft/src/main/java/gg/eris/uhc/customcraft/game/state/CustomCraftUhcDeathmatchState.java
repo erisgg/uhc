@@ -226,12 +226,20 @@ public final class CustomCraftUhcDeathmatchState extends
       player.getHandle().teleport(location);
     }
     this.scoreboard.addAllPlayers();
+
+    Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
+      TextController.broadcastToServer(
+          TextType.INFORMATION,
+          "The server will shut down in <h>5 minutes</h>."
+      );
+      Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), Bukkit::shutdown, 5 * 60 * 20);
+    }, 15 * 60 * 20);
   }
 
   @Override
   public void onTick(int tick) {
     if (this.countdown == 0 && !this.borderStarted
-        && this.game.getSettings().getBorderShrinkDelay() == 0) {
+        && this.game.getSettings().getDeathmatchBorderShrinkDelay() == 0) {
       startBorderShrink();
     }
 
