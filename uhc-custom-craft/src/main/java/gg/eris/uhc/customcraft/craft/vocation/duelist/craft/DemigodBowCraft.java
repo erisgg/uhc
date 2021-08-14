@@ -40,7 +40,7 @@ public final class DemigodBowCraft extends Craft implements CraftTickable {
         .build()
     );
 
-    this.powerTwoTime = 20L + (15 * 20L);
+    this.powerTwoTime = 10 * 60 * 20 + 15 * 60 * 20;
   }
 
   @Override

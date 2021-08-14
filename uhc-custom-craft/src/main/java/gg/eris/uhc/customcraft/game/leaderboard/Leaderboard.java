@@ -11,6 +11,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -66,11 +67,13 @@ public final class Leaderboard {
       }
 
       values.sort(Comparator.comparing(Pair::getValue));
+      Collections.reverse(values);
 
-      for (int position = 0; position < values.size(); position++) {
-        setPosition(position, values.get(position).getKey(), values.get(position).getValue());
-      }
-
+      Bukkit.getScheduler().runTask(plugin, () -> {
+        for (int position = 0; position < values.size(); position++) {
+          setPosition(position, values.get(position).getKey(), values.get(position).getValue());
+        }
+      });
     }, 0, 5 * 20 * 60).getTaskId();
   }
 
