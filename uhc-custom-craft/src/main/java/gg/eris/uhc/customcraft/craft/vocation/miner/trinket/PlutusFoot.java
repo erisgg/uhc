@@ -53,7 +53,7 @@ public final class PlutusFoot extends Trinket implements TrinketTickable {
   }
 
   @Override
-  public void tick(UhcTickEvent event, Trinket trinket, CustomCraftUhcPlayer player) {
+  public void tick(UhcTickEvent event, CustomCraftUhcPlayer player) {
     boolean hasHaste = false;
     for (PotionEffect effect : player.getHandle().getActivePotionEffects()) {
       if (effect.getType() == PotionEffectType.FAST_DIGGING && effect.getAmplifier() == 1) {

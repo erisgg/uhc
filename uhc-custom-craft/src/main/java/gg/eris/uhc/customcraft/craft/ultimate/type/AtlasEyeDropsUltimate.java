@@ -12,13 +12,13 @@ public final class AtlasEyeDropsUltimate extends UltimateCraft {
 
   public AtlasEyeDropsUltimate() {
     super("atlas_eye_drops", CraftableInfo.builder()
-    .base(new ItemStack(Material.GLASS_BOTTLE, 1, (byte)0))
+    .base(new ItemStack(Material.POTION, 1, (byte) 1))
     .color(CC.AQUA)
     .nonTransformable()
     .name("Atlas' Eye Drops")
-    .quote("Someone forgot to pick up their meds.")
+    .quote("I forgot to pick up my meds!")
     .quoteGiver("Atlas")
-        .effects("Gives the user resistance 2 for 15 seconds.")
+        .effects("Gives resistance 2 for 15 seconds.")
         .build());
   }
 

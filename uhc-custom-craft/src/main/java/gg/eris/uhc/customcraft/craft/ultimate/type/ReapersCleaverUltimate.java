@@ -15,10 +15,9 @@ public final class ReapersCleaverUltimate extends UltimateCraft {
     .nonTransformable()
     .color(CC.WHITE)
     .name("Reaper's Cleaver")
-    .quote("It's Kortexxxxxxx")
+    .quote("Your time has come")
     .quoteGiver("The Grim Reaper")
-        .effects("Does the damage of a regular iron axe hit" +
-                "gives the victim wither 1 for 10 seconds (10 usages)")
+        .effects("Gives the victim wither 1 for 10 seconds (10 usages)")
         .build());
   }
 
@@ -26,7 +25,5 @@ public final class ReapersCleaverUltimate extends UltimateCraft {
   public String getName() {
     return "Reaper's Cleaver";
   }
-
-  
 
 }
