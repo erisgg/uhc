@@ -10,7 +10,6 @@ import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

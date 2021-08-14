@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -16,9 +17,9 @@ public class ForbiddenFruitTrinket extends Trinket {
         .base(new ItemStack(Material.RAW_FISH, 1, (short) 3))
         .color(CC.GOLD)
         .name("Forbidden Fruit")
-        .quote("An apple a day keeps the doctor at bay!")
-        .quoteGiver("The Doctor")
-        .effects("Gives the player 2 permanent extra hearts")
+        .quote("Don't eat that!")
+        .quoteGiver("Zeus")
+        .effects("Gives the player two extra hearts")
         .build()
     );
   }
@@ -44,4 +45,15 @@ public class ForbiddenFruitTrinket extends Trinket {
   public Vocation getVocation() {
     return Vocation.HEALER;
   }
+
+  @Override
+  public void onAdd(CustomCraftUhcPlayer player) {
+    player.getHandle().setMaxHealth(player.getHandle().getMaxHealth() + 4);
+  }
+
+  @Override
+  public void onRemove(CustomCraftUhcPlayer player) {
+    player.getHandle().setMaxHealth(player.getHandle().getMaxHealth() - 4);
+  }
+
 }

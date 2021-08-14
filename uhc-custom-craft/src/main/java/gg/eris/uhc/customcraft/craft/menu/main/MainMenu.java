@@ -24,8 +24,10 @@ public final class MainMenu extends Menu {
     super(plugin, CustomCraftUhcIdentifiers.MENU_ID.id("main"), 3);
     setFillItem(Menu.DARK_FILLER);
     addItem(11, new KitMenuOpenItem(this.kitMenu = new KitMenu(plugin, this)));
-    addItem(13, new VocationMenuOpenItem(this.vocationShopMenu = new VocationShopMenu(plugin, this)));
-    addItem(15, new UltimateMenuOpenItem(this.ultimateShopMenu = new UltimateShopMenu(plugin, this)));
+    addItem(13,
+        new VocationMenuOpenItem(this.vocationShopMenu = new VocationShopMenu(plugin, this)));
+    addItem(15,
+        new UltimateMenuOpenItem(this.ultimateShopMenu = new UltimateShopMenu(plugin, this)));
   }
 
   @Override

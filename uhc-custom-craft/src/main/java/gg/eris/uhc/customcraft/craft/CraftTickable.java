@@ -5,7 +5,7 @@ import gg.eris.uhc.core.event.UhcTickEvent;
 import org.bukkit.inventory.ItemStack;
 
 @FunctionalInterface
-public interface Tickable {
+public interface CraftTickable {
 
   void tick(UhcTickEvent event, ItemStack item, int itemSlot, ErisPlayer player);
 

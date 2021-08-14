@@ -1,11 +1,13 @@
 package gg.eris.uhc.customcraft.craft;
 
-import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
+import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +20,7 @@ public final class VocationStateTicker extends GameStateListener {
       return;
     }
 
-    for (ErisPlayer player : event.getGame().getPlayers()) {
+    for (CustomCraftUhcPlayer player : ((CustomCraftUhcGame) event.getGame()).getPlayers()) {
 
       Player handle = player.getHandle();
       if (handle == null) {
@@ -32,8 +34,8 @@ public final class VocationStateTicker extends GameStateListener {
           continue;
         }
 
-        if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, i, player);
+        if (unlockable instanceof CraftTickable) {
+          ((CraftTickable) unlockable).tick(event, item, i, player);
         }
       }
 
@@ -44,8 +46,15 @@ public final class VocationStateTicker extends GameStateListener {
           continue;
         }
 
-        if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
+        if (unlockable instanceof CraftTickable) {
+          ((CraftTickable) unlockable)
+              .tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
+        }
+      }
+
+      for (Trinket trinket : player.getTrinketBagItem().getContents()) {
+        if (trinket instanceof TrinketTickable) {
+          ((TrinketTickable) trinket).tick(event, player);
         }
       }
     }

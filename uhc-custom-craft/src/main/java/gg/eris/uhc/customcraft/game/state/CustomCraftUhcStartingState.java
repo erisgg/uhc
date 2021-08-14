@@ -7,7 +7,7 @@ import gg.eris.uhc.core.game.Scatterer;
 import gg.eris.uhc.core.game.state.AbstractStartingGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.CustomCraftUhcModule;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
@@ -69,7 +69,6 @@ public final class CustomCraftUhcStartingState extends
       }
     }
 
-
     // I hate it but there is no other way
     for (Vocation vocation : Vocation.values()) {
       VocationRegistry registry = vocation.getRegistry();
@@ -94,13 +93,15 @@ public final class CustomCraftUhcStartingState extends
         player.playedGame();
         PlayerUtil.resetPlayer(handle);
         PlayerUtil.setSafeGameMode(handle, GameMode.SURVIVAL);
-        handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE.createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
+        handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE
+            .createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
+        handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(15 * 20, 2), true);
         handle.setMaxHealth(this.game.getSettings().getMaxHealth());
         handle.setHealth(player.getHandle().getMaxHealth());
 
         // Give kits then trinket bag
         KitRegistry.get().getKit(player).give(player);
-        TrinketBagItem.giveBag(handle);
+        TrinketBag.giveBag(handle);
       }
     }
 

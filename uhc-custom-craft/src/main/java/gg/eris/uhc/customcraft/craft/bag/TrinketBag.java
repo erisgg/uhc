@@ -21,7 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 @Getter
-public final class TrinketBagItem {
+public final class TrinketBag {
 
   protected static final IntList INVENTORY_SLOTS =
       IntLists.unmodifiable(new IntArrayList(List.of(11, 13, 15)));
@@ -41,7 +41,7 @@ public final class TrinketBagItem {
   private final CustomCraftUhcPlayer player;
   private final Trinket[] contents;
 
-  public TrinketBagItem(CustomCraftUhcPlayer player) {
+  public TrinketBag(CustomCraftUhcPlayer player) {
     this.player = player;
     this.contents = new Trinket[3];
   }
@@ -80,6 +80,20 @@ public final class TrinketBagItem {
     Trinket old = this.contents[index];
     this.contents[index] = null;
     return old;
+  }
+
+  public boolean hasTrinket(Trinket trinket) {
+    if (trinket == null) {
+      return false;
+    }
+
+    for (Trinket other : this.contents) {
+      if (trinket == other) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public static boolean isBag(ItemStack item) {

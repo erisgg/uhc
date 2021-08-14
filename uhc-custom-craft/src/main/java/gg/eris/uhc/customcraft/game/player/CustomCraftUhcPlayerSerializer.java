@@ -7,13 +7,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Maps;
 import gg.eris.commons.bukkit.player.ErisPlayer.DefaultData;
 import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
-import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.kit.Kit;
 import gg.eris.uhc.customcraft.craft.kit.KitRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
@@ -164,7 +162,6 @@ public final class CustomCraftUhcPlayerSerializer extends
     uhc.put("coins", player.getCoins());
 
     if (player.getActiveKit() != null) {
-      System.out.println(player.getActiveKit());
       uhc.put("active_kit", KitRegistry.get().get(player.getActiveKit()).getStorageKey());
     }
 

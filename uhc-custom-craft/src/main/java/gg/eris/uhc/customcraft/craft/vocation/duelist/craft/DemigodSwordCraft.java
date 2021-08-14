@@ -7,7 +7,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.core.event.UhcTickEvent;
-import gg.eris.uhc.customcraft.craft.Tickable;
+import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public final class DemigodSwordCraft extends Craft implements Tickable {
+public final class DemigodSwordCraft extends Craft implements CraftTickable {
 
   private static final String DAMAGE_KEY = "demigod_damage";
 

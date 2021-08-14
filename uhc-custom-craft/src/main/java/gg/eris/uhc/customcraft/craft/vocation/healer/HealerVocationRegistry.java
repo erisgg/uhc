@@ -7,8 +7,8 @@ import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.LightAppleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.SpeedSoupCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.perk.HealerPerk;
+import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.AsclepiusGraceTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.ForbiddenFruitTrinket;
-import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.KortexsGraceTrinket;
 
 public final class HealerVocationRegistry extends VocationRegistry {
 
@@ -17,7 +17,7 @@ public final class HealerVocationRegistry extends VocationRegistry {
   private final HealerPerk perk;
 
   private final ForbiddenFruitTrinket firstTrinket;
-  private final KortexsGraceTrinket secondTrinket;
+  private final AsclepiusGraceTrinket secondTrinket;
 
   private final GoldenHeadCraft firstCraft;
   private final AppleEconomyCraft secondCraft;
@@ -27,7 +27,7 @@ public final class HealerVocationRegistry extends VocationRegistry {
   private HealerVocationRegistry() {
     this.perk = register(new HealerPerk());
     this.firstTrinket = register(new ForbiddenFruitTrinket());
-    this.secondTrinket = register(new KortexsGraceTrinket());
+    this.secondTrinket = register(new AsclepiusGraceTrinket());
     this.firstCraft = register(new GoldenHeadCraft());
     this.secondCraft = register(new AppleEconomyCraft());
     this.thirdCraft = register(new SpeedSoupCraft());
@@ -50,7 +50,7 @@ public final class HealerVocationRegistry extends VocationRegistry {
   }
 
   @Override
-  public KortexsGraceTrinket getSecondTrinket() {
+  public AsclepiusGraceTrinket getSecondTrinket() {
     return this.secondTrinket;
   }
 

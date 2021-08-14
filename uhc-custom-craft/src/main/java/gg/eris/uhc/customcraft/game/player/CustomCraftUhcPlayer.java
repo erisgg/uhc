@@ -4,13 +4,13 @@ import com.google.common.collect.Sets;
 import gg.eris.commons.bukkit.rank.RankRegistry;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.core.game.player.UhcPlayer;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.kit.Kit;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
-import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import it.unimi.dsi.fastutil.ints.IntSets;
@@ -35,7 +35,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final Object2IntMap<Vocation> prestigeData;
 
   @Getter
-  private final TrinketBagItem trinketBagItem;
+  private final TrinketBag trinketBagItem;
 
   @Getter
   private final int star;
@@ -51,7 +51,7 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
       Object2IntMap<Identifier> kits, Identifier activeKit) {
     super(data, gamesPlayed, wins, kills, deaths);
     this.treeData = treeData;
-    this.trinketBagItem = new TrinketBagItem(this);
+    this.trinketBagItem = new TrinketBag(this);
     this.coins = coins;
     this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
     this.prestigeData = prestigeData;

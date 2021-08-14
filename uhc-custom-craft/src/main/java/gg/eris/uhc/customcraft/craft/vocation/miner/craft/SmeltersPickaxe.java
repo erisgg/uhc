@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 
-import com.mongodb.client.model.DBCollectionRemoveOptions;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.StackUtil;

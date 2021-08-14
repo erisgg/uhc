@@ -1,26 +1,32 @@
 package gg.eris.uhc.customcraft.craft.vocation.miner.trinket;
 
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.TrinketTickable;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public final class PlutusFoot extends Trinket {
+public final class PlutusFoot extends Trinket implements TrinketTickable {
 
   public PlutusFoot() {
     super("plutus_foot", CraftableInfo.builder()
         .material(Material.RABBIT_FOOT)
         .name("Plutus' Foot")
         .color(CC.GOLD)
-        .quote("What's the price?")
+        .quote("What's the cost?")
         .quoteGiver("Plutus, with 2 feet")
         .effects(
             "Gives the player Haste I permanently",
             "Haste bonuses become Haste II"
-        )
+        ).nonTransformable()
         .build());
   }
 
@@ -45,5 +51,23 @@ public final class PlutusFoot extends Trinket {
   @Override
   public Vocation getVocation() {
     return Vocation.MINER;
+  }
+
+  @Override
+  public void tick(UhcTickEvent event, CustomCraftUhcPlayer player) {
+    boolean hasHaste = false;
+    for (PotionEffect effect : player.getHandle().getActivePotionEffects()) {
+      if (effect.getType() == PotionEffectType.FAST_DIGGING) {
+        if (effect.getAmplifier() == 1) {
+          hasHaste = true;
+        }
+        break;
+      }
+    }
+
+    if (!hasHaste) {
+      player.getHandle().addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(7 * 20, 0),
+          true);
+    }
   }
 }

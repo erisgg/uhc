@@ -10,10 +10,11 @@ import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.CraftListener;
 import gg.eris.uhc.customcraft.craft.VocationStateTicker;
+import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
-import gg.eris.uhc.customcraft.craft.bag.TrinketBagItem;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
 import gg.eris.uhc.customcraft.craft.menu.main.MainMenu;
+import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.game.listener.GlobalListener;
@@ -110,8 +111,13 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   }
 
   @Override
-  protected void filterDrops(List<ItemStack> drops) {
-    drops.removeIf(TrinketBagItem::isBag);
+  protected void filterDrops(CustomCraftUhcPlayer player, List<ItemStack> drops) {
+    drops.removeIf(TrinketBag::isBag);
+    for (Trinket trinket : player.getTrinketBagItem().getContents()) {
+      if (trinket != null) {
+        drops.add(trinket.getItem());
+      }
+    }
   }
 
   @Override

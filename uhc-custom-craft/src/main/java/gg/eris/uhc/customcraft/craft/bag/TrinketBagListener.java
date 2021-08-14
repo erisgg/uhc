@@ -49,7 +49,7 @@ public final class TrinketBagListener extends MultiStateListener {
 
   @EventHandler
   public void onDropItem(PlayerDropItemEvent event) {
-    if (TrinketBagItem.isBag(event.getItemDrop().getItemStack())) {
+    if (TrinketBag.isBag(event.getItemDrop().getItemStack())) {
       event.setCancelled(true);
     }
   }
@@ -57,7 +57,7 @@ public final class TrinketBagListener extends MultiStateListener {
   @EventHandler
   public void onInventoryClick(InventoryClickEvent event) {
     Player player = (Player) event.getWhoClicked();
-    if (TrinketBagItem.isBag(event.getCurrentItem())) {
+    if (TrinketBag.isBag(event.getCurrentItem())) {
       if (player.getOpenInventory().getTopInventory().getType() != InventoryType.CRAFTING) {
         event.setCancelled(true);
         player.closeInventory();
@@ -74,7 +74,7 @@ public final class TrinketBagListener extends MultiStateListener {
   public void onInventoryClose(InventoryCloseEvent event) {
     Player player = (Player) event.getPlayer();
     ItemStack cursor = player.getItemOnCursor();
-    if (TrinketBagItem.isBag(cursor)) {
+    if (TrinketBag.isBag(cursor)) {
       player.setItemOnCursor(null);
       player.getInventory().addItem(cursor);
     }
@@ -84,7 +84,7 @@ public final class TrinketBagListener extends MultiStateListener {
     }
 
     for (ItemStack item : event.getInventory().getContents()) {
-      if (TrinketBagItem.isBag(item)) {
+      if (TrinketBag.isBag(item)) {
         event.getInventory().remove(item);
         event.getPlayer().getInventory().addItem(item);
       }
@@ -93,7 +93,7 @@ public final class TrinketBagListener extends MultiStateListener {
 
   @EventHandler
   public void onInteract(PlayerInteractEvent event) {
-    if (TrinketBagItem.isBag(event.getItem())) {
+    if (TrinketBag.isBag(event.getItem())) {
       event.setCancelled(true);
       if (event.getAction() == Action.RIGHT_CLICK_AIR
           || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -108,7 +108,7 @@ public final class TrinketBagListener extends MultiStateListener {
       return;
     }
 
-    TrinketBagItem item = player.getTrinketBagItem();
+    TrinketBag item = player.getTrinketBagItem();
 
     TrinketBagInventoryHolder holder = new TrinketBagInventoryHolder(bag, item);
     Inventory inventory = Bukkit.createInventory(holder, 27, "Trinket Bag");

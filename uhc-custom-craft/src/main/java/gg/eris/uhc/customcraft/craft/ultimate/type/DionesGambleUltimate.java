@@ -9,12 +9,12 @@ public final class DionesGambleUltimate extends UltimateCraft {
 
   public DionesGambleUltimate() {
     super("diones_gamble", CraftableInfo.builder()
-    .material(Material.ENDER_CHEST)
-    .nonTransformable()
-    .color(CC.RED)
-    .name("Dione's Gamble")
-    .quote("Risk your possibilities, to see if they will turn out in your favor!")
-    .quoteGiver("Dione")
+        .material(Material.ENDER_CHEST)
+        .nonTransformable()
+        .color(CC.RED)
+        .name("Dione's Gamble")
+        .quote("Risk your possibilities, to see if they will turn out in your favor!")
+        .quoteGiver("Dione")
         .effects("Gives the user a completely random ultimate.")
         .build());
   }
@@ -23,7 +23,6 @@ public final class DionesGambleUltimate extends UltimateCraft {
   public String getName() {
     return "Dione's Gamble";
   }
-
 
 
 }

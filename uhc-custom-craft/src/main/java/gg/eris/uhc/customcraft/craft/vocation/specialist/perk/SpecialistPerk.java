@@ -58,7 +58,7 @@ public final class SpecialistPerk extends Perk {
     }
   }
 
-  public static Collection<ItemStack> handle(Player handle,Collection<ItemStack> drops,
+  public static Collection<ItemStack> handle(Player handle, Collection<ItemStack> drops,
       int level) {
     List<ItemStack> newDrops = Lists.newArrayList();
     boolean lucky = false;

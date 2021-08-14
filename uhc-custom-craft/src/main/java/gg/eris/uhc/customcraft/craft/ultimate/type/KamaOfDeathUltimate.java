@@ -9,13 +9,14 @@ public final class KamaOfDeathUltimate extends UltimateCraft {
 
   public KamaOfDeathUltimate() {
     super("kama_of_death", CraftableInfo.builder()
-    .material(Material.DIAMOND_HOE)
-    .nonTransformable()
-    .color(CC.DARK_RED)
-    .name("Kama of Death")
-    .quote("Steal health from your enemies to get stronger!")
-    .quoteGiver("Prometheus")
-        .effects("Deals 20% of your opponents current health on hit, and heals yourself for 25% of the damage dealt! (15 usages)")
+        .material(Material.DIAMOND_HOE)
+        .nonTransformable()
+        .color(CC.DARK_RED)
+        .name("Kama of Death")
+        .quote("Steal health from your enemies to get stronger!")
+        .quoteGiver("Prometheus")
+        .effects(
+            "Deals 20% of your opponents current health on hit, and heals yourself for 25% of the damage dealt! (15 usages)")
         .build());
   }
 
@@ -24,6 +25,5 @@ public final class KamaOfDeathUltimate extends UltimateCraft {
     return "Kama of Death";
   }
 
-  
 
 }

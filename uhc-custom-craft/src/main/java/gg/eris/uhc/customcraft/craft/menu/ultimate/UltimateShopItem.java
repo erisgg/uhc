@@ -32,7 +32,7 @@ public class UltimateShopItem implements MenuItem {
   @Override
   public ItemStack getItem(MenuViewer viewer, Menu menu) {
     if (this.ultimate == null) {
-       return UNKNOWN;
+      return UNKNOWN;
     } else {
       return this.locked;
     }

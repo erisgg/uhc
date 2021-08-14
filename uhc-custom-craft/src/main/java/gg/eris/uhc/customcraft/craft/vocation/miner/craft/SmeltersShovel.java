@@ -10,13 +10,11 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.specialist.perk.SpecialistPerk;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -89,11 +87,11 @@ public final class SmeltersShovel extends Craft {
       CustomCraftUhcPlayer player =
           UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(event.getPlayer());
       int level = player.getPerkLevel(SpecialistVocationRegistry.get().getPerk());
-     StackUtil.dropItems(
-         block,
-         SpecialistPerk.handle(player.getHandle(), Collections.singleton(drop), level),
-         true
-     );
+      StackUtil.dropItems(
+          block,
+          SpecialistPerk.handle(player.getHandle(), Collections.singleton(drop), level),
+          true
+      );
     }
   }
 

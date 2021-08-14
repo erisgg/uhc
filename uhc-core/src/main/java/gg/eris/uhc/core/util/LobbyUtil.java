@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import lombok.experimental.UtilityClass;
-import org.bukkit.entity.Player;
 
 @UtilityClass
 public class LobbyUtil {

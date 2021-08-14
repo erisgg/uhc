@@ -10,7 +10,7 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.bukkit.util.RomanNumeral;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.core.event.UhcTickEvent;
-import gg.eris.uhc.customcraft.craft.Tickable;
+import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -27,7 +27,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
 
-public final class SoulThirsterCraft extends Craft implements Tickable {
+public final class SoulThirsterCraft extends Craft implements CraftTickable {
 
   private static final String NBT_KEY = "soul_thirster_decay";
   private static final long DECAY_TIME = 1000 * 60 * 5;
@@ -93,10 +93,12 @@ public final class SoulThirsterCraft extends Craft implements Tickable {
     }
 
     // Checking for arrows and switching hand
-    if (event.getHandle() instanceof EntityDamageByEntityEvent && ((EntityDamageByEntityEvent) event.getHandle()).getDamager().getType() != EntityType.PLAYER) {
+    if (event.getHandle() instanceof EntityDamageByEntityEvent
+        && ((EntityDamageByEntityEvent) event.getHandle()).getDamager().getType()
+        != EntityType.PLAYER) {
       return;
-    } else if (event.getKilled().getLastAttacker() == null || System.currentTimeMillis() - event.getKilled().getLastAttacker().getValue() > 1000) {
-      Bukkit.broadcastMessage("Last atacker is: " + event.getKilled().getLastAttacker());
+    } else if (event.getKilled().getLastAttacker() == null
+        || System.currentTimeMillis() - event.getKilled().getLastAttacker().getValue() > 1000) {
       // Only level up the sword if they log out within a second of last being hit
       // a not-100%-safe way of checking if they were last hit
       // TODO: Switch to storing data about the last damage event they took from the attacker
