@@ -21,13 +21,7 @@ import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
 import gg.eris.uhc.customcraft.game.listener.SpectatorListener;
 import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
-import gg.eris.uhc.customcraft.game.listener.game.BlockBreakListener;
-import gg.eris.uhc.customcraft.game.listener.game.EntityDropsListener;
-import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
-import gg.eris.uhc.customcraft.game.listener.game.ItemCombustionListener;
-import gg.eris.uhc.customcraft.game.listener.game.MobBurnListener;
-import gg.eris.uhc.customcraft.game.listener.game.MonsterSpawnListener;
-import gg.eris.uhc.customcraft.game.listener.game.StrengthNerfListener;
+import gg.eris.uhc.customcraft.game.listener.game.*;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -136,8 +130,9 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         // Game listeners
         new BlockBreakListener(),
-        new EntityDropsListener(),
+        new EntityDropsListener(this),
         new GameDamageListener(this),
+        new InteractListener(),
         new ItemCombustionListener(),
         new MobBurnListener(),
         new MonsterSpawnListener(),
