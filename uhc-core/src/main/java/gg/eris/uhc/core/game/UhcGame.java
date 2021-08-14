@@ -106,7 +106,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
    *
    * @param drops are the drops
    */
-  protected abstract void filterDrops(List<ItemStack> drops);
+  protected abstract void filterDrops(T player, List<ItemStack> drops);
 
   public final void setup() {
     setupWorld();
@@ -193,7 +193,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
         Arrays.asList(killedHandle.getInventory().getContents()));
     drops.addAll(Arrays.asList(killedHandle.getInventory().getArmorContents()));
     drops.removeIf(StackUtil::isNullOrAir);
-    filterDrops(drops);
+    filterDrops(killed, drops);
 
     UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, event, killed, killer,
         drops);
