@@ -8,11 +8,12 @@ import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
 import com.google.common.collect.Lists;
 import com.mongodb.client.model.Sorts;
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -48,7 +49,8 @@ public final class Leaderboard {
         return;
       }
 
-      AtomicInteger position = new AtomicInteger();
+      List<Pair<String, Integer>> values = Lists.newArrayList();
+
       for (JsonNode result : results) {
         int value = 0;
 
@@ -59,11 +61,16 @@ public final class Leaderboard {
         }
 
         if (value > 0) {
-        int finalValue = value;
-        Bukkit.getScheduler().runTask(plugin, () -> setPosition(
-            position.getAndIncrement(), result.get("name").asText(), finalValue));
+          values.add(Pair.of(result.get("name").asText(), value));
         }
       }
+
+      values.sort(Comparator.comparing(Pair::getValue));
+
+      for (int position = 0; position < values.size(); position++) {
+        setPosition(position, values.get(position).getKey(), values.get(position).getValue());
+      }
+
     }, 0, 5 * 20 * 60).getTaskId();
   }
 
@@ -87,7 +94,8 @@ public final class Leaderboard {
     line.removeLine();
     if (fieldName != null) {
       this.lines.set(position, this.hologram.insertTextLine(2 * (position + 1),
-          CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + fieldName + ": " + value));
+          CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + fieldName + ": "
+              + value));
     } else {
       this.lines.set(position, this.hologram.insertTextLine(2 * (position + 1),
           CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + "No Data"));
