@@ -10,7 +10,7 @@ public final class AtlasEyeDropsUltimate extends UltimateCraft {
 
   public AtlasEyeDropsUltimate() {
     super("atlas_eye_drops", CraftableInfo.builder()
-        .base(new ItemStack(Material.POTION, 1, (byte) 1))
+        .base(new ItemStack(Material.POTION, 1, (byte) 0))
         .color(CC.AQUA)
         .nonTransformable()
         .name("Atlas' Eye Drops")

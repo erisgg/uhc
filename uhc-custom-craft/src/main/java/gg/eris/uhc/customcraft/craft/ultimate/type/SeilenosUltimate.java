@@ -10,7 +10,7 @@ public final class SeilenosUltimate extends UltimateCraft {
 
   public SeilenosUltimate() {
     super("seilenos", CraftableInfo.builder()
-        .base(new ItemStack(Material.POTION, 1, (byte) 1))
+        .base(new ItemStack(Material.POTION, 1, (byte) 0))
         .nonTransformable()
         .color(CC.DARK_BLUE)
         .name("Seilenos")

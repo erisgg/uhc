@@ -10,7 +10,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 public final class LightObsidianCraft extends Craft {
 
   public LightObsidianCraft() {
-    super("light_obsidian", new ItemStack(Material.SKULL_ITEM, 1));
+    super("light_obsidian", new ItemStack(Material.OBSIDIAN));
   }
 
   @Override

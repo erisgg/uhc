@@ -16,14 +16,14 @@ public final class LuckPick extends Craft {
     super("luck_pick", CraftableInfo.builder()
         .base(new ItemBuilder(Material.DIAMOND_PICKAXE, 1)
             .withDurability((short) 1560)
-            .withEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 2)
+            .withEnchantment(Enchantment.LOOT_BONUS_BLOCKS, 3)
             .build()
         )
         .color(CC.YELLOW)
         .name("Luck Pick")
         .quote("This is the LuckPickingLawyer")
         .quoteGiver("LuckPickingLawyer")
-        .effects("Fortune 2 Diamond Pickaxe with 2 uses remaining")
+        .effects("Fortune III Diamond Pickaxe with 2 uses remaining")
         .build());
   }
 

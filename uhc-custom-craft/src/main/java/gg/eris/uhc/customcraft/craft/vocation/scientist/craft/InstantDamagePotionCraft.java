@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
@@ -38,11 +39,13 @@ public final class InstantDamagePotionCraft extends Craft {
   @Override
   public Recipe getRecipe() {
     return new ShapedRecipe(getItem())
-        .shape(" b ", "dhd", "obo")
+        .shape(" b ", "dhd", "oBo")
         .setIngredient('b', Material.BONE)
         .setIngredient('d', new MaterialData(Material.INK_SACK, DataUtil.GREEN_DYE))
-        .setIngredient('h', Material.SKULL_ITEM)
-        .setIngredient('b', Material.GLASS_BOTTLE);
+        .setIngredient('h', new MaterialData(Material.SKULL_ITEM,
+            (byte) SkullType.PLAYER.ordinal()))
+        .setIngredient('B', new MaterialData(Material.POTION, (byte) 0))
+        .setIngredient('o', Material.OBSIDIAN);
   }
 
   @Override

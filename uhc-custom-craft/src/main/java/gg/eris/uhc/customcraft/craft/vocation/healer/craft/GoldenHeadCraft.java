@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -81,7 +82,8 @@ public final class GoldenHeadCraft extends Craft {
     return new ShapedRecipe(getItem())
         .shape("ggg", "gsg", "ggg")
         .setIngredient('g', Material.GOLD_INGOT)
-        .setIngredient('s', Material.SKULL_ITEM);
+        .setIngredient('s',
+            new MaterialData(Material.SKULL_ITEM, (byte) SkullType.PLAYER.ordinal()));
   }
 
   @Override
