@@ -41,6 +41,7 @@ public final class HadesHellPowder extends Trinket {
             "ngn",
             "qbq")
         .setIngredient('q', Material.QUARTZ)
+        .setIngredient('f', Material.ROTTEN_FLESH)
         .setIngredient('n', Material.NETHERRACK)
         .setIngredient('g', Material.SULPHUR)
         .setIngredient('b', Material.BONE);

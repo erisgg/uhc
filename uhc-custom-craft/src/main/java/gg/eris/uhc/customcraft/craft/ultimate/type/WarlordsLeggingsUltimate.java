@@ -18,7 +18,7 @@ public final class WarlordsLeggingsUltimate extends UltimateCraft {
         .nonTransformable()
         .color(CC.GREEN)
         .name("Warlord's Leggings")
-        .quote("Upgrade your damage and outperform your opponents!")
+        .quote("I wear the pants around here.")
         .quoteGiver("Ares")
         .effects("Gives the user strength and resistance 1 when worn.")
         .build());

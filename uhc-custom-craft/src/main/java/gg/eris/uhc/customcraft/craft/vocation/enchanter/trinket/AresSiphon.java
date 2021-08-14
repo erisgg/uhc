@@ -18,7 +18,7 @@ public final class AresSiphon extends Trinket {
         .material(Material.ACTIVATOR_RAIL)
         .name("Ares' Siphon")
         .color(CC.RED)
-        .quote("Shut up.")
+        .quote("Shut up. Please.")
         .quoteGiver("Ares")
         .effects(
             "Get 50% more experience when you kill a player"

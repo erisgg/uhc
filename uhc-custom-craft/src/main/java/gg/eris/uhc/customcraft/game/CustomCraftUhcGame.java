@@ -75,7 +75,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchName(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD)
         .borderRadius(1000)
         .maxHealth(40)
-        .requiredPlayers(4)
+        .requiredPlayers(2)
         .attackCreditDuration(20)
 
         .pregameCountdownDuration(5)
