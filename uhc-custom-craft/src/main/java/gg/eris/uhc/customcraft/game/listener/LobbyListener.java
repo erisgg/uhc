@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.game.listener;
 
+import com.google.common.collect.Sets;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.rank.Rank;
 import gg.eris.commons.bukkit.rank.RankRegistry;
@@ -19,13 +20,17 @@ import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenuViewer;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.leaderboard.Leaderboard;
 import java.util.Set;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -53,6 +58,7 @@ public final class LobbyListener extends MultiStateListener {
   );
 
   private final static int LOWER_LIMIT = 20;
+  private static final int PVP_LIMIT = 55;
 
   // PvP items
   private static final ItemStack SWORD_ITEM;
@@ -83,6 +89,7 @@ public final class LobbyListener extends MultiStateListener {
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
   private final Location spawn;
+  private final Set<UUID> pvping;
 
   private final Leaderboard killsLeaderboard;
   private final Leaderboard winsLeaderboard;
@@ -98,6 +105,8 @@ public final class LobbyListener extends MultiStateListener {
         -90.0f,
         0.0f
     );
+
+    this.pvping = Sets.newHashSet();
 
     this.killsLeaderboard = new Leaderboard(
         this.game.getPlugin(),
@@ -170,6 +179,7 @@ public final class LobbyListener extends MultiStateListener {
         && this.game.getGameState().getType() != TypeRegistry.WAITING) {
       this.game.setGameState(TypeRegistry.WAITING);
     }
+    this.pvping.remove(event.getPlayer().getUniqueId());
   }
 
   @EventHandler
@@ -221,20 +231,39 @@ public final class LobbyListener extends MultiStateListener {
       return;
     }
 
+    Player player = event.getPlayer();
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
       event.getPlayer().teleport(this.spawn);
       TextController.send(
-          event.getPlayer(),
+          player,
           TextType.INFORMATION,
           "You fell off of the map... Don't do that!"
       );
+    } else if (event.getTo().getBlockY() < PVP_LIMIT) {
+      if (this.pvping.add(player.getUniqueId())) {
+        player.getInventory().clear();
+        player.setMaxHealth(40);
+        player.setHealth(40);
+        player.getInventory().setArmorContents(ARMOR);
+        player.getInventory().addItem(SWORD_ITEM, ROD_ITEM, BOW_ITEM);
+        player.getInventory().setItem(9, ARROW_ITEM);
+      }
     }
   }
 
-  @EventHandler(ignoreCancelled = true)
+  @EventHandler
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    if (event.getDamager().getType() != EntityType.PLAYER
+        || event.getEntityType() != EntityType.PLAYER || !isInPvp(event.getEntity().getLocation()))  {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void handlePvpDeath(EntityDamageByEntityEvent event) {
     Player damager = (Player) event.getDamager();
     Player target = (Player) event.getEntity();
+
 
     if (target.getHealth() - event.getFinalDamage() > 0) {
       return;
@@ -242,6 +271,7 @@ public final class LobbyListener extends MultiStateListener {
 
     event.setCancelled(true);
 
+    target.setMaxHealth(20);
     PlayerUtil.resetPlayer(target);
     target.teleport(this.spawn);
 
@@ -254,6 +284,8 @@ public final class LobbyListener extends MultiStateListener {
         "You have killed <h>{0}</h>. +1 golden apple, +2 arrows",
         target.getName()
     );
+
+    PlayerUtil.playSound(damager, Sound.LEVEL_UP);
 
     TextController.send(
         target,
@@ -297,7 +329,7 @@ public final class LobbyListener extends MultiStateListener {
   }
 
   private boolean isInPvp(Location location) {
-    return false;
+    return location.getY() <= 65;
   }
 
 }
