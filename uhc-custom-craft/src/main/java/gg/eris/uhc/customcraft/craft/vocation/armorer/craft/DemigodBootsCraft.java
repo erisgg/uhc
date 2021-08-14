@@ -24,7 +24,7 @@ public class DemigodBootsCraft extends Craft {
         ).nonTransformable()
         .color(CC.AQUA)
         .name("Demigod Boots")
-        .quote("abcde")
+        .quote("Hippopotamus")
         .quoteGiver("Hippocrates")
         .effects(
             "Protection 1, Fire Protection 1, Projectile Protection 1, Unbreaking 1 Iron Boots")
