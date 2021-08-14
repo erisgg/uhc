@@ -63,7 +63,7 @@ public final class KitMenuItem implements MenuItem {
 
     if (event.isRightClick()) {
       int level = player.getKitLevel(this.kit);
-      if (level == 5) {
+      if (level >= 4) {
         return;
       }
 

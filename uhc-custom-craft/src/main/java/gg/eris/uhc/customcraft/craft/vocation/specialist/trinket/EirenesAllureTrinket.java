@@ -54,9 +54,10 @@ public final class EirenesAllureTrinket extends Trinket {
 
   @EventHandler
   public void onEntityTarget(EntityTargetLivingEntityEvent event) {
-    if (event.getTarget().getWorld().getEnvironment() != Environment.NETHER) {
+    if (event.getTarget() == null || event.getTarget().getWorld() == null || event.getTarget().getWorld().getEnvironment() != Environment.NETHER) {
       return;
     }
+
 
     if (event.getTarget().getType() == EntityType.PLAYER) {
       Player handle = (Player) event.getTarget();
