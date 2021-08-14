@@ -48,7 +48,7 @@ public final class BlockBreakListener extends GameStateListener {
         break;
       case LEAVES:
       case LEAVES_2:
-        if (player.getItemInHand().getType() == Material.SHEARS) {
+        if (player.getItemInHand().getType() == Material.SHEARS && RandomUtil.percentChance(5)) {
           StackUtil.dropItem(event.getBlock().getLocation(), true, APPLE);
         }
         break;

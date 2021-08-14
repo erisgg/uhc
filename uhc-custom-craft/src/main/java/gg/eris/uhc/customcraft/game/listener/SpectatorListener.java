@@ -23,6 +23,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -103,6 +104,13 @@ public final class SpectatorListener extends MultiStateListener {
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerPickupItem(PlayerPickupItemEvent event) {
     if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onEntityTarget(EntityTargetLivingEntityEvent event) {
+    if (event.getTarget() != null && !this.game.isPlayer(event.getTarget().getUniqueId())) {
       event.setCancelled(true);
     }
   }
