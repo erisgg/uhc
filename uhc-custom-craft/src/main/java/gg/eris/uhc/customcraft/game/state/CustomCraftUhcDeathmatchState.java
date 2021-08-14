@@ -21,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -219,13 +220,20 @@ public final class CustomCraftUhcDeathmatchState extends
     this.countdown = this.game.getSettings().getDeathmatchStartCountdownDuration();
     int index = 0;
     IntList indexList = RandomUtil.randomList(SPAWNS.length);
-    for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
-      Location location = SPAWNS[indexList.get(index++)];
-      if (index > indexList.size()) {
-        index = 0;
+
+    for (Player player : Bukkit.getOnlinePlayers()) {
+      if (this.game.isPlayer(player)) {
+        Location location = SPAWNS[indexList.get(index++)];
+        if (index > indexList.size()) {
+          index = 0;
+        }
+        player.teleport(location);
+      } else {
+        player.teleport(new Location(this.game.getDeathmatch(), 0,
+            this.game.getWorld().getHighestBlockYAt(0, 0) + 50, 0));
       }
-      player.getHandle().teleport(location);
     }
+
     this.scoreboard.addAllPlayers();
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
@@ -317,8 +325,8 @@ public final class CustomCraftUhcDeathmatchState extends
 
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
-    if (!this.placedBlocks.containsKey(event.getBlock().getLocation()) && event.getBlock().getType()
-        .isSolid()) {
+    if (!this.placedBlocks.containsKey(event.getBlock().getLocation())
+        && event.getBlock().getType().isSolid()) {
       event.setCancelled(true);
     }
   }

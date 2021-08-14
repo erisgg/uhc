@@ -307,6 +307,10 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
+    if (isInPvp(event.getPlayer().getLocation())) {
+      return;
+    }
+
     event.setCancelled(true);
 
     if (event.getAction() == Action.RIGHT_CLICK_AIR
