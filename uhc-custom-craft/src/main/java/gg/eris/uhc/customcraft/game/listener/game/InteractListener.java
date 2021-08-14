@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.game.listener.game;
 
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
 import org.bukkit.Material;
@@ -52,7 +53,11 @@ public class InteractListener extends GameStateListener {
 
       event.setCancelled(true);
 
+      if (!StackUtil.decrement(item)) {
+        event.getPlayer().setItemInHand(null);
+      }
 
+      event.getPlayer().updateInventory();
     }
   }
 }
