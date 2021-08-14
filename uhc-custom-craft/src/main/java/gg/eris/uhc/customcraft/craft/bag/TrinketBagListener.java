@@ -95,27 +95,17 @@ public final class TrinketBagListener extends MultiStateListener {
   public void onInteract(PlayerInteractEvent event) {
     if (TrinketBag.isBag(event.getItem())) {
       event.setCancelled(true);
+
+      CustomCraftUhcPlayer player = this.game.getPlayer(event.getPlayer());
+      if (player == null) {
+        return;
+      }
       if (event.getAction() == Action.RIGHT_CLICK_AIR
           || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-        openBag(event.getItem(), event.getPlayer());
+        TrinketBag.openBag(player);
       }
     }
   }
 
-  public void openBag(ItemStack bag, Player handle) {
-    CustomCraftUhcPlayer player = this.game.getPlayer(handle);
-    if (player == null) {
-      return;
-    }
-
-    TrinketBag item = player.getTrinketBagItem();
-
-    TrinketBagInventoryHolder holder = new TrinketBagInventoryHolder(bag, item);
-    Inventory inventory = Bukkit.createInventory(holder, 27, "Trinket Bag");
-    holder.setInventory(inventory);
-
-    item.fillInventory(inventory);
-    handle.openInventory(inventory);
-  }
 
 }

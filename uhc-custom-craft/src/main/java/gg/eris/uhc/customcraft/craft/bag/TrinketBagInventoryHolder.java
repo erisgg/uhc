@@ -11,8 +11,6 @@ import org.bukkit.inventory.ItemStack;
 public final class TrinketBagInventoryHolder implements InventoryHolder {
 
   @Getter
-  private final ItemStack item;
-  @Getter
   private final TrinketBag bag;
   private Inventory inventory;
 

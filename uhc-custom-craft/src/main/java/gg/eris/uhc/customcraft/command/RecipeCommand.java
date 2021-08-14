@@ -19,7 +19,8 @@ public final class RecipeCommand implements CommandProvider {
         "recipe",
         "opens recipe book",
         "recipe",
-        CustomCraftUhcIdentifiers.RECIPE_PERMISSION
+        CustomCraftUhcIdentifiers.RECIPE_PERMISSION,
+        "recipes"
     ).noArgsHandler(context -> {
       this.game.getRecipeBookMenu().openMenu(new RecipeBookMenuViewer(context.getSenderAsPlayer()));
     }, true);

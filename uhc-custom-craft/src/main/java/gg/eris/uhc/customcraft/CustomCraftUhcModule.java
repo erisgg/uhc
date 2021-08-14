@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft;
 import gg.eris.commons.bukkit.command.CommandProvider;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.command.TrinketBagCommand;
 import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
 import gg.eris.uhc.customcraft.command.GiveItemCommand;
 import gg.eris.uhc.customcraft.command.RecipeCommand;
@@ -74,7 +75,8 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
         new GiveCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
         new StatsCommand(this.plugin, this.plugin.getCommons().getErisPlayerManager()),
         new GiveItemCommand(),
-        new RecipeCommand(this.game)
+        new RecipeCommand(this.game),
+        new TrinketBagCommand(this.game)
     );
   }
 }

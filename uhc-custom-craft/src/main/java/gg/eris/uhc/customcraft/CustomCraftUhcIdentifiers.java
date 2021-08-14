@@ -70,6 +70,11 @@ public final class CustomCraftUhcIdentifiers {
       PermissionGroup.ALL
   );
 
+  public static final Identifier TRINKETBAG_PERMISSION = permission(
+      "trinketbag",
+      PermissionGroup.ALL
+  );
+
   private static Identifier permission(String name, PermissionGroup group) {
     return Permission.ofDefault(PermissionRegistry.get(), name, group).getIdentifier();
   }

@@ -15,6 +15,7 @@ import it.unimi.dsi.fastutil.ints.IntSets;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -102,6 +103,16 @@ public final class TrinketBag {
 
   public static void giveBag(Player player) {
     player.getInventory().addItem(ITEM);
+  }
+
+  public static void openBag(CustomCraftUhcPlayer player) {
+    TrinketBag item = player.getTrinketBagItem();
+    TrinketBagInventoryHolder holder = new TrinketBagInventoryHolder(item);
+    Inventory inventory = Bukkit.createInventory(holder, 27, "Trinket Bag");
+    holder.setInventory(inventory);
+
+    item.fillInventory(inventory);
+    player.getHandle().openInventory(inventory);
   }
 
 }
