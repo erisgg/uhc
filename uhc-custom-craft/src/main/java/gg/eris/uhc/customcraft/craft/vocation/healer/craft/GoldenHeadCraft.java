@@ -5,13 +5,16 @@ import com.mojang.authlib.properties.Property;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.lang.reflect.Field;
 import java.util.UUID;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
@@ -88,7 +91,8 @@ public final class GoldenHeadCraft extends Craft {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerInteract(PlayerInteractEvent event) {
-    ItemStack item = event.getPlayer().getItemInHand();
+    Player handle = event.getPlayer();
+    ItemStack item = handle.getItemInHand();
 
     if (!isItem(item)) {
       return;
@@ -100,6 +104,17 @@ public final class GoldenHeadCraft extends Craft {
           .addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 5 * 20, 3), true);
       event.getPlayer()
           .addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 90 * 20, 0), true);
+
+      int healerLevel =
+          ((CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle))
+              .getPerkLevel(Vocation.HEALER.getRegistry().getPerk());
+
+      if (healerLevel > 0) {
+        int duration = (15 + (healerLevel - 1)) * 20;
+        event.getPlayer()
+            .addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, 1), true);
+      }
+
       event.setCancelled(true);
       if (!StackUtil.decrement(item)) {
         event.getPlayer().setItemInHand(null);

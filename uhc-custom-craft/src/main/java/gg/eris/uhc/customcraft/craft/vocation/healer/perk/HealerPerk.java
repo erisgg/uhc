@@ -22,8 +22,10 @@ public final class HealerPerk extends Perk {
   @Override
   public String getDescription(int level) {
     return Text.replaceVariables(
-        "Gives Speed II for {0} seconds when consuming a golden head",
-        5 + (level - 1));
+        "Gives Speed II for {0} seconds when consuming a player head, and {1} on a golden head",
+        5 + (level - 1),
+        15 + (level - 1)
+    );
   }
 
   @Override
