@@ -78,11 +78,11 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .borderRadius(1000)
         .maxHealth(40)
         .maxPlayers(70)
-        .requiredPlayers(3)
+        .requiredPlayers(3) // set to 20
         .shortenPlayers(50)
         .attackCreditDuration(20)
 
-        .pregameCountdownDuration(60 * 6)
+        .pregameCountdownDuration(5) // 6 * 60
         .shortenCountdownDuration(60)
         .gracePeriodDuration(60 * 10)
         .pvpPeriodDuration(15 * 60)

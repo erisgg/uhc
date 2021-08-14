@@ -102,10 +102,20 @@ public final class TrinketBagInventoryListener extends MultiStateListener {
         return;
       }
       Trinket newTrinket = (Trinket) newUnlockable;
-      trinketBag.addTrinket(newTrinket, index);
-      newTrinket.onAdd(player);
-      inventory.setItem(slot, cursor);
-      handle.setItemOnCursor(null);
+
+      if (trinketBag.hasTrinket(newTrinket)) {
+        TextController.send(
+            handle,
+            TextType.ERROR,
+            "You already have that trinket <h>equipped</h>."
+        );
+      } else {
+        trinketBag.addTrinket(newTrinket, index);
+        newTrinket.onAdd(player);
+        inventory.setItem(slot, cursor);
+        handle.setItemOnCursor(null);
+      }
+
     }
   }
 
