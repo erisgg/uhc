@@ -70,8 +70,8 @@ public final class ChronosClock extends Trinket {
             handle.addPotionEffect(new PotionEffect(
                 effect.getType(),
                 effect.getDuration() + 220,
-                effect.getAmplifier()
-            ));
+                effect.getAmplifier(),
+            ), true);
           }
         }, 2L);
       }
