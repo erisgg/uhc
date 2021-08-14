@@ -36,7 +36,7 @@ public final class RecipeBookMenuItem implements MenuItem {
 
   private Craftable getCraftable(MenuViewer viewer) {
     int page = ((RecipeBookMenuViewer) viewer).getPage();
-    return Vocation.getCraftable(ordinalIndex + page * 27);
+    return Vocation.getCraftable(this.ordinalIndex + page * 27);
   }
 
 }

@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.Craftable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import java.util.Locale;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +20,7 @@ public abstract class Trinket extends VocationUnlockable implements Craftable, L
     this.info = info;
     this.item = NBTUtil
         .setNbtData(info.buildTrinket(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
-            this.getIdentifier().toString());
+            this.getIdentifier().getValue());
   }
 
   public final ItemStack getItem() {
