@@ -193,11 +193,8 @@ public final class LobbyListener extends MultiStateListener {
   @EventHandler
   public void onItemConsume(PlayerItemConsumeEvent event) {
     if (event.getItem().getType() == Material.GOLDEN_APPLE) {
-      if (!StackUtil.decrement(event.getItem())) {
-        event.getPlayer().setItemInHand(null);
-      }
-
       event.getPlayer().setHealth(event.getPlayer().getMaxHealth());
+      PlayerUtil.updateInventory(event.getPlayer());
     }
   }
 
@@ -209,17 +206,15 @@ public final class LobbyListener extends MultiStateListener {
     }
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOW)
   public void onInventoryClick(InventoryClickEvent event) {
     if (isInPvp(event.getWhoClicked().getLocation())) {
-      // allowing hotbar (slots from 36->44 inclusive both ends)
-      Bukkit.broadcastMessage("raw: " + event.getRawSlot());
-      if (event.getRawSlot() >= 0 && event.getRawSlot() <= 8) {
-        if (event.getClick().isShiftClick()) {
-          event.setCancelled(true);
+      if (!StackUtil.isNullOrAir(event.getCurrentItem())) {
+        for (ItemStack item : ARMOR) {
+          if (item.isSimilar(event.getCurrentItem())) {
+            event.setCancelled(true);
+          }
         }
-      } else {
-        event.setCancelled(true);
       }
     } else {
       event.setCancelled(true);
@@ -257,8 +252,7 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-    if (event.getDamager().getType() != EntityType.PLAYER
-        || event.getEntityType() != EntityType.PLAYER || !isInPvp(event.getEntity().getLocation()))  {
+    if (event.getEntityType() != EntityType.PLAYER || !isInPvp(event.getEntity().getLocation())) {
       event.setCancelled(true);
     }
   }
@@ -267,7 +261,6 @@ public final class LobbyListener extends MultiStateListener {
   public void handlePvpDeath(EntityDamageByEntityEvent event) {
     Player damager = (Player) event.getDamager();
     Player target = (Player) event.getEntity();
-
 
     if (target.getHealth() - event.getFinalDamage() > 0) {
       return;
@@ -278,6 +271,7 @@ public final class LobbyListener extends MultiStateListener {
     target.setMaxHealth(20);
     PlayerUtil.resetPlayer(target);
     target.teleport(this.spawn);
+    this.pvping.remove(target.getUniqueId());
 
     damager.getInventory().addItem(GAPPLE_REWARD);
     damager.getInventory().addItem(ARROW_REWARD);
@@ -297,6 +291,8 @@ public final class LobbyListener extends MultiStateListener {
         "You have been killed by <h>{0}</h>",
         damager.getName()
     );
+
+
   }
 
   @EventHandler
