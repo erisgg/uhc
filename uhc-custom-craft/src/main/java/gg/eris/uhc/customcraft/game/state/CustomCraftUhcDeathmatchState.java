@@ -26,6 +26,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public final class CustomCraftUhcDeathmatchState extends
@@ -332,6 +333,11 @@ public final class CustomCraftUhcDeathmatchState extends
         this.placedBlocks.remove(event.getBlockPlaced().getLocation());
       }
     }, this.game.getSettings().getDeathmatchBlockDecayDelay() * 20L);
+  }
+
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    this.scoreboard.addPlayer(event.getPlayer());
   }
 
 }

@@ -13,6 +13,8 @@ import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.WorldBorder;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public final class CustomCraftUhcPvpState extends
     AbstractPvpGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
@@ -154,6 +156,11 @@ public final class CustomCraftUhcPvpState extends
         TextType.INFORMATION,
         "The border has <h>begun</h> shrinking."
     );
+  }
+
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    this.scoreboard.addPlayer(event.getPlayer());
   }
 
   private boolean checkDeathmatch() {

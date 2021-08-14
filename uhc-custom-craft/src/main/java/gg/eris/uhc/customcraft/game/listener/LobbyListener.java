@@ -203,8 +203,8 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler
   public void onPlayerDropItem(PlayerDropItemEvent event) {
-    if (event.getItemDrop().getItemStack().getType() != Material.GOLDEN_APPLE || !isInPvp(
-        event.getPlayer().getLocation())) {
+    if (event.getItemDrop().getItemStack().getType() != Material.GOLDEN_APPLE
+        || !isInPvp(event.getPlayer().getLocation())) {
       event.setCancelled(true);
     }
   }
@@ -213,7 +213,8 @@ public final class LobbyListener extends MultiStateListener {
   public void onInventoryClick(InventoryClickEvent event) {
     if (isInPvp(event.getWhoClicked().getLocation())) {
       // allowing hotbar (slots from 36->44 inclusive both ends)
-      if (event.getRawSlot() >= 36 && event.getRawSlot() <= 44) {
+      Bukkit.broadcastMessage("raw: " + event.getRawSlot());
+      if (event.getRawSlot() >= 0 && event.getRawSlot() <= 8) {
         if (event.getClick().isShiftClick()) {
           event.setCancelled(true);
         }
@@ -233,12 +234,15 @@ public final class LobbyListener extends MultiStateListener {
 
     Player player = event.getPlayer();
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
+      event.getPlayer().setMaxHealth(20);
+      PlayerUtil.resetPlayer(event.getPlayer());
       event.getPlayer().teleport(this.spawn);
       TextController.send(
           player,
           TextType.INFORMATION,
           "You fell off of the map... Don't do that!"
       );
+      this.pvping.remove(player.getUniqueId());
     } else if (event.getTo().getBlockY() < PVP_LIMIT) {
       if (this.pvping.add(player.getUniqueId())) {
         player.getInventory().clear();

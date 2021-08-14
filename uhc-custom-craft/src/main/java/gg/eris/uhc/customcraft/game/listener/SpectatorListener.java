@@ -23,9 +23,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
 
 @RequiredArgsConstructor
 public final class SpectatorListener extends MultiStateListener {
@@ -99,6 +101,20 @@ public final class SpectatorListener extends MultiStateListener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onPlayerInteract(PlayerInteractEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onShearSheep(PlayerShearEntityEvent event) {
     if (!this.game.isPlayer(event.getPlayer())) {
       event.setCancelled(true);
     }

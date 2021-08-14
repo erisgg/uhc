@@ -22,7 +22,7 @@ public final class SheepShearListener extends GameStateListener {
 
   }
 
-  @EventHandler
+  @EventHandler(ignoreCancelled = true)
   public void onSheepShear(PlayerShearEntityEvent event) {
     if (event.getEntity().getType() == EntityType.SHEEP && RandomUtil.randomBoolean()) {
       StackUtil.dropItem(event.getEntity().getLocation(), new ItemStack(Material.STRING));

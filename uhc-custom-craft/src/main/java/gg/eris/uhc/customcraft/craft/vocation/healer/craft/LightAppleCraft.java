@@ -41,7 +41,7 @@ public final class LightAppleCraft extends Craft {
         .shape(
             " g ",
             "gag",
-            " g"
+            " g "
         )
         .setIngredient('g', Material.GOLD_INGOT)
         .setIngredient('a', Material.APPLE);

@@ -1,5 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation;
 
+import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.Craftable;
@@ -23,7 +24,7 @@ public abstract class Trinket extends VocationUnlockable implements Craftable, L
   }
 
   public final ItemStack getItem() {
-    return this.item;
+    return new ItemBuilder(this.item).unstackable().build();
   }
 
   public void onAdd(CustomCraftUhcPlayer player) {
