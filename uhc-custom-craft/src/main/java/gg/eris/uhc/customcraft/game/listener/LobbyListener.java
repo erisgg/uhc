@@ -276,7 +276,7 @@ public final class LobbyListener extends MultiStateListener {
     TextController.send(
         damager,
         TextType.INFORMATION,
-        "You have killed <h>{0}</h>. +1 golden apple, +2 arrows",
+        "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h).",
         target.getName()
     );
 
@@ -285,7 +285,7 @@ public final class LobbyListener extends MultiStateListener {
     TextController.send(
         target,
         TextType.INFORMATION,
-        "You have been killed by <h>{0}</h>",
+        "You have been killed by <h>{0}</h>.",
         damager.getName()
     );
 
