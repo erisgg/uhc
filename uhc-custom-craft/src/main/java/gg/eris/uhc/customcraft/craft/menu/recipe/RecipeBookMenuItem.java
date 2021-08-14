@@ -18,7 +18,7 @@ public final class RecipeBookMenuItem implements MenuItem {
   @Override
   public ItemStack getItem(MenuViewer viewer, Menu menu) {
     Craftable craftable = getCraftable(viewer);
-    if (craftable == null) {
+    if (craftable == null || craftable.getRecipe() == null) {
       return null;
     } else {
       return craftable.getRecipe().getResult();

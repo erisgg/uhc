@@ -125,7 +125,11 @@ public enum Vocation {
   }
 
   public static Craftable getCraftable(int index) {
-    Vocation vocation = values()[Math.floorDiv(index, 6)];
+    int vocationIndex = Math.floorDiv(index, 6);
+    if (vocationIndex >= values().length) {
+      return null;
+    }
+    Vocation vocation = values()[vocationIndex];
     int item = index % 6;
     switch (item) {
       case 0:

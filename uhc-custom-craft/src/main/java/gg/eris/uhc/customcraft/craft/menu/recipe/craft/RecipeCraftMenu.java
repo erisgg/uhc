@@ -14,6 +14,17 @@ public final class RecipeCraftMenu extends Menu {
     super(plugin, CustomCraftUhcIdentifiers.MENU_ID.id("craft"), 5);
     setFillItem(Menu.DARK_FILLER);
     setParent(parent);
+
+    addItem(10, new RecipeCraftMenuItem(0));
+    addItem(11, new RecipeCraftMenuItem(1));
+    addItem(12, new RecipeCraftMenuItem(2));
+    addItem(19, new RecipeCraftMenuItem(3));
+    addItem(20, new RecipeCraftMenuItem(4));
+    addItem(21, new RecipeCraftMenuItem(5));
+    addItem(28, new RecipeCraftMenuItem(6));
+    addItem(29, new RecipeCraftMenuItem(7));
+    addItem(30, new RecipeCraftMenuItem(8));
+    addItem(23, new RecipeCraftMenuOutputItem());
   }
 
   @Override
