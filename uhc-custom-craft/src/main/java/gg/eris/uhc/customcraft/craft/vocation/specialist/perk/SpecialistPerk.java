@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.commons.core.util.Pair;
 import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.vocation.Perk;
@@ -14,7 +15,6 @@ import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -50,35 +50,40 @@ public final class SpecialistPerk extends Perk {
     Block block = event.getBlock();
     Player handle = event.getPlayer();
     CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(handle);
-    Collection<ItemStack> drops = handle(
+
+    Pair<Boolean, Collection<ItemStack>> drops = handle(
         handle,
         block.getDrops(handle.getItemInHand()),
         getLevel(player)
     );
 
+    if (!drops.getKey()) {
+      return;
+    }
+
     event.setCancelled(true);
     event.getBlock().setType(Material.AIR);
-    StackUtil.dropItems(event.getBlock(), drops);
-
+    StackUtil.dropItems(event.getBlock(), drops.getValue());
     if (!StackUtil.damage(handle.getItemInHand())) {
       handle.setItemInHand(null);
     }
     PlayerUtil.updateInventory(handle, 2);
   }
 
-  public static Collection<ItemStack> handle(Player handle, Collection<ItemStack> drops,
+  public static Pair<Boolean, Collection<ItemStack>> handle(Player handle,
+      Collection<ItemStack> drops,
       int level) {
     List<ItemStack> newDrops = Lists.newArrayList();
-    boolean lucky = false;
+    boolean modified = false;
     for (ItemStack drop : drops) {
       if (isApplicable(drop) && roll(level)) {
         drop.setAmount(drop.getAmount() * 2);
-        lucky = true;
+        modified = true;
       }
       newDrops.add(drop);
     }
 
-    if (lucky) {
+    if (modified) {
       TextController.send(
           handle,
           TextType.INFORMATION,
@@ -86,7 +91,7 @@ public final class SpecialistPerk extends Perk {
       );
     }
 
-    return newDrops;
+    return Pair.of(modified, newDrops);
   }
 
   private static boolean isApplicable(ItemStack item) {

@@ -81,17 +81,9 @@ public final class SmeltersShovel extends Craft {
     Material type = block.getType();
     if (DROP_MAP.containsKey(type)) {
       event.setCancelled(true);
-      event.getBlock().setType(Material.AIR);
+      block.setType(Material.AIR);
       ItemStack drop = new ItemStack(DROP_MAP.get(type));
-
-      CustomCraftUhcPlayer player =
-          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(event.getPlayer());
-      int level = player.getPerkLevel(SpecialistVocationRegistry.get().getPerk());
-      StackUtil.dropItems(
-          block,
-          SpecialistPerk.handle(player.getHandle(), Collections.singleton(drop), level),
-          true
-      );
+      StackUtil.dropItem(block, drop);
     }
   }
 

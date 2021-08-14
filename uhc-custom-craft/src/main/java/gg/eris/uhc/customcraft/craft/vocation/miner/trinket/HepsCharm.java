@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
@@ -35,7 +36,12 @@ public final class HepsCharm extends Trinket {
       Material.STONE_SPADE,
       Material.IRON_SPADE,
       Material.GOLD_SPADE,
-      Material.DIAMOND_SPADE
+      Material.DIAMOND_SPADE,
+      Material.WOOD_SWORD,
+      Material.STONE_SWORD,
+      Material.IRON_SWORD,
+      Material.GOLD_SWORD,
+      Material.DIAMOND_SWORD
   );
 
   public HepsCharm() {
@@ -45,7 +51,7 @@ public final class HepsCharm extends Trinket {
         .color(CC.GOLD)
         .quote("Can we fix it?")
         .quoteGiver("Bob, a builder")
-        .effects("Tools take 25% less damage")
+        .effects("Tools and swords take 25% less damage")
         .build());
   }
 
@@ -69,8 +75,8 @@ public final class HepsCharm extends Trinket {
     return Vocation.MINER;
   }
 
-  @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-  public void onBlockBreak(BlockBreakEvent event) {
+  @EventHandler
+  public void onDamageItem(PlayerItemDamageEvent event) {
     Player handle = event.getPlayer();
     CustomCraftUhcPlayer player = (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame()
         .getPlayer(handle);
@@ -84,9 +90,10 @@ public final class HepsCharm extends Trinket {
     }
 
     if (player.getTrinketBagItem().hasTrinket(this) && RandomUtil.percentChance(25)) {
-      item.setDurability((short) (item.getDurability() + 1));
-      handle.updateInventory();
+      event.setCancelled(true);
     }
   }
+
+
 
 }
