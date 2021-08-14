@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 public class CraftableInfo {
 
   ItemStack base;
+  ItemStack actual;
   String name;
   String quote;
   String quoteGiver;
@@ -21,19 +22,23 @@ public class CraftableInfo {
   CC color;
 
   public ItemStack buildTrinket() {
-    return buildItem("TRINKET", this);
+    return buildDisplayItem("TRINKET", this);
   }
 
-  public ItemStack buildCraft() {
-    return buildItem("CRAFT", this);
+  public ItemStack buildDisplayCraft() {
+    return buildDisplayItem("CRAFT", this);
+  }
+
+  public ItemStack buildActualCraft() {
+    return this.actual == null ? buildDisplayCraft() : this.actual;
   }
 
   public ItemStack buildUltimateCraft() {
-    return buildItem("ULTIMATE", this);
+    return buildDisplayItem("ULTIMATE", this);
   }
 
 
-  private static ItemStack buildItem(String prefix, CraftableInfo info) {
+  private static ItemStack buildDisplayItem(String prefix, CraftableInfo info) {
     ItemBuilder builder = new ItemBuilder(info.getBase())
         .withName(
             CC.WHITE.bold().underline() + prefix + ":" + info.getColor().bold()

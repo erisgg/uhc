@@ -57,11 +57,10 @@ public final class VocationMenuItem implements MenuItem {
     // Building the items
     if (unlockable instanceof Craft) {
       Craft craft = (Craft) unlockable;
-      base
-          .withName(
+      base.withName(
               CC.WHITE.bold().underline() + "CRAFT:" + CC.LIGHT_PURPLE + " " + unlockable.getName())
-          .withLore((craft.getItem().getItemMeta().hasLore() ?
-              craft.getItem().getItemMeta().getLore().toArray(new String[0]) : new String[0]))
+          .withLore((craft.getDisplayItem().getItemMeta().hasLore() ?
+              craft.getDisplayItem().getItemMeta().getLore().toArray(new String[0]) : new String[0]))
           .withDurability(CRAFTS);
     } else if (unlockable instanceof Trinket) {
       Trinket trinket = (Trinket) unlockable;

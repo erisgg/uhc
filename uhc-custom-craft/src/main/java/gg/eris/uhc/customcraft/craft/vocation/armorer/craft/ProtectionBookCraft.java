@@ -48,7 +48,7 @@ public class ProtectionBookCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " l ",
             "pip",

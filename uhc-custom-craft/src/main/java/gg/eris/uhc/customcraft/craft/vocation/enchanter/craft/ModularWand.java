@@ -65,7 +65,7 @@ public final class ModularWand extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " t ",
             " s ",

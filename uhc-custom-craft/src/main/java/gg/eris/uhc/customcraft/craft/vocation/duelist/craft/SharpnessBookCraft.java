@@ -1,7 +1,9 @@
 package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -11,12 +13,26 @@ import org.bukkit.inventory.ShapedRecipe;
 public final class SharpnessBookCraft extends Craft {
 
   public SharpnessBookCraft() {
-    super("sharpness_book",
-        new ItemBuilder(Material.ENCHANTED_BOOK)
-            .withEnchantment(Enchantment.DAMAGE_ALL, 1)
-            .nonCraftable()
-            .nonBrewable()
-            .build());
+    super("sharpness_book", CraftableInfo.builder()
+        .name("Sharpness I Book")
+        .effects("Gives a Sharpness I Book")
+        .color(CC.DARK_GREEN)
+        .quote("Ow, a papercut.")
+        .quoteGiver("Ares")
+        .actual(
+            new ItemBuilder(Material.ENCHANTED_BOOK)
+                .withEnchantment(Enchantment.DAMAGE_ALL, 1)
+                .nonCraftable()
+                .nonBrewable()
+                .build()
+        ).base(
+            new ItemBuilder(Material.ENCHANTED_BOOK)
+                .withEnchantment(Enchantment.DAMAGE_ALL, 1)
+                .nonCraftable()
+                .nonBrewable()
+                .build()
+        ).build()
+    );
   }
 
   @Override
@@ -36,7 +52,7 @@ public final class SharpnessBookCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " l ",
             "psp",

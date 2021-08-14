@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.craft.vocation.healer.craft;
 
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +12,17 @@ import org.bukkit.inventory.ShapedRecipe;
 public final class LightAppleCraft extends Craft {
 
   public LightAppleCraft() {
-    super("light_apple", new ItemStack(Material.GOLDEN_APPLE));
+    super("light_apple", CraftableInfo.builder()
+        .material(Material.GOLDEN_APPLE)
+        .actual(new ItemStack(Material.GOLDEN_APPLE))
+        .color(CC.GREEN)
+        .name("Light Apple")
+        .quote("This seems familiar...")
+        .quoteGiver("UHC Amnesiac")
+        .effects("Gives 1 Golden Apple")
+        .build()
+
+    );
   }
 
   @Override
@@ -25,7 +37,7 @@ public final class LightAppleCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " g ",
             "gag",

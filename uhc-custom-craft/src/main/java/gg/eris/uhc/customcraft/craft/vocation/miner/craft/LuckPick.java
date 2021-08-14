@@ -44,7 +44,7 @@ public final class LuckPick extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             "gIg",
             "lsl",

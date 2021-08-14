@@ -48,7 +48,7 @@ public final class HardenedHelmetCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             "dLd",
             "did",

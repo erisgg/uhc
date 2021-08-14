@@ -1,6 +1,8 @@
 package gg.eris.uhc.customcraft.craft.vocation.scientist.craft;
 
+import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +12,16 @@ import org.bukkit.inventory.ShapedRecipe;
 public final class NetherWartCraft extends Craft {
 
   public NetherWartCraft() {
-    super("nether_wart", new ItemStack(Material.NETHER_STALK));
+    super("nether_wart", CraftableInfo.builder()
+        .color(CC.DARK_PURPLE)
+        .name("Nether Wart")
+        .effects("Gives 1 Nether Wart")
+        .quote("Argh!")
+        .quoteGiver("Zombie Pigman")
+        .material(Material.NETHER_STALK)
+        .actual(new ItemStack(Material.NETHER_STALK))
+        .build()
+    );
   }
 
   @Override
@@ -30,7 +41,7 @@ public final class NetherWartCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             "rsr",
             "ses",

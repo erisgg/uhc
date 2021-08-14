@@ -41,7 +41,7 @@ public final class SugarEconomyCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(" s ", "scs", " s ")
         .setIngredient('s', Material.SEEDS)
         .setIngredient('c', Material.SUGAR_CANE);

@@ -62,7 +62,7 @@ public final class DemigodSwordCraft extends Craft implements CraftTickable {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(" R ", "rsr", " r ")
         .setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)

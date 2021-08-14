@@ -45,7 +45,7 @@ public final class LumberAxe extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             "fff",
             "lal",

@@ -9,15 +9,15 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class Craft extends VocationUnlockable implements Craftable, Listener {
 
-  private final ItemStack item;
+  private final ItemStack display;
+  private final ItemStack actual;
 
   public Craft(String identifierValue, CraftableInfo info) {
-    this(identifierValue, info.buildCraft());
-  }
-
-  public Craft(String identifierValue, ItemStack item) {
     super(identifierValue);
-    this.item = NBTUtil.setNbtData(item, CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
+    this.display = NBTUtil.setNbtData(info.buildDisplayCraft(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
+        this.getIdentifier().getValue());
+    this.actual = info.getActual() == null ? this.display
+        : NBTUtil.setNbtData(info.getActual(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
         this.getIdentifier().getValue());
   }
 
@@ -27,8 +27,12 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
 
   public abstract int getPrestigeCraftableAmount();
 
-  public final ItemStack getItem() {
-    return this.item;
+  public final ItemStack getDisplayItem() {
+    return this.display;
+  }
+
+  public final ItemStack getActualItem() {
+    return this.actual;
   }
 
   public final boolean isItem(ItemStack item) {
@@ -36,7 +40,7 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
       return false;
     }
 
-    String thisData = NBTUtil.getStringNbtData(this.item,
+    String thisData = NBTUtil.getStringNbtData(this.actual,
         CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);
     String theirData = NBTUtil.getStringNbtData(item,
         CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY);

@@ -4,7 +4,6 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.Craftable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import java.util.Locale;
 import lombok.Getter;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;

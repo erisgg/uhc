@@ -3,14 +3,9 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.StackUtil;
-import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
-import gg.eris.uhc.customcraft.craft.vocation.specialist.SpecialistVocationRegistry;
-import gg.eris.uhc.customcraft.craft.vocation.specialist.perk.SpecialistPerk;
-import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import java.util.Collections;
 import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -59,7 +54,7 @@ public final class SmeltersShovel extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape("ici", " s ", "   ")
         .setIngredient('i', Material.IRON_ORE)
         .setIngredient('c', Material.COAL)

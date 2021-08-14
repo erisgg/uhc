@@ -13,12 +13,24 @@ import org.bukkit.inventory.ShapedRecipe;
 public final class PowerBookCraft extends Craft {
 
   public PowerBookCraft() {
-    super("power_book",
-        new ItemBuilder(Material.ENCHANTED_BOOK)
+    super("power_book", CraftableInfo.builder()
+        .color(CC.LIGHT_PURPLE)
+        .base(new ItemBuilder(Material.ENCHANTED_BOOK)
             .withEnchantment(Enchantment.ARROW_DAMAGE, 1)
             .nonCraftable()
             .nonBrewable()
-            .build());
+            .build())
+        .actual(new ItemBuilder(Material.ENCHANTED_BOOK)
+            .withEnchantment(Enchantment.ARROW_DAMAGE, 1)
+            .nonCraftable()
+            .nonBrewable()
+            .build())
+        .name("Power I Book")
+        .quote("I AM POWERFUL!")
+        .quoteGiver("Someone who isn't powerful")
+        .effects("Gives a Power I Book")
+        .build()
+    );
   }
 
   @Override
@@ -38,7 +50,7 @@ public final class PowerBookCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " l ",
             "pap",

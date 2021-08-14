@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
+import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -16,9 +17,18 @@ import org.bukkit.potion.PotionType;
 public final class InstantDamagePotionCraft extends Craft {
 
   public InstantDamagePotionCraft() {
-    super("instant_damage_potion",
-        new ItemBuilder(new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1))
-            .withName(CC.WHITE + "Instant Damage II").build());
+    super("instant_damage_potion", CraftableInfo.builder()
+        .color(CC.DARK_RED)
+        .name("Instant Damage II Splash Potion")
+        .quote("One splash of this will do the trick.")
+        .quoteGiver("Back-Alley Dealer")
+        .base(new ItemBuilder(new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1))
+            .withName(CC.WHITE + "Instant Damage II Splash Potion").build())
+        .actual(new ItemBuilder(new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1))
+            .withName(CC.WHITE + "Instant Damage II Splash Potion").build())
+        .effects("Gives 1 Instant Damage II splash potion")
+        .build()
+    );
   }
 
   @Override
@@ -38,7 +48,7 @@ public final class InstantDamagePotionCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(" b ", "dhd", "oBo")
         .setIngredient('b', Material.BONE)
         .setIngredient('d', new MaterialData(Material.INK_SACK, DataUtil.GREEN_DYE))

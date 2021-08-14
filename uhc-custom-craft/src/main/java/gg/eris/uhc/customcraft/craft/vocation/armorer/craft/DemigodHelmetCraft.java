@@ -48,7 +48,7 @@ public class DemigodHelmetCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " R ",
             "rhr",

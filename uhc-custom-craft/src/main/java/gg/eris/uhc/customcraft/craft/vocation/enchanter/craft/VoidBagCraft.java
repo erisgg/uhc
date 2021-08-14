@@ -49,7 +49,7 @@ public final class VoidBagCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             "lol",
             "oco",
@@ -90,7 +90,7 @@ public final class VoidBagCraft extends Craft {
     } else if (seed < 15) {
       return new ItemStack(Material.SKULL);
     } else if (seed < 20) {
-      return Vocation.HEALER.getRegistry().getThirdCraft().getItem(); // Speed soup
+      return Vocation.HEALER.getRegistry().getThirdCraft().getDisplayItem(); // Speed soup
     } else if (seed < 30) {
       return new ItemStack(Material.GOLD_INGOT, 4);
     } else if (seed < 40) {

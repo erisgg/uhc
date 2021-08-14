@@ -80,7 +80,7 @@ public final class GoldenHeadCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape("ggg", "gsg", "ggg")
         .setIngredient('g', Material.GOLD_INGOT)
         .setIngredient('s',

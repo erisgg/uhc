@@ -60,7 +60,7 @@ public final class DemigodBowCraft extends Craft implements CraftTickable {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape(
             " R ",
             "rbr",

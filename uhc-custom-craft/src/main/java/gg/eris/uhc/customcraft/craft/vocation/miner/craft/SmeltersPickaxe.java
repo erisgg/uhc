@@ -60,7 +60,7 @@ public final class SmeltersPickaxe extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return new ShapedRecipe(getItem())
+    return new ShapedRecipe(getActualItem())
         .shape("ici", " s ", "   ")
         .setIngredient('i', Material.IRON_ORE)
         .setIngredient('c', Material.COAL)
