@@ -15,6 +15,7 @@ import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenuViewer;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import java.util.Set;
 import org.bukkit.Bukkit;
@@ -255,6 +256,8 @@ public final class LobbyListener extends MultiStateListener {
       switch (item.getType()) {
         case EMERALD:
           this.game.getMainMenu().openMenu(event.getPlayer());
+        case ENCHANTED_BOOK:
+          this.game.getRecipeBookMenu().openMenu(new RecipeBookMenuViewer(event.getPlayer()));
       }
     }
   }

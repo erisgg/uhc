@@ -7,6 +7,7 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.craft.Craftable;
 import gg.eris.uhc.customcraft.craft.vocation.armorer.ArmorerVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.duelist.DuelistVocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.enchanter.EnchanterVocationRegistry;
@@ -121,6 +122,26 @@ public enum Vocation {
       }
     }
     return valid;
+  }
+
+  public static Craftable getCraftable(int index) {
+    Vocation vocation = values()[Math.floorDiv(index, 6)];
+    int item = index % 6;
+    switch (item) {
+      case 0:
+        return vocation.getRegistry().getFirstCraft();
+      case 1:
+        return vocation.getRegistry().getSecondCraft();
+      case 2:
+        return vocation.getRegistry().getFirstTrinket();
+      case 3:
+        return vocation.getRegistry().getThirdCraft();
+      case 4:
+        return vocation.getRegistry().getFourthCraft();
+      default:
+        return vocation.getRegistry().getSecondTrinket();
+    }
+
   }
 
 }

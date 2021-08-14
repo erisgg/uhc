@@ -70,7 +70,7 @@ public final class SeekersCompassCraft extends Craft {
     return "Seeker's Compass";
   }
 
-  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  @EventHandler
   public void onInteract(PlayerInteractEvent event) {
     ItemStack item = event.getItem();
     if (!(isItem(item))) {

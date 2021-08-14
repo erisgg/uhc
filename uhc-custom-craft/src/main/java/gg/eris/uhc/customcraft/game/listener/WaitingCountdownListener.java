@@ -29,6 +29,9 @@ public final class WaitingCountdownListener extends MultiStateListener {
   private final static ItemStack MAIN_MENU = new ItemBuilder(Material.EMERALD)
       .withName(CC.GOLD.bold() + "Main Menu" + CC.DARK_GRAY + " (Right Click)").build();
 
+  private final static ItemStack RECIPE_BOOK = new ItemBuilder(Material.ENCHANTED_BOOK)
+      .withName(CC.GREEN.bold() + "Recipe Book" + CC.DARK_GRAY + " (Right Click)").build();
+
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
   private final Location spawn;
@@ -77,6 +80,7 @@ public final class WaitingCountdownListener extends MultiStateListener {
       PlayerUtil.resetPlayer(player);
       PlayerUtil.setSafeGameMode(player, GameMode.ADVENTURE);
       player.getInventory().setItem(4, MAIN_MENU);
+      player.getInventory().setItem(0, RECIPE_BOOK);
       player.getInventory().setHeldItemSlot(4);
       Bukkit.getScheduler()
           .runTaskLater(this.game.getPlugin(), () -> event.getPlayer().teleport(this.spawn), 3L);

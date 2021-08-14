@@ -10,6 +10,7 @@ import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -21,7 +22,7 @@ import org.bukkit.potion.PotionEffectType;
 @RequiredArgsConstructor
 public class PlayerHeadListener extends GameStateListener {
 
-  private   final CustomCraftUhcGame uhcGame;
+  private final CustomCraftUhcGame uhcGame;
 
   @Override
   protected void onEnable(GameState<?, ?> state) {
@@ -38,7 +39,8 @@ public class PlayerHeadListener extends GameStateListener {
     Player handle = event.getPlayer();
     ItemStack item = handle.getItemInHand();
 
-    if (item == null || item.getType() != Material.SKULL_ITEM) {
+    if (item == null || item.getType() != Material.SKULL_ITEM
+        || item.getData().getData() != (byte) SkullType.PLAYER.ordinal()) {
       return;
     } else if (HealerVocationRegistry.get().getFirstCraft().isItem(item)) {
       return;
@@ -49,15 +51,15 @@ public class PlayerHeadListener extends GameStateListener {
       event.getPlayer()
           .addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 4 * 20, 2), true);
 
-      int healerLevel = ((CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle))
-              .getPerkLevel(Vocation.HEALER.getRegistry().getPerk());
+      int healerLevel = ((CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame()
+          .getPlayer(handle))
+          .getPerkLevel(Vocation.HEALER.getRegistry().getPerk());
 
       if (healerLevel > 0) {
         int duration = (5 + (healerLevel - 1)) * 20;
         event.getPlayer()
             .addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration, 1), true);
       }
-
 
       event.setCancelled(true);
 

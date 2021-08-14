@@ -15,6 +15,7 @@ import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagInventoryListener;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBagListener;
 import gg.eris.uhc.customcraft.craft.menu.main.MainMenu;
+import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenu;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
@@ -63,6 +64,9 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   @Getter
   private final MainMenu mainMenu;
 
+  @Getter
+  private final RecipeBookMenu recipeBookMenu;
+
   public CustomCraftUhcGame(UhcPlugin plugin, UhcModule<?> module) {
     super(plugin, module, UhcGameSettings.builder()
         .worldName(CustomCraftUhcIdentifiers.GAME_WORLD)
@@ -105,7 +109,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
     }
 
     // Shop
-    this.mainMenu = new MainMenu(this.getPlugin());
+    this.mainMenu = new MainMenu(getPlugin());
+    this.recipeBookMenu = new RecipeBookMenu(getPlugin());
   }
 
   /*
