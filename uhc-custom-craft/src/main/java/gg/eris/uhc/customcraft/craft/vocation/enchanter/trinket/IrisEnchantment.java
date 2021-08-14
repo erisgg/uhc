@@ -1,5 +1,7 @@
 package gg.eris.uhc.customcraft.craft.vocation.enchanter.trinket;
 
+import gg.eris.commons.bukkit.text.TextController;
+import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ExpUtil;
 import gg.eris.uhc.core.UhcPlugin;
@@ -7,6 +9,7 @@ import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -70,7 +73,17 @@ public final class IrisEnchantment extends Trinket {
 
     if (player.getTrinketBagItem().hasTrinket(this)) {
       int exp = ExpUtil.getExpFromLevel(event.getExpLevelCost());
-      ExpUtil.changeExp(handle, (int) (exp * 0.35));
+      Bukkit.getScheduler().runTaskLater(UhcPlugin.getPlugin(), () -> {
+        int amount = (int) (exp * 0.35);
+        ExpUtil.changeExp(handle, amount);
+        TextController.send(
+            handle,
+            TextType.INFORMATION,
+            "You have been given <h>{0}</h> EXP back from your <h>{1}</h>.",
+            amount,
+            getName()
+        );
+      }, 5L);
     }
   }
 }
