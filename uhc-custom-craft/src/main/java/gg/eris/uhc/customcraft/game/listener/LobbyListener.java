@@ -258,6 +258,10 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void handlePvpDeath(EntityDamageByEntityEvent event) {
+    if (event.getDamager().getType() != EntityType.PLAYER || event.getEntityType() != EntityType.PLAYER) {
+      return;
+    }
+
     Player damager = (Player) event.getDamager();
     Player target = (Player) event.getEntity();
 

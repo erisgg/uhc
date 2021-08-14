@@ -91,7 +91,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         .borderShrunkRadius(400)
         .borderShrinkDelay(0)
-        .borderShrinkDuration(400) // 1.5 blocks /s
+        .borderShrinkDuration(900)
 
         .deathmatchPlayerThreshold(10)
         .deathmatchBorderRadius(200)

@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 public final class CustomCraftUhcPlayerSerializer extends
     ErisPlayerSerializer<CustomCraftUhcPlayer> {
 
-  private static final int DEFAULT_COINS = 0;
+  private static final int DEFAULT_COINS = 1000;
 
   public CustomCraftUhcPlayerSerializer() {
     super(CustomCraftUhcPlayer.class);
