@@ -10,9 +10,11 @@ import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractCountdownGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcModule;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -51,7 +53,7 @@ public final class CustomCraftUhcCountdownGameState extends
     this.scoreboard.addLine("");
     this.scoreboard.addLine(
         (player, ticks) -> CC.GRAY + "Players: " + CC.YELLOW + game.getPlugin().getCommons()
-            .getErisPlayerManager().getPlayers().size() + "/70", 1);
+            .getErisPlayerManager().getPlayers().size() + "/" + game.getSettings().getMaxPlayers(), 1);
     this.scoreboard.addLine("");
     this.scoreboard
         .addLine(CC.GRAY + "Border: " + CC.YELLOW + game.getSettings().getBorderRadius());
@@ -63,6 +65,14 @@ public final class CustomCraftUhcCountdownGameState extends
   public void onTick(int tick) {
     if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
       this.game.setGameState(TypeRegistry.WAITING);
+    }
+
+    if (this.erisPlayerManager.getPlayers().size() == this.game.getSettings().getMaxPlayers()) {
+      Bukkit.getScheduler().runTaskAsynchronously(this.game.getPlugin(), () ->
+          this.game.getPlugin().getCommons().getRedisWrapper().addToSet(
+              CustomCraftUhcIdentifiers.LIVE_GAME_SET,
+              "" + ((CustomCraftUhcModule) this.game.getModule()).getPort())
+      );
     }
 
     if (this.ticks % 20 != 0) {
@@ -120,8 +130,9 @@ public final class CustomCraftUhcCountdownGameState extends
     if (this.erisPlayerManager.getPlayers().size() < this.game.getSettings().getRequiredPlayers()) {
       TextController.broadcastToServer(
           TextType.INFORMATION,
-          " The countdown has been <h>paused</h>. It will resume at <h>{0}/70</h> players.",
-          this.game.getSettings().getRequiredPlayers()
+          " The countdown has been <h>paused</h>. It will resume at <h>{0}/{1}</h> players.",
+          this.game.getSettings().getRequiredPlayers(),
+          this.game.getSettings().getMaxPlayers()
       );
     } else {
       this.scoreboard.removeAllPlayers();

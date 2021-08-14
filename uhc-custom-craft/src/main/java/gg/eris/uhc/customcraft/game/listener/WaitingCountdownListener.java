@@ -11,6 +11,7 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.util.LobbyUtil;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
+import gg.eris.uhc.customcraft.CustomCraftUhcModule;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import java.util.Set;
 import org.bukkit.Bukkit;
@@ -71,6 +72,11 @@ public final class WaitingCountdownListener extends MultiStateListener {
   public void onPlayerJoin(PlayerJoinEvent event) {
     Player player = event.getPlayer();
     event.setJoinMessage(null);
+
+    if (Bukkit.getOnlinePlayers().size() > this.game.getSettings().getMaxPlayers()) {
+      player.kickPlayer(CC.YELLOW.bold() + "(!) " + CC.GOLD + "The game is full!");
+      return;
+    }
 
     ErisPlayer erisPlayer = this.erisPlayerManager.getPlayer(player);
     erisPlayer.addLoadingConsumer(joined -> LobbyUtil.broadcastJoin(joined,
