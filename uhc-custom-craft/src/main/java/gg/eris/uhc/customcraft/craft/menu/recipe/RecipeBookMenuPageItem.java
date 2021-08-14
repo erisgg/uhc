@@ -34,7 +34,7 @@ public class RecipeBookMenuPageItem implements MenuItem {
       viewer.getViewing().updateMenu(viewer);
     } else {
       if (recipeBookMenuViewer.getPage() > 0) {
-        recipeBookMenuViewer.setPage(recipeBookMenuViewer.getPage() + 1);
+        recipeBookMenuViewer.setPage(recipeBookMenuViewer.getPage() - 1);
         viewer.getViewing().updateMenu(viewer);
       }
     }
