@@ -1,11 +1,17 @@
 package gg.eris.uhc.customcraft.craft.vocation.armorer.craft;
 
+import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import java.util.List;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 public class FusionArmorCraft extends Craft {
 
@@ -38,7 +44,50 @@ public class FusionArmorCraft extends Craft {
 
   @Override
   public Recipe getRecipe() {
-    return null;
+    return new ShapelessRecipe(new ItemBuilder(Material.DIAMOND_HELMET)
+        .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
+        .withEnchantment(Enchantment.DURABILITY, 1)
+        .build()
+    ).addIngredient(Material.DIAMOND_BOOTS)
+        .addIngredient(Material.DIAMOND_BOOTS)
+        .addIngredient(Material.DIAMOND_BOOTS)
+        .addIngredient(Material.DIAMOND_BOOTS);
+  }
+
+  @Override
+  public List<Recipe> getAlternativeRecipes() {
+    Material[] materials = {
+        Material.DIAMOND_BOOTS,
+        Material.DIAMOND_CHESTPLATE,
+        Material.DIAMOND_HELMET,
+        Material.DIAMOND_LEGGINGS
+    };
+
+    List<Recipe> recipes = Lists.newArrayList();
+    for (Material one : materials) {
+      for (Material two : materials) {
+        for (Material three : materials) {
+          for (Material four : materials) {
+            if (one == two && two == three && three == four && four == Material.DIAMOND_BOOTS) {
+              continue;
+            }
+
+            recipes.add(new ShapelessRecipe(
+                    new ItemBuilder(materials[RandomUtil.randomInt(materials.length)])
+                        .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
+                        .withEnchantment(Enchantment.DURABILITY, 1)
+                        .build()
+                ).addIngredient(one)
+                    .addIngredient(two)
+                    .addIngredient(three)
+                    .addIngredient(four)
+            );
+          }
+        }
+      }
+    }
+
+    return recipes;
   }
 
   @Override

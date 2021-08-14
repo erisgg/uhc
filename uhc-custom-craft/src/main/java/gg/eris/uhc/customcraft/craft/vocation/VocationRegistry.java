@@ -26,9 +26,11 @@ public abstract class VocationRegistry extends Registry<VocationUnlockable> {
     Set<Recipe> recipes = Sets.newHashSet();
     for (VocationUnlockable unlockable : this.values()) {
       if (unlockable instanceof Craftable) {
-        Recipe recipe = ((Craftable) unlockable).getRecipe();
+        Craftable craftable = (Craftable) unlockable;
+        Recipe recipe = craftable.getRecipe();
         if (recipe != null) {
           recipes.add(recipe);
+          recipes.addAll(craftable.getAlternativeRecipes());
         }
       }
     }
