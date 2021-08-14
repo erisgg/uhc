@@ -31,6 +31,7 @@ import gg.eris.uhc.customcraft.game.listener.game.ItemCombustionListener;
 import gg.eris.uhc.customcraft.game.listener.game.MobBurnListener;
 import gg.eris.uhc.customcraft.game.listener.game.MonsterSpawnListener;
 import gg.eris.uhc.customcraft.game.listener.game.PlayerHeadListener;
+import gg.eris.uhc.customcraft.game.listener.game.ScoreboardHeartsListener;
 import gg.eris.uhc.customcraft.game.listener.game.StrengthNerfListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
@@ -74,7 +75,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchName(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD)
         .borderRadius(1000)
         .maxHealth(40)
-        .requiredPlayers(4)
+        .requiredPlayers(2)
         .pregameCountdownDuration(5)
         .gracePeriodDuration(5 * 60)
         .pvpPeriodDuration(20 * 60)
@@ -171,7 +172,10 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new VocationStateTicker(),
 
         // Regular player heads
-        new PlayerHeadListener(this)
+        new PlayerHeadListener(this),
+
+        // Tab
+        new ScoreboardHeartsListener(this)
     );
   }
 }

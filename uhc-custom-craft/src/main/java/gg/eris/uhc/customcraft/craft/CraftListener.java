@@ -79,7 +79,9 @@ public final class CraftListener extends GameStateListener {
 
     int amountCrafted = getRecipeAmount(event);
 
-    if (amountCrafted == 0) {
+    if (amountCrafted <= 0) {
+      event.setResult(Result.DENY);
+      event.setCancelled(true);
       return;
     }
 
@@ -92,7 +94,9 @@ public final class CraftListener extends GameStateListener {
 
     int alreadyCrafted = player.getTimesCrafted(unlockable);
 
-    if (maxAmount <= alreadyCrafted) {
+    int remainingCrafts = maxAmount - alreadyCrafted;
+
+    if (remainingCrafts == 0) {
       event.setResult(Result.DENY);
       event.setCancelled(true);
       TextController.send(
@@ -101,18 +105,17 @@ public final class CraftListener extends GameStateListener {
           "You cannot craft any more of <h>{0}</h>.",
           unlockable.getName()
       );
+      return;
     }
 
-    int leftCraftable = maxAmount - alreadyCrafted;
-
-    if (amountCrafted > leftCraftable) {
+    if (amountCrafted > remainingCrafts) {
       event.setResult(Result.DENY);
       event.setCancelled(true);
       TextController.send(
           player,
           TextType.ERROR,
           "You cannot craft that many. You can only craft <h>{0}</h> more.",
-          leftCraftable
+          remainingCrafts
       );
     } else {
       player.incrementCraftCount(unlockable.getIdentifier(), amountCrafted);
@@ -121,7 +124,7 @@ public final class CraftListener extends GameStateListener {
           TextType.SUCCESS,
           "You have crafted <h>{0}</h> (<h>{1}/{2}</h>).",
           unlockable.getName(),
-          amountCrafted,
+          amountCrafted + alreadyCrafted,
           maxAmount
       );
     }
@@ -160,7 +163,8 @@ public final class CraftListener extends GameStateListener {
           break;
         }
 
-        int maxCraftable = CraftUtil.getMaxCraftAmount(event.getInventory());
+        int maxCraftable =
+            CraftUtil.getMaxCraftAmount(event.getInventory()) / event.getRecipe().getResult().getAmount();
         int capacity = CraftUtil.fits(test, event.getView().getBottomInventory());
 
         if (capacity < maxCraftable) {
@@ -169,7 +173,6 @@ public final class CraftListener extends GameStateListener {
 
         recipeAmount = maxCraftable;
         break;
-      default:
     }
 
     return recipeAmount;

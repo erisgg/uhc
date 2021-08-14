@@ -164,11 +164,11 @@ public final class VocationMenuItem implements MenuItem {
     }
 
     for (int prerequisite : this.prerequisiteSlots) {
-      if (player.hasSlot(this.vocation, prerequisite)) {
-        return true;
+      if (!player.hasSlot(this.vocation, prerequisite)) {
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
 }

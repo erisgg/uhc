@@ -34,7 +34,7 @@ public abstract class MultiStateListener implements Listener {
   public final void enable(GameState<?, ?> state) {
     onEnable(state);
 
-    for (Supplier<Integer> supplier : taskCreators) {
+    for (Supplier<Integer> supplier : this.taskCreators) {
       this.taskIds.add(supplier.get());
     }
   }

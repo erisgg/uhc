@@ -66,7 +66,7 @@ public class ZeusBlessingTrinket extends Trinket {
         (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle);
 
     if (player.getTrinketBagItem().hasTrinket(this)) {
-      if (event.getDamage() < 4.5) {
+      if (event.getDamage() < 8.5) {
         event.setCancelled(true);
       }
     }

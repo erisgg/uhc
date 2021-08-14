@@ -256,8 +256,10 @@ public final class LobbyListener extends MultiStateListener {
       switch (item.getType()) {
         case EMERALD:
           this.game.getMainMenu().openMenu(event.getPlayer());
+          break;
         case ENCHANTED_BOOK:
           this.game.getRecipeBookMenu().openMenu(new RecipeBookMenuViewer(event.getPlayer()));
+          break;
       }
     }
   }

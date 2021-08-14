@@ -24,7 +24,7 @@ public class DefendersMedallionTrinket extends Trinket {
         .name("Defender's Medallion")
         .quote("Those who are defended are stronger!")
         .quoteGiver("Anicetus")
-        .effects("Gives a 25% chance to reduce damage taken by 20%")
+        .effects("Gives a 33% chance to reduce damage taken by 20%")
         .nonTransformable()
         .build()
     );
@@ -62,7 +62,7 @@ public class DefendersMedallionTrinket extends Trinket {
         (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle);
 
     if (player.getTrinketBagItem().hasTrinket(this)) {
-      if (RandomUtil.percentChance(25)) {
+      if (RandomUtil.percentChance(33)) {
         event.setDamage(event.getDamage() * 0.8);
       }
     }

@@ -23,7 +23,7 @@ public final class VoidBagCraft extends Craft {
   public VoidBagCraft() {
     super("void_bag", CraftableInfo.builder()
         .material(Material.ENDER_CHEST)
-        .color(CC.BLACK)
+        .color(CC.DARK_BLUE)
         .name("Void Bag")
         .quote("*static*")
         .quoteGiver("Void Astronaut")
