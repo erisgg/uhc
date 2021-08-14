@@ -15,6 +15,7 @@ import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.WorldBorder;
@@ -124,6 +125,17 @@ public final class CustomCraftUhcStartingState extends
             (player, chatMessage) -> player.getDisplayName(),
             (player, chatMessage) -> "" + ((CustomCraftUhcPlayer) player).getGameKills(),
             (player, chatMessage) -> chatMessage);
+
+    this.game.getPlugin().getCommons().getChatController().setRecipientFunction(player -> {
+      if (CustomCraftUhcStartingState.this.game.isPlayer(player.getUniqueId())) {
+        return game.getPlugin().getCommons().getErisPlayerManager().getPlayers();
+      } else {
+        return game.getPlugin().getCommons().getErisPlayerManager().getPlayers()
+            .stream()
+            .filter(other -> !game.isPlayer(other.getUniqueId()))
+            .collect(Collectors.toList());
+      }
+    });
   }
 
   @Override
