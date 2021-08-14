@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class BlockBreakListener extends GameStateListener {
+public final class BlockBreakListener extends GameStateListener {
 
   private static final ItemStack SEEDS = new ItemStack(Material.SEEDS);
   private static final ItemStack FLINT = new ItemStack(Material.FLINT);

@@ -177,10 +177,10 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new VocationStateTicker(),
 
         // Regular player heads
-        new PlayerHeadListener(this),
+       new PlayerHeadListener(this),
 
         // Tab
-        new ScoreboardHeartsListener(this)
+       new ScoreboardHeartsListener(this)
     );
   }
 }

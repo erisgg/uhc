@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.TextController;
 import gg.eris.commons.bukkit.text.TextType;
+import gg.eris.commons.bukkit.util.PlayerUtil;
+import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.vocation.Perk;
@@ -12,6 +14,7 @@ import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -45,17 +48,22 @@ public final class SpecialistPerk extends Perk {
   @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
   public void onBlockBreak(BlockBreakEvent event) {
     Block block = event.getBlock();
-    CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(event.getPlayer());
+    Player handle = event.getPlayer();
+    CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(handle);
     Collection<ItemStack> drops = handle(
-        player.getHandle(),
-        block.getDrops(event.getPlayer().getItemInHand()),
+        handle,
+        block.getDrops(handle.getItemInHand()),
         getLevel(player)
     );
+
     event.setCancelled(true);
     event.getBlock().setType(Material.AIR);
-    for (ItemStack drop : drops) {
-      event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), drop);
+    StackUtil.dropItems(event.getBlock(), drops);
+
+    if (!StackUtil.damage(handle.getItemInHand())) {
+      handle.setItemInHand(null);
     }
+    PlayerUtil.updateInventory(handle, 2);
   }
 
   public static Collection<ItemStack> handle(Player handle, Collection<ItemStack> drops,

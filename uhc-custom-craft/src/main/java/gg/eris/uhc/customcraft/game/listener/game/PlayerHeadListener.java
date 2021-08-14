@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 @RequiredArgsConstructor
-public class PlayerHeadListener extends GameStateListener {
+public final class PlayerHeadListener extends GameStateListener {
 
   private final CustomCraftUhcGame uhcGame;
 

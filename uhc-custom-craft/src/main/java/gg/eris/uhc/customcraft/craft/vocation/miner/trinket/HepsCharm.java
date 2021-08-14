@@ -8,9 +8,11 @@ import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -67,7 +69,7 @@ public final class HepsCharm extends Trinket {
     return Vocation.MINER;
   }
 
-  @EventHandler
+  @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
   public void onBlockBreak(BlockBreakEvent event) {
     Player handle = event.getPlayer();
     CustomCraftUhcPlayer player = (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame()
