@@ -36,6 +36,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -195,9 +196,12 @@ public abstract class UhcGame<T extends UhcPlayer> {
     drops.removeIf(StackUtil::isNullOrAir);
     filterDrops(drops);
 
-    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, event, killed, killer,
-        drops);
+    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, event, killed, killer, drops);
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
+
+    ExperienceOrb orb = killedHandle.getWorld().spawn(killedHandle.getLocation(),
+        ExperienceOrb.class);
+    orb.setExperience(uhcPlayerDeathEvent.getExp());
 
     StackUtil.dropItems(killedHandle.getLocation(), drops, true);
 

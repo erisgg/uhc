@@ -82,6 +82,20 @@ public final class TrinketBagItem {
     return old;
   }
 
+  public boolean hasTrinket(Trinket trinket) {
+    if (trinket == null) {
+      return false;
+    }
+
+    for (Trinket other : this.contents) {
+      if (trinket == other) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static boolean isBag(ItemStack item) {
     return ITEM.isSimilar(item);
   }

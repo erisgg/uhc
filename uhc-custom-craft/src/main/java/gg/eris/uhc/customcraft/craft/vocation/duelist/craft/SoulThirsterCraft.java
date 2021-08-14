@@ -10,7 +10,7 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.bukkit.util.RomanNumeral;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.core.event.UhcTickEvent;
-import gg.eris.uhc.customcraft.craft.Tickable;
+import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -27,7 +27,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
 
-public final class SoulThirsterCraft extends Craft implements Tickable {
+public final class SoulThirsterCraft extends Craft implements CraftTickable {
 
   private static final String NBT_KEY = "soul_thirster_decay";
   private static final long DECAY_TIME = 1000 * 60 * 5;

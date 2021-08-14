@@ -1,10 +1,17 @@
 package gg.eris.uhc.customcraft.craft.vocation.specialist.trinket;
 
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -43,6 +50,23 @@ public final class EirenesAllureTrinket extends Trinket {
   @Override
   public Vocation getVocation() {
     return Vocation.SPECIALIST;
+  }
+
+  @EventHandler
+  public void onEntityTarget(EntityTargetLivingEntityEvent event) {
+    if (event.getTarget().getWorld().getEnvironment() != Environment.NETHER) {
+      return;
+    }
+
+    if (event.getTarget().getType() == EntityType.PLAYER) {
+      Player handle = (Player) event.getTarget();
+      CustomCraftUhcPlayer player =
+          (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle);
+
+      if (player.getTrinketBagItem().hasTrinket(this)) {
+        event.setCancelled(true);
+      }
+    }
   }
 
 }

@@ -95,6 +95,7 @@ public final class CustomCraftUhcStartingState extends
         PlayerUtil.resetPlayer(handle);
         PlayerUtil.setSafeGameMode(handle, GameMode.SURVIVAL);
         handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE.createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
+        handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(15 * 20, 2), true);
         handle.setMaxHealth(this.game.getSettings().getMaxHealth());
         handle.setHealth(player.getHandle().getMaxHealth());
 

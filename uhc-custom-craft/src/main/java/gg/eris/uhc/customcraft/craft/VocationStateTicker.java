@@ -32,8 +32,8 @@ public final class VocationStateTicker extends GameStateListener {
           continue;
         }
 
-        if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, i, player);
+        if (unlockable instanceof CraftTickable) {
+          ((CraftTickable) unlockable).tick(event, item, i, player);
         }
       }
 
@@ -44,8 +44,8 @@ public final class VocationStateTicker extends GameStateListener {
           continue;
         }
 
-        if (unlockable instanceof Tickable) {
-          ((Tickable) unlockable).tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
+        if (unlockable instanceof CraftTickable) {
+          ((CraftTickable) unlockable).tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
         }
       }
     }

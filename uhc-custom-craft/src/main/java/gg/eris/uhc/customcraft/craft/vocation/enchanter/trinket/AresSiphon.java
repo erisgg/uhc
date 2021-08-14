@@ -1,10 +1,19 @@
 package gg.eris.uhc.customcraft.craft.vocation.enchanter.trinket;
 
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.commons.core.util.RandomUtil;
+import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -19,8 +28,7 @@ public final class AresSiphon extends Trinket {
         .quoteGiver("Ares")
         .effects(
             "Get 50% more experience when you kill a player"
-        )
-        .build());
+        ).build());
   }
 
   @Override
@@ -44,4 +52,17 @@ public final class AresSiphon extends Trinket {
   public Vocation getVocation() {
     return Vocation.ENCHANTER;
   }
+
+  @EventHandler
+  public void onEntityDeath(UhcPlayerDeathEvent event) {
+    if (event.getKiller() == null) {
+      return;
+    }
+
+    CustomCraftUhcPlayer killer = (CustomCraftUhcPlayer) event.getKiller();
+    if (killer.getTrinketBagItem().hasTrinket(this)) {
+      event.setExp((int) (event.getExp() * 1.5));
+    }
+  }
+
 }
