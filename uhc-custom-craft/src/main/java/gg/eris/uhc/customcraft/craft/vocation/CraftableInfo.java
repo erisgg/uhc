@@ -103,8 +103,13 @@ public class CraftableInfo {
       return this;
     }
 
+    public CraftableInfoBuilder unstackable() {
+      this.base = new ItemBuilder(this.base).unstackable().build();
+      return this;
+    }
+
     public CraftableInfoBuilder nonTransformable() {
-      return nonAnvillable().nonCraftable().nonBrewable();
+      return nonAnvillable().nonCraftable().nonBrewable().unstackable();
     }
 
     public CraftableInfoBuilder effects(String... effects) {

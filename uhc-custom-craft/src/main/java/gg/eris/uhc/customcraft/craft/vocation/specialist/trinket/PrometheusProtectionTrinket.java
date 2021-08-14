@@ -28,7 +28,7 @@ public final class PrometheusProtectionTrinket extends Trinket {
         .quoteGiver("Will Smith")
         .effects(
             "Take 50% less damage from fire"
-        )
+        ).nonTransformable()
         .build());
   }
 

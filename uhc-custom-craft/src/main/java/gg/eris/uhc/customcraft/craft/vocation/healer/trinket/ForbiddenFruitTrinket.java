@@ -20,6 +20,7 @@ public class ForbiddenFruitTrinket extends Trinket {
         .quote("Don't eat that!")
         .quoteGiver("Zeus")
         .effects("Gives the player two extra hearts")
+        .nonTransformable()
         .build()
     );
   }

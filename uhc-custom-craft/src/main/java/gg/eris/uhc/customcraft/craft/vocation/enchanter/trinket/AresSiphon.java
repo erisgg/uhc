@@ -15,14 +15,14 @@ public final class AresSiphon extends Trinket {
 
   public AresSiphon() {
     super("ares_siphon", CraftableInfo.builder()
-        .material(Material.ACTIVATOR_RAIL)
+        .material(Material.REDSTONE)
         .name("Ares' Siphon")
         .color(CC.RED)
         .quote("Shut up. Please.")
         .quoteGiver("Ares")
-        .effects(
-            "Get 50% more experience when you kill a player"
-        ).build());
+        .effects("Get 50% more experience when you kill a player")
+        .nonTransformable()
+        .build());
   }
 
   @Override

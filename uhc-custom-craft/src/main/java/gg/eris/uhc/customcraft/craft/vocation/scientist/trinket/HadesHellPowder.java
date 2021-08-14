@@ -29,7 +29,7 @@ public final class HadesHellPowder extends Trinket {
         .quoteGiver("Hades")
         .effects(
             "All nether mobs have a 10% chance to drop nether warts"
-        )
+        ).nonTransformable()
         .build());
   }
 

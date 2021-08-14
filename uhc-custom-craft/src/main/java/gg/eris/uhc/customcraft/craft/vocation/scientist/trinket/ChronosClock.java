@@ -26,6 +26,7 @@ public final class ChronosClock extends Trinket {
         .quote(".emit tuobA")
         .quoteGiver("Chronos")
         .effects("Adds 10 seconds to splash potion effect duration")
+        .nonTransformable()
         .build());
   }
 

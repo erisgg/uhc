@@ -27,6 +27,7 @@ public class AsclepiusGraceTrinket extends Trinket {
         .quote("Don't eat an apple a day")
         .quoteGiver("Doctors")
         .effects("Gives a final heal at the end of the grace period")
+        .nonTransformable()
         .build()
     );
   }

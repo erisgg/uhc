@@ -26,7 +26,7 @@ public final class EirenesAllureTrinket extends Trinket {
         .quoteGiver("Mahatma Gandhi")
         .effects(
             "Hostile mobs won't target you in the nether"
-        )
+        ).nonTransformable()
         .build());
   }
 

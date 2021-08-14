@@ -52,6 +52,7 @@ public final class HepsCharm extends Trinket {
         .quote("Can we fix it?")
         .quoteGiver("Bob, a builder")
         .effects("Tools and swords take 25% less damage")
+        .nonTransformable()
         .build());
   }
 

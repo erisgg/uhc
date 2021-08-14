@@ -27,9 +27,8 @@ public final class IrisEnchantment extends Trinket {
         .color(CC.AQUA)
         .quote("Let it shine!")
         .quoteGiver("Take That")
-        .effects(
-            "When using an enchantment table, 35% of experience used is returned"
-        ).nonTransformable()
+        .effects("When using an enchantment table, 35% of experience used is returned")
+        .nonTransformable()
         .build());
   }
 
