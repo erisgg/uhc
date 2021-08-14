@@ -8,7 +8,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 

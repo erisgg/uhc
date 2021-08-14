@@ -7,7 +7,6 @@ import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
-import io.github.classgraph.AnnotationParameterValueList;
 import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -11,24 +11,24 @@ public final class KellsUltimate extends UltimateCraft {
 
   public KellsUltimate() {
     super("kells", CraftableInfo.builder()
-    .base(new ItemBuilder(Material.ENCHANTED_BOOK)
-          .withEnchantment(Enchantment.DAMAGE_ALL, 3)
-          .withEnchantment(Enchantment.FIRE_ASPECT, 1)
-          .withEnchantment(Enchantment.ARROW_DAMAGE, 3)
-          .withEnchantment(Enchantment.ARROW_FIRE, 1)
-          .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
-          .build()
-    )
-    .color(CC.LIGHT_PURPLE)
-    .name("Kells")
-    .quote("Enchant your sword, armor piece of bow with legendary effects!")
-    .quoteGiver("Pandora")
+        .base(new ItemBuilder(Material.ENCHANTED_BOOK)
+            .withEnchantment(Enchantment.DAMAGE_ALL, 3)
+            .withEnchantment(Enchantment.FIRE_ASPECT, 1)
+            .withEnchantment(Enchantment.ARROW_DAMAGE, 3)
+            .withEnchantment(Enchantment.ARROW_FIRE, 1)
+            .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
+            .build()
+        )
+        .color(CC.LIGHT_PURPLE)
+        .name("Kells")
+        .quote("Enchant your sword, armor piece of bow with legendary effects!")
+        .quoteGiver("Pandora")
         .effects("Gives the user an anvilable book that has the following enchantments on it:",
-                  "-Sharpness 3",
-                  "-Fire aspect 1",
-                  "-Power 3",
-                  "-Flame 1",
-                  "-Protection 3")
+            "-Sharpness 3",
+            "-Fire aspect 1",
+            "-Power 3",
+            "-Flame 1",
+            "-Protection 3")
         .build());
   }
 
@@ -37,6 +37,5 @@ public final class KellsUltimate extends UltimateCraft {
     return "Kells";
   }
 
-  
 
 }

@@ -9,12 +9,12 @@ public final class AergiasSnowballUltimate extends UltimateCraft {
 
   public AergiasSnowballUltimate() {
     super("aergias_snowball", CraftableInfo.builder()
-    .material(Material.SNOW_BALL)
-    .nonTransformable()
-    .color(CC.WHITE)
-    .name("Aergia's Snowball")
-    .quote("Anyone to come across this snowball will fell Aergia's Fatigue")
-    .quoteGiver("Aergia")
+        .material(Material.SNOW_BALL)
+        .nonTransformable()
+        .color(CC.WHITE)
+        .name("Aergia's Snowball")
+        .quote("Anyone to come across this snowball will fell Aergia's Fatigue")
+        .quoteGiver("Aergia")
         .effects("Slowness 1 for 5 seconds, 25 second cooldown")
         .build());
   }
@@ -24,6 +24,5 @@ public final class AergiasSnowballUltimate extends UltimateCraft {
     return "Aergia's Snowball";
   }
 
-  
 
 }

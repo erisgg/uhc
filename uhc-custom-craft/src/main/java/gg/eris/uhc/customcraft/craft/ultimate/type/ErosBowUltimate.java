@@ -11,17 +11,17 @@ public final class ErosBowUltimate extends UltimateCraft {
 
   public ErosBowUltimate() {
     super("eros_bow", CraftableInfo.builder()
-    .base(new ItemBuilder(Material.BOW)
-          .withEnchantment(Enchantment.ARROW_DAMAGE, 3)
-          .build()
-    )
-    .nonTransformable()
-    .color(CC.DARK_RED)
-    .name("Eros' Bow")
-    .quote("Shoot your opponents from far range with Eros' bow!")
-    .quoteGiver("Eros")
+        .base(new ItemBuilder(Material.BOW)
+            .withEnchantment(Enchantment.ARROW_DAMAGE, 3)
+            .build()
+        )
+        .nonTransformable()
+        .color(CC.DARK_RED)
+        .name("Eros' Bow")
+        .quote("Shoot your opponents from far range with Eros' bow!")
+        .quoteGiver("Eros")
         .effects("Power 3 bow, with 25% chance of the arrow homing onto the enemy."
-                  + "This arrow will deal the damage of an unenchanted bowshot.")
+            + "This arrow will deal the damage of an unenchanted bowshot.")
         .build());
   }
 
@@ -30,6 +30,5 @@ public final class ErosBowUltimate extends UltimateCraft {
     return "Eros' Bow";
   }
 
-  
 
 }

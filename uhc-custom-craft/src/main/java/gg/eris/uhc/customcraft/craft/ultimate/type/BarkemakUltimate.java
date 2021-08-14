@@ -9,13 +9,14 @@ public final class BarkemakUltimate extends UltimateCraft {
 
   public BarkemakUltimate() {
     super("barkemak", CraftableInfo.builder()
-    .material(Material.DIAMOND_HELMET)
-    .nonTransformable()
-    .color(CC.GOLD)
-    .name("Barkemak")
-    .quote("Heal your wounds with Barkemak’s magic!")
-    .quoteGiver("Asclepius")
-        .effects("Heals the beholder for half a heart, when the user connects any form of hit from a sword or bow onto an enemy. (1 second cooldown)")
+        .material(Material.DIAMOND_HELMET)
+        .nonTransformable()
+        .color(CC.GOLD)
+        .name("Barkemak")
+        .quote("Heal your wounds with Barkemak’s magic!")
+        .quoteGiver("Asclepius")
+        .effects(
+            "Heals the beholder for half a heart, when the user connects any form of hit from a sword or bow onto an enemy. (1 second cooldown)")
         .build());
   }
 
@@ -24,6 +25,5 @@ public final class BarkemakUltimate extends UltimateCraft {
     return "Barkemak";
   }
 
-  
 
 }

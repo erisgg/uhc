@@ -17,7 +17,7 @@ public final class InstantDamagePotionCraft extends Craft {
   public InstantDamagePotionCraft() {
     super("instant_damage_potion",
         new ItemBuilder(new Potion(PotionType.INSTANT_DAMAGE, 2, true, false).toItemStack(1))
-    .withName(CC.WHITE + "Instant Damage II").build());
+            .withName(CC.WHITE + "Instant Damage II").build());
   }
 
   @Override

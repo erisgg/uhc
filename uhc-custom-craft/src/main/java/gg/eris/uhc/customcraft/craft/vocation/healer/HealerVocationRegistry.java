@@ -7,8 +7,8 @@ import gg.eris.uhc.customcraft.craft.vocation.healer.craft.GoldenHeadCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.LightAppleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.craft.SpeedSoupCraft;
 import gg.eris.uhc.customcraft.craft.vocation.healer.perk.HealerPerk;
-import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.ForbiddenFruitTrinket;
 import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.AsclepiusGraceTrinket;
+import gg.eris.uhc.customcraft.craft.vocation.healer.trinket.ForbiddenFruitTrinket;
 
 public final class HealerVocationRegistry extends VocationRegistry {
 

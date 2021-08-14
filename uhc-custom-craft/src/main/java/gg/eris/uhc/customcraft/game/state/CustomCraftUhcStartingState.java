@@ -69,7 +69,6 @@ public final class CustomCraftUhcStartingState extends
       }
     }
 
-
     // I hate it but there is no other way
     for (Vocation vocation : Vocation.values()) {
       VocationRegistry registry = vocation.getRegistry();
@@ -94,7 +93,8 @@ public final class CustomCraftUhcStartingState extends
         player.playedGame();
         PlayerUtil.resetPlayer(handle);
         PlayerUtil.setSafeGameMode(handle, GameMode.SURVIVAL);
-        handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE.createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
+        handle.addPotionEffect(PotionEffectType.FIRE_RESISTANCE
+            .createEffect(CustomCraftUhcGame.GRACE_PERIOD_TIME * 20, 0), true);
         handle.addPotionEffect(PotionEffectType.DAMAGE_RESISTANCE.createEffect(15 * 20, 2), true);
         handle.setMaxHealth(this.game.getSettings().getMaxHealth());
         handle.setHealth(player.getHandle().getMaxHealth());

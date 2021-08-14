@@ -27,6 +27,7 @@ public class CraftableInfo {
   public ItemStack buildCraft() {
     return buildItem("CRAFT", this);
   }
+
   public ItemStack buildUltimateCraft() {
     return buildItem("ULTIMATE", this);
   }

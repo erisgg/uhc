@@ -2,7 +2,6 @@ package gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.DataUtil;
-import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;

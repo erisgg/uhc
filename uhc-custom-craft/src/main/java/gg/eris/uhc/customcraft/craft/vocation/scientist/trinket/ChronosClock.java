@@ -15,7 +15,6 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public final class ChronosClock extends Trinket {
 

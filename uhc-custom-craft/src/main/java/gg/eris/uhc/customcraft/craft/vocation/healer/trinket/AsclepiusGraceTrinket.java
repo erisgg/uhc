@@ -11,7 +11,6 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.healer.HealerVocationRegistry;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -56,7 +55,8 @@ public class AsclepiusGraceTrinket extends Trinket {
   public static void performFinalHeal() {
     for (UhcPlayer player : UhcPlugin.getPlugin().getUhc().getGame().getPlayers()) {
       CustomCraftUhcPlayer customCraftUhcPlayer = (CustomCraftUhcPlayer) player;
-      if (customCraftUhcPlayer.getTrinketBagItem().hasTrinket(HealerVocationRegistry.get().getSecondTrinket())) {
+      if (customCraftUhcPlayer.getTrinketBagItem()
+          .hasTrinket(HealerVocationRegistry.get().getSecondTrinket())) {
         player.getHandle().setHealth(player.getHandle().getMaxHealth());
         TextController.send(
             player,

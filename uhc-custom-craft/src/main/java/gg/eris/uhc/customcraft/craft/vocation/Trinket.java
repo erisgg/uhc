@@ -17,7 +17,9 @@ public abstract class Trinket extends VocationUnlockable implements Craftable, L
   public Trinket(String identifierValue, CraftableInfo info) {
     super(identifierValue);
     this.info = info;
-    this.item = NBTUtil.setNbtData(info.buildTrinket(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY, this.getIdentifier().toString());
+    this.item = NBTUtil
+        .setNbtData(info.buildTrinket(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
+            this.getIdentifier().toString());
   }
 
   public final ItemStack getItem() {

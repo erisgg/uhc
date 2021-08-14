@@ -5,7 +5,6 @@ import gg.eris.commons.core.identifier.Identifiable;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
-import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.inventory.ItemStack;
 
 public abstract class UltimateCraft implements Identifiable {

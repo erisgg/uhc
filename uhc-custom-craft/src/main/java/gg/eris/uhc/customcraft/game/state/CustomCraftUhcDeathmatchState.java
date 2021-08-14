@@ -31,7 +31,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public final class CustomCraftUhcDeathmatchState extends
     AbstractDeathmatchGameState<CustomCraftUhcPlayer, CustomCraftUhcGame> {
 
-  private static final World WORLD = new WorldCreator(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD).createWorld();
+  private static final World WORLD = new WorldCreator(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD)
+      .createWorld();
 
   private static final Identifier SCOREBOARD_IDENTIFIER =
       CustomCraftUhcIdentifiers.SCOREBOARD_ID.id("deathmatch");

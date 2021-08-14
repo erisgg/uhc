@@ -20,12 +20,12 @@ public final class PlutusFoot extends Trinket implements TrinketTickable {
         .material(Material.RABBIT_FOOT)
         .name("Plutus' Foot")
         .color(CC.GOLD)
-        .quote("What's the price?")
+        .quote("What's the cost?")
         .quoteGiver("Plutus, with 2 feet")
         .effects(
             "Gives the player Haste I permanently",
             "Haste bonuses become Haste II"
-        )
+        ).nonTransformable()
         .build());
   }
 

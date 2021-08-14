@@ -125,8 +125,8 @@ public final class GameDamageListener extends GameStateListener {
           if (lastAttacker != null) {
             CustomCraftUhcPlayer attacker = this.game.getPlayer(lastAttacker.getKey());
             if (attacker != null) {
-                killer = attacker;
-                killerHandle = killer.getHandle();
+              killer = attacker;
+              killerHandle = killer.getHandle();
             }
           }
         }

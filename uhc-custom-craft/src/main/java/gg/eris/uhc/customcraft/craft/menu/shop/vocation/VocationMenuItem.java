@@ -12,8 +12,8 @@ import gg.eris.commons.core.util.Text;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.Perk;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
-import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
+import gg.eris.uhc.customcraft.craft.vocation.VocationUnlockable;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -40,7 +40,8 @@ public final class VocationMenuItem implements MenuItem {
   private final ItemStack unlocked;
   private final int price;
 
-  public VocationMenuItem(VocationUnlockable unlockable, int price, int slot, int... prerequisiteSlots) {
+  public VocationMenuItem(VocationUnlockable unlockable, int price, int slot,
+      int... prerequisiteSlots) {
     this.unlockable = unlockable;
     this.vocation = unlockable.getVocation();
     this.slot = slot;

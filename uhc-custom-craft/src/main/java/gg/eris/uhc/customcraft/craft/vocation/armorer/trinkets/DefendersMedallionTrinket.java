@@ -1,7 +1,6 @@
 package gg.eris.uhc.customcraft.craft.vocation.armorer.trinkets;
 
 import gg.eris.commons.bukkit.util.CC;
-import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.commons.core.util.RandomUtil;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
@@ -13,7 +12,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -52,7 +50,7 @@ public class DefendersMedallionTrinket extends Trinket {
   public Vocation getVocation() {
     return Vocation.ARMORER;
   }
-  
+
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
     if (event.getEntityType() != EntityType.PLAYER) {

@@ -7,7 +7,6 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.potion.PotionEffect;
@@ -50,7 +49,7 @@ public final class MinerPerk extends Perk {
       }
 
       event.getPlayer().addPotionEffect(PotionEffectType.FAST_DIGGING
-              .createEffect(140 + 20 * (level - 1), newLevel), true);
+          .createEffect(140 + 20 * (level - 1), newLevel), true);
     }
   }
 

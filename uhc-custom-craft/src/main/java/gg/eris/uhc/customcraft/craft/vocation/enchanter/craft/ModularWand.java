@@ -130,7 +130,8 @@ public final class ModularWand extends Craft {
           damager,
           TextType.INFORMATION,
           "You struck <h>{0}</h> with lightning from your <h>{1}</h>.",
-          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged).getDisplayName(),
+          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged)
+              .getDisplayName(),
           getName()
       );
     } else {
@@ -139,7 +140,8 @@ public final class ModularWand extends Craft {
           damager,
           TextType.INFORMATION,
           "You set <h>{0}</h> on fire with your <h>{1}</h>.",
-          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged).getDisplayName(),
+          UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(damaged)
+              .getDisplayName(),
           getName()
       );
     }
@@ -147,7 +149,8 @@ public final class ModularWand extends Craft {
 
   @EventHandler
   public void onInteract(PlayerInteractEvent event) {
-    if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+    if (event.getAction() != Action.RIGHT_CLICK_AIR
+        && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
 

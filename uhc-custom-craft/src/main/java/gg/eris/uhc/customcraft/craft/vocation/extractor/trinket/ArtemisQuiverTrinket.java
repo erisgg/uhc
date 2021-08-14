@@ -9,11 +9,8 @@ import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -59,7 +56,8 @@ public final class ArtemisQuiverTrinket extends Trinket {
 
   @EventHandler
   public void onProjectileLaunch(ProjectileLaunchEvent event) {
-    if (!(event.getEntity() instanceof Arrow) || !(event.getEntity().getShooter() instanceof Player)) {
+    if (!(event.getEntity() instanceof Arrow) || !(event.getEntity()
+        .getShooter() instanceof Player)) {
       return;
     }
 

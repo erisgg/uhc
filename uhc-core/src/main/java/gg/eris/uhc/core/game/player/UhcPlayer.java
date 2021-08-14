@@ -63,7 +63,9 @@ public abstract class UhcPlayer extends ErisPlayer {
 
   public Pair<UUID, Long> getLastAttacker() {
     if (this.lastAttacker != null) {
-      if (this.lastAttacker.getValue() + UhcPlugin.getPlugin().getUhc().getGame().getSettings().getAttackCreditDuration() * 1000L < System.currentTimeMillis()) {
+      if (this.lastAttacker.getValue()
+          + UhcPlugin.getPlugin().getUhc().getGame().getSettings().getAttackCreditDuration() * 1000L
+          < System.currentTimeMillis()) {
         this.lastAttacker = null;
       }
     }

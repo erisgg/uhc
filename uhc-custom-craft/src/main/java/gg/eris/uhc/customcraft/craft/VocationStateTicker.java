@@ -1,6 +1,5 @@
 package gg.eris.uhc.customcraft.craft;
 
-import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
@@ -48,7 +47,8 @@ public final class VocationStateTicker extends GameStateListener {
         }
 
         if (unlockable instanceof CraftTickable) {
-          ((CraftTickable) unlockable).tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
+          ((CraftTickable) unlockable)
+              .tick(event, item, -1 - i, player); // armor has negative slot to indicate armor
         }
       }
 
