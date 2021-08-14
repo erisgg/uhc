@@ -78,7 +78,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .borderRadius(1000)
         .maxHealth(40)
         .maxPlayers(70)
-        .requiredPlayers(25)
+        .requiredPlayers(3)
         .shortenPlayers(50)
         .attackCreditDuration(20)
 
