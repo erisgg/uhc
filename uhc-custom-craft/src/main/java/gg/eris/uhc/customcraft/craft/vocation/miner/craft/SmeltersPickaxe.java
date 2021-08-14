@@ -94,6 +94,9 @@ public final class SmeltersPickaxe extends Craft {
               Collections.singleton(new ItemStack(DROP_MAP.get(type))), level).getValue(),
           true
       );
+      if (!StackUtil.damage(handle.getItemInHand())) {
+        handle.setItemInHand(null);
+      }
       ExperienceOrb orb = block.getWorld().spawn(block.getLocation(), ExperienceOrb.class);
       orb.setExperience(1);
     }
