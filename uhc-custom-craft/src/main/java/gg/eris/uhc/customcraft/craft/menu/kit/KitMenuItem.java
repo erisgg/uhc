@@ -60,12 +60,13 @@ public final class KitMenuItem implements MenuItem {
   @Override
   public void onClick(MenuViewer viewer, InventoryClickEvent event) {
     CustomCraftUhcPlayer player = viewer.getErisPlayer();
-    int level = player.getKitLevel(this.kit);
-    if (level == 5) {
-      return;
-    }
 
     if (event.isRightClick()) {
+      int level = player.getKitLevel(this.kit);
+      if (level == 5) {
+        return;
+      }
+
       int cost = PRICES.get(level + 1);
       if (player.getCoins() < cost) {
         TextController.send(

@@ -86,8 +86,11 @@ public final class SoulThirsterCraft extends Craft implements CraftTickable {
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onKill(UhcPlayerDeathEvent event) {
-    Player killer = event.getKiller().getHandle();
+    if (event.getKiller() == null) {
+      return;
+    }
 
+    Player killer = event.getKiller().getHandle();
     if (killer == null) {
       return;
     }
