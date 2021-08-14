@@ -29,7 +29,7 @@ public final class IrisEnchantment extends Trinket {
         .quoteGiver("Take That")
         .effects(
             "When using an enchantment table, 35% of experience used is returned"
-        )
+        ).nonTransformable()
         .build());
   }
 

@@ -67,8 +67,11 @@ public final class ChronosClock extends Trinket {
 
         Bukkit.getScheduler().runTaskLater(UhcPlugin.getPlugin(), () -> {
           for (PotionEffect effect : event.getPotion().getEffects()) {
-            handle.addPotionEffect(effect.getType().createEffect(effect.getDuration() + 200,
-                effect.getAmplifier()));
+            handle.addPotionEffect(new PotionEffect(
+                effect.getType(),
+                effect.getDuration() + 220,
+                effect.getAmplifier()
+            ));
           }
         }, 2L);
       }
