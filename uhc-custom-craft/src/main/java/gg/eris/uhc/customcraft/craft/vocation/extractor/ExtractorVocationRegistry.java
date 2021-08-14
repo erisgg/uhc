@@ -3,7 +3,7 @@ package gg.eris.uhc.customcraft.craft.vocation.extractor;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.craft.vocation.VocationRegistry;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.ArrowEconomyCraft;
-import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.CompactBowCraft;
+import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.PowerBookCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SaddleCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.craft.SugarEconomyCraft;
 import gg.eris.uhc.customcraft.craft.vocation.extractor.perk.ExtractorPerk;
@@ -21,7 +21,7 @@ public final class ExtractorVocationRegistry extends VocationRegistry {
 
   private final ArrowEconomyCraft firstCraft;
   private final SugarEconomyCraft secondCraft;
-  private final CompactBowCraft thirdCraft;
+  private final PowerBookCraft thirdCraft;
   private final SaddleCraft fourthCraft;
 
   private ExtractorVocationRegistry() {
@@ -30,7 +30,7 @@ public final class ExtractorVocationRegistry extends VocationRegistry {
     this.secondTrinket = register(new DionysusBrewTrinket());
     this.firstCraft = register(new ArrowEconomyCraft());
     this.secondCraft = register(new SugarEconomyCraft());
-    this.thirdCraft = register(new CompactBowCraft());
+    this.thirdCraft = register(new PowerBookCraft());
     this.fourthCraft = register(new SaddleCraft());
   }
 
@@ -65,7 +65,7 @@ public final class ExtractorVocationRegistry extends VocationRegistry {
   }
 
   @Override
-  public CompactBowCraft getThirdCraft() {
+  public PowerBookCraft getThirdCraft() {
     return this.thirdCraft;
   }
 

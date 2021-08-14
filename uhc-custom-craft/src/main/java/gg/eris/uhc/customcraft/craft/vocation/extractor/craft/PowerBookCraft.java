@@ -10,18 +10,15 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public final class CompactBowCraft extends Craft {
+public final class PowerBookCraft extends Craft {
 
-  public CompactBowCraft() {
-    super("compact_bow", CraftableInfo.builder()
-        .base(new ItemBuilder(Material.BOW).withEnchantment(Enchantment.ARROW_DAMAGE, 1).build())
-        .name("Compact Bow")
-        .color(CC.DARK_PURPLE)
-        .quote("It's so compact!")
-        .quoteGiver("Billy Mays")
-        .effects("Power I Bow")
-        .nonTransformable()
-        .build());
+  public PowerBookCraft() {
+    super("power_book",
+        new ItemBuilder(Material.ENCHANTED_BOOK)
+            .withEnchantment(Enchantment.ARROW_DAMAGE, 1)
+            .nonCraftable()
+            .nonBrewable()
+            .build());
   }
 
   @Override
@@ -53,7 +50,7 @@ public final class CompactBowCraft extends Craft {
 
   @Override
   public String getName() {
-    return "Compact Bow";
+    return "Power I Book";
   }
 
 }

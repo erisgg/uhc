@@ -1,10 +1,12 @@
 package gg.eris.uhc.customcraft.craft.vocation.specialist.craft;
 
 import gg.eris.commons.bukkit.util.CC;
+import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -12,8 +14,13 @@ public final class HardenedHelmetCraft extends Craft {
 
   public HardenedHelmetCraft() {
     super("hardened_helmet", CraftableInfo.builder()
-        .material(Material.DIAMOND_HELMET)
-        .color(CC.DARK_GREEN)
+        .base(new ItemBuilder(Material.DIAMOND_HELMET)
+            .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1)
+            .withEnchantment(Enchantment.PROTECTION_PROJECTILE, 1)
+            .withEnchantment(Enchantment.PROTECTION_FIRE, 1)
+            .withEnchantment(Enchantment.DURABILITY, 1)
+            .build()
+        ).color(CC.DARK_GREEN)
         .name("Hardened Helmet")
         .quote("It belongs on your head!")
         .quoteGiver("Hardened Helmet Manual")
