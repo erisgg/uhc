@@ -10,6 +10,7 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.PortalType;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -17,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -118,4 +120,10 @@ public final class GlobalListener extends MultiStateListener {
     event.setCancelled(true);
   }
 
+  @EventHandler
+  public void onPortalIgnite(EntityCreatePortalEvent event) {
+    if (event.getPortalType() != PortalType.NETHER) {
+      event.setCancelled(true);
+    }
+  }
 }
