@@ -51,11 +51,6 @@ import org.bukkit.inventory.ItemStack;
  */
 public final class LobbyListener extends MultiStateListener {
 
-  private final static ItemStack MAIN_MENU = new ItemBuilder(Material.EMERALD)
-      .withName(CC.GOLD.bold() + "Main Menu" + CC.DARK_GRAY + " (Right Click)").build();
-
-  private final static ItemStack RECIPE_BOOK = new ItemBuilder(Material.ENCHANTED_BOOK)
-      .withName(CC.GREEN.bold() + "Recipe Book" + CC.DARK_GRAY + " (Right Click)").build();
 
   private static final Set<Type> TYPES = Set.of(
       TypeRegistry.WAITING,
@@ -235,17 +230,12 @@ public final class LobbyListener extends MultiStateListener {
 
     Player player = event.getPlayer();
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
-      event.getPlayer().setMaxHealth(20);
-      PlayerUtil.resetPlayer(event.getPlayer());
-      event.getPlayer().teleport(this.spawn);
       TextController.send(
           player,
           TextType.INFORMATION,
           "You fell off of the map... Don't do that!"
       );
-      player.getInventory().setItem(4, MAIN_MENU);
-      player.getInventory().setItem(0, RECIPE_BOOK);
-      player.getInventory().setHeldItemSlot(4);
+      WaitingCountdownListener.sendToSpawn(player);
       this.pvping.remove(player.getUniqueId());
     } else if (event.getTo().getBlockY() < PVP_LIMIT) {
       if (this.pvping.add(player.getUniqueId())) {
@@ -277,12 +267,7 @@ public final class LobbyListener extends MultiStateListener {
 
     event.setCancelled(true);
 
-    target.setMaxHealth(20);
-    PlayerUtil.resetPlayer(target);
-    target.teleport(this.spawn);
-    target.getInventory().setItem(4, MAIN_MENU);
-    target.getInventory().setItem(0, RECIPE_BOOK);
-    target.getInventory().setHeldItemSlot(4);
+    WaitingCountdownListener.sendToSpawn(target);
     this.pvping.remove(target.getUniqueId());
 
     damager.getInventory().addItem(GAPPLE_REWARD);
