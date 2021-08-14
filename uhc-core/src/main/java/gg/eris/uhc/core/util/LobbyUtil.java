@@ -14,7 +14,7 @@ public class LobbyUtil {
         TextType.INFORMATION,
         "{0} has <h>joined</h> the game (<h>{1}/{2}</h>).",
         player.getDisplayName(),
-        UhcPlugin.getPlugin().getUhc().getGame().getSettings().getMaxPlayers()
+        UhcPlugin.getPlugin().getUhc().getGame().getSettings().getMaxPlayers(),
         count
     );
   }
