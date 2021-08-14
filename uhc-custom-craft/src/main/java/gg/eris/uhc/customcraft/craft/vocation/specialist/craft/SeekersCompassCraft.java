@@ -56,12 +56,13 @@ public final class SeekersCompassCraft extends Craft {
   public Recipe getRecipe() {
     return new ShapedRecipe(getItem())
         .shape(
-            " g ",
-            "gag",
-            " g"
+            " R ",
+            "rcr",
+            " r "
         )
-        .setIngredient('g', Material.GOLD_INGOT)
-        .setIngredient('a', Material.APPLE);
+        .setIngredient('r', Material.REDSTONE)
+        .setIngredient('R', Material.REDSTONE_BLOCK)
+        .setIngredient('c', Material.COMPASS);
   }
 
   @Override
