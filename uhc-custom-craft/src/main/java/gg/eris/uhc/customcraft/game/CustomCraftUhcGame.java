@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.game;
 
 import gg.eris.commons.bukkit.player.ErisPlayerSerializer;
+import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.UhcGame;
@@ -22,7 +23,14 @@ import gg.eris.uhc.customcraft.game.listener.LobbyListener;
 import gg.eris.uhc.customcraft.game.listener.PvpListener;
 import gg.eris.uhc.customcraft.game.listener.SpectatorListener;
 import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
-import gg.eris.uhc.customcraft.game.listener.game.*;
+import gg.eris.uhc.customcraft.game.listener.game.BlockBreakListener;
+import gg.eris.uhc.customcraft.game.listener.game.EntityDropsListener;
+import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
+import gg.eris.uhc.customcraft.game.listener.game.ItemCombustionListener;
+import gg.eris.uhc.customcraft.game.listener.game.MobBurnListener;
+import gg.eris.uhc.customcraft.game.listener.game.MonsterSpawnListener;
+import gg.eris.uhc.customcraft.game.listener.game.PlayerHeadListener;
+import gg.eris.uhc.customcraft.game.listener.game.StrengthNerfListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -32,8 +40,11 @@ import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
@@ -118,6 +129,13 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         drops.add(trinket.getItem());
       }
     }
+
+    ItemStack head = new ItemBuilder(new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal()))
+        .applyMeta(SkullMeta.class, meta -> {
+          meta.setOwner(player.getDisplayName());
+        }).build();
+
+    drops.add(head);
   }
 
   @Override
@@ -136,9 +154,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         // Game listeners
         new BlockBreakListener(),
-        new EntityDropsListener(this),
+        new EntityDropsListener(),
         new GameDamageListener(this),
-        new InteractListener(),
         new ItemCombustionListener(),
         new MobBurnListener(),
         new MonsterSpawnListener(),
@@ -146,7 +163,10 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         // Craft
         new CraftListener(this.getPlugin().getCommons().getErisPlayerManager()),
-        new VocationStateTicker()
+        new VocationStateTicker(),
+
+        // Regular player heads
+        new PlayerHeadListener(this)
     );
   }
 }

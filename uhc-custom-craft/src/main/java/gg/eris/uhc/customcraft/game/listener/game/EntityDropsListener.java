@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.uhc.core.game.UhcGame;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.listener.type.GameStateListener;
+import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
@@ -19,8 +20,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 @RequiredArgsConstructor
 public final class EntityDropsListener extends GameStateListener {
 
-  private final UhcGame<CustomCraftUhcPlayer> uhcGame;
-
   @Override
   protected void onEnable(GameState<?, ?> state) {
 
@@ -34,19 +33,6 @@ public final class EntityDropsListener extends GameStateListener {
   @EventHandler(ignoreCancelled = true)
   public void onEntityDeath(EntityDeathEvent event) {
     Entity entity = event.getEntity();
-
-    if (entity instanceof Player) {
-      ErisPlayer player = uhcGame.getPlayer((Player) entity);
-
-      ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
-
-      SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
-      skullMeta.setOwner(player.getDisplayName());
-
-      head.setItemMeta(skullMeta);
-
-      event.getDrops().add(head);
-    }
 
     if (!event.getDrops().isEmpty() && entity instanceof Animals) {
       event.getDrops().removeIf(item -> item.getType().isEdible());
@@ -79,5 +65,6 @@ public final class EntityDropsListener extends GameStateListener {
         break;
     }
   }
+
 
 }
