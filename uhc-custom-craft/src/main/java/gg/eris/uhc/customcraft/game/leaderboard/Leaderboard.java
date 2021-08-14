@@ -74,15 +74,20 @@ public final class Leaderboard {
     for (int i = 0; i < 10; i++) {
       this.hologram.appendTextLine("");
       this.lines.add(this.hologram.appendTextLine(""));
-      setPosition(i, "-", 0);
+      setPosition(i, null, 0);
     }
   }
 
   private void setPosition(int position, String fieldName, int value) {
     HologramLine line = this.lines.get(position);
     line.removeLine();
-    this.lines.set(position, this.hologram.insertTextLine(2 * (position + 1),
-        CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + fieldName + ": " + value));
+    if (fieldName != null) {
+      this.lines.set(position, this.hologram.insertTextLine(2 * (position + 1),
+          CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + fieldName + ": " + value));
+    } else {
+      this.lines.set(position, this.hologram.insertTextLine(2 * (position + 1),
+          CC.YELLOW.bold().toString() + (position + 1) + ". " + CC.GOLD + "No Data"));
+    }
   }
 
   public void remove() {
