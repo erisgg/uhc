@@ -28,13 +28,13 @@ public final class StrengthNerfListener extends GameStateListener {
       return;
     }
 
-    // 25% increased damage per level of strength
+    // 20% increased damage per level of strength
     Player attacker = (Player) event.getDamager();
     for (PotionEffect effect : attacker.getActivePotionEffects()) {
       if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
-        double addedDamage = (effect.getAmplifier() + 1) * 3.0;
-        double base = event.getDamage() - addedDamage;
-        double increased = base + (base * (effect.getAmplifier() + 1) * 0.05);
+        int amplifier = effect.getAmplifier();
+        double base = event.getDamage() / (2.3 * (amplifier + 1));
+        double increased = base + (base * (effect.getAmplifier() + 1) * 0.20);
         event.setDamage(increased);
         return;
       }
