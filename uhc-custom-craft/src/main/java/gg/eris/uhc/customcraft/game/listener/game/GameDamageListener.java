@@ -41,7 +41,7 @@ public final class GameDamageListener extends GameStateListener {
         if (this.game.isPlayer(player.getUniqueId())) {
           return CC.RED + player.getDisplayName();
         } else {
-          return null;
+          return CC.GRAY.italic() + player.getDisplayName();
         }
       }
     });
