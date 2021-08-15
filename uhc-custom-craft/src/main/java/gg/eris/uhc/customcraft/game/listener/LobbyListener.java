@@ -232,11 +232,6 @@ public final class LobbyListener extends MultiStateListener {
 
     Player player = event.getPlayer();
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
-      TextController.send(
-          player,
-          TextType.INFORMATION,
-          "You fell off of the map... Don't do that!"
-      );
       WaitingCountdownListener.sendToSpawn(player);
       this.pvping.remove(player.getUniqueId());
     } else if (event.getTo().getBlockY() < PVP_LIMIT) {
@@ -286,26 +281,29 @@ public final class LobbyListener extends MultiStateListener {
     this.pvping.remove(target.getUniqueId());
 
     if (damager != null) {
+      PlayerUtil.playSound(damager, Sound.LEVEL_UP);
       damager.getInventory().addItem(GAPPLE_REWARD);
       damager.getInventory().addItem(ARROW_REWARD);
-
       TextController.send(
           damager,
           TextType.INFORMATION,
           "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h>).",
           target.getName()
       );
-
-      PlayerUtil.playSound(damager, Sound.LEVEL_UP);
+      TextController.send(
+          target,
+          TextType.INFORMATION,
+          "You have been killed by <h>{0}</h>.",
+          damager.getName()
+      );
+    } else {
+      TextController.send(
+          target,
+          TextType.INFORMATION,
+          "You have died."
+      );
     }
 
-
-    TextController.send(
-        target,
-        TextType.INFORMATION,
-        "You have been killed by <h>{0}</h>.",
-        damager.getName()
-    );
   }
 
   @EventHandler

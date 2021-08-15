@@ -58,13 +58,6 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
   public static final int PVP_NON_COUNTDOWN_TIME = 20 * 60;
   public static final int DEATHMATCH_COUNTDOWN_TIME = 10 * 60;
 
-  private static final Int2IntMap COIN_MAP;
-
-  static {
-    COIN_MAP = new Int2IntArrayMap();
-    COIN_MAP.put(10, 500);
-  }
-
   @Getter
   private final MainMenu mainMenu;
 
@@ -104,7 +97,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         .coinsPerKill(300)
         .coinsPerWin(3000)
-        .coinsPerSurvive(Int2IntMaps.unmodifiable(COIN_MAP))
+        .coinsPerDeathmatch(500)
         .build()
     );
 

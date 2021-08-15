@@ -151,24 +151,6 @@ public final class GameDamageListener extends GameStateListener {
             Text.formatInt(coinsPerKill)
         );
       }
-
-      // Giving survival coins
-      int playerSize = this.game.getPlayers().size();
-      int allocate = this.game.getSettings().getCoinsPerSurvive().getOrDefault(playerSize, 0);
-      if (allocate > 0) {
-        for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
-          if (player.getHandle() != null) {
-            int coins = player.giveCoins(allocate);
-            TextController.send(
-                player.getHandle(),
-                TextType.INFORMATION,
-                "You have survived to be in the top <h>{0}</h> players (+<h>{1}</h> coins)",
-                playerSize,
-                Text.formatInt(coins)
-            );
-          }
-        }
-      }
     }
   }
 

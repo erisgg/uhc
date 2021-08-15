@@ -55,7 +55,7 @@ public final class ExtractorPerk extends Perk {
   }
 
   private int getAmount(int level) {
-    return (level - 1) + 2;
+    return 1 + level;
   }
 
 }

@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.text.TextType;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.identifier.Identifier;
 import gg.eris.commons.core.util.RandomUtil;
+import gg.eris.commons.core.util.Text;
 import gg.eris.commons.core.util.Time;
 import gg.eris.uhc.core.game.state.AbstractDeathmatchGameState;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
@@ -221,15 +222,24 @@ public final class CustomCraftUhcDeathmatchState extends
     int index = 0;
     IntList indexList = RandomUtil.randomList(SPAWNS.length);
 
-    for (Player player : Bukkit.getOnlinePlayers()) {
-      if (this.game.isPlayer(player)) {
+    for (Player handle : Bukkit.getOnlinePlayers()) {
+      if (this.game.isPlayer(handle)) {
+        CustomCraftUhcPlayer player = this.game.getPlayer(handle);
         Location location = SPAWNS[indexList.get(index++)];
         if (index > indexList.size()) {
           index = 0;
         }
-        player.teleport(location);
+        handle.teleport(location);
+
+        int coins = player.giveCoins(this.game.getSettings().getCoinsPerDeathmatch());
+        TextController.send(
+            handle,
+            TextType.INFORMATION,
+            "You have survived to <h>deathmatch</h> (+<h>{0}</h> coins).",
+            Text.formatInt(coins)
+        );
       } else {
-        player.teleport(new Location(this.game.getDeathmatch(), 0,
+        handle.teleport(new Location(this.game.getDeathmatch(), 0,
             this.game.getWorld().getHighestBlockYAt(0, 0) + 50, 0));
       }
     }

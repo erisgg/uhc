@@ -103,6 +103,7 @@ public abstract class UhcGame<T extends UhcPlayer> {
 
   /**
    * Filter drops on player death
+   * For more general use as opposed to listening to player death event
    *
    * @param drops are the drops
    */
@@ -198,11 +199,11 @@ public abstract class UhcGame<T extends UhcPlayer> {
         drops);
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
 
-    ExperienceOrb orb = killedHandle.getWorld().spawn(killedHandle.getLocation(),
-        ExperienceOrb.class);
+    ExperienceOrb orb = killedHandle.getWorld()
+        .spawn(killedHandle.getLocation(), ExperienceOrb.class);
     orb.setExperience(uhcPlayerDeathEvent.getExp());
 
-    StackUtil.dropItems(killedHandle.getLocation(), drops, true);
+    StackUtil.dropItems(killedHandle.getLocation(), uhcPlayerDeathEvent.getDrops());
 
     removePlayer(killed);
     checkGameEnd();

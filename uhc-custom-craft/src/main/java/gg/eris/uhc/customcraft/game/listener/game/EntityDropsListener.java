@@ -41,7 +41,7 @@ public final class EntityDropsListener extends GameStateListener {
 
     switch (entity.getType()) {
       case COW:
-        event.getDrops().add(new ItemStack(Material.LEATHER, 1));
+        event.getDrops().add(new ItemStack(Material.LEATHER));
         break;
       case CREEPER:
         event.getDrops().clear();
@@ -64,6 +64,11 @@ public final class EntityDropsListener extends GameStateListener {
         event.getDrops().clear();
         event.getDrops().add(new ItemStack(Material.WOOL));
         break;
+      case BLAZE:
+        event.getDrops().clear();
+        if (RandomUtil.percentChance(33)) {
+          event.getDrops().add(new ItemStack(Material.BLAZE_ROD));
+        }
     }
   }
 

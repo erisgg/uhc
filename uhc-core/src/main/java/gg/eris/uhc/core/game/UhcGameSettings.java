@@ -47,6 +47,6 @@ public class UhcGameSettings {
   // Coins
   int coinsPerKill;
   int coinsPerWin;
-  Int2IntMap coinsPerSurvive;
+  int coinsPerDeathmatch;
 
 }
