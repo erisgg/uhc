@@ -26,6 +26,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.PlayerLeashEntityEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -119,6 +121,20 @@ public final class SpectatorListener extends MultiStateListener {
 
   @EventHandler(priority = EventPriority.LOW)
   public void onPlayerInteract(PlayerInteractEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onPlayerInteract(PlayerInteractAtEntityEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onPlayerInteract(PlayerInteractEntityEvent event) {
     if (!this.game.isPlayer(event.getPlayer())) {
       event.setCancelled(true);
     }
