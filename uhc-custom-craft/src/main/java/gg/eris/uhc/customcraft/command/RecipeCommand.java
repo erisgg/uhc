@@ -20,7 +20,7 @@ public final class RecipeCommand implements CommandProvider {
         "opens recipe book",
         "recipe",
         CustomCraftUhcIdentifiers.RECIPE_PERMISSION,
-        "recipes"
+        "recipes", "crafts", "craft", "recipebook"
     ).noArgsHandler(context -> {
       this.game.getRecipeBookMenu().openMenu(new RecipeBookMenuViewer(context.getSenderAsPlayer()));
     }, true);
