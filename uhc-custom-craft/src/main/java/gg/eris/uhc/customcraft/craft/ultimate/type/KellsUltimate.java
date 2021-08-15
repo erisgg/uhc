@@ -24,11 +24,11 @@ public final class KellsUltimate extends UltimateCraft {
         .quote("Enchant your sword, armor piece of bow with legendary effects!")
         .quoteGiver("Pandora")
         .effects("Gives the user an anvilable book that has the following enchantments on it:",
-            "-Sharpness 3",
-            "-Fire aspect 1",
-            "-Power 3",
-            "-Flame 1",
-            "-Protection 3")
+            "Sharpness 3",
+            "Fire aspect 1",
+            "Power 3",
+            "Flame 1",
+            "Protection 3")
         .build());
   }
 

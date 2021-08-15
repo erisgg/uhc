@@ -22,8 +22,8 @@ public final class ProtectorsChestplateUltimate extends UltimateCraft {
         .quote("Armor yourself up with the Protector's Chestplate!")
         .quoteGiver("Soteria")
         .effects("Gives the user a diamond chestplate that has the following enchantments on it:",
-            "-Protection 4",
-            "-Unbreaking 1")
+            "Protection 4",
+            "Unbreaking 1")
         .build());
   }
 
