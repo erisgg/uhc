@@ -34,7 +34,7 @@ public final class StrengthNerfListener extends GameStateListener {
       if (effect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
         double addedDamage = (effect.getAmplifier() + 1) * 3.0;
         double base = event.getDamage() - addedDamage;
-        double increased = base + (event.getDamage() * (effect.getAmplifier() + 1) * 0.25);
+        double increased = base + (base * (effect.getAmplifier() + 1) * 0.05);
         event.setDamage(increased);
         return;
       }

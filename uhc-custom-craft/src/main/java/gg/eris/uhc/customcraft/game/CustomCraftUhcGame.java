@@ -96,8 +96,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
         .deathmatchPlayerThreshold(10)
         .deathmatchBorderRadius(200)
-        .deathmatchBorderShrinkDelay(5 * 60)
-        .deathmatchBorderShrinkDuration(300)
+        .deathmatchBorderShrinkDelay(3 * 60)
+        .deathmatchBorderShrinkDuration(240)
         .deathmatchBorderShrunkRadius(20)
         .deathmatchBlockDecayDelay(20)
         .deathmatchStartCountdownDuration(5)

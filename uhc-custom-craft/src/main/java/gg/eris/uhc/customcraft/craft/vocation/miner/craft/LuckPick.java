@@ -23,7 +23,10 @@ public final class LuckPick extends Craft {
         .name("Luck Pick")
         .quote("This is the LuckPickingLawyer")
         .quoteGiver("LuckPickingLawyer")
-        .effects("Fortune II Diamond Pickaxe with 3 uses remaining")
+        .effects(
+            "Fortune II Diamond Pickaxe with 3 uses remaining",
+            "Cannot be repaired by Hep's Charm"
+        )
         .build());
   }
 

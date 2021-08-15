@@ -29,6 +29,7 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
@@ -45,6 +46,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 /**
  * MultiStage listener for waiting and countdown state
@@ -258,15 +260,24 @@ public final class LobbyListener extends MultiStateListener {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void handlePvpDeath(EntityDamageByEntityEvent event) {
-    if (event.getDamager().getType() != EntityType.PLAYER || event.getEntityType() != EntityType.PLAYER) {
+    if (event.getEntityType() != EntityType.PLAYER) {
       return;
     }
 
-    Player damager = (Player) event.getDamager();
     Player target = (Player) event.getEntity();
-
     if (target.getHealth() - event.getFinalDamage() > 0) {
       return;
+    }
+
+
+    Player damager = null;
+    if (event.getDamager() instanceof Player) {
+      damager = (Player) event.getDamager();
+    } else if (event.getDamager() instanceof Projectile) {
+      ProjectileSource source = ((Projectile) event.getDamager()).getShooter();
+      if (source instanceof Player) {
+        damager = (Player) source;
+      }
     }
 
     event.setCancelled(true);
@@ -274,17 +285,20 @@ public final class LobbyListener extends MultiStateListener {
     WaitingCountdownListener.sendToSpawn(target);
     this.pvping.remove(target.getUniqueId());
 
-    damager.getInventory().addItem(GAPPLE_REWARD);
-    damager.getInventory().addItem(ARROW_REWARD);
+    if (damager != null) {
+      damager.getInventory().addItem(GAPPLE_REWARD);
+      damager.getInventory().addItem(ARROW_REWARD);
 
-    TextController.send(
-        damager,
-        TextType.INFORMATION,
-        "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h).",
-        target.getName()
-    );
+      TextController.send(
+          damager,
+          TextType.INFORMATION,
+          "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h>).",
+          target.getName()
+      );
 
-    PlayerUtil.playSound(damager, Sound.LEVEL_UP);
+      PlayerUtil.playSound(damager, Sound.LEVEL_UP);
+    }
+
 
     TextController.send(
         target,
@@ -292,8 +306,6 @@ public final class LobbyListener extends MultiStateListener {
         "You have been killed by <h>{0}</h>.",
         damager.getName()
     );
-
-
   }
 
   @EventHandler

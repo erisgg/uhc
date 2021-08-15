@@ -138,7 +138,6 @@ public abstract class UhcGame<T extends UhcPlayer> {
   }
 
   public final void setGameState(GameState.Type type) {
-    Validate.isNull(this.updatingState, "state is already being updated");
     if (this.gameState != null) {
       Validate.isTrue(type != this.gameState.getType(), "state set to its own type");
     }

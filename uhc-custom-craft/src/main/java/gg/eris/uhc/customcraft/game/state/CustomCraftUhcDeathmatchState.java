@@ -307,6 +307,10 @@ public final class CustomCraftUhcDeathmatchState extends
 
   @EventHandler
   public void onPlayerMove(PlayerMoveEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      return;
+    }
+
     if (this.countdown > 0) {
       Location from = event.getFrom();
       Location to = event.getTo();

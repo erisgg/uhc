@@ -8,12 +8,9 @@ import gg.eris.uhc.customcraft.craft.vocation.Trinket;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -91,10 +88,11 @@ public final class HepsCharm extends Trinket {
     }
 
     if (player.getTrinketBagItem().hasTrinket(this) && RandomUtil.percentChance(25)) {
-      event.setCancelled(true);
+      if (!Vocation.MINER.getRegistry().getFourthCraft().isItem(item)) { // luck pick
+        event.setCancelled(true);
+      }
     }
   }
-
 
 
 }

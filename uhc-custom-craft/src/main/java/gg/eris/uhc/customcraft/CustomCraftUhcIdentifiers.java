@@ -52,7 +52,7 @@ public final class CustomCraftUhcIdentifiers {
 
   public static final Identifier GIVECOINS_PERMISSION = permission(
       "givecoins",
-      PermissionGroup.OWNER_DEVELOPER
+      PermissionGroup.HIGHER_STAFF
   );
 
   public static final Identifier GIVEITEM_PERMISSION = permission(
@@ -73,6 +73,16 @@ public final class CustomCraftUhcIdentifiers {
   public static final Identifier TRINKETBAG_PERMISSION = permission(
       "trinketbag",
       PermissionGroup.ALL
+  );
+
+  public static final Identifier FORCE_START_PERMISSION = permission(
+      "forcestart",
+      PermissionGroup.HIGHER_STAFF
+  );
+
+  public static final Identifier SET_STATE_PERMISSION = permission(
+      "setstate",
+      PermissionGroup.OWNER
   );
 
   private static Identifier permission(String name, PermissionGroup group) {

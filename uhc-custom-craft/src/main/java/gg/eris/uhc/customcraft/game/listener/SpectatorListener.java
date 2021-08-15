@@ -24,12 +24,14 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.PlayerLeashEntityEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 
 @RequiredArgsConstructor
 public final class SpectatorListener extends MultiStateListener {
@@ -119,6 +121,22 @@ public final class SpectatorListener extends MultiStateListener {
   public void onPlayerInteract(PlayerInteractEvent event) {
     if (!this.game.isPlayer(event.getPlayer())) {
       event.setCancelled(true);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.LOW)
+  public void onPlayerLeash(PlayerLeashEntityEvent event) {
+    if (!this.game.isPlayer(event.getPlayer())) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void onVehicleEnter(VehicleEnterEvent event) {
+    if (event.getEntered().getType() == EntityType.PLAYER) {
+      if (!this.game.isPlayer(event.getEntered().getUniqueId())) {
+        event.setCancelled(true);
+      }
     }
   }
 

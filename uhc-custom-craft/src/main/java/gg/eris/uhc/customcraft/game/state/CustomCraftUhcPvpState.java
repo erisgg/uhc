@@ -13,6 +13,7 @@ import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.WorldBorder;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -69,6 +70,12 @@ public final class CustomCraftUhcPvpState extends
     this.pvpStateTime = 0;
     this.deathmatchCountdown = -1;
     this.scoreboard.addAllPlayers();
+
+    // Remove fire from all players
+    for (CustomCraftUhcPlayer player : this.game.getPlayers()) {
+      Player handle = player.getHandle();
+      handle.setFireTicks(0);
+    }
 
     // Perform final heal for those with the trinket
     AsclepiusGraceTrinket.performFinalHeal();
