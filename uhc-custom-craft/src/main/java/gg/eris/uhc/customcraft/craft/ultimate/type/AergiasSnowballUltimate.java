@@ -13,7 +13,7 @@ public final class AergiasSnowballUltimate extends UltimateCraft {
         .nonTransformable()
         .color(CC.WHITE)
         .name("Aergia's Snowball")
-        .quote("Anyone to come across this snowball will fell Aergia's Fatigue")
+        .quote("Anyone to come across this snowball will feel Aergia's Fatigue")
         .quoteGiver("Aergia")
         .effects("Slowness 1 for 5 seconds, 25 second cooldown")
         .build());
