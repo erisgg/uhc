@@ -43,21 +43,21 @@ public final class CustomCraftUhcTiers {
       case 1:
         return 20;
       case 2:
-        return 70;
+        return 100;
       case 3:
-        return 220;
+        return 250;
       case 4:
-        return 520;
+        return 500;
       case 5:
-        return 1_020;
+        return 1_000;
       case 6:
-        return 1_770;
+        return 1_750;
       case 7:
-        return 2_770;
+        return 2_750;
       case 8:
-        return 5_270;
+        return 5_000;
       case 9:
-        return 10_270;
+        return 10_000;
       case 10:
         return 20_000;
     }
