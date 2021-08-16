@@ -32,14 +32,14 @@ public final class SpectatorChatCommand implements CommandProvider {
           TextController.send(
               player,
               TextType.SUCCESS,
-              "You are <h>no longer</h> in spectator chat."
+              "You are <h>now</h> in spectator chat."
           );
         } else {
           this.game.getSpectatorChatManager().addDeadNotInSpectatorChat(player);
           TextController.send(
               player,
               TextType.SUCCESS,
-              "You are <h>now</h> in spectator chat."
+              "You are <h>no longer</h> in spectator chat."
           );
         }
       } else {
