@@ -26,6 +26,7 @@ import gg.eris.uhc.customcraft.game.listener.PvpListener;
 import gg.eris.uhc.customcraft.game.listener.SpectatorListener;
 import gg.eris.uhc.customcraft.game.listener.WaitingCountdownListener;
 import gg.eris.uhc.customcraft.game.listener.game.BlockBreakListener;
+import gg.eris.uhc.customcraft.game.listener.game.BowNerfListener;
 import gg.eris.uhc.customcraft.game.listener.game.EntityDropsListener;
 import gg.eris.uhc.customcraft.game.listener.game.GameDamageListener;
 import gg.eris.uhc.customcraft.game.listener.game.GoldenAppleListener;
@@ -172,6 +173,7 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         new MobBurnListener(),
         new MonsterSpawnListener(),
         new StrengthNerfListener(),
+        new BowNerfListener(),
         new SheepShearListener(),
 
         // Craft
