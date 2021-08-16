@@ -23,7 +23,7 @@ public final class SpectatorChatManager {
     if (this.game.isPlayer(player.getUniqueId())) {
       return this.aliveInSpectatorChat.contains(player.getUniqueId());
     } else {
-      return this.deadNotInSpectatorChat.contains(player.getUniqueId());
+      return !this.deadNotInSpectatorChat.contains(player.getUniqueId());
     }
   }
 
