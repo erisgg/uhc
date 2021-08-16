@@ -77,7 +77,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
         new SetCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
         new GiveCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
         new StatsCommand(this.plugin, this.plugin.getCommons().getErisPlayerManager()),
-        new TiersCommand(this.game),
+        new TiersCommand(this.plugin.getCommons().getErisPlayerManager()),
         new GiveItemCommand(),
         new RecipeCommand(this.game),
         new TrinketBagCommand(this.game),
