@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.command;
 import gg.eris.commons.bukkit.command.Command.Builder;
 import gg.eris.commons.bukkit.command.CommandManager;
 import gg.eris.commons.bukkit.command.CommandProvider;
+import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.text.CenteredChatData;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.core.util.Text;
@@ -19,7 +20,7 @@ public final class TiersCommand implements CommandProvider {
   public static final String STRIKE =
       CC.GOLD.bold().strikethrough() + StringUtils.repeat("-", 45) + CC.RESET;
 
-  private final CustomCraftUhcGame game;
+  private final ErisPlayerManager erisPlayerManager;
 
   @Override
   public Builder getCommand(CommandManager manager) {
@@ -28,9 +29,9 @@ public final class TiersCommand implements CommandProvider {
         "shows tier information",
         "tiers",
         CustomCraftUhcIdentifiers.TIERS_PERMISSION,
-        "tier"
+        "tier", "star", "stars"
     ).noArgsHandler(context -> {
-      CustomCraftUhcPlayer player = this.game.getPlayer(context.getSenderAsPlayer().getPlayer());
+      CustomCraftUhcPlayer player = this.erisPlayerManager.getPlayer(context.getSenderAsPlayer());
       int tier = player.getStar();
       int points = player.getPoints();
       context.getSenderAsPlayer().sendMessage(getMessage(tier, points));
