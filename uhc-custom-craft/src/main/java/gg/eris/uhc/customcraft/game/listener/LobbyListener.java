@@ -289,6 +289,7 @@ public final class LobbyListener extends MultiStateListener {
 
     event.setCancelled(true);
 
+
     WaitingCountdownListener.sendToSpawn(target);
     this.pvping.remove(target.getUniqueId());
 

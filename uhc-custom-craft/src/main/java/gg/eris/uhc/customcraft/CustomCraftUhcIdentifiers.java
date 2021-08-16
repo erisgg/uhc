@@ -84,6 +84,11 @@ public final class CustomCraftUhcIdentifiers {
       PermissionGroup.OWNER
   );
 
+  public static final Identifier SPECTATOR_CHAT_PERMISSION = permission(
+      "spectatorchat",
+      PermissionGroup.HIGHER_STAFF
+  );
+
   private static Identifier permission(String name, PermissionGroup group) {
     return Permission.ofDefault(PermissionRegistry.get(), name, group).getIdentifier();
   }

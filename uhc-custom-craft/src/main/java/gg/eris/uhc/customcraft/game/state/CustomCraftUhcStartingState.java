@@ -111,8 +111,15 @@ public final class CustomCraftUhcStartingState extends
     }
 
     this.game.getPlugin().getCommons().getChatController()
-        .setFormat("<col=gold>[{0}" + CustomCraftUhcIdentifiers.STAR
-                + "]</col> {1}[{2}]</col> {3}{4}[{5}]: <raw>{6}</raw></col>",
+        .setFormat("{0}<col=gold>[{1}" + CustomCraftUhcIdentifiers.STAR
+                + "]</col> {2}[{3}]</col> {4}{5}[{6}]: <raw>{7}</raw></col>",
+            (player, chatMessage) -> {
+              if (this.game.getSpectatorChatManager().isInSpectatorChat(player.getHandle())) {
+                return "<col=gray>[SPEC] </col>";
+              } else {
+                return "";
+              }
+            },
             (player, chatMessage) -> player.getNicknameProfile().isNicked() ?
                 "" + 0 : ("" + ((CustomCraftUhcPlayer) player).getStar()),
             (player, chatMessage) -> "<col="
@@ -127,14 +134,19 @@ public final class CustomCraftUhcStartingState extends
             (player, chatMessage) -> chatMessage);
 
     this.game.getPlugin().getCommons().getChatController().setRecipientFunction(player -> {
-      if (this.game.getGameState().getType() != TypeRegistry.ENDED || this.game
+      if (this.game.getGameState().getType() == TypeRegistry.ENDED || this.game
           .isPlayer(player.getUniqueId())) {
         return this.game.getPlugin().getCommons().getErisPlayerManager().getPlayers();
       } else {
-        return game.getPlugin().getCommons().getErisPlayerManager().getPlayers()
-            .stream()
-            .filter(other -> !game.isPlayer(other.getUniqueId()))
-            .collect(Collectors.toList());
+        if (this.game.getSpectatorChatManager().isInSpectatorChat(player.getHandle())) {
+          return game.getPlugin().getCommons().getErisPlayerManager().getPlayers()
+              .stream()
+              .filter(other -> !game.isPlayer(other.getUniqueId()) || other
+                  .hasPermission(CustomCraftUhcIdentifiers.SPECTATOR_CHAT_PERMISSION))
+              .collect(Collectors.toList());
+        } else {
+          return this.game.getPlugin().getCommons().getErisPlayerManager().getPlayers();
+        }
       }
     });
   }

@@ -38,9 +38,7 @@ import gg.eris.uhc.customcraft.game.listener.game.SheepShearListener;
 import gg.eris.uhc.customcraft.game.listener.game.StrengthNerfListener;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayerSerializer;
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMaps;
+import gg.eris.uhc.customcraft.game.spectator.SpectatorChatManager;
 import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
@@ -55,8 +53,11 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
 
   public static final int GRACE_PERIOD_TIME = 10 * 60;
   public static final int PVP_PERIOD_TIME = 30 * 60; // Overall
-  public static final int PVP_NON_COUNTDOWN_TIME = 20 * 60;
+  public static final int PVP_NON_COUNTDOWN_TIME = 15 * 60;
   public static final int DEATHMATCH_COUNTDOWN_TIME = 10 * 60;
+
+  @Getter
+  private final SpectatorChatManager spectatorChatManager;
 
   @Getter
   private final MainMenu mainMenu;
@@ -71,16 +72,17 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         .deathmatchName(CustomCraftUhcIdentifiers.DEATHMATCH_WORLD)
         .borderRadius(1000)
         .maxHealth(40)
-        .maxPlayers(70)
-        .requiredPlayers(15)
-        .shortenPlayers(50)
         .attackCreditDuration(20)
 
-        .pregameCountdownDuration(8 * 60) // 6 * 60
+        .requiredPlayers(12)
+        .shortenPlayers(25)
+        .maxPlayers(70)
+        .pregameCountdownDuration(5 * 60 + 30)
         .shortenCountdownDuration(90)
-        .gracePeriodDuration(60 * 10)
-        .pvpPeriodDuration(15 * 60)
-        .preDeathmatchCountdownDuration(10 * 60)
+
+        .gracePeriodDuration(GRACE_PERIOD_TIME)
+        .pvpPeriodDuration(PVP_NON_COUNTDOWN_TIME)
+        .preDeathmatchCountdownDuration(DEATHMATCH_COUNTDOWN_TIME)
         .postGameShutdownDelay(15)
 
         .borderShrunkRadius(400)
@@ -111,6 +113,8 @@ public final class CustomCraftUhcGame extends UhcGame<CustomCraftUhcPlayer> {
         Bukkit.addRecipe(recipe);
       }
     }
+
+    this.spectatorChatManager = new SpectatorChatManager(this);
 
     // Shop
     this.mainMenu = new MainMenu(getPlugin());
