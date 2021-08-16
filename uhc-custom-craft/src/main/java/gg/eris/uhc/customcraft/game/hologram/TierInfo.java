@@ -20,6 +20,9 @@ public final class TierInfo {
 
   private void loadHologram() {
     this.hologram.appendTextLine(CC.YELLOW.bold() + "ERIS" + CC.GOLD.bold() + " TIER INFO");
+    this.hologram.appendTextLine("");
+    this.hologram.appendTextLine(CC.YELLOW.bold() + "1" + CC.GOLD + " point per kill");
+    this.hologram.appendTextLine(CC.YELLOW.bold() + "10" + CC.GOLD + " points per win");
 
     for (int i = 1; i <= 10; i++) {
       this.hologram.appendTextLine("");

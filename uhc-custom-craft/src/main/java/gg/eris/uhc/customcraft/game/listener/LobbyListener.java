@@ -136,7 +136,7 @@ public final class LobbyListener extends MultiStateListener {
     this.tierInfo = new TierInfo(this.game.getPlugin(),
         new Location(new WorldCreator(CustomCraftUhcIdentifiers.PREGAME_WORLD).createWorld(),
             -4.5,
-            76.5,
+            79.3,
             0.5
         )
     );
