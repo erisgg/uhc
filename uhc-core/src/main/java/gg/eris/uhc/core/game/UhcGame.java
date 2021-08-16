@@ -19,6 +19,7 @@ import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.UhcGameStateFactory;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.core.game.state.listener.MultiStateListenerManager;
+import gg.eris.uhc.core.util.SpectatorPipeline;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -182,12 +183,9 @@ public abstract class UhcGame<T extends UhcPlayer> {
     ));
 
     // Hiding the player
+    PlayerUtil.resetPlayer(killedHandle);
     PlayerUtil.setSafeGameMode(killedHandle, GameMode.CREATIVE);
-    for (Player other : Bukkit.getOnlinePlayers()) {
-      if (killedHandle != other) {
-        other.hidePlayer(killed.getHandle());
-      }
-    }
+    SpectatorPipeline.hidePlayer(killedHandle);
 
     List<ItemStack> drops = new ArrayList<>(
         Arrays.asList(killedHandle.getInventory().getContents()));

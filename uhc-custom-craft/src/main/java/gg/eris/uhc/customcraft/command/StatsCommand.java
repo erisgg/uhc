@@ -169,6 +169,6 @@ public final class StatsCommand implements CommandProvider {
         + "\n" + CC.RESET
         + CenteredChatData.getCentredMessage("&6Coins: &e" + Text.formatInt(coins)) + CC.RESET +
         "\n" + STRIKE;
-
   }
+
 }

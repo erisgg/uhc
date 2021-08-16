@@ -41,14 +41,7 @@ public final class CustomCraftUhcIdentifiers {
 
   public static final String VOCATION_CRAFT_NBT_KEY = "unlockable";
 
-
   public static final char STAR = '⭐';
-
-
-  public static final Identifier VIEWSPECTATORS_PERMISSION = permission(
-      "viewspectators",
-      PermissionGroup.STAFF
-  );
 
   public static final Identifier GIVECOINS_PERMISSION = permission(
       "givecoins",
@@ -74,6 +67,12 @@ public final class CustomCraftUhcIdentifiers {
       "trinketbag",
       PermissionGroup.ALL
   );
+
+  public static final Identifier TIERS_PERMISSION = permission(
+      "tiers",
+      PermissionGroup.ALL
+  );
+
 
   public static final Identifier FORCE_START_PERMISSION = permission(
       "forcestart",

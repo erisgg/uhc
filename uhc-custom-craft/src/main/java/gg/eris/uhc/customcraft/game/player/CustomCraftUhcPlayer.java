@@ -41,6 +41,9 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
   private final int star;
 
   @Getter
+  private final int points;
+
+  @Getter
   private int coins;
 
   @Getter
@@ -53,7 +56,8 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
     this.treeData = treeData;
     this.trinketBagItem = new TrinketBag(this);
     this.coins = coins;
-    this.star = CustomCraftUhcTiers.getTier(CustomCraftUhcTiers.getPoints(kills, wins));
+    this.points = CustomCraftUhcTiers.getPoints(kills, wins);
+    this.star = CustomCraftUhcTiers.getTier(this.points);
     this.prestigeData = prestigeData;
     this.kits = kits;
     this.activeKit = activeKit;

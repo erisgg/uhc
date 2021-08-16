@@ -1,15 +1,14 @@
 package gg.eris.uhc.customcraft.game.listener;
 
-import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.commons.core.util.Pair;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.core.game.state.listener.MultiStateListener;
-import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
+import gg.eris.uhc.core.util.SpectatorPipeline;
 import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -55,24 +54,7 @@ public final class SpectatorListener extends MultiStateListener {
     Player player = event.getPlayer();
     PlayerUtil.resetPlayer(player);
 
-    ErisPlayer erisPlayer =
-        this.game.getPlugin().getCommons().getErisPlayerManager().getPlayer(player);
-    boolean hasPermission =
-        erisPlayer.hasPermission(CustomCraftUhcIdentifiers.VIEWSPECTATORS_PERMISSION);
-
-    for (Player other : Bukkit.getOnlinePlayers()) {
-      if (!this.game.isPlayer(other)) { // If the online player is not alive
-        if (!hasPermission) { // If they don't have permission to see spectators
-          player.hidePlayer(other); // Hide the joining spectator
-        }
-      }
-
-      // If the other player already on the server can't see spectators
-      if (!this.game.getPlugin().getCommons().getErisPlayerManager().getPlayer(other)
-          .hasPermission(CustomCraftUhcIdentifiers.VIEWSPECTATORS_PERMISSION)) {
-        other.hidePlayer(player); // Hide the new joining player
-      }
-    }
+    SpectatorPipeline.hidePlayer(player);
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       PlayerUtil.setSafeGameMode(player, GameMode.CREATIVE);

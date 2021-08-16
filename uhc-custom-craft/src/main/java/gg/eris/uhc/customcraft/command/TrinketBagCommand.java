@@ -31,7 +31,7 @@ public final class TrinketBagCommand implements CommandProvider {
         "trinketbag",
         "opens trinket bag",
         "trinketbag",
-        CustomCraftUhcIdentifiers.RECIPE_PERMISSION,
+        CustomCraftUhcIdentifiers.TRINKETBAG_PERMISSION,
         "bag"
     ).noArgsHandler(context -> {
       CustomCraftUhcPlayer player = this.game.getPlayer(context.getSenderAsPlayer().getPlayer());

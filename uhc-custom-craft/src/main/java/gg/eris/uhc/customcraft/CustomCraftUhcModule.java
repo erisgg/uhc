@@ -5,6 +5,7 @@ import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.command.ForceStartCommand;
 import gg.eris.uhc.customcraft.command.SetStateCommand;
+import gg.eris.uhc.customcraft.command.TiersCommand;
 import gg.eris.uhc.customcraft.command.TrinketBagCommand;
 import gg.eris.uhc.customcraft.command.GiveCoinsCommand;
 import gg.eris.uhc.customcraft.command.GiveItemCommand;
@@ -76,6 +77,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
         new SetCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
         new GiveCoinsCommand(this.plugin.getCommons().getErisPlayerManager()),
         new StatsCommand(this.plugin, this.plugin.getCommons().getErisPlayerManager()),
+        new TiersCommand(this.game),
         new GiveItemCommand(),
         new RecipeCommand(this.game),
         new TrinketBagCommand(this.game),
