@@ -5,6 +5,7 @@ import gg.eris.uhc.core.UhcModule;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.customcraft.command.ForceStartCommand;
 import gg.eris.uhc.customcraft.command.SetStateCommand;
+import gg.eris.uhc.customcraft.command.SpectateCommand;
 import gg.eris.uhc.customcraft.command.SpectatorChatCommand;
 import gg.eris.uhc.customcraft.command.TiersCommand;
 import gg.eris.uhc.customcraft.command.TrinketBagCommand;
@@ -84,6 +85,7 @@ public final class CustomCraftUhcModule extends UhcModule<CustomCraftUhcGame> {
         new TrinketBagCommand(this.game),
         new ForceStartCommand(this.game),
         new SetStateCommand(this.game),
+        new SpectateCommand(this.game),
         new SpectatorChatCommand(this.game)
     );
   }

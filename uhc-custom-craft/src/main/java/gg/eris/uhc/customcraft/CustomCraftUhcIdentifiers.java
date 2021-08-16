@@ -89,6 +89,11 @@ public final class CustomCraftUhcIdentifiers {
       PermissionGroup.HIGHER_STAFF
   );
 
+  public static final Identifier SPECTATE_PERMISSION = permission(
+      "spectate",
+      PermissionGroup.STAFF
+  );
+
   private static Identifier permission(String name, PermissionGroup group) {
     return Permission.ofDefault(PermissionRegistry.get(), name, group).getIdentifier();
   }
