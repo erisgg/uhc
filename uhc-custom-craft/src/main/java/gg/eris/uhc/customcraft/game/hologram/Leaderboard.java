@@ -1,4 +1,4 @@
-package gg.eris.uhc.customcraft.game.leaderboard;
+package gg.eris.uhc.customcraft.game.hologram;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

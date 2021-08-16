@@ -18,7 +18,8 @@ import gg.eris.uhc.core.game.state.listener.MultiStateListener;
 import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenuViewer;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
-import gg.eris.uhc.customcraft.game.leaderboard.Leaderboard;
+import gg.eris.uhc.customcraft.game.hologram.Leaderboard;
+import gg.eris.uhc.customcraft.game.hologram.TierInfo;
 import java.util.Set;
 import java.util.UUID;
 import org.bukkit.Bukkit;
@@ -96,6 +97,7 @@ public final class LobbyListener extends MultiStateListener {
 
   private final Leaderboard killsLeaderboard;
   private final Leaderboard winsLeaderboard;
+  private final TierInfo tierInfo;
 
   public LobbyListener(CustomCraftUhcGame game) {
     this.game = game;
@@ -128,6 +130,14 @@ public final class LobbyListener extends MultiStateListener {
             29.5,
             76.5,
             -8.5
+        )
+    );
+
+    this.tierInfo = new TierInfo(this.game.getPlugin(),
+        new Location(new WorldCreator(CustomCraftUhcIdentifiers.PREGAME_WORLD).createWorld(),
+            -4.5,
+            76.5,
+            0.5
         )
     );
   }
@@ -167,6 +177,7 @@ public final class LobbyListener extends MultiStateListener {
   protected void onDisable(GameState<?, ?> state) {
     this.killsLeaderboard.remove();
     this.winsLeaderboard.remove();
+    this.tierInfo.remove();
   }
 
   @EventHandler
@@ -265,7 +276,6 @@ public final class LobbyListener extends MultiStateListener {
     if (target.getHealth() - event.getFinalDamage() > 0) {
       return;
     }
-
 
     Player damager = null;
     if (event.getDamager() instanceof Player) {
