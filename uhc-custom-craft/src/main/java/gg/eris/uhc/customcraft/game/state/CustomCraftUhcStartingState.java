@@ -127,8 +127,9 @@ public final class CustomCraftUhcStartingState extends
             (player, chatMessage) -> chatMessage);
 
     this.game.getPlugin().getCommons().getChatController().setRecipientFunction(player -> {
-      if (CustomCraftUhcStartingState.this.game.isPlayer(player.getUniqueId())) {
-        return game.getPlugin().getCommons().getErisPlayerManager().getPlayers();
+      if (this.game.getGameState().getType() != TypeRegistry.ENDED || this.game
+          .isPlayer(player.getUniqueId())) {
+        return this.game.getPlugin().getCommons().getErisPlayerManager().getPlayers();
       } else {
         return game.getPlugin().getCommons().getErisPlayerManager().getPlayers()
             .stream()

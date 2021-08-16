@@ -85,19 +85,21 @@ public final class WaitingCountdownListener extends MultiStateListener {
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
       sendToSpawn(event.getPlayer());
-    }, 4L);
+    }, 1L);
   }
 
   public static void sendToSpawn(Player handle) {
-    Bukkit.getScheduler().runTask(UhcPlugin.getPlugin(), () -> {
+    Bukkit.getScheduler().runTaskLater(UhcPlugin.getPlugin(), () -> {
       handle.setMaxHealth(20);
       PlayerUtil.resetPlayer(handle);
       PlayerUtil.setSafeGameMode(handle, GameMode.ADVENTURE);
-      handle.getInventory().setItem(4, MAIN_MENU);
-      handle.getInventory().setItem(0, RECIPE_BOOK);
-      handle.getInventory().setHeldItemSlot(4);
+      Bukkit.getScheduler().runTaskLater(UhcPlugin.getPlugin(), () -> {
+        handle.getInventory().setItem(4, MAIN_MENU);
+        handle.getInventory().setItem(0, RECIPE_BOOK);
+        handle.getInventory().setHeldItemSlot(4);
+      }, 2L);
       Bukkit.getScheduler()
           .runTaskLater(UhcPlugin.getPlugin(), () -> handle.teleport(SPAWN), 3L);
-    });
+    }, 2);
   }
 }
