@@ -20,8 +20,8 @@ public final class ErosBowUltimate extends UltimateCraft {
         .name("Eros' Bow")
         .quote("Shoot your opponents from far range with Eros' bow!")
         .quoteGiver("Eros")
-        .effects("Power 3 bow, with 25% chance of the arrow homing onto the enemy."
-            + "This arrow will deal the damage of an unenchanted bowshot.")
+        .effects("Power 3 bow, with 25% chance of the arrow homing onto the enemy.",
+            "Arrow will deal the damage of an unenchanted bowshot.")
         .build());
   }
 
