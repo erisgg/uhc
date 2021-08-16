@@ -61,6 +61,10 @@ public class DefendersMedallionTrinket extends Trinket {
     CustomCraftUhcPlayer player =
         (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle);
 
+    if (player == null) {
+      return;
+    }
+
     if (player.getTrinketBagItem().hasTrinket(this)) {
       if (RandomUtil.percentChance(33)) {
         event.setDamage(event.getDamage() * 0.8);

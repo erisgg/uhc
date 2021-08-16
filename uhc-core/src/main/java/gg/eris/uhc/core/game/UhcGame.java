@@ -183,9 +183,8 @@ public abstract class UhcGame<T extends UhcPlayer> {
     ));
 
     // Hiding the player
-    PlayerUtil.resetPlayer(killedHandle);
-    PlayerUtil.setSafeGameMode(killedHandle, GameMode.CREATIVE);
     SpectatorPipeline.hidePlayer(killedHandle);
+    PlayerUtil.setSafeGameMode(killedHandle, GameMode.CREATIVE);
 
     List<ItemStack> drops = new ArrayList<>(
         Arrays.asList(killedHandle.getInventory().getContents()));
@@ -193,16 +192,22 @@ public abstract class UhcGame<T extends UhcPlayer> {
     drops.removeIf(StackUtil::isNullOrAir);
     filterDrops(killed, drops);
 
-    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(this, event, killed, killer,
-        drops);
+    UhcPlayerDeathEvent uhcPlayerDeathEvent = new UhcPlayerDeathEvent(
+        this,
+        event,
+        killed,
+        killer,
+        drops
+    );
     Bukkit.getPluginManager().callEvent(uhcPlayerDeathEvent);
 
+    StackUtil.dropItems(killedHandle.getLocation(), uhcPlayerDeathEvent.getDrops());
     ExperienceOrb orb = killedHandle.getWorld()
         .spawn(killedHandle.getLocation(), ExperienceOrb.class);
     orb.setExperience(uhcPlayerDeathEvent.getExp());
 
-    StackUtil.dropItems(killedHandle.getLocation(), uhcPlayerDeathEvent.getDrops());
 
+    PlayerUtil.resetPlayer(killedHandle);
     removePlayer(killed);
     checkGameEnd();
   }

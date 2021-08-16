@@ -22,14 +22,14 @@ public class SpectatorPipeline {
 
       // If the online player is not alive
       if (UhcPlugin.getPlugin().getUhc().getGame().isPlayer(player)) {
-        if (!hasPermission) { // If they don't have permission to see spectators
+        if (!UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(player)
+            .hasPermission(UhcIdentifiers.VIEWSPECTATORS_PERMISSION)) { // If they can't see specs
           player.hidePlayer(spectator); // Hide the current spectator from joining spectator
         }
       } else {
-        // If the other player already on the server can't see spectators
-        if (!UhcPlugin.getPlugin().getCommons().getErisPlayerManager().getPlayer(spectator)
-            .hasPermission(UhcIdentifiers.VIEWSPECTATORS_PERMISSION)) {
-          spectator.hidePlayer(player); // Hide the new joining player
+        // If spectator can't see othe spectators (other is a spectator)
+        if (!hasPermission) {
+          spectator.hidePlayer(player);
         }
       }
     }

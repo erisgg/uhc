@@ -1,6 +1,7 @@
 package gg.eris.uhc.customcraft.game.spectator;
 
 import com.google.common.collect.Sets;
+import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import gg.eris.uhc.customcraft.game.player.CustomCraftUhcPlayer;
 import java.util.Set;
@@ -20,7 +21,9 @@ public final class SpectatorChatManager {
   }
 
   public boolean isInSpectatorChat(Player player) {
-    if (this.game.isPlayer(player.getUniqueId())) {
+    if (this.game.getGameState().getType() == TypeRegistry.ENDED) {
+      return false;
+    } else if (this.game.isPlayer(player.getUniqueId())) {
       return this.aliveInSpectatorChat.contains(player.getUniqueId());
     } else {
       return !this.deadNotInSpectatorChat.contains(player.getUniqueId());

@@ -130,7 +130,8 @@ public final class CustomCraftUhcStartingState extends
                 player.getNicknameProfile().getPriorityDisplayRank().isWhiteChat() ?
                     "<col=white>" : "<col=gray>",
             (player, chatMessage) -> player.getDisplayName(),
-            (player, chatMessage) -> "" + ((CustomCraftUhcPlayer) player).getGameKills(),
+            (player, chatMessage) -> "" + ((CustomCraftUhcPlayer) player).getGameKills()
+                + (this.game.isPlayer(player.getHandle()) ? "" : "(DEAD)"),
             (player, chatMessage) -> chatMessage);
 
     this.game.getPlugin().getCommons().getChatController().setRecipientFunction(player -> {

@@ -12,7 +12,7 @@ import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SpectateCommand implements CommandProvider {
+public final class SpectateCommand implements CommandProvider {
 
   private final CustomCraftUhcGame game;
 
