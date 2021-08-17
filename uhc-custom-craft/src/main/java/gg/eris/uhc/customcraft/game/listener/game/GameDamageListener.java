@@ -84,7 +84,7 @@ public final class GameDamageListener extends GameStateListener {
     Player killerHandle = null;
     CustomCraftUhcPlayer killer = null;
 
-    if (event instanceof EntityDamageByEntityEvent) {
+    if (event instanceof EntityDamageByEntityEvent && event.getFinalDamage() >= 0.1) {
       EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) event;
       if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
         Player damager = (Player) entityDamageByEntityEvent.getDamager();
@@ -120,17 +120,20 @@ public final class GameDamageListener extends GameStateListener {
             killerHandle = (Player) projectile.getShooter();
             killer = this.game.getPlayer(killerHandle);
           }
-        } else {
-          Pair<UUID, Long> lastAttacker = damaged.getLastAttacker();
-          if (lastAttacker != null) {
-            CustomCraftUhcPlayer attacker = this.game.getPlayer(lastAttacker.getKey());
-            if (attacker != null) {
-              killer = attacker;
-              killerHandle = killer.getHandle();
-            }
+        }
+      }
+
+      if (killer == null) {
+        Pair<UUID, Long> lastAttacker = damaged.getLastAttacker();
+        if (lastAttacker != null) {
+          CustomCraftUhcPlayer attacker = this.game.getPlayer(lastAttacker.getKey());
+          if (attacker != null) {
+            killer = attacker;
+            killerHandle = killer.getHandle();
           }
         }
       }
+
 
       // Killer must be online to get the rewards (maybe change? but cba! LOL!)
       if (killerHandle == null && killer != null) {
