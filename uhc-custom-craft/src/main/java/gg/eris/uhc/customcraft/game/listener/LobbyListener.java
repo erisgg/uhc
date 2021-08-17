@@ -250,11 +250,11 @@ public final class LobbyListener extends MultiStateListener {
         player.getInventory().clear();
         player.setMaxHealth(40);
         player.setHealth(40);
-        Bukkit.getScheduler().runTask(this.game.getPlugin(), () -> {
+        Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
           player.getInventory().setArmorContents(ARMOR);
           player.getInventory().addItem(SWORD_ITEM, ROD_ITEM, BOW_ITEM);
           player.getInventory().setItem(9, ARROW_ITEM);
-        });
+        }, 2L);
       }
     }
   }
