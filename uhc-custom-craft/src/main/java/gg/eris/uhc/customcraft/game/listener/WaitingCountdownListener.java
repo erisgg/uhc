@@ -4,6 +4,7 @@ import gg.eris.commons.bukkit.player.ErisPlayer;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.commons.bukkit.util.PlayerUtil;
 import gg.eris.uhc.core.UhcPlugin;
 import gg.eris.uhc.core.game.state.GameState;
 import gg.eris.uhc.core.game.state.GameState.Type;
@@ -14,6 +15,7 @@ import gg.eris.uhc.customcraft.CustomCraftUhcIdentifiers;
 import gg.eris.uhc.customcraft.game.CustomCraftUhcGame;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
@@ -88,6 +90,7 @@ public final class WaitingCountdownListener extends MultiStateListener {
   public static void sendToSpawn(Player handle) {
     handle.teleport(SPAWN);
     Bukkit.getScheduler().runTaskLater(UhcPlugin.getPlugin(), () -> {
+      PlayerUtil.setSafeGameMode(handle, GameMode.ADVENTURE);
       handle.setMaxHealth(20);
       handle.setHealth(20);
       handle.getInventory().clear();
