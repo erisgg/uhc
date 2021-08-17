@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.trinket;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.TrinketTickable;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
@@ -40,7 +41,7 @@ public final class PlutusFoot extends Trinket implements TrinketTickable {
         .setIngredient('s', Material.SUGAR)
         .setIngredient('c', Material.SUGAR_CANE)
         .setIngredient('f', Material.FEATHER)
-        .setIngredient('p', Material.IRON_PICKAXE);
+        .setIngredient('p', CraftHelper.durabilityIgnored(Material.IRON_PICKAXE));
   }
 
   @Override

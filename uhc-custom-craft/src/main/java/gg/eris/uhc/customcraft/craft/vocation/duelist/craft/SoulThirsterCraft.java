@@ -10,6 +10,7 @@ import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.commons.bukkit.util.RomanNumeral;
 import gg.eris.uhc.core.event.UhcPlayerDeathEvent;
 import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
@@ -75,7 +76,7 @@ public final class SoulThirsterCraft extends Craft implements CraftTickable {
         .setIngredient('d', Material.DIAMOND)
         .setIngredient('l', new MaterialData(Material.INK_SACK, DataUtil.LAPIS_LAZULI))
         .setIngredient('L', Material.LAPIS_BLOCK)
-        .setIngredient('s', Material.DIAMOND_SWORD);
+        .setIngredient('s', CraftHelper.durabilityIgnored(Material.DIAMOND_SWORD));
   }
 
   @Override

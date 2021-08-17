@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.duelist.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -9,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.material.MaterialData;
 
 public final class SharpnessBookCraft extends Craft {
 
@@ -59,7 +61,7 @@ public final class SharpnessBookCraft extends Craft {
             " p "
         ).setIngredient('l', Material.LEATHER)
         .setIngredient('p', Material.PAPER)
-        .setIngredient('s', Material.IRON_SWORD);
+        .setIngredient('s', CraftHelper.durabilityIgnored(Material.IRON_SWORD));
   }
 
   @Override

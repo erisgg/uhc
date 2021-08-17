@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.armorer.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -55,7 +56,7 @@ public class DemigodHelmetCraft extends Craft {
             " r "
         ).setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('h', Material.IRON_HELMET);
+        .setIngredient('h', CraftHelper.durabilityIgnored(Material.IRON_HELMET));
   }
 
   @Override

@@ -7,6 +7,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.NBTUtil;
 import gg.eris.uhc.core.event.UhcTickEvent;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
@@ -21,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.material.MaterialData;
 
 public final class DemigodSwordCraft extends Craft implements CraftTickable {
 
@@ -66,7 +68,7 @@ public final class DemigodSwordCraft extends Craft implements CraftTickable {
         .shape(" R ", "rsr", " r ")
         .setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('s', Material.IRON_SWORD);
+        .setIngredient('s', CraftHelper.durabilityIgnored(Material.IRON_SWORD));
   }
 
   @Override

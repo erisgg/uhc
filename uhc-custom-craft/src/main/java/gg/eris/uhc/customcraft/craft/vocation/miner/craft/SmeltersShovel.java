@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.bukkit.util.StackUtil;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -58,7 +59,7 @@ public final class SmeltersShovel extends Craft {
         .shape("ici", " s ", "   ")
         .setIngredient('i', Material.IRON_ORE)
         .setIngredient('c', Material.COAL)
-        .setIngredient('s', Material.STONE_SPADE);
+        .setIngredient('s', CraftHelper.durabilityIgnored(Material.STONE_SPADE));
   }
 
   @Override

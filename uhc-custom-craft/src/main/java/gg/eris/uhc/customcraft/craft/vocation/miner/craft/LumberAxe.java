@@ -2,6 +2,7 @@ package gg.eris.uhc.customcraft.craft.vocation.miner.craft;
 
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -52,7 +53,7 @@ public final class LumberAxe extends Craft {
             "   "
         ).setIngredient('f', Material.FLINT)
         .setIngredient('l', Material.LOG)
-        .setIngredient('a', Material.IRON_AXE);
+        .setIngredient('a', CraftHelper.durabilityIgnored(Material.IRON_AXE));
   }
 
   @Override

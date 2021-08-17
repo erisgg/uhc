@@ -7,6 +7,7 @@ import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.uhc.core.event.UhcTickEvent;
 import gg.eris.uhc.core.game.state.GameState.TypeRegistry;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.CraftTickable;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
@@ -16,6 +17,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.material.MaterialData;
 
 public final class DemigodBowCraft extends Craft implements CraftTickable {
 
@@ -67,7 +69,7 @@ public final class DemigodBowCraft extends Craft implements CraftTickable {
             " r "
         ).setIngredient('R', Material.REDSTONE_BLOCK)
         .setIngredient('r', Material.REDSTONE)
-        .setIngredient('b', Material.BOW);
+        .setIngredient('b', CraftHelper.durabilityIgnored(Material.BOW));
   }
 
   @Override

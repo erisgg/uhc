@@ -190,6 +190,9 @@ public final class CustomCraftUhcPlayer extends UhcPlayer {
       }
     }
 
+    // TODO: BETA BOOSTER
+    amount *= 2;
+
     this.coins += amount;
     return amount;
   }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.ItemBuilder;
 import gg.eris.commons.core.util.RandomUtil;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.vocation.Craft;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Vocation;
@@ -48,10 +49,10 @@ public class FusionArmorCraft extends Craft {
         .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
         .withEnchantment(Enchantment.DURABILITY, 1)
         .build()
-    ).addIngredient(Material.DIAMOND_BOOTS)
-        .addIngredient(Material.DIAMOND_BOOTS)
-        .addIngredient(Material.DIAMOND_BOOTS)
-        .addIngredient(Material.DIAMOND_BOOTS);
+    ).addIngredient(CraftHelper.durabilityIgnored(Material.DIAMOND_BOOTS))
+        .addIngredient(CraftHelper.durabilityIgnored(Material.DIAMOND_BOOTS))
+        .addIngredient(CraftHelper.durabilityIgnored(Material.DIAMOND_BOOTS))
+        .addIngredient(CraftHelper.durabilityIgnored(Material.DIAMOND_BOOTS));
   }
 
   @Override
@@ -77,10 +78,10 @@ public class FusionArmorCraft extends Craft {
                         .withEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3)
                         .withEnchantment(Enchantment.DURABILITY, 1)
                         .build()
-                ).addIngredient(one)
-                    .addIngredient(two)
-                    .addIngredient(three)
-                    .addIngredient(four)
+                ).addIngredient(CraftHelper.durabilityIgnored(one))
+                    .addIngredient(CraftHelper.durabilityIgnored(two))
+                    .addIngredient(CraftHelper.durabilityIgnored(three))
+                    .addIngredient(CraftHelper.durabilityIgnored(four))
             );
           }
         }

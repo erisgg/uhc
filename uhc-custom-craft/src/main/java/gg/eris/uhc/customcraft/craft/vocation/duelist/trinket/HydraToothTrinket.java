@@ -3,6 +3,7 @@ package gg.eris.uhc.customcraft.craft.vocation.duelist.trinket;
 import gg.eris.commons.bukkit.util.CC;
 import gg.eris.commons.bukkit.util.StackUtil;
 import gg.eris.uhc.core.UhcPlugin;
+import gg.eris.uhc.customcraft.craft.CraftHelper;
 import gg.eris.uhc.customcraft.craft.bag.TrinketBag;
 import gg.eris.uhc.customcraft.craft.vocation.CraftableInfo;
 import gg.eris.uhc.customcraft.craft.vocation.Trinket;
@@ -17,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.material.MaterialData;
 
 public final class HydraToothTrinket extends Trinket {
 
@@ -42,7 +44,7 @@ public final class HydraToothTrinket extends Trinket {
             "ff "
         ).setIngredient('d', Material.DIAMOND)
         .setIngredient('f', Material.FLINT)
-        .setIngredient('S', Material.IRON_SWORD)
+        .setIngredient('S', CraftHelper.durabilityIgnored(Material.IRON_SWORD))
         .setIngredient('I', Material.IRON_BLOCK);
   }
 
