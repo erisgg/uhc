@@ -66,7 +66,7 @@ public final class PrometheusProtectionTrinket extends Trinket {
         (CustomCraftUhcPlayer) UhcPlugin.getPlugin().getUhc().getGame().getPlayer(handle);
 
     if (player == null) {
-      return;
+      return;w
     }
 
     if (player.getTrinketBagItem().hasTrinket(this)) {

@@ -89,7 +89,7 @@ public final class GameDamageListener extends GameStateListener {
       if (entityDamageByEntityEvent.getDamager().getType() == EntityType.PLAYER) {
         Player damager = (Player) entityDamageByEntityEvent.getDamager();
         if (this.game.isPlayer(damager)) {
-          damaged.setLastAttacker(damagedHandle);
+          damaged.setLastAttacker(damager);
         } else {
           event.setCancelled(true);
           return;
@@ -99,7 +99,7 @@ public final class GameDamageListener extends GameStateListener {
         if (projectile.getShooter() instanceof Player) {
           Player damager = (Player) projectile.getShooter();
           if (this.game.isPlayer(damager)) {
-            damaged.setLastAttacker(damagedHandle);
+            damaged.setLastAttacker(damager);
           } else {
             event.setCancelled(true);
             return;
