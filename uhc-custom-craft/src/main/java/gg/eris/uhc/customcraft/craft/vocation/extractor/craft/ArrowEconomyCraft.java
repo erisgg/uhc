@@ -20,6 +20,7 @@ public final class ArrowEconomyCraft extends Craft {
         .quoteGiver("Superstore")
         .effects("Gives 16 arrows")
         .actual(new ItemStack(Material.ARROW, 16))
+        .withoutNbt(true)
         .build());
   }
 

@@ -22,6 +22,7 @@ public final class SugarEconomyCraft extends Craft {
         .effects("Gives 4 sugar cane")
         .base(new ItemStack(Material.SUGAR_CANE, 4))
         .actual(new ItemStack(Material.SUGAR_CANE, 4))
+        .withoutNbt(true)
         .build());
   }
 

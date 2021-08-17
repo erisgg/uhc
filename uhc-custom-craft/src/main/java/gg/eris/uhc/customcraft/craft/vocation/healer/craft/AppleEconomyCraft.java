@@ -20,8 +20,9 @@ public final class AppleEconomyCraft extends Craft {
         .quote("Why buy business when you can buy bitcoin?")
         .quoteGiver("WSB Investor")
         .effects("Gives 3 apples")
-        .actual(new ItemStack(Material.APPLE, 3))
         .material(Material.APPLE)
+        .actual(new ItemStack(Material.APPLE, 3))
+        .withoutNbt(true)
         .build()
     );
   }

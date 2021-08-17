@@ -14,11 +14,14 @@ public abstract class Craft extends VocationUnlockable implements Craftable, Lis
 
   public Craft(String identifierValue, CraftableInfo info) {
     super(identifierValue);
-    this.display = NBTUtil.setNbtData(info.buildDisplayCraft(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
-        this.getIdentifier().getValue());
-    this.actual = info.getActual() == null ? this.display
-        : NBTUtil.setNbtData(info.getActual(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
-        this.getIdentifier().getValue());
+    this.display = NBTUtil
+        .setNbtData(info.buildDisplayCraft(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
+            this.getIdentifier().getValue());
+    this.actual = info.getActual() == null ? this.display :
+        NBTUtil.setNbtData(
+            info.getActual(), CustomCraftUhcIdentifiers.VOCATION_CRAFT_NBT_KEY,
+            this.getIdentifier().getValue()
+        );
   }
 
   public abstract Vocation getVocation();

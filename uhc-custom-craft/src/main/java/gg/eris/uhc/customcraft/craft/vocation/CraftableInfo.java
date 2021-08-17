@@ -20,6 +20,7 @@ public class CraftableInfo {
   String quoteGiver;
   String[] effects;
   CC color;
+  boolean withoutNbt;
 
   public ItemStack buildTrinket() {
     return buildDisplayItem("TRINKET", this);
