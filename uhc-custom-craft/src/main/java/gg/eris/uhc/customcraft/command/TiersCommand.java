@@ -48,7 +48,7 @@ public final class TiersCommand implements CommandProvider {
 
     int pointsForNextTier = CustomCraftUhcTiers.getPointsForTier(tier + 1);
     if (pointsForNextTier > 0) {
-      message += CenteredChatData.getCentredMessage("&6You are &e" + (points - pointsForNextTier)
+      message += CenteredChatData.getCentredMessage("&6You are &e" + (pointsForNextTier - points)
           + " &6points away from the next tier");
     }
 

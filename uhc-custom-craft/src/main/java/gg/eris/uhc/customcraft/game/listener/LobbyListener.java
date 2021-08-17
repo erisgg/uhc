@@ -1,5 +1,7 @@
 package gg.eris.uhc.customcraft.game.listener;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Sets;
 import gg.eris.commons.bukkit.player.ErisPlayerManager;
 import gg.eris.commons.bukkit.rank.Rank;
@@ -22,6 +24,7 @@ import gg.eris.uhc.customcraft.game.hologram.Leaderboard;
 import gg.eris.uhc.customcraft.game.hologram.TierInfo;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -93,8 +96,12 @@ public final class LobbyListener extends MultiStateListener {
   private final CustomCraftUhcGame game;
   private final ErisPlayerManager erisPlayerManager;
   private final Location spawn;
-  private final Set<UUID> pvping;
 
+  // Pvp stuff
+  private final Set<UUID> pvping;
+  private final Cache<UUID, UUID> lastAttackers;
+
+  // Hologram stuff
   private final Leaderboard killsLeaderboard;
   private final Leaderboard winsLeaderboard;
   private final TierInfo tierInfo;
@@ -112,6 +119,11 @@ public final class LobbyListener extends MultiStateListener {
     );
 
     this.pvping = Sets.newHashSet();
+
+    this.lastAttackers = CacheBuilder.newBuilder()
+        .expireAfterWrite(30, TimeUnit.SECONDS)
+        .build();
+
 
     this.killsLeaderboard = new Leaderboard(
         this.game.getPlugin(),
@@ -245,6 +257,14 @@ public final class LobbyListener extends MultiStateListener {
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
       WaitingCountdownListener.sendToSpawn(player);
       this.pvping.remove(player.getUniqueId());
+
+      UUID lastAttackerUuid = this.lastAttackers.getIfPresent(player.getUniqueId());
+      if (lastAttackerUuid != null) {
+        Player lastAttacker = Bukkit.getPlayer(lastAttackerUuid);
+        if (lastAttacker != null) {
+          lobbyKilled(player, lastAttacker);
+        }
+      }
     } else if (event.getTo().getBlockY() <= PVP_LIMIT) {
       if (this.pvping.add(player.getUniqueId())) {
         player.getInventory().clear();
@@ -274,6 +294,7 @@ public final class LobbyListener extends MultiStateListener {
 
     Player target = (Player) event.getEntity();
     if (target.getHealth() - event.getFinalDamage() > 0) {
+      this.lastAttackers.put(target.getUniqueId(), event.getDamager().getUniqueId());
       return;
     }
 
@@ -294,21 +315,7 @@ public final class LobbyListener extends MultiStateListener {
     this.pvping.remove(target.getUniqueId());
 
     if (damager != null) {
-      PlayerUtil.playSound(damager, Sound.LEVEL_UP);
-      damager.getInventory().addItem(GAPPLE_REWARD);
-      damager.getInventory().addItem(ARROW_REWARD);
-      TextController.send(
-          damager,
-          TextType.INFORMATION,
-          "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h>).",
-          target.getName()
-      );
-      TextController.send(
-          target,
-          TextType.INFORMATION,
-          "You have been killed by <h>{0}</h>.",
-          damager.getName()
-      );
+      lobbyKilled(target, damager);
     } else {
       TextController.send(
           target,
@@ -358,6 +365,24 @@ public final class LobbyListener extends MultiStateListener {
 
   private boolean isInPvp(Location location) {
     return location.getY() <= 65;
+  }
+
+  private void lobbyKilled(Player killed, Player killer) {
+    PlayerUtil.playSound(killer, Sound.LEVEL_UP);
+    killer.getInventory().addItem(GAPPLE_REWARD);
+    killer.getInventory().addItem(ARROW_REWARD);
+    TextController.send(
+        killer,
+        TextType.INFORMATION,
+        "You have killed <h>{0}</h> (+1 <h>golden apple</h>, +2 <h>arrows</h>).",
+        killed.getName()
+    );
+    TextController.send(
+        killed,
+        TextType.INFORMATION,
+        "You have been killed by <h>{0}</h>.",
+        killer.getName()
+    );
   }
 
 }
