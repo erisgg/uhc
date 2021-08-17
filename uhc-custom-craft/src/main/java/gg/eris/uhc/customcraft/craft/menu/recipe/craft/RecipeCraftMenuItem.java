@@ -6,6 +6,7 @@ import gg.eris.commons.bukkit.menu.MenuViewer;
 import gg.eris.uhc.customcraft.craft.Craftable;
 import gg.eris.uhc.customcraft.craft.menu.recipe.RecipeBookMenuViewer;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -24,6 +25,7 @@ public final class RecipeCraftMenuItem implements MenuItem {
       return null;
     }
 
+    ItemStack result = null;
     Recipe recipe = craftable.getRecipe();
 
     if (recipe instanceof ShapedRecipe) {
@@ -41,17 +43,24 @@ public final class RecipeCraftMenuItem implements MenuItem {
         return null;
       }
 
-      return shapedRecipe.getIngredientMap().get(rowString.charAt(column));
+      result = shapedRecipe.getIngredientMap().get(rowString.charAt(column));
     } else if (recipe instanceof ShapelessRecipe) {
       ShapelessRecipe shapelessRecipe = (ShapelessRecipe) recipe;
-      if (this.index >= shapelessRecipe.getIngredientList().size()) {
-        return null;
-      } else {
-        return shapelessRecipe.getIngredientList().get(this.index);
+      if (this.index < shapelessRecipe.getIngredientList().size()) {
+        result = shapelessRecipe.getIngredientList().get(this.index);
       }
-    } else {
+    }
+
+    if (result == null) {
       return null;
     }
+
+    // Don't display items as broken!
+    if (result.getDurability() == Short.MAX_VALUE) {
+      result.setDurability((short) 0);
+    }
+
+    return result;
 
   }
 
