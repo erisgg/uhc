@@ -245,7 +245,7 @@ public final class LobbyListener extends MultiStateListener {
     if (event.getTo().getBlockY() < LOWER_LIMIT) {
       WaitingCountdownListener.sendToSpawn(player);
       this.pvping.remove(player.getUniqueId());
-    } else if (event.getTo().getBlockY() < PVP_LIMIT) {
+    } else if (event.getTo().getBlockY() <= PVP_LIMIT) {
       if (this.pvping.add(player.getUniqueId())) {
         player.getInventory().clear();
         player.setMaxHealth(40);
