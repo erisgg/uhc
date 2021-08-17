@@ -244,6 +244,11 @@ public final class CustomCraftUhcDeathmatchState extends
       }
     }
 
+    WorldBorder border = this.game.getDeathmatch().getWorldBorder();
+    border.setSize(
+        this.game.getSettings().getDeathmatchBorderRadius()
+    );
+
     this.scoreboard.addAllPlayers();
 
     Bukkit.getScheduler().runTaskLater(this.game.getPlugin(), () -> {
@@ -306,8 +311,10 @@ public final class CustomCraftUhcDeathmatchState extends
 
   private void startBorderShrink() {
     WorldBorder border = this.game.getDeathmatch().getWorldBorder();
-    border.setSize(this.game.getSettings().getDeathmatchBorderShrunkRadius() * 2,
-        this.game.getSettings().getDeathmatchBorderShrinkDuration());
+    border.setSize(
+        this.game.getSettings().getDeathmatchBorderShrunkRadius() * 2,
+        this.game.getSettings().getDeathmatchBorderShrinkDuration()
+    );
     TextController.broadcastToServer(
         TextType.INFORMATION,
         "The deathmatch border has <h>begun</h> shrinking."
