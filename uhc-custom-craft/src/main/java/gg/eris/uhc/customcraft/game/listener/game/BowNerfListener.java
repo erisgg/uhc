@@ -25,7 +25,7 @@ public final class BowNerfListener extends GameStateListener {
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-    if (event.getDamager().getType() == EntityType.ARROW) {
+    if (event.getDamager().getType() != EntityType.ARROW) {
       return;
     }
 
