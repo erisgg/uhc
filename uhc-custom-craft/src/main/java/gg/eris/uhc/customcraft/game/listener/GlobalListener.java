@@ -139,7 +139,9 @@ public final class GlobalListener extends MultiStateListener {
 
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
-    if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock() != null && event.getClickedBlock().getType() == Material.WORKBENCH) {
+    if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock() != null
+        && event.getClickedBlock().getType() == Material.WORKBENCH && !event.getPlayer()
+        .isSneaking()) {
       event.setUseInteractedBlock(Result.DENY);
       event.getPlayer().openWorkbench(null, true);
     }
